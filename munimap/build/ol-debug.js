@@ -1,6 +1,6 @@
 // OpenLayers. See https://openlayers.org/
 // License: https://raw.githubusercontent.com/openlayers/openlayers/master/LICENSE.md
-// Version: v4.6.4-7-gc21b685
+// Version: v4.6.4-9-gf17e290
 ;(function (root, factory) {
   if (typeof exports === "object") {
     module.exports = factory();
@@ -96165,7 +96165,7 @@ goog.exportProperty(
     ol.View.prototype,
     'un',
     ol.View.prototype.un);
-ol.VERSION = 'v4.6.4-7-gc21b685';
+ol.VERSION = 'v4.6.4-9-gf17e290';
 OPENLAYERS.ol = ol;
 
   return OPENLAYERS.ol;
