@@ -7,7 +7,7 @@ var olx;
 /**
  * @constructor
  */
-var GeoJSONObject = function() { };
+var GeoJSONObject = function() {};
 
 
 /**
@@ -31,7 +31,7 @@ GeoJSONObject.prototype.crs;
 /**
  * @constructor
  */
-var GeoJSONCRS = function() { };
+var GeoJSONCRS = function() {};
 
 
 /**
@@ -49,7 +49,7 @@ GeoJSONCRS.prototype.properties;
 /**
  * @constructor
  */
-var GeoJSONCRSName = function() { };
+var GeoJSONCRSName = function() {};
 
 
 /**
@@ -62,7 +62,7 @@ GeoJSONCRSName.prototype.name;
  * @constructor
  * @extends {GeoJSONObject}
  */
-var GeoJSONGeometry = function() { };
+var GeoJSONGeometry = function() {};
 
 
 /**
@@ -75,7 +75,7 @@ GeoJSONGeometry.prototype.coordinates;
  * @constructor
  * @extends {GeoJSONObject}
  */
-var GeoJSONGeometryCollection = function() { };
+var GeoJSONGeometryCollection = function() {};
 
 
 /**
@@ -88,7 +88,7 @@ GeoJSONGeometryCollection.prototype.geometries;
  * @constructor
  * @extends {GeoJSONObject}
  */
-var GeoJSONFeature = function() { };
+var GeoJSONFeature = function() {};
 
 
 /**
@@ -119,7 +119,7 @@ GeoJSONFeature.prototype.geometry_name;
  * @constructor
  * @extends {GeoJSONObject}
  */
-var GeoJSONFeatureCollection = function() { };
+var GeoJSONFeatureCollection = function() {};
 
 
 /**
@@ -131,7 +131,7 @@ GeoJSONFeatureCollection.prototype.features;
 /**
  * @constructor
  */
-var GeoJSONLink = function() { };
+var GeoJSONLink = function() {};
 
 
 /**
@@ -227,7 +227,7 @@ var ol;
 /**
  * @constructor
  */
-ol.Disposable = function() { };
+ol.Disposable = function() {};
 
 
 /**
@@ -248,7 +248,7 @@ ol.format.filter;
  * @param {string} tagName
  * @param {...ol.format.filter.Filter} conditions
  */
-ol.format.filter.LogicalNary = function(tagName, conditions) { };
+ol.format.filter.LogicalNary = function(tagName, conditions) {};
 
 
 /**
@@ -256,34 +256,34 @@ ol.format.filter.LogicalNary = function(tagName, conditions) { };
  * @extends {ol.format.XMLFeature}
  * @param {olx.format.GMLOptions=} opt_options
  */
-ol.format.GMLBase = function(opt_options) { };
+ol.format.GMLBase = function(opt_options) {};
 
 
 /**
  * @constructor
  * @extends {ol.format.Feature}
  */
-ol.format.JSONFeature = function() { };
+ol.format.JSONFeature = function() {};
 
 
 /**
  * @constructor
  * @extends {ol.format.Feature}
  */
-ol.format.TextFeature = function() { };
+ol.format.TextFeature = function() {};
 
 
 /**
  * @constructor
  */
-ol.format.XML = function() { };
+ol.format.XML = function() {};
 
 
 /**
  * @constructor
  * @extends {ol.format.Feature}
  */
-ol.format.XMLFeature = function() { };
+ol.format.XMLFeature = function() {};
 
 
 /**
@@ -294,7 +294,7 @@ ol.format.XMLFeature = function() { };
  * @param {number} pixelRatio
  * @param {ol.ImageState} state
  */
-ol.ImageBase = function(extent, resolution, pixelRatio, state) { };
+ol.ImageBase = function(extent, resolution, pixelRatio, state) {};
 
 
 /**
@@ -306,7 +306,7 @@ ol.render;
 /**
  * @constructor
  */
-ol.render.ReplayGroup = function() { };
+ol.render.ReplayGroup = function() {};
 
 
 /**
@@ -321,7 +321,7 @@ ol.render.webgl;
  * @param {number} tolerance
  * @param {ol.Extent} maxExtent
  */
-ol.render.webgl.Replay = function(tolerance, maxExtent) { };
+ol.render.webgl.Replay = function(tolerance, maxExtent) {};
 
 
 /**
@@ -330,7 +330,7 @@ ol.render.webgl.Replay = function(tolerance, maxExtent) { };
  * @param {number} tolerance
  * @param {ol.Extent} maxExtent
  */
-ol.render.webgl.TextureReplay = function(tolerance, maxExtent) { };
+ol.render.webgl.TextureReplay = function(tolerance, maxExtent) {};
 
 
 /**
@@ -350,7 +350,7 @@ ol.renderer.canvas;
  * @extends {ol.renderer.canvas.Layer}
  * @param {ol.layer.Layer} layer
  */
-ol.renderer.canvas.IntermediateCanvas = function(layer) { };
+ol.renderer.canvas.IntermediateCanvas = function(layer) {};
 
 
 /**
@@ -358,7 +358,7 @@ ol.renderer.canvas.IntermediateCanvas = function(layer) { };
  * @extends {ol.renderer.Layer}
  * @param {ol.layer.Layer} layer
  */
-ol.renderer.canvas.Layer = function(layer) { };
+ol.renderer.canvas.Layer = function(layer) {};
 
 
 /**
@@ -367,7 +367,7 @@ ol.renderer.canvas.Layer = function(layer) { };
  * @param {Element} container
  * @param {ol.PluggableMap} map
  */
-ol.renderer.Map = function(container, map) { };
+ol.renderer.Map = function(container, map) {};
 
 
 /**
@@ -382,7 +382,7 @@ ol.renderer.webgl;
  * @param {ol.renderer.webgl.Map} mapRenderer
  * @param {ol.layer.Layer} layer
  */
-ol.renderer.webgl.Layer = function(mapRenderer, layer) { };
+ol.renderer.webgl.Layer = function(mapRenderer, layer) {};
 
 
 /**
@@ -396,7 +396,7 @@ ol.source;
  * @extends {ol.source.Tile}
  * @param {ol.SourceUrlTileOptions} options
  */
-ol.source.UrlTile = function(options) { };
+ol.source.UrlTile = function(options) {};
 
 
 /**
@@ -406,7 +406,7 @@ ol.source.UrlTile = function(options) { };
  * @param {ol.TileState} state
  * @param {olx.TileOptions=} opt_options
  */
-ol.Tile = function(tileCoord, state, opt_options) { };
+ol.Tile = function(tileCoord, state, opt_options) {};
 
 
 /**
@@ -419,13 +419,13 @@ ol.webgl;
  * @constructor
  * @param {string} source
  */
-ol.webgl.Shader = function(source) { };
+ol.webgl.Shader = function(source) {};
 
 
 /**
  * @constructor
  */
-ol.AssertionError = function() { };
+ol.AssertionError = function() {};
 
 
 /**
@@ -438,13 +438,13 @@ ol.AssertionError.prototype.code;
  * @constructor
  * @param {olx.AttributionOptions} options
  */
-ol.Attribution = function(options) { };
+ol.Attribution = function(options) {};
 
 
 /**
  * @return {string}
  */
-ol.Attribution.prototype.getHTML = function() { };
+ol.Attribution.prototype.getHTML = function() {};
 
 
 /**
@@ -452,7 +452,7 @@ ol.Attribution.prototype.getHTML = function() { };
  * @extends {ol.PluggableMap}
  * @param {olx.MapOptions} options
  */
-ol.CanvasMap = function(options) { };
+ol.CanvasMap = function(options) {};
 
 
 /**
@@ -462,19 +462,19 @@ ol.CanvasMap = function(options) { };
  * @param {olx.CollectionOptions=} opt_options
  * @template T
  */
-ol.Collection = function(opt_array, opt_options) { };
+ol.Collection = function(opt_array, opt_options) {};
 
 
 /**
  */
-ol.Collection.prototype.clear = function() { };
+ol.Collection.prototype.clear = function() {};
 
 
 /**
  * @param {Array.<T>} arr
  * @return {ol.Collection.<T>}
  */
-ol.Collection.prototype.extend = function(arr) { };
+ol.Collection.prototype.extend = function(arr) {};
 
 
 /**
@@ -482,73 +482,73 @@ ol.Collection.prototype.extend = function(arr) { };
  * @param {S=} opt_this
  * @template S
  */
-ol.Collection.prototype.forEach = function(f, opt_this) { };
+ol.Collection.prototype.forEach = function(f, opt_this) {};
 
 
 /**
  * @return {Array.<T>}
  */
-ol.Collection.prototype.getArray = function() { };
+ol.Collection.prototype.getArray = function() {};
 
 
 /**
  * @param {number} index
  * @return {T}
  */
-ol.Collection.prototype.item = function(index) { };
+ol.Collection.prototype.item = function(index) {};
 
 
 /**
  * @return {number}
  */
-ol.Collection.prototype.getLength = function() { };
+ol.Collection.prototype.getLength = function() {};
 
 
 /**
  * @param {number} index
  * @param {T} elem
  */
-ol.Collection.prototype.insertAt = function(index, elem) { };
+ol.Collection.prototype.insertAt = function(index, elem) {};
 
 
 /**
  * @return {T|undefined}
  */
-ol.Collection.prototype.pop = function() { };
+ol.Collection.prototype.pop = function() {};
 
 
 /**
  * @param {T} elem
  * @return {number}
  */
-ol.Collection.prototype.push = function(elem) { };
+ol.Collection.prototype.push = function(elem) {};
 
 
 /**
  * @param {T} elem
  * @return {T|undefined}
  */
-ol.Collection.prototype.remove = function(elem) { };
+ol.Collection.prototype.remove = function(elem) {};
 
 
 /**
  * @param {number} index
  * @return {T|undefined}
  */
-ol.Collection.prototype.removeAt = function(index) { };
+ol.Collection.prototype.removeAt = function(index) {};
 
 
 /**
  * @param {number} index
  * @param {T} elem
  */
-ol.Collection.prototype.setAt = function(index, elem) { };
+ol.Collection.prototype.setAt = function(index, elem) {};
 
 
 /**
  * @constructor
  */
-ol.Collection.Event = function() { };
+ol.Collection.Event = function() {};
 
 
 /**
@@ -567,14 +567,14 @@ ol.color;
  * @param {ol.Color|string} color
  * @return {ol.Color}
  */
-ol.color.asArray = function(color) { };
+ol.color.asArray = function(color) {};
 
 
 /**
  * @param {ol.Color|string} color
  * @return {string}
  */
-ol.color.asString = function(color) { };
+ol.color.asString = function(color) {};
 
 
 /**
@@ -587,7 +587,7 @@ ol.colorlike;
  * @param {ol.Color|ol.ColorLike} color
  * @return {ol.ColorLike}
  */
-ol.colorlike.asColorLike = function(color) { };
+ol.colorlike.asColorLike = function(color) {};
 
 
 /**
@@ -601,37 +601,37 @@ ol.control;
  * @extends {ol.control.Control}
  * @param {olx.control.AttributionOptions=} opt_options
  */
-ol.control.Attribution = function(opt_options) { };
+ol.control.Attribution = function(opt_options) {};
 
 
 /**
  * @param {ol.MapEvent} mapEvent
  */
-ol.control.Attribution.render = function(mapEvent) { };
+ol.control.Attribution.render = function(mapEvent) {};
 
 
 /**
  * @return {boolean}
  */
-ol.control.Attribution.prototype.getCollapsible = function() { };
+ol.control.Attribution.prototype.getCollapsible = function() {};
 
 
 /**
  * @param {boolean} collapsible
  */
-ol.control.Attribution.prototype.setCollapsible = function(collapsible) { };
+ol.control.Attribution.prototype.setCollapsible = function(collapsible) {};
 
 
 /**
  * @param {boolean} collapsed
  */
-ol.control.Attribution.prototype.setCollapsed = function(collapsed) { };
+ol.control.Attribution.prototype.setCollapsed = function(collapsed) {};
 
 
 /**
  * @return {boolean}
  */
-ol.control.Attribution.prototype.getCollapsed = function() { };
+ol.control.Attribution.prototype.getCollapsed = function() {};
 
 
 /**
@@ -639,25 +639,25 @@ ol.control.Attribution.prototype.getCollapsed = function() { };
  * @extends {ol.Object}
  * @param {olx.control.ControlOptions} options
  */
-ol.control.Control = function(options) { };
+ol.control.Control = function(options) {};
 
 
 /**
  * @return {ol.PluggableMap}
  */
-ol.control.Control.prototype.getMap = function() { };
+ol.control.Control.prototype.getMap = function() {};
 
 
 /**
  * @param {ol.PluggableMap} map
  */
-ol.control.Control.prototype.setMap = function(map) { };
+ol.control.Control.prototype.setMap = function(map) {};
 
 
 /**
  * @param {Element|string} target
  */
-ol.control.Control.prototype.setTarget = function(target) { };
+ol.control.Control.prototype.setTarget = function(target) {};
 
 
 /**
@@ -665,7 +665,7 @@ ol.control.Control.prototype.setTarget = function(target) { };
  * @extends {ol.control.Control}
  * @param {olx.control.FullScreenOptions=} opt_options
  */
-ol.control.FullScreen = function(opt_options) { };
+ol.control.FullScreen = function(opt_options) {};
 
 
 /**
@@ -673,37 +673,37 @@ ol.control.FullScreen = function(opt_options) { };
  * @extends {ol.control.Control}
  * @param {olx.control.MousePositionOptions=} opt_options
  */
-ol.control.MousePosition = function(opt_options) { };
+ol.control.MousePosition = function(opt_options) {};
 
 
 /**
  * @param {ol.MapEvent} mapEvent
  */
-ol.control.MousePosition.render = function(mapEvent) { };
+ol.control.MousePosition.render = function(mapEvent) {};
 
 
 /**
  * @return {ol.CoordinateFormatType|undefined}
  */
-ol.control.MousePosition.prototype.getCoordinateFormat = function() { };
+ol.control.MousePosition.prototype.getCoordinateFormat = function() {};
 
 
 /**
  * @return {ol.proj.Projection|undefined}
  */
-ol.control.MousePosition.prototype.getProjection = function() { };
+ol.control.MousePosition.prototype.getProjection = function() {};
 
 
 /**
  * @param {ol.CoordinateFormatType} format
  */
-ol.control.MousePosition.prototype.setCoordinateFormat = function(format) { };
+ol.control.MousePosition.prototype.setCoordinateFormat = function(format) {};
 
 
 /**
  * @param {ol.ProjectionLike} projection
  */
-ol.control.MousePosition.prototype.setProjection = function(projection) { };
+ol.control.MousePosition.prototype.setProjection = function(projection) {};
 
 
 /**
@@ -711,43 +711,43 @@ ol.control.MousePosition.prototype.setProjection = function(projection) { };
  * @extends {ol.control.Control}
  * @param {olx.control.OverviewMapOptions=} opt_options
  */
-ol.control.OverviewMap = function(opt_options) { };
+ol.control.OverviewMap = function(opt_options) {};
 
 
 /**
  * @param {ol.MapEvent} mapEvent
  */
-ol.control.OverviewMap.render = function(mapEvent) { };
+ol.control.OverviewMap.render = function(mapEvent) {};
 
 
 /**
  * @return {boolean}
  */
-ol.control.OverviewMap.prototype.getCollapsible = function() { };
+ol.control.OverviewMap.prototype.getCollapsible = function() {};
 
 
 /**
  * @param {boolean} collapsible
  */
-ol.control.OverviewMap.prototype.setCollapsible = function(collapsible) { };
+ol.control.OverviewMap.prototype.setCollapsible = function(collapsible) {};
 
 
 /**
  * @param {boolean} collapsed
  */
-ol.control.OverviewMap.prototype.setCollapsed = function(collapsed) { };
+ol.control.OverviewMap.prototype.setCollapsed = function(collapsed) {};
 
 
 /**
  * @return {boolean}
  */
-ol.control.OverviewMap.prototype.getCollapsed = function() { };
+ol.control.OverviewMap.prototype.getCollapsed = function() {};
 
 
 /**
  * @return {ol.PluggableMap}
  */
-ol.control.OverviewMap.prototype.getOverviewMap = function() { };
+ol.control.OverviewMap.prototype.getOverviewMap = function() {};
 
 
 /**
@@ -755,13 +755,13 @@ ol.control.OverviewMap.prototype.getOverviewMap = function() { };
  * @extends {ol.control.Control}
  * @param {olx.control.RotateOptions=} opt_options
  */
-ol.control.Rotate = function(opt_options) { };
+ol.control.Rotate = function(opt_options) {};
 
 
 /**
  * @param {ol.MapEvent} mapEvent
  */
-ol.control.Rotate.render = function(mapEvent) { };
+ol.control.Rotate.render = function(mapEvent) {};
 
 
 /**
@@ -769,25 +769,25 @@ ol.control.Rotate.render = function(mapEvent) { };
  * @extends {ol.control.Control}
  * @param {olx.control.ScaleLineOptions=} opt_options
  */
-ol.control.ScaleLine = function(opt_options) { };
+ol.control.ScaleLine = function(opt_options) {};
 
 
 /**
  * @return {ol.control.ScaleLineUnits|undefined}
  */
-ol.control.ScaleLine.prototype.getUnits = function() { };
+ol.control.ScaleLine.prototype.getUnits = function() {};
 
 
 /**
  * @param {ol.MapEvent} mapEvent
  */
-ol.control.ScaleLine.render = function(mapEvent) { };
+ol.control.ScaleLine.render = function(mapEvent) {};
 
 
 /**
  * @param {ol.control.ScaleLineUnits} units
  */
-ol.control.ScaleLine.prototype.setUnits = function(units) { };
+ol.control.ScaleLine.prototype.setUnits = function(units) {};
 
 
 /**
@@ -795,7 +795,7 @@ ol.control.ScaleLine.prototype.setUnits = function(units) { };
  * @extends {ol.control.Control}
  * @param {olx.control.ZoomOptions=} opt_options
  */
-ol.control.Zoom = function(opt_options) { };
+ol.control.Zoom = function(opt_options) {};
 
 
 /**
@@ -803,13 +803,13 @@ ol.control.Zoom = function(opt_options) { };
  * @extends {ol.control.Control}
  * @param {olx.control.ZoomSliderOptions=} opt_options
  */
-ol.control.ZoomSlider = function(opt_options) { };
+ol.control.ZoomSlider = function(opt_options) {};
 
 
 /**
  * @param {ol.MapEvent} mapEvent
  */
-ol.control.ZoomSlider.render = function(mapEvent) { };
+ol.control.ZoomSlider.render = function(mapEvent) {};
 
 
 /**
@@ -817,14 +817,14 @@ ol.control.ZoomSlider.render = function(mapEvent) { };
  * @extends {ol.control.Control}
  * @param {olx.control.ZoomToExtentOptions=} opt_options
  */
-ol.control.ZoomToExtent = function(opt_options) { };
+ol.control.ZoomToExtent = function(opt_options) {};
 
 
 /**
  * @param {olx.control.DefaultsOptions=} opt_options
  * @return {ol.Collection.<ol.control.Control>}
  */
-ol.control.defaults = function(opt_options) { };
+ol.control.defaults = function(opt_options) {};
 
 
 /**
@@ -838,14 +838,14 @@ ol.coordinate;
  * @param {ol.Coordinate} delta
  * @return {ol.Coordinate}
  */
-ol.coordinate.add = function(coordinate, delta) { };
+ol.coordinate.add = function(coordinate, delta) {};
 
 
 /**
  * @param {number=} opt_fractionDigits
  * @return {ol.CoordinateFormatType}
  */
-ol.coordinate.createStringXY = function(opt_fractionDigits) { };
+ol.coordinate.createStringXY = function(opt_fractionDigits) {};
 
 
 /**
@@ -854,7 +854,7 @@ ol.coordinate.createStringXY = function(opt_fractionDigits) { };
  * @param {number=} opt_fractionDigits
  * @return {string}
  */
-ol.coordinate.format = function(coordinate, template, opt_fractionDigits) { };
+ol.coordinate.format = function(coordinate, template, opt_fractionDigits) {};
 
 
 /**
@@ -862,7 +862,7 @@ ol.coordinate.format = function(coordinate, template, opt_fractionDigits) { };
  * @param {number} angle
  * @return {ol.Coordinate}
  */
-ol.coordinate.rotate = function(coordinate, angle) { };
+ol.coordinate.rotate = function(coordinate, angle) {};
 
 
 /**
@@ -870,7 +870,7 @@ ol.coordinate.rotate = function(coordinate, angle) { };
  * @param {number=} opt_fractionDigits
  * @return {string}
  */
-ol.coordinate.toStringHDMS = function(coordinate, opt_fractionDigits) { };
+ol.coordinate.toStringHDMS = function(coordinate, opt_fractionDigits) {};
 
 
 /**
@@ -878,7 +878,7 @@ ol.coordinate.toStringHDMS = function(coordinate, opt_fractionDigits) { };
  * @param {number=} opt_fractionDigits
  * @return {string}
  */
-ol.coordinate.toStringXY = function(coordinate, opt_fractionDigits) { };
+ol.coordinate.toStringXY = function(coordinate, opt_fractionDigits) {};
 
 
 /**
@@ -886,43 +886,43 @@ ol.coordinate.toStringXY = function(coordinate, opt_fractionDigits) { };
  * @extends {ol.Object}
  * @param {olx.DeviceOrientationOptions=} opt_options
  */
-ol.DeviceOrientation = function(opt_options) { };
+ol.DeviceOrientation = function(opt_options) {};
 
 
 /**
  * @return {number|undefined}
  */
-ol.DeviceOrientation.prototype.getAlpha = function() { };
+ol.DeviceOrientation.prototype.getAlpha = function() {};
 
 
 /**
  * @return {number|undefined}
  */
-ol.DeviceOrientation.prototype.getBeta = function() { };
+ol.DeviceOrientation.prototype.getBeta = function() {};
 
 
 /**
  * @return {number|undefined}
  */
-ol.DeviceOrientation.prototype.getGamma = function() { };
+ol.DeviceOrientation.prototype.getGamma = function() {};
 
 
 /**
  * @return {number|undefined}
  */
-ol.DeviceOrientation.prototype.getHeading = function() { };
+ol.DeviceOrientation.prototype.getHeading = function() {};
 
 
 /**
  * @return {boolean}
  */
-ol.DeviceOrientation.prototype.getTracking = function() { };
+ol.DeviceOrientation.prototype.getTracking = function() {};
 
 
 /**
  * @param {boolean} tracking
  */
-ol.DeviceOrientation.prototype.setTracking = function(tracking) { };
+ol.DeviceOrientation.prototype.setTracking = function(tracking) {};
 
 
 /**
@@ -935,35 +935,35 @@ ol.easing;
  * @param {number} t
  * @return {number}
  */
-ol.easing.easeIn = function(t) { };
+ol.easing.easeIn = function(t) {};
 
 
 /**
  * @param {number} t
  * @return {number}
  */
-ol.easing.easeOut = function(t) { };
+ol.easing.easeOut = function(t) {};
 
 
 /**
  * @param {number} t
  * @return {number}
  */
-ol.easing.inAndOut = function(t) { };
+ol.easing.inAndOut = function(t) {};
 
 
 /**
  * @param {number} t
  * @return {number}
  */
-ol.easing.linear = function(t) { };
+ol.easing.linear = function(t) {};
 
 
 /**
  * @param {number} t
  * @return {number}
  */
-ol.easing.upAndDown = function(t) { };
+ol.easing.upAndDown = function(t) {};
 
 
 /**
@@ -982,104 +982,104 @@ ol.events.condition;
  * @param {ol.MapBrowserEvent} mapBrowserEvent
  * @return {boolean}
  */
-ol.events.condition.altKeyOnly = function(mapBrowserEvent) { };
+ol.events.condition.altKeyOnly = function(mapBrowserEvent) {};
 
 
 /**
  * @param {ol.MapBrowserEvent} mapBrowserEvent
  * @return {boolean}
  */
-ol.events.condition.altShiftKeysOnly = function(mapBrowserEvent) { };
+ol.events.condition.altShiftKeysOnly = function(mapBrowserEvent) {};
 
 
 /**
  * @param {ol.MapBrowserEvent} mapBrowserEvent
  * @return {boolean}
  */
-ol.events.condition.always = function(mapBrowserEvent) { };
+ol.events.condition.always = function(mapBrowserEvent) {};
 
 
 /**
  * @param {ol.MapBrowserEvent} mapBrowserEvent
  * @return {boolean}
  */
-ol.events.condition.click = function(mapBrowserEvent) { };
+ol.events.condition.click = function(mapBrowserEvent) {};
 
 
 /**
  * @param {ol.MapBrowserEvent} mapBrowserEvent
  * @return {boolean}
  */
-ol.events.condition.never = function(mapBrowserEvent) { };
+ol.events.condition.never = function(mapBrowserEvent) {};
 
 
 /**
  * @param {ol.MapBrowserEvent} mapBrowserEvent
  * @return {boolean}
  */
-ol.events.condition.pointerMove = function(mapBrowserEvent) { };
+ol.events.condition.pointerMove = function(mapBrowserEvent) {};
 
 
 /**
  * @param {ol.MapBrowserEvent} mapBrowserEvent
  * @return {boolean}
  */
-ol.events.condition.singleClick = function(mapBrowserEvent) { };
+ol.events.condition.singleClick = function(mapBrowserEvent) {};
 
 
 /**
  * @param {ol.MapBrowserEvent} mapBrowserEvent
  * @return {boolean}
  */
-ol.events.condition.doubleClick = function(mapBrowserEvent) { };
+ol.events.condition.doubleClick = function(mapBrowserEvent) {};
 
 
 /**
  * @param {ol.MapBrowserEvent} mapBrowserEvent
  * @return {boolean}
  */
-ol.events.condition.noModifierKeys = function(mapBrowserEvent) { };
+ol.events.condition.noModifierKeys = function(mapBrowserEvent) {};
 
 
 /**
  * @param {ol.MapBrowserEvent} mapBrowserEvent
  * @return {boolean}
  */
-ol.events.condition.platformModifierKeyOnly = function(mapBrowserEvent) { };
+ol.events.condition.platformModifierKeyOnly = function(mapBrowserEvent) {};
 
 
 /**
  * @param {ol.MapBrowserEvent} mapBrowserEvent
  * @return {boolean}
  */
-ol.events.condition.shiftKeyOnly = function(mapBrowserEvent) { };
+ol.events.condition.shiftKeyOnly = function(mapBrowserEvent) {};
 
 
 /**
  * @param {ol.MapBrowserEvent} mapBrowserEvent
  * @return {boolean}
  */
-ol.events.condition.targetNotEditable = function(mapBrowserEvent) { };
+ol.events.condition.targetNotEditable = function(mapBrowserEvent) {};
 
 
 /**
  * @param {ol.MapBrowserEvent} mapBrowserEvent
  * @return {boolean}
  */
-ol.events.condition.mouseOnly = function(mapBrowserEvent) { };
+ol.events.condition.mouseOnly = function(mapBrowserEvent) {};
 
 
 /**
  * @param {ol.MapBrowserEvent} mapBrowserEvent
  * @return {boolean}
  */
-ol.events.condition.primaryAction = function(mapBrowserEvent) { };
+ol.events.condition.primaryAction = function(mapBrowserEvent) {};
 
 
 /**
  * @constructor
  */
-ol.events.Event = function() { };
+ol.events.Event = function() {};
 
 
 /**
@@ -1096,12 +1096,19 @@ ol.events.Event.prototype.target;
 
 /**
  */
-ol.events.Event.prototype.preventDefault = function() { };
+ol.events.Event.prototype.preventDefault = function() {};
 
 
 /**
  */
-ol.events.Event.prototype.stopPropagation = function() { };
+ol.events.Event.prototype.stopPropagation = function() {};
+
+
+/**
+ * @constructor
+ * @extends {ol.Disposable}
+ */
+ol.events.EventTarget = function() {};
 
 
 /**
@@ -1114,7 +1121,7 @@ ol.extent;
  * @param {Array.<ol.Coordinate>} coordinates
  * @return {ol.Extent}
  */
-ol.extent.boundingExtent = function(coordinates) { };
+ol.extent.boundingExtent = function(coordinates) {};
 
 
 /**
@@ -1123,7 +1130,7 @@ ol.extent.boundingExtent = function(coordinates) { };
  * @param {ol.Extent=} opt_extent
  * @return {ol.Extent}
  */
-ol.extent.buffer = function(extent, value, opt_extent) { };
+ol.extent.buffer = function(extent, value, opt_extent) {};
 
 
 /**
@@ -1131,7 +1138,7 @@ ol.extent.buffer = function(extent, value, opt_extent) { };
  * @param {ol.Coordinate} coordinate
  * @return {boolean}
  */
-ol.extent.containsCoordinate = function(extent, coordinate) { };
+ol.extent.containsCoordinate = function(extent, coordinate) {};
 
 
 /**
@@ -1139,7 +1146,7 @@ ol.extent.containsCoordinate = function(extent, coordinate) { };
  * @param {ol.Extent} extent2
  * @return {boolean}
  */
-ol.extent.containsExtent = function(extent1, extent2) { };
+ol.extent.containsExtent = function(extent1, extent2) {};
 
 
 /**
@@ -1148,13 +1155,13 @@ ol.extent.containsExtent = function(extent1, extent2) { };
  * @param {number} y
  * @return {boolean}
  */
-ol.extent.containsXY = function(extent, x, y) { };
+ol.extent.containsXY = function(extent, x, y) {};
 
 
 /**
  * @return {ol.Extent}
  */
-ol.extent.createEmpty = function() { };
+ol.extent.createEmpty = function() {};
 
 
 /**
@@ -1162,7 +1169,7 @@ ol.extent.createEmpty = function() { };
  * @param {ol.Extent} extent2
  * @return {boolean}
  */
-ol.extent.equals = function(extent1, extent2) { };
+ol.extent.equals = function(extent1, extent2) {};
 
 
 /**
@@ -1170,35 +1177,35 @@ ol.extent.equals = function(extent1, extent2) { };
  * @param {ol.Extent} extent2
  * @return {ol.Extent}
  */
-ol.extent.extend = function(extent1, extent2) { };
+ol.extent.extend = function(extent1, extent2) {};
 
 
 /**
  * @param {ol.Extent} extent
  * @return {number}
  */
-ol.extent.getArea = function(extent) { };
+ol.extent.getArea = function(extent) {};
 
 
 /**
  * @param {ol.Extent} extent
  * @return {ol.Coordinate}
  */
-ol.extent.getBottomLeft = function(extent) { };
+ol.extent.getBottomLeft = function(extent) {};
 
 
 /**
  * @param {ol.Extent} extent
  * @return {ol.Coordinate}
  */
-ol.extent.getBottomRight = function(extent) { };
+ol.extent.getBottomRight = function(extent) {};
 
 
 /**
  * @param {ol.Extent} extent
  * @return {ol.Coordinate}
  */
-ol.extent.getCenter = function(extent) { };
+ol.extent.getCenter = function(extent) {};
 
 
 /**
@@ -1206,7 +1213,7 @@ ol.extent.getCenter = function(extent) { };
  * @param {ol.Extent} extent2
  * @return {number}
  */
-ol.extent.getEnlargedArea = function(extent1, extent2) { };
+ol.extent.getEnlargedArea = function(extent1, extent2) {};
 
 
 /**
@@ -1217,14 +1224,14 @@ ol.extent.getEnlargedArea = function(extent1, extent2) { };
  * @param {ol.Extent=} opt_extent
  * @return {ol.Extent}
  */
-ol.extent.getForViewAndSize = function(center, resolution, rotation, size, opt_extent) { };
+ol.extent.getForViewAndSize = function(center, resolution, rotation, size, opt_extent) {};
 
 
 /**
  * @param {ol.Extent} extent
  * @return {number}
  */
-ol.extent.getHeight = function(extent) { };
+ol.extent.getHeight = function(extent) {};
 
 
 /**
@@ -1233,35 +1240,35 @@ ol.extent.getHeight = function(extent) { };
  * @param {ol.Extent=} opt_extent
  * @return {ol.Extent}
  */
-ol.extent.getIntersection = function(extent1, extent2, opt_extent) { };
+ol.extent.getIntersection = function(extent1, extent2, opt_extent) {};
 
 
 /**
  * @param {ol.Extent} extent
  * @return {ol.Size}
  */
-ol.extent.getSize = function(extent) { };
+ol.extent.getSize = function(extent) {};
 
 
 /**
  * @param {ol.Extent} extent
  * @return {ol.Coordinate}
  */
-ol.extent.getTopLeft = function(extent) { };
+ol.extent.getTopLeft = function(extent) {};
 
 
 /**
  * @param {ol.Extent} extent
  * @return {ol.Coordinate}
  */
-ol.extent.getTopRight = function(extent) { };
+ol.extent.getTopRight = function(extent) {};
 
 
 /**
  * @param {ol.Extent} extent
  * @return {number}
  */
-ol.extent.getWidth = function(extent) { };
+ol.extent.getWidth = function(extent) {};
 
 
 /**
@@ -1269,14 +1276,14 @@ ol.extent.getWidth = function(extent) { };
  * @param {ol.Extent} extent2
  * @return {boolean}
  */
-ol.extent.intersects = function(extent1, extent2) { };
+ol.extent.intersects = function(extent1, extent2) {};
 
 
 /**
  * @param {ol.Extent} extent
  * @return {boolean}
  */
-ol.extent.isEmpty = function(extent) { };
+ol.extent.isEmpty = function(extent) {};
 
 
 /**
@@ -1285,7 +1292,7 @@ ol.extent.isEmpty = function(extent) { };
  * @param {ol.Extent=} opt_extent
  * @return {ol.Extent}
  */
-ol.extent.applyTransform = function(extent, transformFn, opt_extent) { };
+ol.extent.applyTransform = function(extent, transformFn, opt_extent) {};
 
 
 /**
@@ -1293,67 +1300,67 @@ ol.extent.applyTransform = function(extent, transformFn, opt_extent) { };
  * @extends {ol.Object}
  * @param {ol.geom.Geometry|Object.<string, *>=} opt_geometryOrProperties
  */
-ol.Feature = function(opt_geometryOrProperties) { };
+ol.Feature = function(opt_geometryOrProperties) {};
 
 
 /**
  * @return {ol.Feature}
  */
-ol.Feature.prototype.clone = function() { };
+ol.Feature.prototype.clone = function() {};
 
 
 /**
  * @return {ol.geom.Geometry|undefined}
  */
-ol.Feature.prototype.getGeometry = function() { };
+ol.Feature.prototype.getGeometry = function() {};
 
 
 /**
  * @return {number|string|undefined}
  */
-ol.Feature.prototype.getId = function() { };
+ol.Feature.prototype.getId = function() {};
 
 
 /**
  * @return {string}
  */
-ol.Feature.prototype.getGeometryName = function() { };
+ol.Feature.prototype.getGeometryName = function() {};
 
 
 /**
  * @return {ol.style.Style|Array.<ol.style.Style>|ol.FeatureStyleFunction|ol.StyleFunction}
  */
-ol.Feature.prototype.getStyle = function() { };
+ol.Feature.prototype.getStyle = function() {};
 
 
 /**
  * @return {ol.FeatureStyleFunction|undefined}
  */
-ol.Feature.prototype.getStyleFunction = function() { };
+ol.Feature.prototype.getStyleFunction = function() {};
 
 
 /**
  * @param {ol.geom.Geometry|undefined} geometry
  */
-ol.Feature.prototype.setGeometry = function(geometry) { };
+ol.Feature.prototype.setGeometry = function(geometry) {};
 
 
 /**
  * @param {ol.style.Style|Array.<ol.style.Style>|ol.FeatureStyleFunction|ol.StyleFunction} style
  */
-ol.Feature.prototype.setStyle = function(style) { };
+ol.Feature.prototype.setStyle = function(style) {};
 
 
 /**
  * @param {number|string|undefined} id
  */
-ol.Feature.prototype.setId = function(id) { };
+ol.Feature.prototype.setId = function(id) {};
 
 
 /**
  * @param {string} name
  */
-ol.Feature.prototype.setGeometryName = function(name) { };
+ol.Feature.prototype.setGeometryName = function(name) {};
 
 
 /**
@@ -1367,7 +1374,7 @@ ol.featureloader;
  * @param {ol.format.Feature} format
  * @return {ol.FeatureLoader}
  */
-ol.featureloader.xhr = function(url, format) { };
+ol.featureloader.xhr = function(url, format) {};
 
 
 /**
@@ -1375,7 +1382,7 @@ ol.featureloader.xhr = function(url, format) { };
  * @extends {ol.format.Feature}
  * @param {olx.format.EsriJSONOptions=} opt_options
  */
-ol.format.EsriJSON = function(opt_options) { };
+ol.format.EsriJSON = function(opt_options) {};
 
 
 /**
@@ -1383,7 +1390,7 @@ ol.format.EsriJSON = function(opt_options) { };
  * @param {olx.format.ReadOptions=} opt_options
  * @return {ol.Feature}
  */
-ol.format.EsriJSON.prototype.readFeature = function(source, opt_options) { };
+ol.format.EsriJSON.prototype.readFeature = function(source, opt_options) {};
 
 
 /**
@@ -1391,7 +1398,7 @@ ol.format.EsriJSON.prototype.readFeature = function(source, opt_options) { };
  * @param {olx.format.ReadOptions=} opt_options
  * @return {Array.<ol.Feature>}
  */
-ol.format.EsriJSON.prototype.readFeatures = function(source, opt_options) { };
+ol.format.EsriJSON.prototype.readFeatures = function(source, opt_options) {};
 
 
 /**
@@ -1399,14 +1406,14 @@ ol.format.EsriJSON.prototype.readFeatures = function(source, opt_options) { };
  * @param {olx.format.ReadOptions=} opt_options
  * @return {ol.geom.Geometry}
  */
-ol.format.EsriJSON.prototype.readGeometry = function(source, opt_options) { };
+ol.format.EsriJSON.prototype.readGeometry = function(source, opt_options) {};
 
 
 /**
  * @param {ArrayBuffer|Document|Node|Object|string} source
  * @return {ol.proj.Projection}
  */
-ol.format.EsriJSON.prototype.readProjection = function(source) { };
+ol.format.EsriJSON.prototype.readProjection = function(source) {};
 
 
 /**
@@ -1414,7 +1421,7 @@ ol.format.EsriJSON.prototype.readProjection = function(source) { };
  * @param {olx.format.WriteOptions=} opt_options
  * @return {string}
  */
-ol.format.EsriJSON.prototype.writeGeometry = function(geometry, opt_options) { };
+ol.format.EsriJSON.prototype.writeGeometry = function(geometry, opt_options) {};
 
 
 /**
@@ -1422,7 +1429,7 @@ ol.format.EsriJSON.prototype.writeGeometry = function(geometry, opt_options) { }
  * @param {olx.format.WriteOptions=} opt_options
  * @return {EsriJSONGeometry}
  */
-ol.format.EsriJSON.prototype.writeGeometryObject = function(geometry, opt_options) { };
+ol.format.EsriJSON.prototype.writeGeometryObject = function(geometry, opt_options) {};
 
 
 /**
@@ -1430,7 +1437,7 @@ ol.format.EsriJSON.prototype.writeGeometryObject = function(geometry, opt_option
  * @param {olx.format.WriteOptions=} opt_options
  * @return {string}
  */
-ol.format.EsriJSON.prototype.writeFeature = function(feature, opt_options) { };
+ol.format.EsriJSON.prototype.writeFeature = function(feature, opt_options) {};
 
 
 /**
@@ -1438,7 +1445,7 @@ ol.format.EsriJSON.prototype.writeFeature = function(feature, opt_options) { };
  * @param {olx.format.WriteOptions=} opt_options
  * @return {Object}
  */
-ol.format.EsriJSON.prototype.writeFeatureObject = function(feature, opt_options) { };
+ol.format.EsriJSON.prototype.writeFeatureObject = function(feature, opt_options) {};
 
 
 /**
@@ -1446,7 +1453,7 @@ ol.format.EsriJSON.prototype.writeFeatureObject = function(feature, opt_options)
  * @param {olx.format.WriteOptions=} opt_options
  * @return {string}
  */
-ol.format.EsriJSON.prototype.writeFeatures = function(features, opt_options) { };
+ol.format.EsriJSON.prototype.writeFeatures = function(features, opt_options) {};
 
 
 /**
@@ -1454,13 +1461,13 @@ ol.format.EsriJSON.prototype.writeFeatures = function(features, opt_options) { }
  * @param {olx.format.WriteOptions=} opt_options
  * @return {Object}
  */
-ol.format.EsriJSON.prototype.writeFeaturesObject = function(features, opt_options) { };
+ol.format.EsriJSON.prototype.writeFeaturesObject = function(features, opt_options) {};
 
 
 /**
  * @constructor
  */
-ol.format.Feature = function() { };
+ol.format.Feature = function() {};
 
 
 /**
@@ -1468,7 +1475,7 @@ ol.format.Feature = function() { };
  * @extends {ol.format.filter.Filter}
  * @param {...ol.format.filter.Filter} conditions
  */
-ol.format.filter.And = function(conditions) { };
+ol.format.filter.And = function(conditions) {};
 
 
 /**
@@ -1478,7 +1485,7 @@ ol.format.filter.And = function(conditions) { };
  * @param {ol.Extent} extent
  * @param {string=} opt_srsName
  */
-ol.format.filter.Bbox = function(geometryName, extent, opt_srsName) { };
+ol.format.filter.Bbox = function(geometryName, extent, opt_srsName) {};
 
 
 /**
@@ -1487,7 +1494,7 @@ ol.format.filter.Bbox = function(geometryName, extent, opt_srsName) { };
  * @param {string} tagName
  * @param {string} propertyName
  */
-ol.format.filter.Comparison = function(tagName, propertyName) { };
+ol.format.filter.Comparison = function(tagName, propertyName) {};
 
 
 /**
@@ -1498,7 +1505,7 @@ ol.format.filter.Comparison = function(tagName, propertyName) { };
  * @param {string|number} expression
  * @param {boolean=} opt_matchCase
  */
-ol.format.filter.ComparisonBinary = function(tagName, propertyName, expression, opt_matchCase) { };
+ol.format.filter.ComparisonBinary = function(tagName, propertyName, expression, opt_matchCase) {};
 
 
 /**
@@ -1508,7 +1515,7 @@ ol.format.filter.ComparisonBinary = function(tagName, propertyName, expression, 
  * @param {ol.geom.Geometry} geometry
  * @param {string=} opt_srsName
  */
-ol.format.filter.Contains = function(geometryName, geometry, opt_srsName) { };
+ol.format.filter.Contains = function(geometryName, geometry, opt_srsName) {};
 
 
 /**
@@ -1518,7 +1525,7 @@ ol.format.filter.Contains = function(geometryName, geometry, opt_srsName) { };
  * @param {string} begin
  * @param {string} end
  */
-ol.format.filter.During = function(propertyName, begin, end) { };
+ol.format.filter.During = function(propertyName, begin, end) {};
 
 
 /**
@@ -1528,14 +1535,14 @@ ol.format.filter.During = function(propertyName, begin, end) { };
  * @param {string|number} expression
  * @param {boolean=} opt_matchCase
  */
-ol.format.filter.EqualTo = function(propertyName, expression, opt_matchCase) { };
+ol.format.filter.EqualTo = function(propertyName, expression, opt_matchCase) {};
 
 
 /**
  * @constructor
  * @param {string} tagName
  */
-ol.format.filter.Filter = function(tagName) { };
+ol.format.filter.Filter = function(tagName) {};
 
 
 /**
@@ -1544,7 +1551,7 @@ ol.format.filter.Filter = function(tagName) { };
  * @param {string} propertyName
  * @param {number} expression
  */
-ol.format.filter.GreaterThan = function(propertyName, expression) { };
+ol.format.filter.GreaterThan = function(propertyName, expression) {};
 
 
 /**
@@ -1553,7 +1560,7 @@ ol.format.filter.GreaterThan = function(propertyName, expression) { };
  * @param {string} propertyName
  * @param {number} expression
  */
-ol.format.filter.GreaterThanOrEqualTo = function(propertyName, expression) { };
+ol.format.filter.GreaterThanOrEqualTo = function(propertyName, expression) {};
 
 
 /**
@@ -1563,7 +1570,7 @@ ol.format.filter.GreaterThanOrEqualTo = function(propertyName, expression) { };
  * @param {ol.geom.Geometry} geometry
  * @param {string=} opt_srsName
  */
-ol.format.filter.Intersects = function(geometryName, geometry, opt_srsName) { };
+ol.format.filter.Intersects = function(geometryName, geometry, opt_srsName) {};
 
 
 /**
@@ -1573,7 +1580,7 @@ ol.format.filter.Intersects = function(geometryName, geometry, opt_srsName) { };
  * @param {number} lowerBoundary
  * @param {number} upperBoundary
  */
-ol.format.filter.IsBetween = function(propertyName, lowerBoundary, upperBoundary) { };
+ol.format.filter.IsBetween = function(propertyName, lowerBoundary, upperBoundary) {};
 
 
 /**
@@ -1586,7 +1593,7 @@ ol.format.filter.IsBetween = function(propertyName, lowerBoundary, upperBoundary
  * @param {string=} opt_escapeChar
  * @param {boolean=} opt_matchCase
  */
-ol.format.filter.IsLike = function(propertyName, pattern, opt_wildCard, opt_singleChar, opt_escapeChar, opt_matchCase) { };
+ol.format.filter.IsLike = function(propertyName, pattern, opt_wildCard, opt_singleChar, opt_escapeChar, opt_matchCase) {};
 
 
 /**
@@ -1594,7 +1601,7 @@ ol.format.filter.IsLike = function(propertyName, pattern, opt_wildCard, opt_sing
  * @extends {ol.format.filter.Comparison}
  * @param {string} propertyName
  */
-ol.format.filter.IsNull = function(propertyName) { };
+ol.format.filter.IsNull = function(propertyName) {};
 
 
 /**
@@ -1603,7 +1610,7 @@ ol.format.filter.IsNull = function(propertyName) { };
  * @param {string} propertyName
  * @param {number} expression
  */
-ol.format.filter.LessThan = function(propertyName, expression) { };
+ol.format.filter.LessThan = function(propertyName, expression) {};
 
 
 /**
@@ -1612,7 +1619,7 @@ ol.format.filter.LessThan = function(propertyName, expression) { };
  * @param {string} propertyName
  * @param {number} expression
  */
-ol.format.filter.LessThanOrEqualTo = function(propertyName, expression) { };
+ol.format.filter.LessThanOrEqualTo = function(propertyName, expression) {};
 
 
 /**
@@ -1620,7 +1627,7 @@ ol.format.filter.LessThanOrEqualTo = function(propertyName, expression) { };
  * @extends {ol.format.filter.Filter}
  * @param {ol.format.filter.Filter} condition
  */
-ol.format.filter.Not = function(condition) { };
+ol.format.filter.Not = function(condition) {};
 
 
 /**
@@ -1630,7 +1637,7 @@ ol.format.filter.Not = function(condition) { };
  * @param {string|number} expression
  * @param {boolean=} opt_matchCase
  */
-ol.format.filter.NotEqualTo = function(propertyName, expression, opt_matchCase) { };
+ol.format.filter.NotEqualTo = function(propertyName, expression, opt_matchCase) {};
 
 
 /**
@@ -1638,7 +1645,7 @@ ol.format.filter.NotEqualTo = function(propertyName, expression, opt_matchCase) 
  * @extends {ol.format.filter.Filter}
  * @param {...ol.format.filter.Filter} conditions
  */
-ol.format.filter.Or = function(conditions) { };
+ol.format.filter.Or = function(conditions) {};
 
 
 /**
@@ -1649,7 +1656,7 @@ ol.format.filter.Or = function(conditions) { };
  * @param {ol.geom.Geometry} geometry
  * @param {string=} opt_srsName
  */
-ol.format.filter.Spatial = function(tagName, geometryName, geometry, opt_srsName) { };
+ol.format.filter.Spatial = function(tagName, geometryName, geometry, opt_srsName) {};
 
 
 /**
@@ -1659,28 +1666,28 @@ ol.format.filter.Spatial = function(tagName, geometryName, geometry, opt_srsName
  * @param {ol.geom.Geometry} geometry
  * @param {string=} opt_srsName
  */
-ol.format.filter.Within = function(geometryName, geometry, opt_srsName) { };
+ol.format.filter.Within = function(geometryName, geometry, opt_srsName) {};
 
 
 /**
  * @param {...ol.format.filter.Filter} conditions
  * @return {ol.format.filter.And}
  */
-ol.format.filter.and = function(conditions) { };
+ol.format.filter.and = function(conditions) {};
 
 
 /**
  * @param {...ol.format.filter.Filter} conditions
  * @return {ol.format.filter.Or}
  */
-ol.format.filter.or = function(conditions) { };
+ol.format.filter.or = function(conditions) {};
 
 
 /**
  * @param {ol.format.filter.Filter} condition
  * @return {ol.format.filter.Not}
  */
-ol.format.filter.not = function(condition) { };
+ol.format.filter.not = function(condition) {};
 
 
 /**
@@ -1689,7 +1696,7 @@ ol.format.filter.not = function(condition) { };
  * @param {string=} opt_srsName
  * @return {ol.format.filter.Bbox}
  */
-ol.format.filter.bbox = function(geometryName, extent, opt_srsName) { };
+ol.format.filter.bbox = function(geometryName, extent, opt_srsName) {};
 
 
 /**
@@ -1698,7 +1705,7 @@ ol.format.filter.bbox = function(geometryName, extent, opt_srsName) { };
  * @param {string=} opt_srsName
  * @return {ol.format.filter.Contains}
  */
-ol.format.filter.contains = function(geometryName, geometry, opt_srsName) { };
+ol.format.filter.contains = function(geometryName, geometry, opt_srsName) {};
 
 
 /**
@@ -1707,7 +1714,7 @@ ol.format.filter.contains = function(geometryName, geometry, opt_srsName) { };
  * @param {string=} opt_srsName
  * @return {ol.format.filter.Intersects}
  */
-ol.format.filter.intersects = function(geometryName, geometry, opt_srsName) { };
+ol.format.filter.intersects = function(geometryName, geometry, opt_srsName) {};
 
 
 /**
@@ -1716,7 +1723,7 @@ ol.format.filter.intersects = function(geometryName, geometry, opt_srsName) { };
  * @param {string=} opt_srsName
  * @return {ol.format.filter.Within}
  */
-ol.format.filter.within = function(geometryName, geometry, opt_srsName) { };
+ol.format.filter.within = function(geometryName, geometry, opt_srsName) {};
 
 
 /**
@@ -1725,7 +1732,7 @@ ol.format.filter.within = function(geometryName, geometry, opt_srsName) { };
  * @param {boolean=} opt_matchCase
  * @return {ol.format.filter.EqualTo}
  */
-ol.format.filter.equalTo = function(propertyName, expression, opt_matchCase) { };
+ol.format.filter.equalTo = function(propertyName, expression, opt_matchCase) {};
 
 
 /**
@@ -1734,7 +1741,7 @@ ol.format.filter.equalTo = function(propertyName, expression, opt_matchCase) { }
  * @param {boolean=} opt_matchCase
  * @return {ol.format.filter.NotEqualTo}
  */
-ol.format.filter.notEqualTo = function(propertyName, expression, opt_matchCase) { };
+ol.format.filter.notEqualTo = function(propertyName, expression, opt_matchCase) {};
 
 
 /**
@@ -1742,7 +1749,7 @@ ol.format.filter.notEqualTo = function(propertyName, expression, opt_matchCase) 
  * @param {number} expression
  * @return {ol.format.filter.LessThan}
  */
-ol.format.filter.lessThan = function(propertyName, expression) { };
+ol.format.filter.lessThan = function(propertyName, expression) {};
 
 
 /**
@@ -1750,7 +1757,7 @@ ol.format.filter.lessThan = function(propertyName, expression) { };
  * @param {number} expression
  * @return {ol.format.filter.LessThanOrEqualTo}
  */
-ol.format.filter.lessThanOrEqualTo = function(propertyName, expression) { };
+ol.format.filter.lessThanOrEqualTo = function(propertyName, expression) {};
 
 
 /**
@@ -1758,7 +1765,7 @@ ol.format.filter.lessThanOrEqualTo = function(propertyName, expression) { };
  * @param {number} expression
  * @return {ol.format.filter.GreaterThan}
  */
-ol.format.filter.greaterThan = function(propertyName, expression) { };
+ol.format.filter.greaterThan = function(propertyName, expression) {};
 
 
 /**
@@ -1766,14 +1773,14 @@ ol.format.filter.greaterThan = function(propertyName, expression) { };
  * @param {number} expression
  * @return {ol.format.filter.GreaterThanOrEqualTo}
  */
-ol.format.filter.greaterThanOrEqualTo = function(propertyName, expression) { };
+ol.format.filter.greaterThanOrEqualTo = function(propertyName, expression) {};
 
 
 /**
  * @param {string} propertyName
  * @return {ol.format.filter.IsNull}
  */
-ol.format.filter.isNull = function(propertyName) { };
+ol.format.filter.isNull = function(propertyName) {};
 
 
 /**
@@ -1782,7 +1789,7 @@ ol.format.filter.isNull = function(propertyName) { };
  * @param {number} upperBoundary
  * @return {ol.format.filter.IsBetween}
  */
-ol.format.filter.between = function(propertyName, lowerBoundary, upperBoundary) { };
+ol.format.filter.between = function(propertyName, lowerBoundary, upperBoundary) {};
 
 
 /**
@@ -1794,7 +1801,7 @@ ol.format.filter.between = function(propertyName, lowerBoundary, upperBoundary) 
  * @param {boolean=} opt_matchCase
  * @return {ol.format.filter.IsLike}
  */
-ol.format.filter.like = function(propertyName, pattern, opt_wildCard, opt_singleChar, opt_escapeChar, opt_matchCase) { };
+ol.format.filter.like = function(propertyName, pattern, opt_wildCard, opt_singleChar, opt_escapeChar, opt_matchCase) {};
 
 
 /**
@@ -1803,7 +1810,7 @@ ol.format.filter.like = function(propertyName, pattern, opt_wildCard, opt_single
  * @param {string} end
  * @return {ol.format.filter.During}
  */
-ol.format.filter.during = function(propertyName, begin, end) { };
+ol.format.filter.during = function(propertyName, begin, end) {};
 
 
 /**
@@ -1811,7 +1818,7 @@ ol.format.filter.during = function(propertyName, begin, end) { };
  * @extends {ol.format.Feature}
  * @param {olx.format.GeoJSONOptions=} opt_options
  */
-ol.format.GeoJSON = function(opt_options) { };
+ol.format.GeoJSON = function(opt_options) {};
 
 
 /**
@@ -1819,7 +1826,7 @@ ol.format.GeoJSON = function(opt_options) { };
  * @param {olx.format.ReadOptions=} opt_options
  * @return {ol.Feature}
  */
-ol.format.GeoJSON.prototype.readFeature = function(source, opt_options) { };
+ol.format.GeoJSON.prototype.readFeature = function(source, opt_options) {};
 
 
 /**
@@ -1827,7 +1834,7 @@ ol.format.GeoJSON.prototype.readFeature = function(source, opt_options) { };
  * @param {olx.format.ReadOptions=} opt_options
  * @return {Array.<ol.Feature>}
  */
-ol.format.GeoJSON.prototype.readFeatures = function(source, opt_options) { };
+ol.format.GeoJSON.prototype.readFeatures = function(source, opt_options) {};
 
 
 /**
@@ -1835,14 +1842,14 @@ ol.format.GeoJSON.prototype.readFeatures = function(source, opt_options) { };
  * @param {olx.format.ReadOptions=} opt_options
  * @return {ol.geom.Geometry}
  */
-ol.format.GeoJSON.prototype.readGeometry = function(source, opt_options) { };
+ol.format.GeoJSON.prototype.readGeometry = function(source, opt_options) {};
 
 
 /**
  * @param {Document|Node|Object|string} source
  * @return {ol.proj.Projection}
  */
-ol.format.GeoJSON.prototype.readProjection = function(source) { };
+ol.format.GeoJSON.prototype.readProjection = function(source) {};
 
 
 /**
@@ -1850,7 +1857,7 @@ ol.format.GeoJSON.prototype.readProjection = function(source) { };
  * @param {olx.format.WriteOptions=} opt_options
  * @return {string}
  */
-ol.format.GeoJSON.prototype.writeFeature = function(feature, opt_options) { };
+ol.format.GeoJSON.prototype.writeFeature = function(feature, opt_options) {};
 
 
 /**
@@ -1858,7 +1865,7 @@ ol.format.GeoJSON.prototype.writeFeature = function(feature, opt_options) { };
  * @param {olx.format.WriteOptions=} opt_options
  * @return {GeoJSONFeature}
  */
-ol.format.GeoJSON.prototype.writeFeatureObject = function(feature, opt_options) { };
+ol.format.GeoJSON.prototype.writeFeatureObject = function(feature, opt_options) {};
 
 
 /**
@@ -1866,7 +1873,7 @@ ol.format.GeoJSON.prototype.writeFeatureObject = function(feature, opt_options) 
  * @param {olx.format.WriteOptions=} opt_options
  * @return {string}
  */
-ol.format.GeoJSON.prototype.writeFeatures = function(features, opt_options) { };
+ol.format.GeoJSON.prototype.writeFeatures = function(features, opt_options) {};
 
 
 /**
@@ -1874,7 +1881,7 @@ ol.format.GeoJSON.prototype.writeFeatures = function(features, opt_options) { };
  * @param {olx.format.WriteOptions=} opt_options
  * @return {GeoJSONFeatureCollection}
  */
-ol.format.GeoJSON.prototype.writeFeaturesObject = function(features, opt_options) { };
+ol.format.GeoJSON.prototype.writeFeaturesObject = function(features, opt_options) {};
 
 
 /**
@@ -1882,7 +1889,7 @@ ol.format.GeoJSON.prototype.writeFeaturesObject = function(features, opt_options
  * @param {olx.format.WriteOptions=} opt_options
  * @return {string}
  */
-ol.format.GeoJSON.prototype.writeGeometry = function(geometry, opt_options) { };
+ol.format.GeoJSON.prototype.writeGeometry = function(geometry, opt_options) {};
 
 
 /**
@@ -1890,7 +1897,7 @@ ol.format.GeoJSON.prototype.writeGeometry = function(geometry, opt_options) { };
  * @param {olx.format.WriteOptions=} opt_options
  * @return {GeoJSONGeometry|GeoJSONGeometryCollection}
  */
-ol.format.GeoJSON.prototype.writeGeometryObject = function(geometry, opt_options) { };
+ol.format.GeoJSON.prototype.writeGeometryObject = function(geometry, opt_options) {};
 
 
 /**
@@ -1898,7 +1905,7 @@ ol.format.GeoJSON.prototype.writeGeometryObject = function(geometry, opt_options
  * @extends {ol.format.Feature}
  * @param {olx.format.GMLOptions=} opt_options
  */
-ol.format.GML = function(opt_options) { };
+ol.format.GML = function(opt_options) {};
 
 
 /**
@@ -1906,7 +1913,7 @@ ol.format.GML = function(opt_options) { };
  * @param {olx.format.WriteOptions=} opt_options
  * @return {string}
  */
-ol.format.GML.prototype.writeFeatures = function(features, opt_options) { };
+ol.format.GML.prototype.writeFeatures = function(features, opt_options) {};
 
 
 /**
@@ -1914,7 +1921,7 @@ ol.format.GML.prototype.writeFeatures = function(features, opt_options) { };
  * @param {olx.format.WriteOptions=} opt_options
  * @return {Node}
  */
-ol.format.GML.prototype.writeFeaturesNode = function(features, opt_options) { };
+ol.format.GML.prototype.writeFeaturesNode = function(features, opt_options) {};
 
 
 /**
@@ -1922,7 +1929,7 @@ ol.format.GML.prototype.writeFeaturesNode = function(features, opt_options) { };
  * @extends {ol.format.Feature}
  * @param {olx.format.GMLOptions=} opt_options
  */
-ol.format.GML2 = function(opt_options) { };
+ol.format.GML2 = function(opt_options) {};
 
 
 /**
@@ -1930,7 +1937,7 @@ ol.format.GML2 = function(opt_options) { };
  * @extends {ol.format.Feature}
  * @param {olx.format.GMLOptions=} opt_options
  */
-ol.format.GML3 = function(opt_options) { };
+ol.format.GML3 = function(opt_options) {};
 
 
 /**
@@ -1938,7 +1945,7 @@ ol.format.GML3 = function(opt_options) { };
  * @param {olx.format.WriteOptions=} opt_options
  * @return {Node}
  */
-ol.format.GML3.prototype.writeGeometryNode = function(geometry, opt_options) { };
+ol.format.GML3.prototype.writeGeometryNode = function(geometry, opt_options) {};
 
 
 /**
@@ -1946,7 +1953,7 @@ ol.format.GML3.prototype.writeGeometryNode = function(geometry, opt_options) { }
  * @param {olx.format.WriteOptions=} opt_options
  * @return {string}
  */
-ol.format.GML3.prototype.writeFeatures = function(features, opt_options) { };
+ol.format.GML3.prototype.writeFeatures = function(features, opt_options) {};
 
 
 /**
@@ -1954,7 +1961,7 @@ ol.format.GML3.prototype.writeFeatures = function(features, opt_options) { };
  * @param {olx.format.WriteOptions=} opt_options
  * @return {Node}
  */
-ol.format.GML3.prototype.writeFeaturesNode = function(features, opt_options) { };
+ol.format.GML3.prototype.writeFeaturesNode = function(features, opt_options) {};
 
 
 /**
@@ -1962,7 +1969,7 @@ ol.format.GML3.prototype.writeFeaturesNode = function(features, opt_options) { }
  * @param {olx.format.ReadOptions=} opt_options
  * @return {Array.<ol.Feature>}
  */
-ol.format.GMLBase.prototype.readFeatures = function(source, opt_options) { };
+ol.format.GMLBase.prototype.readFeatures = function(source, opt_options) {};
 
 
 /**
@@ -1970,7 +1977,7 @@ ol.format.GMLBase.prototype.readFeatures = function(source, opt_options) { };
  * @extends {ol.format.Feature}
  * @param {olx.format.GPXOptions=} opt_options
  */
-ol.format.GPX = function(opt_options) { };
+ol.format.GPX = function(opt_options) {};
 
 
 /**
@@ -1978,7 +1985,7 @@ ol.format.GPX = function(opt_options) { };
  * @param {olx.format.ReadOptions=} opt_options
  * @return {ol.Feature}
  */
-ol.format.GPX.prototype.readFeature = function(source, opt_options) { };
+ol.format.GPX.prototype.readFeature = function(source, opt_options) {};
 
 
 /**
@@ -1986,14 +1993,14 @@ ol.format.GPX.prototype.readFeature = function(source, opt_options) { };
  * @param {olx.format.ReadOptions=} opt_options
  * @return {Array.<ol.Feature>}
  */
-ol.format.GPX.prototype.readFeatures = function(source, opt_options) { };
+ol.format.GPX.prototype.readFeatures = function(source, opt_options) {};
 
 
 /**
  * @param {Document|Node|Object|string} source
  * @return {ol.proj.Projection}
  */
-ol.format.GPX.prototype.readProjection = function(source) { };
+ol.format.GPX.prototype.readProjection = function(source) {};
 
 
 /**
@@ -2001,7 +2008,7 @@ ol.format.GPX.prototype.readProjection = function(source) { };
  * @param {olx.format.WriteOptions=} opt_options
  * @return {string}
  */
-ol.format.GPX.prototype.writeFeatures = function(features, opt_options) { };
+ol.format.GPX.prototype.writeFeatures = function(features, opt_options) {};
 
 
 /**
@@ -2009,7 +2016,7 @@ ol.format.GPX.prototype.writeFeatures = function(features, opt_options) { };
  * @param {olx.format.WriteOptions=} opt_options
  * @return {Node}
  */
-ol.format.GPX.prototype.writeFeaturesNode = function(features, opt_options) { };
+ol.format.GPX.prototype.writeFeaturesNode = function(features, opt_options) {};
 
 
 /**
@@ -2017,7 +2024,7 @@ ol.format.GPX.prototype.writeFeaturesNode = function(features, opt_options) { };
  * @extends {ol.format.Feature}
  * @param {olx.format.IGCOptions=} opt_options
  */
-ol.format.IGC = function(opt_options) { };
+ol.format.IGC = function(opt_options) {};
 
 
 /**
@@ -2025,7 +2032,7 @@ ol.format.IGC = function(opt_options) { };
  * @param {olx.format.ReadOptions=} opt_options
  * @return {ol.Feature}
  */
-ol.format.IGC.prototype.readFeature = function(source, opt_options) { };
+ol.format.IGC.prototype.readFeature = function(source, opt_options) {};
 
 
 /**
@@ -2033,14 +2040,14 @@ ol.format.IGC.prototype.readFeature = function(source, opt_options) { };
  * @param {olx.format.ReadOptions=} opt_options
  * @return {Array.<ol.Feature>}
  */
-ol.format.IGC.prototype.readFeatures = function(source, opt_options) { };
+ol.format.IGC.prototype.readFeatures = function(source, opt_options) {};
 
 
 /**
  * @param {Document|Node|Object|string} source
  * @return {ol.proj.Projection}
  */
-ol.format.IGC.prototype.readProjection = function(source) { };
+ol.format.IGC.prototype.readProjection = function(source) {};
 
 
 /**
@@ -2048,7 +2055,7 @@ ol.format.IGC.prototype.readProjection = function(source) { };
  * @extends {ol.format.Feature}
  * @param {olx.format.KMLOptions=} opt_options
  */
-ol.format.KML = function(opt_options) { };
+ol.format.KML = function(opt_options) {};
 
 
 /**
@@ -2056,7 +2063,7 @@ ol.format.KML = function(opt_options) { };
  * @param {olx.format.ReadOptions=} opt_options
  * @return {ol.Feature}
  */
-ol.format.KML.prototype.readFeature = function(source, opt_options) { };
+ol.format.KML.prototype.readFeature = function(source, opt_options) {};
 
 
 /**
@@ -2064,42 +2071,42 @@ ol.format.KML.prototype.readFeature = function(source, opt_options) { };
  * @param {olx.format.ReadOptions=} opt_options
  * @return {Array.<ol.Feature>}
  */
-ol.format.KML.prototype.readFeatures = function(source, opt_options) { };
+ol.format.KML.prototype.readFeatures = function(source, opt_options) {};
 
 
 /**
  * @param {Document|Node|string} source
  * @return {string|undefined}
  */
-ol.format.KML.prototype.readName = function(source) { };
+ol.format.KML.prototype.readName = function(source) {};
 
 
 /**
  * @param {Document|Node|string} source
  * @return {Array.<Object>}
  */
-ol.format.KML.prototype.readNetworkLinks = function(source) { };
+ol.format.KML.prototype.readNetworkLinks = function(source) {};
 
 
 /**
  * @param {Document|Node|string} source
  * @return {Array.<Object>}
  */
-ol.format.KML.prototype.readRegion = function(source) { };
+ol.format.KML.prototype.readRegion = function(source) {};
 
 
 /**
  * @param {Node} node
  * @return {Array.<Object>}
  */
-ol.format.KML.prototype.readRegionFromNode = function(node) { };
+ol.format.KML.prototype.readRegionFromNode = function(node) {};
 
 
 /**
  * @param {Document|Node|Object|string} source
  * @return {ol.proj.Projection}
  */
-ol.format.KML.prototype.readProjection = function(source) { };
+ol.format.KML.prototype.readProjection = function(source) {};
 
 
 /**
@@ -2107,7 +2114,7 @@ ol.format.KML.prototype.readProjection = function(source) { };
  * @param {olx.format.WriteOptions=} opt_options
  * @return {string}
  */
-ol.format.KML.prototype.writeFeatures = function(features, opt_options) { };
+ol.format.KML.prototype.writeFeatures = function(features, opt_options) {};
 
 
 /**
@@ -2115,7 +2122,7 @@ ol.format.KML.prototype.writeFeatures = function(features, opt_options) { };
  * @param {olx.format.WriteOptions=} opt_options
  * @return {Node}
  */
-ol.format.KML.prototype.writeFeaturesNode = function(features, opt_options) { };
+ol.format.KML.prototype.writeFeaturesNode = function(features, opt_options) {};
 
 
 /**
@@ -2123,35 +2130,35 @@ ol.format.KML.prototype.writeFeaturesNode = function(features, opt_options) { };
  * @extends {ol.format.Feature}
  * @param {olx.format.MVTOptions=} opt_options
  */
-ol.format.MVT = function(opt_options) { };
+ol.format.MVT = function(opt_options) {};
 
 
 /**
  */
-ol.format.MVT.prototype.getLastExtent = function() { };
+ol.format.MVT.prototype.getLastExtent = function() {};
 
 
 /**
  */
-ol.format.MVT.prototype.readFeatures = function() { };
+ol.format.MVT.prototype.readFeatures = function() {};
 
 
 /**
  */
-ol.format.MVT.prototype.readProjection = function() { };
+ol.format.MVT.prototype.readProjection = function() {};
 
 
 /**
  * @param {Array.<string>} layers
  */
-ol.format.MVT.prototype.setLayers = function(layers) { };
+ol.format.MVT.prototype.setLayers = function(layers) {};
 
 
 /**
  * @constructor
  * @extends {ol.format.Feature}
  */
-ol.format.OSMXML = function() { };
+ol.format.OSMXML = function() {};
 
 
 /**
@@ -2159,14 +2166,14 @@ ol.format.OSMXML = function() { };
  * @param {olx.format.ReadOptions=} opt_options
  * @return {Array.<ol.Feature>}
  */
-ol.format.OSMXML.prototype.readFeatures = function(source, opt_options) { };
+ol.format.OSMXML.prototype.readFeatures = function(source, opt_options) {};
 
 
 /**
  * @param {Document|Node|Object|string} source
  * @return {ol.proj.Projection}
  */
-ol.format.OSMXML.prototype.readProjection = function(source) { };
+ol.format.OSMXML.prototype.readProjection = function(source) {};
 
 
 /**
@@ -2174,7 +2181,7 @@ ol.format.OSMXML.prototype.readProjection = function(source) { };
  * @extends {ol.format.Feature}
  * @param {olx.format.PolylineOptions=} opt_options
  */
-ol.format.Polyline = function(opt_options) { };
+ol.format.Polyline = function(opt_options) {};
 
 
 /**
@@ -2183,7 +2190,7 @@ ol.format.Polyline = function(opt_options) { };
  * @param {number=} opt_factor
  * @return {string}
  */
-ol.format.Polyline.encodeDeltas = function(numbers, stride, opt_factor) { };
+ol.format.Polyline.encodeDeltas = function(numbers, stride, opt_factor) {};
 
 
 /**
@@ -2192,7 +2199,7 @@ ol.format.Polyline.encodeDeltas = function(numbers, stride, opt_factor) { };
  * @param {number=} opt_factor
  * @return {Array.<number>}
  */
-ol.format.Polyline.decodeDeltas = function(encoded, stride, opt_factor) { };
+ol.format.Polyline.decodeDeltas = function(encoded, stride, opt_factor) {};
 
 
 /**
@@ -2200,7 +2207,7 @@ ol.format.Polyline.decodeDeltas = function(encoded, stride, opt_factor) { };
  * @param {number=} opt_factor
  * @return {string}
  */
-ol.format.Polyline.encodeFloats = function(numbers, opt_factor) { };
+ol.format.Polyline.encodeFloats = function(numbers, opt_factor) {};
 
 
 /**
@@ -2208,7 +2215,7 @@ ol.format.Polyline.encodeFloats = function(numbers, opt_factor) { };
  * @param {number=} opt_factor
  * @return {Array.<number>}
  */
-ol.format.Polyline.decodeFloats = function(encoded, opt_factor) { };
+ol.format.Polyline.decodeFloats = function(encoded, opt_factor) {};
 
 
 /**
@@ -2216,7 +2223,7 @@ ol.format.Polyline.decodeFloats = function(encoded, opt_factor) { };
  * @param {olx.format.ReadOptions=} opt_options
  * @return {ol.Feature}
  */
-ol.format.Polyline.prototype.readFeature = function(source, opt_options) { };
+ol.format.Polyline.prototype.readFeature = function(source, opt_options) {};
 
 
 /**
@@ -2224,7 +2231,7 @@ ol.format.Polyline.prototype.readFeature = function(source, opt_options) { };
  * @param {olx.format.ReadOptions=} opt_options
  * @return {Array.<ol.Feature>}
  */
-ol.format.Polyline.prototype.readFeatures = function(source, opt_options) { };
+ol.format.Polyline.prototype.readFeatures = function(source, opt_options) {};
 
 
 /**
@@ -2232,14 +2239,14 @@ ol.format.Polyline.prototype.readFeatures = function(source, opt_options) { };
  * @param {olx.format.ReadOptions=} opt_options
  * @return {ol.geom.Geometry}
  */
-ol.format.Polyline.prototype.readGeometry = function(source, opt_options) { };
+ol.format.Polyline.prototype.readGeometry = function(source, opt_options) {};
 
 
 /**
  * @param {Document|Node|Object|string} source
  * @return {ol.proj.Projection}
  */
-ol.format.Polyline.prototype.readProjection = function(source) { };
+ol.format.Polyline.prototype.readProjection = function(source) {};
 
 
 /**
@@ -2247,7 +2254,7 @@ ol.format.Polyline.prototype.readProjection = function(source) { };
  * @param {olx.format.WriteOptions=} opt_options
  * @return {string}
  */
-ol.format.Polyline.prototype.writeGeometry = function(geometry, opt_options) { };
+ol.format.Polyline.prototype.writeGeometry = function(geometry, opt_options) {};
 
 
 /**
@@ -2255,14 +2262,14 @@ ol.format.Polyline.prototype.writeGeometry = function(geometry, opt_options) { }
  * @extends {ol.format.Feature}
  * @param {olx.format.TopoJSONOptions=} opt_options
  */
-ol.format.TopoJSON = function(opt_options) { };
+ol.format.TopoJSON = function(opt_options) {};
 
 
 /**
  * @param {Document|Node|Object|string} source
  * @return {Array.<ol.Feature>}
  */
-ol.format.TopoJSON.prototype.readFeatures = function(source) { };
+ol.format.TopoJSON.prototype.readFeatures = function(source) {};
 
 
 /**
@@ -2277,7 +2284,7 @@ ol.format.TopoJSON.prototype.readProjection;
  * @extends {ol.format.Feature}
  * @param {olx.format.WFSOptions=} opt_options
  */
-ol.format.WFS = function(opt_options) { };
+ol.format.WFS = function(opt_options) {};
 
 
 /**
@@ -2285,35 +2292,35 @@ ol.format.WFS = function(opt_options) { };
  * @param {olx.format.ReadOptions=} opt_options
  * @return {Array.<ol.Feature>}
  */
-ol.format.WFS.prototype.readFeatures = function(source, opt_options) { };
+ol.format.WFS.prototype.readFeatures = function(source, opt_options) {};
 
 
 /**
  * @param {Document|Node|Object|string} source
  * @return {ol.WFSTransactionResponse|undefined}
  */
-ol.format.WFS.prototype.readTransactionResponse = function(source) { };
+ol.format.WFS.prototype.readTransactionResponse = function(source) {};
 
 
 /**
  * @param {Document|Node|Object|string} source
  * @return {ol.WFSFeatureCollectionMetadata|undefined}
  */
-ol.format.WFS.prototype.readFeatureCollectionMetadata = function(source) { };
+ol.format.WFS.prototype.readFeatureCollectionMetadata = function(source) {};
 
 
 /**
  * @param {ol.format.filter.Filter} filter
  * @return {Node}
  */
-ol.format.WFS.writeFilter = function(filter) { };
+ol.format.WFS.writeFilter = function(filter) {};
 
 
 /**
  * @param {olx.format.WFSWriteGetFeatureOptions} options
  * @return {Node}
  */
-ol.format.WFS.prototype.writeGetFeature = function(options) { };
+ol.format.WFS.prototype.writeGetFeature = function(options) {};
 
 
 /**
@@ -2323,14 +2330,14 @@ ol.format.WFS.prototype.writeGetFeature = function(options) { };
  * @param {olx.format.WFSWriteTransactionOptions} options
  * @return {Node}
  */
-ol.format.WFS.prototype.writeTransaction = function(inserts, updates, deletes, options) { };
+ol.format.WFS.prototype.writeTransaction = function(inserts, updates, deletes, options) {};
 
 
 /**
  * @param {Document|Node|Object|string} source
  * @return {!ol.proj.Projection}
  */
-ol.format.WFS.prototype.readProjection = function(source) { };
+ol.format.WFS.prototype.readProjection = function(source) {};
 
 
 /**
@@ -2338,7 +2345,7 @@ ol.format.WFS.prototype.readProjection = function(source) { };
  * @extends {ol.format.Feature}
  * @param {olx.format.WKTOptions=} opt_options
  */
-ol.format.WKT = function(opt_options) { };
+ol.format.WKT = function(opt_options) {};
 
 
 /**
@@ -2346,7 +2353,7 @@ ol.format.WKT = function(opt_options) { };
  * @param {olx.format.ReadOptions=} opt_options
  * @return {ol.Feature}
  */
-ol.format.WKT.prototype.readFeature = function(source, opt_options) { };
+ol.format.WKT.prototype.readFeature = function(source, opt_options) {};
 
 
 /**
@@ -2354,7 +2361,7 @@ ol.format.WKT.prototype.readFeature = function(source, opt_options) { };
  * @param {olx.format.ReadOptions=} opt_options
  * @return {Array.<ol.Feature>}
  */
-ol.format.WKT.prototype.readFeatures = function(source, opt_options) { };
+ol.format.WKT.prototype.readFeatures = function(source, opt_options) {};
 
 
 /**
@@ -2362,7 +2369,7 @@ ol.format.WKT.prototype.readFeatures = function(source, opt_options) { };
  * @param {olx.format.ReadOptions=} opt_options
  * @return {ol.geom.Geometry}
  */
-ol.format.WKT.prototype.readGeometry = function(source, opt_options) { };
+ol.format.WKT.prototype.readGeometry = function(source, opt_options) {};
 
 
 /**
@@ -2370,7 +2377,7 @@ ol.format.WKT.prototype.readGeometry = function(source, opt_options) { };
  * @param {olx.format.WriteOptions=} opt_options
  * @return {string}
  */
-ol.format.WKT.prototype.writeFeature = function(feature, opt_options) { };
+ol.format.WKT.prototype.writeFeature = function(feature, opt_options) {};
 
 
 /**
@@ -2378,7 +2385,7 @@ ol.format.WKT.prototype.writeFeature = function(feature, opt_options) { };
  * @param {olx.format.WriteOptions=} opt_options
  * @return {string}
  */
-ol.format.WKT.prototype.writeFeatures = function(features, opt_options) { };
+ol.format.WKT.prototype.writeFeatures = function(features, opt_options) {};
 
 
 /**
@@ -2386,21 +2393,21 @@ ol.format.WKT.prototype.writeFeatures = function(features, opt_options) { };
  * @param {olx.format.WriteOptions=} opt_options
  * @return {string}
  */
-ol.format.WKT.prototype.writeGeometry = function(geometry, opt_options) { };
+ol.format.WKT.prototype.writeGeometry = function(geometry, opt_options) {};
 
 
 /**
  * @constructor
  * @extends {ol.format.XML}
  */
-ol.format.WMSCapabilities = function() { };
+ol.format.WMSCapabilities = function() {};
 
 
 /**
  * @param {Document|Node|string} source
  * @return {Object}
  */
-ol.format.WMSCapabilities.prototype.read = function(source) { };
+ol.format.WMSCapabilities.prototype.read = function(source) {};
 
 
 /**
@@ -2408,7 +2415,7 @@ ol.format.WMSCapabilities.prototype.read = function(source) { };
  * @extends {ol.format.Feature}
  * @param {olx.format.WMSGetFeatureInfoOptions=} opt_options
  */
-ol.format.WMSGetFeatureInfo = function(opt_options) { };
+ol.format.WMSGetFeatureInfo = function(opt_options) {};
 
 
 /**
@@ -2416,21 +2423,21 @@ ol.format.WMSGetFeatureInfo = function(opt_options) { };
  * @param {olx.format.ReadOptions=} opt_options
  * @return {Array.<ol.Feature>}
  */
-ol.format.WMSGetFeatureInfo.prototype.readFeatures = function(source, opt_options) { };
+ol.format.WMSGetFeatureInfo.prototype.readFeatures = function(source, opt_options) {};
 
 
 /**
  * @constructor
  * @extends {ol.format.XML}
  */
-ol.format.WMTSCapabilities = function() { };
+ol.format.WMTSCapabilities = function() {};
 
 
 /**
  * @param {Document|Node|string} source
  * @return {Object}
  */
-ol.format.WMTSCapabilities.prototype.read = function(source) { };
+ol.format.WMTSCapabilities.prototype.read = function(source) {};
 
 
 /**
@@ -2438,85 +2445,85 @@ ol.format.WMTSCapabilities.prototype.read = function(source) { };
  * @extends {ol.Object}
  * @param {olx.GeolocationOptions=} opt_options
  */
-ol.Geolocation = function(opt_options) { };
+ol.Geolocation = function(opt_options) {};
 
 
 /**
  * @return {number|undefined}
  */
-ol.Geolocation.prototype.getAccuracy = function() { };
+ol.Geolocation.prototype.getAccuracy = function() {};
 
 
 /**
  * @return {!ol.geom.Polygon}
  */
-ol.Geolocation.prototype.getAccuracyGeometry = function() { };
+ol.Geolocation.prototype.getAccuracyGeometry = function() {};
 
 
 /**
  * @return {number|undefined}
  */
-ol.Geolocation.prototype.getAltitude = function() { };
+ol.Geolocation.prototype.getAltitude = function() {};
 
 
 /**
  * @return {number|undefined}
  */
-ol.Geolocation.prototype.getAltitudeAccuracy = function() { };
+ol.Geolocation.prototype.getAltitudeAccuracy = function() {};
 
 
 /**
  * @return {number|undefined}
  */
-ol.Geolocation.prototype.getHeading = function() { };
+ol.Geolocation.prototype.getHeading = function() {};
 
 
 /**
  * @return {ol.Coordinate|undefined}
  */
-ol.Geolocation.prototype.getPosition = function() { };
+ol.Geolocation.prototype.getPosition = function() {};
 
 
 /**
  * @return {ol.proj.Projection|undefined}
  */
-ol.Geolocation.prototype.getProjection = function() { };
+ol.Geolocation.prototype.getProjection = function() {};
 
 
 /**
  * @return {number|undefined}
  */
-ol.Geolocation.prototype.getSpeed = function() { };
+ol.Geolocation.prototype.getSpeed = function() {};
 
 
 /**
  * @return {boolean}
  */
-ol.Geolocation.prototype.getTracking = function() { };
+ol.Geolocation.prototype.getTracking = function() {};
 
 
 /**
  * @return {GeolocationPositionOptions|undefined}
  */
-ol.Geolocation.prototype.getTrackingOptions = function() { };
+ol.Geolocation.prototype.getTrackingOptions = function() {};
 
 
 /**
  * @param {ol.ProjectionLike} projection
  */
-ol.Geolocation.prototype.setProjection = function(projection) { };
+ol.Geolocation.prototype.setProjection = function(projection) {};
 
 
 /**
  * @param {boolean} tracking
  */
-ol.Geolocation.prototype.setTracking = function(tracking) { };
+ol.Geolocation.prototype.setTracking = function(tracking) {};
 
 
 /**
  * @param {GeolocationPositionOptions} options
  */
-ol.Geolocation.prototype.setTrackingOptions = function(options) { };
+ol.Geolocation.prototype.setTrackingOptions = function(options) {};
 
 
 /**
@@ -2532,43 +2539,43 @@ ol.geom;
  * @param {number=} opt_radius
  * @param {ol.geom.GeometryLayout=} opt_layout
  */
-ol.geom.Circle = function(center, opt_radius, opt_layout) { };
+ol.geom.Circle = function(center, opt_radius, opt_layout) {};
 
 
 /**
  * @return {ol.geom.Circle}
  */
-ol.geom.Circle.prototype.clone = function() { };
+ol.geom.Circle.prototype.clone = function() {};
 
 
 /**
  * @return {ol.Coordinate}
  */
-ol.geom.Circle.prototype.getCenter = function() { };
+ol.geom.Circle.prototype.getCenter = function() {};
 
 
 /**
  * @return {number}
  */
-ol.geom.Circle.prototype.getRadius = function() { };
+ol.geom.Circle.prototype.getRadius = function() {};
 
 
 /**
  */
-ol.geom.Circle.prototype.getType = function() { };
+ol.geom.Circle.prototype.getType = function() {};
 
 
 /**
  * @param {ol.Extent} extent Extent.
  * @return {boolean} `true` if the geometry and the extent intersect.
  * */
-ol.geom.Circle.prototype.intersectsExtent = function(extent) { };
+ol.geom.Circle.prototype.intersectsExtent = function() {extent};
 
 
 /**
  * @param {ol.Coordinate} center
  */
-ol.geom.Circle.prototype.setCenter = function(center) { };
+ol.geom.Circle.prototype.setCenter = function(center) {};
 
 
 /**
@@ -2576,13 +2583,13 @@ ol.geom.Circle.prototype.setCenter = function(center) { };
  * @param {number} radius
  * @param {ol.geom.GeometryLayout=} opt_layout
  */
-ol.geom.Circle.prototype.setCenterAndRadius = function(center, radius, opt_layout) { };
+ol.geom.Circle.prototype.setCenterAndRadius = function(center, radius, opt_layout) {};
 
 
 /**
  * @param {number} radius
  */
-ol.geom.Circle.prototype.setRadius = function(radius) { };
+ol.geom.Circle.prototype.setRadius = function(radius) {};
 
 
 /**
@@ -2590,14 +2597,14 @@ ol.geom.Circle.prototype.setRadius = function(radius) { };
  * @param {ol.ProjectionLike} destination
  * @return {ol.geom.Circle}
  */
-ol.geom.Circle.prototype.transform = function(source, destination) { };
+ol.geom.Circle.prototype.transform = function(source, destination) {};
 
 
 /**
  * @constructor
  * @extends {ol.Object}
  */
-ol.geom.Geometry = function() { };
+ol.geom.Geometry = function() {};
 
 
 /**
@@ -2605,14 +2612,14 @@ ol.geom.Geometry = function() { };
  * @param {ol.Coordinate=} opt_closestPoint
  * @return {ol.Coordinate}
  */
-ol.geom.Geometry.prototype.getClosestPoint = function(point, opt_closestPoint) { };
+ol.geom.Geometry.prototype.getClosestPoint = function(point, opt_closestPoint) {};
 
 
 /**
  * @param {ol.Coordinate} coordinate
  * @return {boolean}
  */
-ol.geom.Geometry.prototype.intersectsCoordinate = function(coordinate) { };
+ol.geom.Geometry.prototype.intersectsCoordinate = function(coordinate) {};
 
 
 /**
@@ -2627,14 +2634,14 @@ ol.geom.Geometry.prototype.containsXY;
  * @param {ol.Extent=} opt_extent
  * @return {ol.Extent}
  */
-ol.geom.Geometry.prototype.getExtent = function(opt_extent) { };
+ol.geom.Geometry.prototype.getExtent = function(opt_extent) {};
 
 
 /**
  * @param {number} angle
  * @param {ol.Coordinate} anchor
  */
-ol.geom.Geometry.prototype.rotate = function(angle, anchor) { };
+ol.geom.Geometry.prototype.rotate = function(angle, anchor) {};
 
 
 /**
@@ -2642,14 +2649,14 @@ ol.geom.Geometry.prototype.rotate = function(angle, anchor) { };
  * @param {number=} opt_sy
  * @param {ol.Coordinate=} opt_anchor
  */
-ol.geom.Geometry.prototype.scale = function(sx, opt_sy, opt_anchor) { };
+ol.geom.Geometry.prototype.scale = function(sx, opt_sy, opt_anchor) {};
 
 
 /**
  * @param {number} tolerance
  * @return {ol.geom.Geometry}
  */
-ol.geom.Geometry.prototype.simplify = function(tolerance) { };
+ol.geom.Geometry.prototype.simplify = function(tolerance) {};
 
 
 /**
@@ -2657,7 +2664,7 @@ ol.geom.Geometry.prototype.simplify = function(tolerance) { };
  * @param {ol.ProjectionLike} destination
  * @return {ol.geom.Geometry}
  */
-ol.geom.Geometry.prototype.transform = function(source, destination) { };
+ol.geom.Geometry.prototype.transform = function(source, destination) {};
 
 
 /**
@@ -2665,49 +2672,49 @@ ol.geom.Geometry.prototype.transform = function(source, destination) { };
  * @extends {ol.geom.Geometry}
  * @param {Array.<ol.geom.Geometry>=} opt_geometries
  */
-ol.geom.GeometryCollection = function(opt_geometries) { };
+ol.geom.GeometryCollection = function(opt_geometries) {};
 
 
 /**
  * @return {ol.geom.GeometryCollection}
  */
-ol.geom.GeometryCollection.prototype.clone = function() { };
+ol.geom.GeometryCollection.prototype.clone = function() {};
 
 
 /**
  * @return {Array.<ol.geom.Geometry>}
  */
-ol.geom.GeometryCollection.prototype.getGeometries = function() { };
+ol.geom.GeometryCollection.prototype.getGeometries = function() {};
 
 
 /**
  */
-ol.geom.GeometryCollection.prototype.getType = function() { };
+ol.geom.GeometryCollection.prototype.getType = function() {};
 
 
- /**
+/**
  * @param {ol.Extent} extent Extent.
  * @return {boolean} `true` if the geometry and the extent intersect.
  * */
-ol.geom.GeometryCollection.prototype.intersectsExtent = function(extent) { };
+ol.geom.GeometryCollection.prototype.intersectsExtent = function() {extent};
 
 
 /**
  * @param {Array.<ol.geom.Geometry>} geometries
  */
-ol.geom.GeometryCollection.prototype.setGeometries = function(geometries) { };
+ol.geom.GeometryCollection.prototype.setGeometries = function(geometries) {};
 
 
 /**
  */
-ol.geom.GeometryCollection.prototype.applyTransform = function() { };
+ol.geom.GeometryCollection.prototype.applyTransform = function() {};
 
 
 /**
  * @param {number} deltaX
  * @param {number} deltaY
  */
-ol.geom.GeometryCollection.prototype.translate = function(deltaX, deltaY) { };
+ol.geom.GeometryCollection.prototype.translate = function(deltaX, deltaY) {};
 
 
 /**
@@ -2716,37 +2723,37 @@ ol.geom.GeometryCollection.prototype.translate = function(deltaX, deltaY) { };
  * @param {Array.<ol.Coordinate>} coordinates
  * @param {ol.geom.GeometryLayout=} opt_layout
  */
-ol.geom.LinearRing = function(coordinates, opt_layout) { };
+ol.geom.LinearRing = function(coordinates, opt_layout) {};
 
 
 /**
  * @return {ol.geom.LinearRing}
  */
-ol.geom.LinearRing.prototype.clone = function() { };
+ol.geom.LinearRing.prototype.clone = function() {};
 
 
 /**
  * @return {number}
  */
-ol.geom.LinearRing.prototype.getArea = function() { };
+ol.geom.LinearRing.prototype.getArea = function() {};
 
 
 /**
  * @return {Array.<ol.Coordinate>}
  */
-ol.geom.LinearRing.prototype.getCoordinates = function() { };
+ol.geom.LinearRing.prototype.getCoordinates = function() {};
 
 
 /**
  */
-ol.geom.LinearRing.prototype.getType = function() { };
+ol.geom.LinearRing.prototype.getType = function() {};
 
 
 /**
  * @param {Array.<ol.Coordinate>} coordinates
  * @param {ol.geom.GeometryLayout=} opt_layout
  */
-ol.geom.LinearRing.prototype.setCoordinates = function(coordinates, opt_layout) { };
+ol.geom.LinearRing.prototype.setCoordinates = function(coordinates, opt_layout) {};
 
 
 /**
@@ -2755,19 +2762,19 @@ ol.geom.LinearRing.prototype.setCoordinates = function(coordinates, opt_layout) 
  * @param {Array.<ol.Coordinate>} coordinates
  * @param {ol.geom.GeometryLayout=} opt_layout
  */
-ol.geom.LineString = function(coordinates, opt_layout) { };
+ol.geom.LineString = function(coordinates, opt_layout) {};
 
 
 /**
  * @param {ol.Coordinate} coordinate
  */
-ol.geom.LineString.prototype.appendCoordinate = function(coordinate) { };
+ol.geom.LineString.prototype.appendCoordinate = function(coordinate) {};
 
 
 /**
  * @return {ol.geom.LineString}
  */
-ol.geom.LineString.prototype.clone = function() { };
+ol.geom.LineString.prototype.clone = function() {};
 
 
 /**
@@ -2776,7 +2783,7 @@ ol.geom.LineString.prototype.clone = function() { };
  * @return {T|boolean}
  * @template T,S
  */
-ol.geom.LineString.prototype.forEachSegment = function(callback, opt_this) { };
+ol.geom.LineString.prototype.forEachSegment = function(callback, opt_this) {};
 
 
 /**
@@ -2784,13 +2791,13 @@ ol.geom.LineString.prototype.forEachSegment = function(callback, opt_this) { };
  * @param {boolean=} opt_extrapolate
  * @return {ol.Coordinate}
  */
-ol.geom.LineString.prototype.getCoordinateAtM = function(m, opt_extrapolate) { };
+ol.geom.LineString.prototype.getCoordinateAtM = function(m, opt_extrapolate) {};
 
 
 /**
  * @return {Array.<ol.Coordinate>}
  */
-ol.geom.LineString.prototype.getCoordinates = function() { };
+ol.geom.LineString.prototype.getCoordinates = function() {};
 
 
 /**
@@ -2798,32 +2805,32 @@ ol.geom.LineString.prototype.getCoordinates = function() { };
  * @param {ol.Coordinate=} opt_dest
  * @return {ol.Coordinate}
  */
-ol.geom.LineString.prototype.getCoordinateAt = function(fraction, opt_dest) { };
+ol.geom.LineString.prototype.getCoordinateAt = function(fraction, opt_dest) {};
 
 
 /**
  * @return {number}
  */
-ol.geom.LineString.prototype.getLength = function() { };
+ol.geom.LineString.prototype.getLength = function() {};
 
 
 /**
  */
-ol.geom.LineString.prototype.getType = function() { };
+ol.geom.LineString.prototype.getType = function() {};
 
 
 /**
  * @param {ol.Extent} extent Extent.
  * @return {boolean} `true` if the geometry and the extent intersect.
  * */
-ol.geom.LineString.prototype.intersectsExtent = function(extent) { };
+ol.geom.LineString.prototype.intersectsExtent = function() {extent};
 
 
 /**
  * @param {Array.<ol.Coordinate>} coordinates
  * @param {ol.geom.GeometryLayout=} opt_layout
  */
-ol.geom.LineString.prototype.setCoordinates = function(coordinates, opt_layout) { };
+ol.geom.LineString.prototype.setCoordinates = function(coordinates, opt_layout) {};
 
 
 /**
@@ -2832,19 +2839,19 @@ ol.geom.LineString.prototype.setCoordinates = function(coordinates, opt_layout) 
  * @param {Array.<Array.<ol.Coordinate>>} coordinates
  * @param {ol.geom.GeometryLayout=} opt_layout
  */
-ol.geom.MultiLineString = function(coordinates, opt_layout) { };
+ol.geom.MultiLineString = function(coordinates, opt_layout) {};
 
 
 /**
  * @param {ol.geom.LineString} lineString
  */
-ol.geom.MultiLineString.prototype.appendLineString = function(lineString) { };
+ol.geom.MultiLineString.prototype.appendLineString = function(lineString) {};
 
 
 /**
  * @return {ol.geom.MultiLineString}
  */
-ol.geom.MultiLineString.prototype.clone = function() { };
+ol.geom.MultiLineString.prototype.clone = function() {};
 
 
 /**
@@ -2853,45 +2860,45 @@ ol.geom.MultiLineString.prototype.clone = function() { };
  * @param {boolean=} opt_interpolate
  * @return {ol.Coordinate}
  */
-ol.geom.MultiLineString.prototype.getCoordinateAtM = function(m, opt_extrapolate, opt_interpolate) { };
+ol.geom.MultiLineString.prototype.getCoordinateAtM = function(m, opt_extrapolate, opt_interpolate) {};
 
 
 /**
  * @return {Array.<Array.<ol.Coordinate>>}
  */
-ol.geom.MultiLineString.prototype.getCoordinates = function() { };
+ol.geom.MultiLineString.prototype.getCoordinates = function() {};
 
 
 /**
  * @param {number} index
  * @return {ol.geom.LineString}
  */
-ol.geom.MultiLineString.prototype.getLineString = function(index) { };
+ol.geom.MultiLineString.prototype.getLineString = function(index) {};
 
 
 /**
  * @return {Array.<ol.geom.LineString>}
  */
-ol.geom.MultiLineString.prototype.getLineStrings = function() { };
+ol.geom.MultiLineString.prototype.getLineStrings = function() {};
 
 
 /**
  */
-ol.geom.MultiLineString.prototype.getType = function() { };
+ol.geom.MultiLineString.prototype.getType = function() {};
 
 
 /**
  * @param {ol.Extent} extent Extent.
  * @return {boolean} `true` if the geometry and the extent intersect.
  * */
-ol.geom.MultiLineString.prototype.intersectsExtent = function(extent) { };
+ol.geom.MultiLineString.prototype.intersectsExtent = function() {extent};
 
 
 /**
  * @param {Array.<Array.<ol.Coordinate>>} coordinates
  * @param {ol.geom.GeometryLayout=} opt_layout
  */
-ol.geom.MultiLineString.prototype.setCoordinates = function(coordinates, opt_layout) { };
+ol.geom.MultiLineString.prototype.setCoordinates = function(coordinates, opt_layout) {};
 
 
 /**
@@ -2900,57 +2907,57 @@ ol.geom.MultiLineString.prototype.setCoordinates = function(coordinates, opt_lay
  * @param {Array.<ol.Coordinate>} coordinates
  * @param {ol.geom.GeometryLayout=} opt_layout
  */
-ol.geom.MultiPoint = function(coordinates, opt_layout) { };
+ol.geom.MultiPoint = function(coordinates, opt_layout) {};
 
 
 /**
  * @param {ol.geom.Point} point
  */
-ol.geom.MultiPoint.prototype.appendPoint = function(point) { };
+ol.geom.MultiPoint.prototype.appendPoint = function(point) {};
 
 
 /**
  * @return {ol.geom.MultiPoint}
  */
-ol.geom.MultiPoint.prototype.clone = function() { };
+ol.geom.MultiPoint.prototype.clone = function() {};
 
 
 /**
  * @return {Array.<ol.Coordinate>}
  */
-ol.geom.MultiPoint.prototype.getCoordinates = function() { };
+ol.geom.MultiPoint.prototype.getCoordinates = function() {};
 
 
 /**
  * @param {number} index
  * @return {ol.geom.Point}
  */
-ol.geom.MultiPoint.prototype.getPoint = function(index) { };
+ol.geom.MultiPoint.prototype.getPoint = function(index) {};
 
 
 /**
  * @return {Array.<ol.geom.Point>}
  */
-ol.geom.MultiPoint.prototype.getPoints = function() { };
+ol.geom.MultiPoint.prototype.getPoints = function() {};
 
 
 /**
  */
-ol.geom.MultiPoint.prototype.getType = function() { };
+ol.geom.MultiPoint.prototype.getType = function() {};
 
 
 /**
  * @param {ol.Extent} extent Extent.
  * @return {boolean} `true` if the geometry and the extent intersect.
  * */
-ol.geom.MultiPoint.prototype.intersectsExtent = function(extent) { };
+ol.geom.MultiPoint.prototype.intersectsExtent = function() {extent};
 
 
 /**
  * @param {Array.<ol.Coordinate>} coordinates
  * @param {ol.geom.GeometryLayout=} opt_layout
  */
-ol.geom.MultiPoint.prototype.setCoordinates = function(coordinates, opt_layout) { };
+ol.geom.MultiPoint.prototype.setCoordinates = function(coordinates, opt_layout) {};
 
 
 /**
@@ -2959,70 +2966,70 @@ ol.geom.MultiPoint.prototype.setCoordinates = function(coordinates, opt_layout) 
  * @param {Array.<Array.<Array.<ol.Coordinate>>>} coordinates
  * @param {ol.geom.GeometryLayout=} opt_layout
  */
-ol.geom.MultiPolygon = function(coordinates, opt_layout) { };
+ol.geom.MultiPolygon = function(coordinates, opt_layout) {};
 
 
 /**
  * @param {ol.geom.Polygon} polygon
  */
-ol.geom.MultiPolygon.prototype.appendPolygon = function(polygon) { };
+ol.geom.MultiPolygon.prototype.appendPolygon = function(polygon) {};
 
 
 /**
  * @return {ol.geom.MultiPolygon}
  */
-ol.geom.MultiPolygon.prototype.clone = function() { };
+ol.geom.MultiPolygon.prototype.clone = function() {};
 
 
 /**
  * @return {number}
  */
-ol.geom.MultiPolygon.prototype.getArea = function() { };
+ol.geom.MultiPolygon.prototype.getArea = function() {};
 
 
 /**
  * @param {boolean=} opt_right
  * @return {Array.<Array.<Array.<ol.Coordinate>>>}
  */
-ol.geom.MultiPolygon.prototype.getCoordinates = function(opt_right) { };
+ol.geom.MultiPolygon.prototype.getCoordinates = function(opt_right) {};
 
 
 /**
  * @return {ol.geom.MultiPoint}
  */
-ol.geom.MultiPolygon.prototype.getInteriorPoints = function() { };
+ol.geom.MultiPolygon.prototype.getInteriorPoints = function() {};
 
 
 /**
  * @param {number} index
  * @return {ol.geom.Polygon}
  */
-ol.geom.MultiPolygon.prototype.getPolygon = function(index) { };
+ol.geom.MultiPolygon.prototype.getPolygon = function(index) {};
 
 
 /**
  * @return {Array.<ol.geom.Polygon>}
  */
-ol.geom.MultiPolygon.prototype.getPolygons = function() { };
+ol.geom.MultiPolygon.prototype.getPolygons = function() {};
 
 
 /**
  */
-ol.geom.MultiPolygon.prototype.getType = function() { };
+ol.geom.MultiPolygon.prototype.getType = function() {};
 
 
 /**
  * @param {ol.Extent} extent Extent.
  * @return {boolean} `true` if the geometry and the extent intersect.
  * */
-ol.geom.MultiPolygon.prototype.intersectsExtent = function(extent) { };
+ol.geom.MultiPolygon.prototype.intersectsExtent = function() {extent};
 
 
 /**
  * @param {Array.<Array.<Array.<ol.Coordinate>>>} coordinates
  * @param {ol.geom.GeometryLayout=} opt_layout
  */
-ol.geom.MultiPolygon.prototype.setCoordinates = function(coordinates, opt_layout) { };
+ol.geom.MultiPolygon.prototype.setCoordinates = function(coordinates, opt_layout) {};
 
 
 /**
@@ -3031,36 +3038,36 @@ ol.geom.MultiPolygon.prototype.setCoordinates = function(coordinates, opt_layout
  * @param {ol.Coordinate} coordinates
  * @param {ol.geom.GeometryLayout=} opt_layout
  */
-ol.geom.Point = function(coordinates, opt_layout) { };
+ol.geom.Point = function(coordinates, opt_layout) {};
 
 
 /**
  * @return {ol.geom.Point}
  */
-ol.geom.Point.prototype.clone = function() { };
+ol.geom.Point.prototype.clone = function() {};
 
 
 /**
  * @return {ol.Coordinate}
  */
-ol.geom.Point.prototype.getCoordinates = function() { };
+ol.geom.Point.prototype.getCoordinates = function() {};
 
 
 /**
  */
-ol.geom.Point.prototype.getType = function() { };
+ol.geom.Point.prototype.getType = function() {};
 
 
 /**
  * @param {ol.Extent} extent Extent.
  * @return {boolean} `true` if the geometry and the extent intersect.
  * */
-ol.geom.Point.prototype.intersectsExtent = function(extent) { };
+ol.geom.Point.prototype.intersectsExtent = function() {extent};
 
 
 /**
  */
-ol.geom.Point.prototype.setCoordinates = function() { };
+ol.geom.Point.prototype.setCoordinates = function() {};
 
 
 /**
@@ -3069,76 +3076,76 @@ ol.geom.Point.prototype.setCoordinates = function() { };
  * @param {Array.<Array.<ol.Coordinate>>} coordinates
  * @param {ol.geom.GeometryLayout=} opt_layout
  */
-ol.geom.Polygon = function(coordinates, opt_layout) { };
+ol.geom.Polygon = function(coordinates, opt_layout) {};
 
 
 /**
  * @param {ol.geom.LinearRing} linearRing
  */
-ol.geom.Polygon.prototype.appendLinearRing = function(linearRing) { };
+ol.geom.Polygon.prototype.appendLinearRing = function(linearRing) {};
 
 
 /**
  * @return {ol.geom.Polygon}
  */
-ol.geom.Polygon.prototype.clone = function() { };
+ol.geom.Polygon.prototype.clone = function() {};
 
 
 /**
  * @return {number}
  */
-ol.geom.Polygon.prototype.getArea = function() { };
+ol.geom.Polygon.prototype.getArea = function() {};
 
 
 /**
  * @param {boolean=} opt_right
  * @return {Array.<Array.<ol.Coordinate>>}
  */
-ol.geom.Polygon.prototype.getCoordinates = function(opt_right) { };
+ol.geom.Polygon.prototype.getCoordinates = function(opt_right) {};
 
 
 /**
  * @return {ol.geom.Point}
  */
-ol.geom.Polygon.prototype.getInteriorPoint = function() { };
+ol.geom.Polygon.prototype.getInteriorPoint = function() {};
 
 
 /**
  * @return {number}
  */
-ol.geom.Polygon.prototype.getLinearRingCount = function() { };
+ol.geom.Polygon.prototype.getLinearRingCount = function() {};
 
 
 /**
  * @param {number} index
  * @return {ol.geom.LinearRing}
  */
-ol.geom.Polygon.prototype.getLinearRing = function(index) { };
+ol.geom.Polygon.prototype.getLinearRing = function(index) {};
 
 
 /**
  * @return {Array.<ol.geom.LinearRing>}
  */
-ol.geom.Polygon.prototype.getLinearRings = function() { };
+ol.geom.Polygon.prototype.getLinearRings = function() {};
 
 
 /**
  */
-ol.geom.Polygon.prototype.getType = function() { };
+ol.geom.Polygon.prototype.getType = function() {};
 
 
 /**
  * @param {ol.Extent} extent Extent.
  * @return {boolean} `true` if the geometry and the extent intersect.
  * */
-ol.geom.Polygon.prototype.intersectsExtent = function(extent) { };
+ol.geom.Polygon.prototype.intersectsExtent = function() {extent};
 
 
 /**
  * @param {Array.<Array.<ol.Coordinate>>} coordinates
  * @param {ol.geom.GeometryLayout=} opt_layout
  */
-ol.geom.Polygon.prototype.setCoordinates = function(coordinates, opt_layout) { };
+ol.geom.Polygon.prototype.setCoordinates = function(coordinates, opt_layout) {};
 
 
 /**
@@ -3148,14 +3155,14 @@ ol.geom.Polygon.prototype.setCoordinates = function(coordinates, opt_layout) { }
  * @param {number=} opt_n
  * @return {ol.geom.Polygon}
  */
-ol.geom.Polygon.circular = function(sphere, center, radius, opt_n) { };
+ol.geom.Polygon.circular = function(sphere, center, radius, opt_n) {};
 
 
 /**
  * @param {ol.Extent} extent
  * @return {ol.geom.Polygon}
  */
-ol.geom.Polygon.fromExtent = function(extent) { };
+ol.geom.Polygon.fromExtent = function(extent) {};
 
 
 /**
@@ -3164,73 +3171,73 @@ ol.geom.Polygon.fromExtent = function(extent) { };
  * @param {number=} opt_angle
  * @return {ol.geom.Polygon}
  */
-ol.geom.Polygon.fromCircle = function(circle, opt_sides, opt_angle) { };
+ol.geom.Polygon.fromCircle = function(circle, opt_sides, opt_angle) {};
 
 
 /**
  * @constructor
  * @extends {ol.geom.Geometry}
  */
-ol.geom.SimpleGeometry = function() { };
+ol.geom.SimpleGeometry = function() {};
 
 
 /**
  * @return {ol.Coordinate}
  */
-ol.geom.SimpleGeometry.prototype.getFirstCoordinate = function() { };
+ol.geom.SimpleGeometry.prototype.getFirstCoordinate = function() {};
 
 
 /**
  * @return {ol.Coordinate}
  */
-ol.geom.SimpleGeometry.prototype.getLastCoordinate = function() { };
+ol.geom.SimpleGeometry.prototype.getLastCoordinate = function() {};
 
 
 /**
  * @return {ol.geom.GeometryLayout}
  */
-ol.geom.SimpleGeometry.prototype.getLayout = function() { };
+ol.geom.SimpleGeometry.prototype.getLayout = function() {};
 
 
 /**
  */
-ol.geom.SimpleGeometry.prototype.applyTransform = function() { };
+ol.geom.SimpleGeometry.prototype.applyTransform = function() {};
 
 
 /**
  */
-ol.geom.SimpleGeometry.prototype.translate = function() { };
+ol.geom.SimpleGeometry.prototype.translate = function() {};
 
 
 /**
  * @constructor
  * @param {olx.GraticuleOptions=} opt_options
  */
-ol.Graticule = function(opt_options) { };
+ol.Graticule = function(opt_options) {};
 
 
 /**
  * @return {ol.PluggableMap}
  */
-ol.Graticule.prototype.getMap = function() { };
+ol.Graticule.prototype.getMap = function() {};
 
 
 /**
  * @return {Array.<ol.geom.LineString>}
  */
-ol.Graticule.prototype.getMeridians = function() { };
+ol.Graticule.prototype.getMeridians = function() {};
 
 
 /**
  * @return {Array.<ol.geom.LineString>}
  */
-ol.Graticule.prototype.getParallels = function() { };
+ol.Graticule.prototype.getParallels = function() {};
 
 
 /**
  * @param {ol.PluggableMap} map
  */
-ol.Graticule.prototype.setMap = function(map) { };
+ol.Graticule.prototype.setMap = function(map) {};
 
 
 /**
@@ -3278,36 +3285,36 @@ ol.has.WEBGL;
 /**
  * @constructor
  */
-ol.Image = function() { };
+ol.Image = function() {};
 
 
 /**
  */
-ol.Image.prototype.getImage = function() { };
+ol.Image.prototype.getImage = function() {};
 
 
 /**
  */
-ol.Image.prototype.load = function() { };
+ol.Image.prototype.load = function() {};
 
 
 /**
  * @constructor
  */
-ol.ImageTile = function() { };
+ol.ImageTile = function() {};
 
 
 /**
  * @return {HTMLCanvasElement|HTMLImageElement|HTMLVideoElement}
  */
-ol.ImageTile.prototype.getImage = function() { };
+ol.ImageTile.prototype.getImage = function() {};
 
 
 /**
  * @param {Function} childCtor
  * @param {Function} parentCtor
  */
-ol.inherits = function(childCtor, parentCtor) { };
+ol.inherits = function(childCtor, parentCtor) {};
 
 
 /**
@@ -3321,14 +3328,14 @@ ol.interaction;
  * @extends {ol.interaction.Interaction}
  * @param {olx.interaction.DoubleClickZoomOptions=} opt_options
  */
-ol.interaction.DoubleClickZoom = function(opt_options) { };
+ol.interaction.DoubleClickZoom = function(opt_options) {};
 
 
 /**
  * @param {ol.MapBrowserEvent} mapBrowserEvent
  * @return {boolean}
  */
-ol.interaction.DoubleClickZoom.handleEvent = function(mapBrowserEvent) { };
+ol.interaction.DoubleClickZoom.handleEvent = function(mapBrowserEvent) {};
 
 
 /**
@@ -3336,7 +3343,7 @@ ol.interaction.DoubleClickZoom.handleEvent = function(mapBrowserEvent) { };
  * @extends {ol.interaction.Interaction}
  * @param {olx.interaction.DragAndDropOptions=} opt_options
  */
-ol.interaction.DragAndDrop = function(opt_options) { };
+ol.interaction.DragAndDrop = function(opt_options) {};
 
 
 /**
@@ -3349,7 +3356,7 @@ ol.interaction.DragAndDrop.handleEvent;
 /**
  * @constructor
  */
-ol.interaction.DragAndDrop.Event = function() { };
+ol.interaction.DragAndDrop.Event = function() {};
 
 
 /**
@@ -3375,19 +3382,19 @@ ol.interaction.DragAndDrop.Event.prototype.projection;
  * @extends {ol.interaction.Pointer}
  * @param {olx.interaction.DragBoxOptions=} opt_options
  */
-ol.interaction.DragBox = function(opt_options) { };
+ol.interaction.DragBox = function(opt_options) {};
 
 
 /**
  * @return {ol.geom.Polygon}
  */
-ol.interaction.DragBox.prototype.getGeometry = function() { };
+ol.interaction.DragBox.prototype.getGeometry = function() {};
 
 
 /**
  * @constructor
  */
-ol.interaction.DragBox.Event = function() { };
+ol.interaction.DragBox.Event = function() {};
 
 
 /**
@@ -3407,7 +3414,7 @@ ol.interaction.DragBox.Event.prototype.mapBrowserEvent;
  * @extends {ol.interaction.Pointer}
  * @param {olx.interaction.DragPanOptions=} opt_options
  */
-ol.interaction.DragPan = function(opt_options) { };
+ol.interaction.DragPan = function(opt_options) {};
 
 
 /**
@@ -3415,7 +3422,7 @@ ol.interaction.DragPan = function(opt_options) { };
  * @extends {ol.interaction.Pointer}
  * @param {olx.interaction.DragRotateOptions=} opt_options
  */
-ol.interaction.DragRotate = function(opt_options) { };
+ol.interaction.DragRotate = function(opt_options) {};
 
 
 /**
@@ -3423,7 +3430,7 @@ ol.interaction.DragRotate = function(opt_options) { };
  * @extends {ol.interaction.Pointer}
  * @param {olx.interaction.DragRotateAndZoomOptions=} opt_options
  */
-ol.interaction.DragRotateAndZoom = function(opt_options) { };
+ol.interaction.DragRotateAndZoom = function(opt_options) {};
 
 
 /**
@@ -3431,7 +3438,7 @@ ol.interaction.DragRotateAndZoom = function(opt_options) { };
  * @extends {ol.interaction.DragBox}
  * @param {olx.interaction.DragZoomOptions=} opt_options
  */
-ol.interaction.DragZoom = function(opt_options) { };
+ol.interaction.DragZoom = function(opt_options) {};
 
 
 /**
@@ -3439,30 +3446,30 @@ ol.interaction.DragZoom = function(opt_options) { };
  * @extends {ol.interaction.Pointer}
  * @param {olx.interaction.DrawOptions} options
  */
-ol.interaction.Draw = function(options) { };
+ol.interaction.Draw = function(options) {};
 
 
 /**
  * @param {ol.MapBrowserEvent} event
  * @return {boolean}
  */
-ol.interaction.Draw.handleEvent = function(event) { };
+ol.interaction.Draw.handleEvent = function(event) {};
 
 
 /**
  */
-ol.interaction.Draw.prototype.removeLastPoint = function() { };
+ol.interaction.Draw.prototype.removeLastPoint = function() {};
 
 
 /**
  */
-ol.interaction.Draw.prototype.finishDrawing = function() { };
+ol.interaction.Draw.prototype.finishDrawing = function() {};
 
 
 /**
  * @param {ol.Feature} feature
  */
-ol.interaction.Draw.prototype.extend = function(feature) { };
+ol.interaction.Draw.prototype.extend = function(feature) {};
 
 
 /**
@@ -3470,19 +3477,19 @@ ol.interaction.Draw.prototype.extend = function(feature) { };
  * @param {number=} opt_angle
  * @return {ol.DrawGeometryFunctionType}
  */
-ol.interaction.Draw.createRegularPolygon = function(opt_sides, opt_angle) { };
+ol.interaction.Draw.createRegularPolygon = function(opt_sides, opt_angle) {};
 
 
 /**
  * @return {ol.DrawGeometryFunctionType}
  */
-ol.interaction.Draw.createBox = function() { };
+ol.interaction.Draw.createBox = function() {};
 
 
 /**
  * @constructor
  */
-ol.interaction.Draw.Event = function() { };
+ol.interaction.Draw.Event = function() {};
 
 
 /**
@@ -3496,25 +3503,25 @@ ol.interaction.Draw.Event.prototype.feature;
  * @extends {ol.interaction.Pointer}
  * @param {olx.interaction.ExtentOptions=} opt_options
  */
-ol.interaction.Extent = function(opt_options) { };
+ol.interaction.Extent = function(opt_options) {};
 
 
 /**
  * @return {ol.Extent}
  */
-ol.interaction.Extent.prototype.getExtent = function() { };
+ol.interaction.Extent.prototype.getExtent = function() {};
 
 
 /**
  * @param {ol.Extent} extent
  */
-ol.interaction.Extent.prototype.setExtent = function(extent) { };
+ol.interaction.Extent.prototype.setExtent = function(extent) {};
 
 
 /**
  * @constructor
  */
-ol.interaction.Extent.Event = function() { };
+ol.interaction.Extent.Event = function() {};
 
 
 /**
@@ -3528,25 +3535,25 @@ ol.interaction.Extent.Event.prototype.extent;
  * @extends {ol.Object}
  * @param {olx.interaction.InteractionOptions} options
  */
-ol.interaction.Interaction = function(options) { };
+ol.interaction.Interaction = function(options) {};
 
 
 /**
  * @return {boolean}
  */
-ol.interaction.Interaction.prototype.getActive = function() { };
+ol.interaction.Interaction.prototype.getActive = function() {};
 
 
 /**
  * @return {ol.PluggableMap}
  */
-ol.interaction.Interaction.prototype.getMap = function() { };
+ol.interaction.Interaction.prototype.getMap = function() {};
 
 
 /**
  * @param {boolean} active
  */
-ol.interaction.Interaction.prototype.setActive = function(active) { };
+ol.interaction.Interaction.prototype.setActive = function(active) {};
 
 
 /**
@@ -3554,14 +3561,14 @@ ol.interaction.Interaction.prototype.setActive = function(active) { };
  * @extends {ol.interaction.Interaction}
  * @param {olx.interaction.KeyboardPanOptions=} opt_options
  */
-ol.interaction.KeyboardPan = function(opt_options) { };
+ol.interaction.KeyboardPan = function(opt_options) {};
 
 
 /**
  * @param {ol.MapBrowserEvent} mapBrowserEvent
  * @return {boolean}
  */
-ol.interaction.KeyboardPan.handleEvent = function(mapBrowserEvent) { };
+ol.interaction.KeyboardPan.handleEvent = function(mapBrowserEvent) {};
 
 
 /**
@@ -3569,14 +3576,14 @@ ol.interaction.KeyboardPan.handleEvent = function(mapBrowserEvent) { };
  * @extends {ol.interaction.Interaction}
  * @param {olx.interaction.KeyboardZoomOptions=} opt_options
  */
-ol.interaction.KeyboardZoom = function(opt_options) { };
+ol.interaction.KeyboardZoom = function(opt_options) {};
 
 
 /**
  * @param {ol.MapBrowserEvent} mapBrowserEvent
  * @return {boolean}
  */
-ol.interaction.KeyboardZoom.handleEvent = function(mapBrowserEvent) { };
+ol.interaction.KeyboardZoom.handleEvent = function(mapBrowserEvent) {};
 
 
 /**
@@ -3584,26 +3591,26 @@ ol.interaction.KeyboardZoom.handleEvent = function(mapBrowserEvent) { };
  * @extends {ol.interaction.Pointer}
  * @param {olx.interaction.ModifyOptions} options
  */
-ol.interaction.Modify = function(options) { };
+ol.interaction.Modify = function(options) {};
 
 
 /**
  * @param {ol.MapBrowserEvent} mapBrowserEvent
  * @return {boolean}
  */
-ol.interaction.Modify.handleEvent = function(mapBrowserEvent) { };
+ol.interaction.Modify.handleEvent = function(mapBrowserEvent) {};
 
 
 /**
  * @return {boolean}
  */
-ol.interaction.Modify.prototype.removePoint = function() { };
+ol.interaction.Modify.prototype.removePoint = function() {};
 
 
 /**
  * @constructor
  */
-ol.interaction.Modify.Event = function() { };
+ol.interaction.Modify.Event = function() {};
 
 
 /**
@@ -3623,20 +3630,20 @@ ol.interaction.Modify.Event.prototype.mapBrowserEvent;
  * @extends {ol.interaction.Interaction}
  * @param {olx.interaction.MouseWheelZoomOptions=} opt_options
  */
-ol.interaction.MouseWheelZoom = function(opt_options) { };
+ol.interaction.MouseWheelZoom = function(opt_options) {};
 
 
 /**
  * @param {ol.MapBrowserEvent} mapBrowserEvent
  * @return {boolean}
  */
-ol.interaction.MouseWheelZoom.handleEvent = function(mapBrowserEvent) { };
+ol.interaction.MouseWheelZoom.handleEvent = function(mapBrowserEvent) {};
 
 
 /**
  * @param {boolean} useAnchor
  */
-ol.interaction.MouseWheelZoom.prototype.setMouseAnchor = function(useAnchor) { };
+ol.interaction.MouseWheelZoom.prototype.setMouseAnchor = function(useAnchor) {};
 
 
 /**
@@ -3644,7 +3651,7 @@ ol.interaction.MouseWheelZoom.prototype.setMouseAnchor = function(useAnchor) { }
  * @extends {ol.interaction.Pointer}
  * @param {olx.interaction.PinchRotateOptions=} opt_options
  */
-ol.interaction.PinchRotate = function(opt_options) { };
+ol.interaction.PinchRotate = function(opt_options) {};
 
 
 /**
@@ -3652,7 +3659,7 @@ ol.interaction.PinchRotate = function(opt_options) { };
  * @extends {ol.interaction.Pointer}
  * @param {olx.interaction.PinchZoomOptions=} opt_options
  */
-ol.interaction.PinchZoom = function(opt_options) { };
+ol.interaction.PinchZoom = function(opt_options) {};
 
 
 /**
@@ -3660,14 +3667,14 @@ ol.interaction.PinchZoom = function(opt_options) { };
  * @extends {ol.interaction.Interaction}
  * @param {olx.interaction.PointerOptions=} opt_options
  */
-ol.interaction.Pointer = function(opt_options) { };
+ol.interaction.Pointer = function(opt_options) {};
 
 
 /**
  * @param {ol.MapBrowserEvent} mapBrowserEvent
  * @return {boolean}
  */
-ol.interaction.Pointer.handleEvent = function(mapBrowserEvent) { };
+ol.interaction.Pointer.handleEvent = function(mapBrowserEvent) {};
 
 
 /**
@@ -3675,51 +3682,51 @@ ol.interaction.Pointer.handleEvent = function(mapBrowserEvent) { };
  * @extends {ol.interaction.Interaction}
  * @param {olx.interaction.SelectOptions=} opt_options
  */
-ol.interaction.Select = function(opt_options) { };
+ol.interaction.Select = function(opt_options) {};
 
 
 /**
  * @return {ol.Collection.<ol.Feature>}
  */
-ol.interaction.Select.prototype.getFeatures = function() { };
+ol.interaction.Select.prototype.getFeatures = function() {};
 
 
 /**
  * @return {number}
  */
-ol.interaction.Select.prototype.getHitTolerance = function() { };
+ol.interaction.Select.prototype.getHitTolerance = function() {};
 
 
 /**
  * @param {ol.Feature|ol.render.Feature} feature
  * @return {ol.layer.Vector}
  */
-ol.interaction.Select.prototype.getLayer = function(feature) { };
+ol.interaction.Select.prototype.getLayer = function(feature) {};
 
 
 /**
  * @param {ol.MapBrowserEvent} mapBrowserEvent
  * @return {boolean}
  */
-ol.interaction.Select.handleEvent = function(mapBrowserEvent) { };
+ol.interaction.Select.handleEvent = function(mapBrowserEvent) {};
 
 
 /**
  * @param {number} hitTolerance
  */
-ol.interaction.Select.prototype.setHitTolerance = function(hitTolerance) { };
+ol.interaction.Select.prototype.setHitTolerance = function(hitTolerance) {};
 
 
 /**
  * @param {ol.PluggableMap} map
  */
-ol.interaction.Select.prototype.setMap = function(map) { };
+ol.interaction.Select.prototype.setMap = function(map) {};
 
 
 /**
  * @constructor
  */
-ol.interaction.Select.Event = function() { };
+ol.interaction.Select.Event = function() {};
 
 
 /**
@@ -3745,21 +3752,21 @@ ol.interaction.Select.Event.prototype.mapBrowserEvent;
  * @extends {ol.interaction.Pointer}
  * @param {olx.interaction.SnapOptions=} opt_options
  */
-ol.interaction.Snap = function(opt_options) { };
+ol.interaction.Snap = function(opt_options) {};
 
 
 /**
  * @param {ol.Feature} feature
  * @param {boolean=} opt_listen
  */
-ol.interaction.Snap.prototype.addFeature = function(feature, opt_listen) { };
+ol.interaction.Snap.prototype.addFeature = function(feature, opt_listen) {};
 
 
 /**
  * @param {ol.Feature} feature
  * @param {boolean=} opt_unlisten
  */
-ol.interaction.Snap.prototype.removeFeature = function(feature, opt_unlisten) { };
+ol.interaction.Snap.prototype.removeFeature = function(feature, opt_unlisten) {};
 
 
 /**
@@ -3767,25 +3774,25 @@ ol.interaction.Snap.prototype.removeFeature = function(feature, opt_unlisten) { 
  * @extends {ol.interaction.Pointer}
  * @param {olx.interaction.TranslateOptions=} opt_options
  */
-ol.interaction.Translate = function(opt_options) { };
+ol.interaction.Translate = function(opt_options) {};
 
 
 /**
  * @return {number}
  */
-ol.interaction.Translate.prototype.getHitTolerance = function() { };
+ol.interaction.Translate.prototype.getHitTolerance = function() {};
 
 
 /**
  * @param {number} hitTolerance
  */
-ol.interaction.Translate.prototype.setHitTolerance = function(hitTolerance) { };
+ol.interaction.Translate.prototype.setHitTolerance = function(hitTolerance) {};
 
 
 /**
  * @constructor
  */
-ol.interaction.Translate.Event = function() { };
+ol.interaction.Translate.Event = function() {};
 
 
 /**
@@ -3804,7 +3811,7 @@ ol.interaction.Translate.Event.prototype.coordinate;
  * @param {olx.interaction.DefaultsOptions=} opt_options
  * @return {ol.Collection.<ol.interaction.Interaction>}
  */
-ol.interaction.defaults = function(opt_options) { };
+ol.interaction.defaults = function(opt_options) {};
 
 
 /**
@@ -3813,7 +3820,7 @@ ol.interaction.defaults = function(opt_options) { };
  * @param {number} minVelocity
  * @param {number} delay
  */
-ol.Kinetic = function(decay, minVelocity, delay) { };
+ol.Kinetic = function(decay, minVelocity, delay) {};
 
 
 /**
@@ -3827,79 +3834,79 @@ ol.layer;
  * @extends {ol.Object}
  * @param {olx.layer.BaseOptions} options
  */
-ol.layer.Base = function(options) { };
+ol.layer.Base = function(options) {};
 
 
 /**
  * @return {ol.Extent|undefined}
  */
-ol.layer.Base.prototype.getExtent = function() { };
+ol.layer.Base.prototype.getExtent = function() {};
 
 
 /**
  * @return {number}
  */
-ol.layer.Base.prototype.getMaxResolution = function() { };
+ol.layer.Base.prototype.getMaxResolution = function() {};
 
 
 /**
  * @return {number}
  */
-ol.layer.Base.prototype.getMinResolution = function() { };
+ol.layer.Base.prototype.getMinResolution = function() {};
 
 
 /**
  * @return {number}
  */
-ol.layer.Base.prototype.getOpacity = function() { };
+ol.layer.Base.prototype.getOpacity = function() {};
 
 
 /**
  * @return {boolean}
  */
-ol.layer.Base.prototype.getVisible = function() { };
+ol.layer.Base.prototype.getVisible = function() {};
 
 
 /**
  * @return {number}
  */
-ol.layer.Base.prototype.getZIndex = function() { };
+ol.layer.Base.prototype.getZIndex = function() {};
 
 
 /**
  * @param {ol.Extent|undefined} extent
  */
-ol.layer.Base.prototype.setExtent = function(extent) { };
+ol.layer.Base.prototype.setExtent = function(extent) {};
 
 
 /**
  * @param {number} maxResolution
  */
-ol.layer.Base.prototype.setMaxResolution = function(maxResolution) { };
+ol.layer.Base.prototype.setMaxResolution = function(maxResolution) {};
 
 
 /**
  * @param {number} minResolution
  */
-ol.layer.Base.prototype.setMinResolution = function(minResolution) { };
+ol.layer.Base.prototype.setMinResolution = function(minResolution) {};
 
 
 /**
  * @param {number} opacity
  */
-ol.layer.Base.prototype.setOpacity = function(opacity) { };
+ol.layer.Base.prototype.setOpacity = function(opacity) {};
 
 
 /**
  * @param {boolean} visible
  */
-ol.layer.Base.prototype.setVisible = function(visible) { };
+ol.layer.Base.prototype.setVisible = function(visible) {};
 
 
 /**
  * @param {number} zindex
  */
-ol.layer.Base.prototype.setZIndex = function(zindex) { };
+ol.layer.Base.prototype.setZIndex = function(zindex) {};
 
 
 /**
@@ -3907,19 +3914,19 @@ ol.layer.Base.prototype.setZIndex = function(zindex) { };
  * @extends {ol.layer.Base}
  * @param {olx.layer.GroupOptions=} opt_options
  */
-ol.layer.Group = function(opt_options) { };
+ol.layer.Group = function(opt_options) {};
 
 
 /**
  * @return {ol.Collection.<ol.layer.Base>}
  */
-ol.layer.Group.prototype.getLayers = function() { };
+ol.layer.Group.prototype.getLayers = function() {};
 
 
 /**
  * @param {ol.Collection.<ol.layer.Base>} layers
  */
-ol.layer.Group.prototype.setLayers = function(layers) { };
+ol.layer.Group.prototype.setLayers = function(layers) {};
 
 
 /**
@@ -3927,43 +3934,43 @@ ol.layer.Group.prototype.setLayers = function(layers) { };
  * @extends {ol.layer.Vector}
  * @param {olx.layer.HeatmapOptions=} opt_options
  */
-ol.layer.Heatmap = function(opt_options) { };
+ol.layer.Heatmap = function(opt_options) {};
 
 
 /**
  * @return {number}
  */
-ol.layer.Heatmap.prototype.getBlur = function() { };
+ol.layer.Heatmap.prototype.getBlur = function() {};
 
 
 /**
  * @return {Array.<string>}
  */
-ol.layer.Heatmap.prototype.getGradient = function() { };
+ol.layer.Heatmap.prototype.getGradient = function() {};
 
 
 /**
  * @return {number}
  */
-ol.layer.Heatmap.prototype.getRadius = function() { };
+ol.layer.Heatmap.prototype.getRadius = function() {};
 
 
 /**
  * @param {number} blur
  */
-ol.layer.Heatmap.prototype.setBlur = function(blur) { };
+ol.layer.Heatmap.prototype.setBlur = function(blur) {};
 
 
 /**
  * @param {Array.<string>} colors
  */
-ol.layer.Heatmap.prototype.setGradient = function(colors) { };
+ol.layer.Heatmap.prototype.setGradient = function(colors) {};
 
 
 /**
  * @param {number} radius
  */
-ol.layer.Heatmap.prototype.setRadius = function(radius) { };
+ol.layer.Heatmap.prototype.setRadius = function(radius) {};
 
 
 /**
@@ -3971,13 +3978,13 @@ ol.layer.Heatmap.prototype.setRadius = function(radius) { };
  * @extends {ol.layer.Layer}
  * @param {olx.layer.ImageOptions=} opt_options
  */
-ol.layer.Image = function(opt_options) { };
+ol.layer.Image = function(opt_options) {};
 
 
 /**
  * @return {ol.source.Image}
  */
-ol.layer.Image.prototype.getSource = function() { };
+ol.layer.Image.prototype.getSource = function() {};
 
 
 /**
@@ -3985,25 +3992,25 @@ ol.layer.Image.prototype.getSource = function() { };
  * @extends {ol.layer.Base}
  * @param {olx.layer.LayerOptions} options
  */
-ol.layer.Layer = function(options) { };
+ol.layer.Layer = function(options) {};
 
 
 /**
  * @return {ol.source.Source}
  */
-ol.layer.Layer.prototype.getSource = function() { };
+ol.layer.Layer.prototype.getSource = function() {};
 
 
 /**
  * @param {ol.PluggableMap} map
  */
-ol.layer.Layer.prototype.setMap = function(map) { };
+ol.layer.Layer.prototype.setMap = function(map) {};
 
 
 /**
  * @param {ol.source.Source} source
  */
-ol.layer.Layer.prototype.setSource = function(source) { };
+ol.layer.Layer.prototype.setSource = function(source) {};
 
 
 /**
@@ -4011,37 +4018,37 @@ ol.layer.Layer.prototype.setSource = function(source) { };
  * @extends {ol.layer.Layer}
  * @param {olx.layer.TileOptions=} opt_options
  */
-ol.layer.Tile = function(opt_options) { };
+ol.layer.Tile = function(opt_options) {};
 
 
 /**
  * @return {number}
  */
-ol.layer.Tile.prototype.getPreload = function() { };
+ol.layer.Tile.prototype.getPreload = function() {};
 
 
 /**
  * @return {ol.source.Tile}
  */
-ol.layer.Tile.prototype.getSource = function() { };
+ol.layer.Tile.prototype.getSource = function() {};
 
 
 /**
  * @param {number} preload
  */
-ol.layer.Tile.prototype.setPreload = function(preload) { };
+ol.layer.Tile.prototype.setPreload = function(preload) {};
 
 
 /**
  * @return {boolean}
  */
-ol.layer.Tile.prototype.getUseInterimTilesOnError = function() { };
+ol.layer.Tile.prototype.getUseInterimTilesOnError = function() {};
 
 
 /**
  * @param {boolean} useInterimTilesOnError
  */
-ol.layer.Tile.prototype.setUseInterimTilesOnError = function(useInterimTilesOnError) { };
+ol.layer.Tile.prototype.setUseInterimTilesOnError = function(useInterimTilesOnError) {};
 
 
 /**
@@ -4049,31 +4056,31 @@ ol.layer.Tile.prototype.setUseInterimTilesOnError = function(useInterimTilesOnEr
  * @extends {ol.layer.Layer}
  * @param {olx.layer.VectorOptions=} opt_options
  */
-ol.layer.Vector = function(opt_options) { };
+ol.layer.Vector = function(opt_options) {};
 
 
 /**
  * @return {ol.source.Vector}
  */
-ol.layer.Vector.prototype.getSource = function() { };
+ol.layer.Vector.prototype.getSource = function() {};
 
 
 /**
  * @return {ol.style.Style|Array.<ol.style.Style>|ol.StyleFunction}
  */
-ol.layer.Vector.prototype.getStyle = function() { };
+ol.layer.Vector.prototype.getStyle = function() {};
 
 
 /**
  * @return {ol.StyleFunction|undefined}
  */
-ol.layer.Vector.prototype.getStyleFunction = function() { };
+ol.layer.Vector.prototype.getStyleFunction = function() {};
 
 
 /**
  * @param {ol.style.Style|Array.<ol.style.Style>|ol.StyleFunction|null|undefined} style
  */
-ol.layer.Vector.prototype.setStyle = function(style) { };
+ol.layer.Vector.prototype.setStyle = function(style) {};
 
 
 /**
@@ -4081,37 +4088,37 @@ ol.layer.Vector.prototype.setStyle = function(style) { };
  * @extends {ol.layer.Vector}
  * @param {olx.layer.VectorTileOptions=} opt_options
  */
-ol.layer.VectorTile = function(opt_options) { };
+ol.layer.VectorTile = function(opt_options) {};
 
 
 /**
  * @return {number}
  */
-ol.layer.VectorTile.prototype.getPreload = function() { };
+ol.layer.VectorTile.prototype.getPreload = function() {};
 
 
 /**
  * @return {boolean}
  */
-ol.layer.VectorTile.prototype.getUseInterimTilesOnError = function() { };
+ol.layer.VectorTile.prototype.getUseInterimTilesOnError = function() {};
 
 
 /**
  * @param {number} preload
  */
-ol.layer.VectorTile.prototype.setPreload = function(preload) { };
+ol.layer.VectorTile.prototype.setPreload = function(preload) {};
 
 
 /**
  * @param {boolean} useInterimTilesOnError
  */
-ol.layer.VectorTile.prototype.setUseInterimTilesOnError = function(useInterimTilesOnError) { };
+ol.layer.VectorTile.prototype.setUseInterimTilesOnError = function(useInterimTilesOnError) {};
 
 
 /**
  * @return {ol.source.VectorTile}
  */
-ol.layer.VectorTile.prototype.getSource = function() { };
+ol.layer.VectorTile.prototype.getSource = function() {};
 
 
 /**
@@ -4125,7 +4132,7 @@ ol.loadingstrategy;
  * @param {number} resolution
  * @return {Array.<ol.Extent>}
  */
-ol.loadingstrategy.all = function(extent, resolution) { };
+ol.loadingstrategy.all = function(extent, resolution) {};
 
 
 /**
@@ -4133,14 +4140,14 @@ ol.loadingstrategy.all = function(extent, resolution) { };
  * @param {number} resolution
  * @return {Array.<ol.Extent>}
  */
-ol.loadingstrategy.bbox = function(extent, resolution) { };
+ol.loadingstrategy.bbox = function(extent, resolution) {};
 
 
 /**
  * @param {ol.tilegrid.TileGrid} tileGrid
  * @return {Function}
  */
-ol.loadingstrategy.tile = function(tileGrid) { };
+ol.loadingstrategy.tile = function(tileGrid) {};
 
 
 /**
@@ -4148,13 +4155,13 @@ ol.loadingstrategy.tile = function(tileGrid) { };
  * @extends {ol.PluggableMap}
  * @param {olx.MapOptions} options
  */
-ol.Map = function(options) { };
+ol.Map = function(options) {};
 
 
 /**
  * @constructor
  */
-ol.MapBrowserEvent = function() { };
+ol.MapBrowserEvent = function() {};
 
 
 /**
@@ -4184,7 +4191,7 @@ ol.MapBrowserEvent.prototype.dragging;
 /**
  * @constructor
  */
-ol.MapEvent = function() { };
+ol.MapEvent = function() {};
 
 
 /**
@@ -4204,26 +4211,26 @@ ol.MapEvent.prototype.frameState;
  * @extends {ol.Observable}
  * @param {Object.<string, *>=} opt_values
  */
-ol.Object = function(opt_values) { };
+ol.Object = function(opt_values) {};
 
 
 /**
  * @param {string} key
  * @return {*}
  */
-ol.Object.prototype.get = function(key) { };
+ol.Object.prototype.get = function(key) {};
 
 
 /**
  * @return {Array.<string>}
  */
-ol.Object.prototype.getKeys = function() { };
+ol.Object.prototype.getKeys = function() {};
 
 
 /**
  * @return {Object.<string, *>}
  */
-ol.Object.prototype.getProperties = function() { };
+ol.Object.prototype.getProperties = function() {};
 
 
 /**
@@ -4231,27 +4238,27 @@ ol.Object.prototype.getProperties = function() { };
  * @param {*} value
  * @param {boolean=} opt_silent
  */
-ol.Object.prototype.set = function(key, value, opt_silent) { };
+ol.Object.prototype.set = function(key, value, opt_silent) {};
 
 
 /**
  * @param {Object.<string, *>} values
  * @param {boolean=} opt_silent
  */
-ol.Object.prototype.setProperties = function(values, opt_silent) { };
+ol.Object.prototype.setProperties = function(values, opt_silent) {};
 
 
 /**
  * @param {string} key
  * @param {boolean=} opt_silent
  */
-ol.Object.prototype.unset = function(key, opt_silent) { };
+ol.Object.prototype.unset = function(key, opt_silent) {};
 
 
 /**
  * @constructor
  */
-ol.Object.Event = function() { };
+ol.Object.Event = function() {};
 
 
 /**
@@ -4268,32 +4275,32 @@ ol.Object.Event.prototype.oldValue;
 
 /**
  * @constructor
- * @extends {ol.Disposable}
+ * @extends {ol.events.EventTarget}
  */
-ol.Observable = function() { };
+ol.Observable = function() {};
 
 
 /**
  * @param {ol.EventsKey|Array.<ol.EventsKey>} key
  */
-ol.Observable.unByKey = function(key) { };
+ol.Observable.unByKey = function(key) {};
 
 
 /**
  */
-ol.Observable.prototype.changed = function() { };
+ol.Observable.prototype.changed = function() {};
 
 
 /**
  * @param {Object|ol.events.Event|string} event
  */
-ol.Observable.prototype.dispatchEvent = function(event) { };
+ol.Observable.prototype.dispatchEvent = function(event) {};
 
 
 /**
  * @return {number}
  */
-ol.Observable.prototype.getRevision = function() { };
+ol.Observable.prototype.getRevision = function() {};
 
 
 /**
@@ -4302,7 +4309,7 @@ ol.Observable.prototype.getRevision = function() { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.Observable.prototype.on = function(type, listener, opt_this) { };
+ol.Observable.prototype.on = function(type, listener, opt_this) {};
 
 
 /**
@@ -4311,7 +4318,7 @@ ol.Observable.prototype.on = function(type, listener, opt_this) { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.Observable.prototype.once = function(type, listener, opt_this) { };
+ol.Observable.prototype.once = function(type, listener, opt_this) {};
 
 
 /**
@@ -4319,7 +4326,7 @@ ol.Observable.prototype.once = function(type, listener, opt_this) { };
  * @param {Function} listener
  * @param {Object=} opt_this
  */
-ol.Observable.prototype.un = function(type, listener, opt_this) { };
+ol.Observable.prototype.un = function(type, listener, opt_this) {};
 
 
 /**
@@ -4327,73 +4334,73 @@ ol.Observable.prototype.un = function(type, listener, opt_this) { };
  * @extends {ol.Object}
  * @param {olx.OverlayOptions} options
  */
-ol.Overlay = function(options) { };
+ol.Overlay = function(options) {};
 
 
 /**
  * @return {Element|undefined}
  */
-ol.Overlay.prototype.getElement = function() { };
+ol.Overlay.prototype.getElement = function() {};
 
 
 /**
  * @return {number|string|undefined}
  */
-ol.Overlay.prototype.getId = function() { };
+ol.Overlay.prototype.getId = function() {};
 
 
 /**
  * @return {ol.PluggableMap|undefined}
  */
-ol.Overlay.prototype.getMap = function() { };
+ol.Overlay.prototype.getMap = function() {};
 
 
 /**
  * @return {Array.<number>}
  */
-ol.Overlay.prototype.getOffset = function() { };
+ol.Overlay.prototype.getOffset = function() {};
 
 
 /**
  * @return {ol.Coordinate|undefined}
  */
-ol.Overlay.prototype.getPosition = function() { };
+ol.Overlay.prototype.getPosition = function() {};
 
 
 /**
  * @return {ol.OverlayPositioning}
  */
-ol.Overlay.prototype.getPositioning = function() { };
+ol.Overlay.prototype.getPositioning = function() {};
 
 
 /**
  * @param {Element|undefined} element
  */
-ol.Overlay.prototype.setElement = function(element) { };
+ol.Overlay.prototype.setElement = function(element) {};
 
 
 /**
  * @param {ol.PluggableMap|undefined} map
  */
-ol.Overlay.prototype.setMap = function(map) { };
+ol.Overlay.prototype.setMap = function(map) {};
 
 
 /**
  * @param {Array.<number>} offset
  */
-ol.Overlay.prototype.setOffset = function(offset) { };
+ol.Overlay.prototype.setOffset = function(offset) {};
 
 
 /**
  * @param {ol.Coordinate|undefined} position
  */
-ol.Overlay.prototype.setPosition = function(position) { };
+ol.Overlay.prototype.setPosition = function(position) {};
 
 
 /**
  * @param {ol.OverlayPositioning} positioning
  */
-ol.Overlay.prototype.setPositioning = function(positioning) { };
+ol.Overlay.prototype.setPositioning = function(positioning) {};
 
 
 /**
@@ -4401,31 +4408,31 @@ ol.Overlay.prototype.setPositioning = function(positioning) { };
  * @extends {ol.Object}
  * @param {olx.MapOptions} options
  */
-ol.PluggableMap = function(options) { };
+ol.PluggableMap = function(options) {};
 
 
 /**
  * @param {ol.control.Control} control
  */
-ol.PluggableMap.prototype.addControl = function(control) { };
+ol.PluggableMap.prototype.addControl = function(control) {};
 
 
 /**
  * @param {ol.interaction.Interaction} interaction
  */
-ol.PluggableMap.prototype.addInteraction = function(interaction) { };
+ol.PluggableMap.prototype.addInteraction = function(interaction) {};
 
 
 /**
  * @param {ol.layer.Base} layer
  */
-ol.PluggableMap.prototype.addLayer = function(layer) { };
+ol.PluggableMap.prototype.addLayer = function(layer) {};
 
 
 /**
  * @param {ol.Overlay} overlay
  */
-ol.PluggableMap.prototype.addOverlay = function(overlay) { };
+ol.PluggableMap.prototype.addOverlay = function(overlay) {};
 
 
 /**
@@ -4435,7 +4442,7 @@ ol.PluggableMap.prototype.addOverlay = function(overlay) { };
  * @return {T|undefined}
  * @template S,T
  */
-ol.PluggableMap.prototype.forEachFeatureAtPixel = function(pixel, callback, opt_options) { };
+ol.PluggableMap.prototype.forEachFeatureAtPixel = function(pixel, callback, opt_options) {};
 
 
 /**
@@ -4443,7 +4450,7 @@ ol.PluggableMap.prototype.forEachFeatureAtPixel = function(pixel, callback, opt_
  * @param {olx.AtPixelOptions=} opt_options
  * @return {Array.<(ol.Feature|ol.render.Feature)>}
  */
-ol.PluggableMap.prototype.getFeaturesAtPixel = function(pixel, opt_options) { };
+ol.PluggableMap.prototype.getFeaturesAtPixel = function(pixel, opt_options) {};
 
 
 /**
@@ -4455,7 +4462,7 @@ ol.PluggableMap.prototype.getFeaturesAtPixel = function(pixel, opt_options) { };
  * @return {T|undefined}
  * @template S,T,U
  */
-ol.PluggableMap.prototype.forEachLayerAtPixel = function(pixel, callback, opt_this, opt_layerFilter, opt_this2) { };
+ol.PluggableMap.prototype.forEachLayerAtPixel = function(pixel, callback, opt_this, opt_layerFilter, opt_this2) {};
 
 
 /**
@@ -4464,169 +4471,169 @@ ol.PluggableMap.prototype.forEachLayerAtPixel = function(pixel, callback, opt_th
  * @return {boolean}
  * @template U
  */
-ol.PluggableMap.prototype.hasFeatureAtPixel = function(pixel, opt_options) { };
+ol.PluggableMap.prototype.hasFeatureAtPixel = function(pixel, opt_options) {};
 
 
 /**
  * @param {Event} event
  * @return {ol.Coordinate}
  */
-ol.PluggableMap.prototype.getEventCoordinate = function(event) { };
+ol.PluggableMap.prototype.getEventCoordinate = function(event) {};
 
 
 /**
  * @param {Event} event
  * @return {ol.Pixel}
  */
-ol.PluggableMap.prototype.getEventPixel = function(event) { };
+ol.PluggableMap.prototype.getEventPixel = function(event) {};
 
 
 /**
  * @return {Element|string|undefined}
  */
-ol.PluggableMap.prototype.getTarget = function() { };
+ol.PluggableMap.prototype.getTarget = function() {};
 
 
 /**
  * @return {Element}
  */
-ol.PluggableMap.prototype.getTargetElement = function() { };
+ol.PluggableMap.prototype.getTargetElement = function() {};
 
 
 /**
  * @param {ol.Pixel} pixel
  * @return {ol.Coordinate}
  */
-ol.PluggableMap.prototype.getCoordinateFromPixel = function(pixel) { };
+ol.PluggableMap.prototype.getCoordinateFromPixel = function(pixel) {};
 
 
 /**
  * @return {ol.Collection.<ol.control.Control>}
  */
-ol.PluggableMap.prototype.getControls = function() { };
+ol.PluggableMap.prototype.getControls = function() {};
 
 
 /**
  * @return {ol.Collection.<ol.Overlay>}
  */
-ol.PluggableMap.prototype.getOverlays = function() { };
+ol.PluggableMap.prototype.getOverlays = function() {};
 
 
 /**
  * @param {string|number} id
  * @return {ol.Overlay}
  */
-ol.PluggableMap.prototype.getOverlayById = function(id) { };
+ol.PluggableMap.prototype.getOverlayById = function(id) {};
 
 
 /**
  * @return {ol.Collection.<ol.interaction.Interaction>}
  */
-ol.PluggableMap.prototype.getInteractions = function() { };
+ol.PluggableMap.prototype.getInteractions = function() {};
 
 
 /**
  * @return {ol.layer.Group}
  */
-ol.PluggableMap.prototype.getLayerGroup = function() { };
+ol.PluggableMap.prototype.getLayerGroup = function() {};
 
 
 /**
  * @return {ol.Collection.<ol.layer.Base>}
  */
-ol.PluggableMap.prototype.getLayers = function() { };
+ol.PluggableMap.prototype.getLayers = function() {};
 
 
 /**
  * @param {ol.Coordinate} coordinate
  * @return {ol.Pixel}
  */
-ol.PluggableMap.prototype.getPixelFromCoordinate = function(coordinate) { };
+ol.PluggableMap.prototype.getPixelFromCoordinate = function(coordinate) {};
 
 
 /**
  * @return {ol.Size|undefined}
  */
-ol.PluggableMap.prototype.getSize = function() { };
+ol.PluggableMap.prototype.getSize = function() {};
 
 
 /**
  * @return {ol.View}
  */
-ol.PluggableMap.prototype.getView = function() { };
+ol.PluggableMap.prototype.getView = function() {};
 
 
 /**
  * @return {Element}
  */
-ol.PluggableMap.prototype.getViewport = function() { };
+ol.PluggableMap.prototype.getViewport = function() {};
 
 
 /**
  */
-ol.PluggableMap.prototype.renderSync = function() { };
+ol.PluggableMap.prototype.renderSync = function() {};
 
 
 /**
  */
-ol.PluggableMap.prototype.render = function() { };
+ol.PluggableMap.prototype.render = function() {};
 
 
 /**
  * @param {ol.control.Control} control
  * @return {ol.control.Control|undefined}
  */
-ol.PluggableMap.prototype.removeControl = function(control) { };
+ol.PluggableMap.prototype.removeControl = function(control) {};
 
 
 /**
  * @param {ol.interaction.Interaction} interaction
  * @return {ol.interaction.Interaction|undefined}
  */
-ol.PluggableMap.prototype.removeInteraction = function(interaction) { };
+ol.PluggableMap.prototype.removeInteraction = function(interaction) {};
 
 
 /**
  * @param {ol.layer.Base} layer
  * @return {ol.layer.Base|undefined}
  */
-ol.PluggableMap.prototype.removeLayer = function(layer) { };
+ol.PluggableMap.prototype.removeLayer = function(layer) {};
 
 
 /**
  * @param {ol.Overlay} overlay
  * @return {ol.Overlay|undefined}
  */
-ol.PluggableMap.prototype.removeOverlay = function(overlay) { };
+ol.PluggableMap.prototype.removeOverlay = function(overlay) {};
 
 
 /**
  * @param {ol.layer.Group} layerGroup
  */
-ol.PluggableMap.prototype.setLayerGroup = function(layerGroup) { };
+ol.PluggableMap.prototype.setLayerGroup = function(layerGroup) {};
 
 
 /**
  * @param {ol.Size|undefined} size
  */
-ol.PluggableMap.prototype.setSize = function(size) { };
+ol.PluggableMap.prototype.setSize = function(size) {};
 
 
 /**
  * @param {Element|string|undefined} target
  */
-ol.PluggableMap.prototype.setTarget = function(target) { };
+ol.PluggableMap.prototype.setTarget = function(target) {};
 
 
 /**
  * @param {ol.View} view
  */
-ol.PluggableMap.prototype.setView = function(view) { };
+ol.PluggableMap.prototype.setView = function(view) {};
 
 
 /**
  */
-ol.PluggableMap.prototype.updateSize = function() { };
+ol.PluggableMap.prototype.updateSize = function() {};
 
 
 /**
@@ -4650,73 +4657,73 @@ ol.proj.common.add;
  * @constructor
  * @param {olx.ProjectionOptions} options
  */
-ol.proj.Projection = function(options) { };
+ol.proj.Projection = function(options) {};
 
 
 /**
  * @return {string}
  */
-ol.proj.Projection.prototype.getCode = function() { };
+ol.proj.Projection.prototype.getCode = function() {};
 
 
 /**
  * @return {ol.Extent}
  */
-ol.proj.Projection.prototype.getExtent = function() { };
+ol.proj.Projection.prototype.getExtent = function() {};
 
 
 /**
  * @return {ol.proj.Units}
  */
-ol.proj.Projection.prototype.getUnits = function() { };
+ol.proj.Projection.prototype.getUnits = function() {};
 
 
 /**
  * @return {number|undefined}
  */
-ol.proj.Projection.prototype.getMetersPerUnit = function() { };
+ol.proj.Projection.prototype.getMetersPerUnit = function() {};
 
 
 /**
  * @return {ol.Extent}
  */
-ol.proj.Projection.prototype.getWorldExtent = function() { };
+ol.proj.Projection.prototype.getWorldExtent = function() {};
 
 
 /**
  * @return {string}
  */
-ol.proj.Projection.prototype.getAxisOrientation = function() { };
+ol.proj.Projection.prototype.getAxisOrientation = function() {};
 
 
 /**
  * @return {boolean}
  */
-ol.proj.Projection.prototype.isGlobal = function() { };
+ol.proj.Projection.prototype.isGlobal = function() {};
 
 
 /**
  * @param {boolean} global
  */
-ol.proj.Projection.prototype.setGlobal = function(global) { };
+ol.proj.Projection.prototype.setGlobal = function(global) {};
 
 
 /**
  * @param {ol.Extent} extent
  */
-ol.proj.Projection.prototype.setExtent = function(extent) { };
+ol.proj.Projection.prototype.setExtent = function(extent) {};
 
 
 /**
  * @param {ol.Extent} worldExtent
  */
-ol.proj.Projection.prototype.setWorldExtent = function(worldExtent) { };
+ol.proj.Projection.prototype.setWorldExtent = function(worldExtent) {};
 
 
 /**
  * @param {Function} func
  */
-ol.proj.Projection.prototype.setGetPointResolution = function(func) { };
+ol.proj.Projection.prototype.setGetPointResolution = function(func) {};
 
 
 /**
@@ -4740,7 +4747,7 @@ ol.proj.METERS_PER_UNIT;
 /**
  * @param {Proj4} proj4
  */
-ol.proj.setProj4 = function(proj4) { };
+ol.proj.setProj4 = function(proj4) {};
 
 
 /**
@@ -4750,19 +4757,19 @@ ol.proj.setProj4 = function(proj4) { };
  * @param {ol.proj.Units=} opt_units
  * @return {number}
  */
-ol.proj.getPointResolution = function(projection, resolution, point, opt_units) { };
+ol.proj.getPointResolution = function(projection, resolution, point, opt_units) {};
 
 
 /**
  * @param {Array.<ol.proj.Projection>} projections
  */
-ol.proj.addEquivalentProjections = function(projections) { };
+ol.proj.addEquivalentProjections = function(projections) {};
 
 
 /**
  * @param {ol.proj.Projection} projection
  */
-ol.proj.addProjection = function(projection) { };
+ol.proj.addProjection = function(projection) {};
 
 
 /**
@@ -4771,7 +4778,7 @@ ol.proj.addProjection = function(projection) { };
  * @param {Function} forward
  * @param {Function} inverse
  */
-ol.proj.addCoordinateTransforms = function(source, destination, forward, inverse) { };
+ol.proj.addCoordinateTransforms = function(source, destination, forward, inverse) {};
 
 
 /**
@@ -4779,7 +4786,7 @@ ol.proj.addCoordinateTransforms = function(source, destination, forward, inverse
  * @param {ol.ProjectionLike=} opt_projection
  * @return {ol.Coordinate}
  */
-ol.proj.fromLonLat = function(coordinate, opt_projection) { };
+ol.proj.fromLonLat = function(coordinate, opt_projection) {};
 
 
 /**
@@ -4787,14 +4794,14 @@ ol.proj.fromLonLat = function(coordinate, opt_projection) { };
  * @param {ol.ProjectionLike=} opt_projection
  * @return {ol.Coordinate}
  */
-ol.proj.toLonLat = function(coordinate, opt_projection) { };
+ol.proj.toLonLat = function(coordinate, opt_projection) {};
 
 
 /**
  * @param {ol.ProjectionLike} projectionLike
  * @return {ol.proj.Projection}
  */
-ol.proj.get = function(projectionLike) { };
+ol.proj.get = function(projectionLike) {};
 
 
 /**
@@ -4802,7 +4809,7 @@ ol.proj.get = function(projectionLike) { };
  * @param {ol.proj.Projection} projection2
  * @return {boolean}
  */
-ol.proj.equivalent = function(projection1, projection2) { };
+ol.proj.equivalent = function(projection1, projection2) {};
 
 
 /**
@@ -4810,7 +4817,7 @@ ol.proj.equivalent = function(projection1, projection2) { };
  * @param {ol.ProjectionLike} destination
  * @return {ol.TransformFunction}
  */
-ol.proj.getTransform = function(source, destination) { };
+ol.proj.getTransform = function(source, destination) {};
 
 
 /**
@@ -4819,7 +4826,7 @@ ol.proj.getTransform = function(source, destination) { };
  * @param {ol.ProjectionLike} destination
  * @return {ol.Coordinate}
  */
-ol.proj.transform = function(coordinate, source, destination) { };
+ol.proj.transform = function(coordinate, source, destination) {};
 
 
 /**
@@ -4828,7 +4835,7 @@ ol.proj.transform = function(coordinate, source, destination) { };
  * @param {ol.ProjectionLike} destination
  * @return {ol.Extent}
  */
-ol.proj.transformExtent = function(extent, source, destination) { };
+ol.proj.transformExtent = function(extent, source, destination) {};
 
 
 /**
@@ -4840,38 +4847,38 @@ ol.render.canvas;
 /**
  * @constructor
  */
-ol.render.canvas.Immediate = function() { };
+ol.render.canvas.Immediate = function() {};
 
 
 /**
  * @param {ol.geom.Circle} geometry
  */
-ol.render.canvas.Immediate.prototype.drawCircle = function(geometry) { };
+ol.render.canvas.Immediate.prototype.drawCircle = function(geometry) {};
 
 
 /**
  * @param {ol.style.Style} style
  */
-ol.render.canvas.Immediate.prototype.setStyle = function(style) { };
+ol.render.canvas.Immediate.prototype.setStyle = function(style) {};
 
 
 /**
  * @param {ol.geom.Geometry|ol.render.Feature} geometry
  */
-ol.render.canvas.Immediate.prototype.drawGeometry = function(geometry) { };
+ol.render.canvas.Immediate.prototype.drawGeometry = function(geometry) {};
 
 
 /**
  * @param {ol.Feature} feature
  * @param {ol.style.Style} style
  */
-ol.render.canvas.Immediate.prototype.drawFeature = function(feature, style) { };
+ol.render.canvas.Immediate.prototype.drawFeature = function(feature, style) {};
 
 
 /**
  * @constructor
  */
-ol.render.Event = function() { };
+ol.render.Event = function() {};
 
 
 /**
@@ -4901,73 +4908,73 @@ ol.render.Event.prototype.glContext;
 /**
  * @constructor
  */
-ol.render.Feature = function() { };
+ol.render.Feature = function() {};
 
 
 /**
  * @param {string} key
  * @return {*}
  */
-ol.render.Feature.prototype.get = function(key) { };
+ol.render.Feature.prototype.get = function(key) {};
 
 
 /**
  * @return {ol.Extent}
  */
-ol.render.Feature.prototype.getExtent = function() { };
+ol.render.Feature.prototype.getExtent = function() {};
 
 
 /**
  * @return {number|string|undefined}
  */
-ol.render.Feature.prototype.getId = function() { };
+ol.render.Feature.prototype.getId = function() {};
 
 
 /**
  * @return {ol.render.Feature}
  */
-ol.render.Feature.prototype.getGeometry = function() { };
+ol.render.Feature.prototype.getGeometry = function() {};
 
 
 /**
  * @return {Object.<string, *>}
  */
-ol.render.Feature.prototype.getProperties = function() { };
+ol.render.Feature.prototype.getProperties = function() {};
 
 
 /**
  * @return {ol.geom.GeometryType}
  */
-ol.render.Feature.prototype.getType = function() { };
+ol.render.Feature.prototype.getType = function() {};
 
 
 /**
  * @constructor
  */
-ol.render.VectorContext = function() { };
+ol.render.VectorContext = function() {};
 
 
 /**
  * @constructor
  */
-ol.render.webgl.Immediate = function() { };
+ol.render.webgl.Immediate = function() {};
 
 
 /**
  * @param {ol.style.Style} style
  */
-ol.render.webgl.Immediate.prototype.setStyle = function(style) { };
+ol.render.webgl.Immediate.prototype.setStyle = function(style) {};
 
 
 /**
  * @param {ol.geom.Geometry|ol.render.Feature} geometry
  */
-ol.render.webgl.Immediate.prototype.drawGeometry = function(geometry) { };
+ol.render.webgl.Immediate.prototype.drawGeometry = function(geometry) {};
 
 
 /**
  */
-ol.render.webgl.Immediate.prototype.drawFeature = function() { };
+ol.render.webgl.Immediate.prototype.drawFeature = function() {};
 
 
 /**
@@ -4975,7 +4982,7 @@ ol.render.webgl.Immediate.prototype.drawFeature = function() { };
  * @param {olx.render.ToContextOptions=} opt_options
  * @return {ol.render.canvas.Immediate}
  */
-ol.render.toContext = function(context, opt_options) { };
+ol.render.toContext = function(context, opt_options) {};
 
 
 /**
@@ -4983,7 +4990,7 @@ ol.render.toContext = function(context, opt_options) { };
  * @extends {ol.Observable}
  * @param {ol.layer.Image} imageLayer
  */
-ol.renderer.canvas.ImageLayer = function(imageLayer) { };
+ol.renderer.canvas.ImageLayer = function(imageLayer) {};
 
 
 /**
@@ -4992,7 +4999,7 @@ ol.renderer.canvas.ImageLayer = function(imageLayer) { };
  * @param {Element} container
  * @param {ol.PluggableMap} map
  */
-ol.renderer.canvas.Map = function(container, map) { };
+ol.renderer.canvas.Map = function(container, map) {};
 
 
 /**
@@ -5000,7 +5007,7 @@ ol.renderer.canvas.Map = function(container, map) { };
  * @extends {ol.Observable}
  * @param {ol.layer.Tile|ol.layer.VectorTile} tileLayer
  */
-ol.renderer.canvas.TileLayer = function(tileLayer) { };
+ol.renderer.canvas.TileLayer = function(tileLayer) {};
 
 
 /**
@@ -5008,7 +5015,7 @@ ol.renderer.canvas.TileLayer = function(tileLayer) { };
  * @extends {ol.Observable}
  * @param {ol.layer.Vector} vectorLayer
  */
-ol.renderer.canvas.VectorLayer = function(vectorLayer) { };
+ol.renderer.canvas.VectorLayer = function(vectorLayer) {};
 
 
 /**
@@ -5016,7 +5023,7 @@ ol.renderer.canvas.VectorLayer = function(vectorLayer) { };
  * @extends {ol.renderer.canvas.TileLayer}
  * @param {ol.layer.VectorTile} layer
  */
-ol.renderer.canvas.VectorTileLayer = function(layer) { };
+ol.renderer.canvas.VectorTileLayer = function(layer) {};
 
 
 /**
@@ -5025,7 +5032,7 @@ ol.renderer.canvas.VectorTileLayer = function(layer) { };
  * @param {ol.renderer.webgl.Map} mapRenderer
  * @param {ol.layer.Image} imageLayer
  */
-ol.renderer.webgl.ImageLayer = function(mapRenderer, imageLayer) { };
+ol.renderer.webgl.ImageLayer = function(mapRenderer, imageLayer) {};
 
 
 /**
@@ -5034,7 +5041,7 @@ ol.renderer.webgl.ImageLayer = function(mapRenderer, imageLayer) { };
  * @param {Element} container
  * @param {ol.PluggableMap} map
  */
-ol.renderer.webgl.Map = function(container, map) { };
+ol.renderer.webgl.Map = function(container, map) {};
 
 
 /**
@@ -5043,7 +5050,7 @@ ol.renderer.webgl.Map = function(container, map) { };
  * @param {ol.renderer.webgl.Map} mapRenderer
  * @param {ol.layer.Tile} tileLayer
  */
-ol.renderer.webgl.TileLayer = function(mapRenderer, tileLayer) { };
+ol.renderer.webgl.TileLayer = function(mapRenderer, tileLayer) {};
 
 
 /**
@@ -5052,7 +5059,7 @@ ol.renderer.webgl.TileLayer = function(mapRenderer, tileLayer) { };
  * @param {ol.renderer.webgl.Map} mapRenderer
  * @param {ol.layer.Vector} vectorLayer
  */
-ol.renderer.webgl.VectorLayer = function(mapRenderer, vectorLayer) { };
+ol.renderer.webgl.VectorLayer = function(mapRenderer, vectorLayer) {};
 
 
 /**
@@ -5066,7 +5073,7 @@ ol.size;
  * @param {ol.Size=} opt_size
  * @return {ol.Size}
  */
-ol.size.toSize = function(size, opt_size) { };
+ol.size.toSize = function(size, opt_size) {};
 
 
 /**
@@ -5074,7 +5081,7 @@ ol.size.toSize = function(size, opt_size) { };
  * @extends {ol.source.TileImage}
  * @param {olx.source.BingMapsOptions} options
  */
-ol.source.BingMaps = function(options) { };
+ol.source.BingMaps = function(options) {};
 
 
 /**
@@ -5086,13 +5093,13 @@ ol.source.BingMaps.TOS_ATTRIBUTION;
 /**
  * @return {string}
  */
-ol.source.BingMaps.prototype.getApiKey = function() { };
+ol.source.BingMaps.prototype.getApiKey = function() {};
 
 
 /**
  * @return {string}
  */
-ol.source.BingMaps.prototype.getImagerySet = function() { };
+ol.source.BingMaps.prototype.getImagerySet = function() {};
 
 
 /**
@@ -5100,25 +5107,25 @@ ol.source.BingMaps.prototype.getImagerySet = function() { };
  * @extends {ol.source.XYZ}
  * @param {olx.source.CartoDBOptions} options
  */
-ol.source.CartoDB = function(options) { };
+ol.source.CartoDB = function(options) {};
 
 
 /**
  * @return {Object}
  */
-ol.source.CartoDB.prototype.getConfig = function() { };
+ol.source.CartoDB.prototype.getConfig = function() {};
 
 
 /**
  * @param {Object} config
  */
-ol.source.CartoDB.prototype.updateConfig = function(config) { };
+ol.source.CartoDB.prototype.updateConfig = function(config) {};
 
 
 /**
  * @param {Object} config
  */
-ol.source.CartoDB.prototype.setConfig = function(config) { };
+ol.source.CartoDB.prototype.setConfig = function(config) {};
 
 
 /**
@@ -5126,25 +5133,25 @@ ol.source.CartoDB.prototype.setConfig = function(config) { };
  * @extends {ol.source.Vector}
  * @param {olx.source.ClusterOptions} options
  */
-ol.source.Cluster = function(options) { };
+ol.source.Cluster = function(options) {};
 
 
 /**
  * @return {number}
  */
-ol.source.Cluster.prototype.getDistance = function() { };
+ol.source.Cluster.prototype.getDistance = function() {};
 
 
 /**
  * @return {ol.source.Vector}
  */
-ol.source.Cluster.prototype.getSource = function() { };
+ol.source.Cluster.prototype.getSource = function() {};
 
 
 /**
  * @param {number} distance
  */
-ol.source.Cluster.prototype.setDistance = function(distance) { };
+ol.source.Cluster.prototype.setDistance = function(distance) {};
 
 
 /**
@@ -5152,13 +5159,13 @@ ol.source.Cluster.prototype.setDistance = function(distance) { };
  * @extends {ol.source.Source}
  * @param {ol.SourceImageOptions} options
  */
-ol.source.Image = function(options) { };
+ol.source.Image = function(options) {};
 
 
 /**
  * @constructor
  */
-ol.source.Image.Event = function() { };
+ol.source.Image.Event = function() {};
 
 
 /**
@@ -5172,43 +5179,43 @@ ol.source.Image.Event.prototype.image;
  * @extends {ol.source.Image}
  * @param {olx.source.ImageArcGISRestOptions=} opt_options
  */
-ol.source.ImageArcGISRest = function(opt_options) { };
+ol.source.ImageArcGISRest = function(opt_options) {};
 
 
 /**
  * @return {Object}
  */
-ol.source.ImageArcGISRest.prototype.getParams = function() { };
+ol.source.ImageArcGISRest.prototype.getParams = function() {};
 
 
 /**
  * @return {ol.ImageLoadFunctionType}
  */
-ol.source.ImageArcGISRest.prototype.getImageLoadFunction = function() { };
+ol.source.ImageArcGISRest.prototype.getImageLoadFunction = function() {};
 
 
 /**
  * @return {string|undefined}
  */
-ol.source.ImageArcGISRest.prototype.getUrl = function() { };
+ol.source.ImageArcGISRest.prototype.getUrl = function() {};
 
 
 /**
  * @param {ol.ImageLoadFunctionType} imageLoadFunction
  */
-ol.source.ImageArcGISRest.prototype.setImageLoadFunction = function(imageLoadFunction) { };
+ol.source.ImageArcGISRest.prototype.setImageLoadFunction = function(imageLoadFunction) {};
 
 
 /**
  * @param {string|undefined} url
  */
-ol.source.ImageArcGISRest.prototype.setUrl = function(url) { };
+ol.source.ImageArcGISRest.prototype.setUrl = function(url) {};
 
 
 /**
  * @param {Object} params
  */
-ol.source.ImageArcGISRest.prototype.updateParams = function(params) { };
+ol.source.ImageArcGISRest.prototype.updateParams = function(params) {};
 
 
 /**
@@ -5216,7 +5223,7 @@ ol.source.ImageArcGISRest.prototype.updateParams = function(params) { };
  * @extends {ol.source.Image}
  * @param {olx.source.ImageCanvasOptions} options
  */
-ol.source.ImageCanvas = function(options) { };
+ol.source.ImageCanvas = function(options) {};
 
 
 /**
@@ -5224,31 +5231,31 @@ ol.source.ImageCanvas = function(options) { };
  * @extends {ol.source.Image}
  * @param {olx.source.ImageMapGuideOptions} options
  */
-ol.source.ImageMapGuide = function(options) { };
+ol.source.ImageMapGuide = function(options) {};
 
 
 /**
  * @return {Object}
  */
-ol.source.ImageMapGuide.prototype.getParams = function() { };
+ol.source.ImageMapGuide.prototype.getParams = function() {};
 
 
 /**
  * @return {ol.ImageLoadFunctionType}
  */
-ol.source.ImageMapGuide.prototype.getImageLoadFunction = function() { };
+ol.source.ImageMapGuide.prototype.getImageLoadFunction = function() {};
 
 
 /**
  * @param {Object} params
  */
-ol.source.ImageMapGuide.prototype.updateParams = function(params) { };
+ol.source.ImageMapGuide.prototype.updateParams = function(params) {};
 
 
 /**
  * @param {ol.ImageLoadFunctionType} imageLoadFunction
  */
-ol.source.ImageMapGuide.prototype.setImageLoadFunction = function(imageLoadFunction) { };
+ol.source.ImageMapGuide.prototype.setImageLoadFunction = function(imageLoadFunction) {};
 
 
 /**
@@ -5256,7 +5263,7 @@ ol.source.ImageMapGuide.prototype.setImageLoadFunction = function(imageLoadFunct
  * @extends {ol.source.Image}
  * @param {olx.source.ImageStaticOptions} options
  */
-ol.source.ImageStatic = function(options) { };
+ol.source.ImageStatic = function(options) {};
 
 
 /**
@@ -5264,31 +5271,31 @@ ol.source.ImageStatic = function(options) { };
  * @extends {ol.source.ImageCanvas}
  * @param {olx.source.ImageVectorOptions} options
  */
-ol.source.ImageVector = function(options) { };
+ol.source.ImageVector = function(options) {};
 
 
 /**
  * @return {ol.source.Vector}
  */
-ol.source.ImageVector.prototype.getSource = function() { };
+ol.source.ImageVector.prototype.getSource = function() {};
 
 
 /**
  * @return {ol.style.Style|Array.<ol.style.Style>|ol.StyleFunction}
  */
-ol.source.ImageVector.prototype.getStyle = function() { };
+ol.source.ImageVector.prototype.getStyle = function() {};
 
 
 /**
  * @return {ol.StyleFunction|undefined}
  */
-ol.source.ImageVector.prototype.getStyleFunction = function() { };
+ol.source.ImageVector.prototype.getStyleFunction = function() {};
 
 
 /**
  * @param {ol.style.Style|Array.<ol.style.Style>|ol.StyleFunction|undefined} style
  */
-ol.source.ImageVector.prototype.setStyle = function(style) { };
+ol.source.ImageVector.prototype.setStyle = function(style) {};
 
 
 /**
@@ -5296,7 +5303,7 @@ ol.source.ImageVector.prototype.setStyle = function(style) { };
  * @extends {ol.source.Image}
  * @param {olx.source.ImageWMSOptions=} opt_options
  */
-ol.source.ImageWMS = function(opt_options) { };
+ol.source.ImageWMS = function(opt_options) {};
 
 
 /**
@@ -5306,43 +5313,43 @@ ol.source.ImageWMS = function(opt_options) { };
  * @param {Object} params
  * @return {string|undefined}
  */
-ol.source.ImageWMS.prototype.getGetFeatureInfoUrl = function(coordinate, resolution, projection, params) { };
+ol.source.ImageWMS.prototype.getGetFeatureInfoUrl = function(coordinate, resolution, projection, params) {};
 
 
 /**
  * @return {Object}
  */
-ol.source.ImageWMS.prototype.getParams = function() { };
+ol.source.ImageWMS.prototype.getParams = function() {};
 
 
 /**
  * @return {ol.ImageLoadFunctionType}
  */
-ol.source.ImageWMS.prototype.getImageLoadFunction = function() { };
+ol.source.ImageWMS.prototype.getImageLoadFunction = function() {};
 
 
 /**
  * @return {string|undefined}
  */
-ol.source.ImageWMS.prototype.getUrl = function() { };
+ol.source.ImageWMS.prototype.getUrl = function() {};
 
 
 /**
  * @param {ol.ImageLoadFunctionType} imageLoadFunction
  */
-ol.source.ImageWMS.prototype.setImageLoadFunction = function(imageLoadFunction) { };
+ol.source.ImageWMS.prototype.setImageLoadFunction = function(imageLoadFunction) {};
 
 
 /**
  * @param {string|undefined} url
  */
-ol.source.ImageWMS.prototype.setUrl = function(url) { };
+ol.source.ImageWMS.prototype.setUrl = function(url) {};
 
 
 /**
  * @param {Object} params
  */
-ol.source.ImageWMS.prototype.updateParams = function(params) { };
+ol.source.ImageWMS.prototype.updateParams = function(params) {};
 
 
 /**
@@ -5350,7 +5357,7 @@ ol.source.ImageWMS.prototype.updateParams = function(params) { };
  * @extends {ol.source.XYZ}
  * @param {olx.source.OSMOptions=} opt_options
  */
-ol.source.OSM = function(opt_options) { };
+ol.source.OSM = function(opt_options) {};
 
 
 /**
@@ -5364,20 +5371,20 @@ ol.source.OSM.ATTRIBUTION;
  * @extends {ol.source.Image}
  * @param {olx.source.RasterOptions} options
  */
-ol.source.Raster = function(options) { };
+ol.source.Raster = function(options) {};
 
 
 /**
  * @param {ol.RasterOperation} operation
  * @param {Object=} opt_lib
  */
-ol.source.Raster.prototype.setOperation = function(operation, opt_lib) { };
+ol.source.Raster.prototype.setOperation = function(operation, opt_lib) {};
 
 
 /**
  * @constructor
  */
-ol.source.Raster.Event = function() { };
+ol.source.Raster.Event = function() {};
 
 
 /**
@@ -5403,42 +5410,42 @@ ol.source.Raster.Event.prototype.data;
  * @extends {ol.Object}
  * @param {ol.SourceSourceOptions} options
  */
-ol.source.Source = function(options) { };
+ol.source.Source = function(options) {};
 
 
 /**
  * @return {Array.<ol.Attribution>}
  */
-ol.source.Source.prototype.getAttributions = function() { };
+ol.source.Source.prototype.getAttributions = function() {};
 
 
 /**
  * @return {string|olx.LogoOptions|undefined}
  */
-ol.source.Source.prototype.getLogo = function() { };
+ol.source.Source.prototype.getLogo = function() {};
 
 
 /**
  * @return {ol.proj.Projection}
  */
-ol.source.Source.prototype.getProjection = function() { };
+ol.source.Source.prototype.getProjection = function() {};
 
 
 /**
  * @return {ol.source.State}
  */
-ol.source.Source.prototype.getState = function() { };
+ol.source.Source.prototype.getState = function() {};
 
 
 /**
  */
-ol.source.Source.prototype.refresh = function() { };
+ol.source.Source.prototype.refresh = function() {};
 
 
 /**
  * @param {ol.AttributionLike|undefined} attributions
  */
-ol.source.Source.prototype.setAttributions = function(attributions) { };
+ol.source.Source.prototype.setAttributions = function(attributions) {};
 
 
 /**
@@ -5446,7 +5453,7 @@ ol.source.Source.prototype.setAttributions = function(attributions) { };
  * @extends {ol.source.XYZ}
  * @param {olx.source.StamenOptions} options
  */
-ol.source.Stamen = function(options) { };
+ol.source.Stamen = function(options) {};
 
 
 /**
@@ -5454,19 +5461,19 @@ ol.source.Stamen = function(options) { };
  * @extends {ol.source.Source}
  * @param {ol.SourceTileOptions} options
  */
-ol.source.Tile = function(options) { };
+ol.source.Tile = function(options) {};
 
 
 /**
  * @return {ol.tilegrid.TileGrid}
  */
-ol.source.Tile.prototype.getTileGrid = function() { };
+ol.source.Tile.prototype.getTileGrid = function() {};
 
 
 /**
  * @constructor
  */
-ol.source.Tile.Event = function() { };
+ol.source.Tile.Event = function() {};
 
 
 /**
@@ -5480,19 +5487,19 @@ ol.source.Tile.Event.prototype.tile;
  * @extends {ol.source.TileImage}
  * @param {olx.source.TileArcGISRestOptions=} opt_options
  */
-ol.source.TileArcGISRest = function(opt_options) { };
+ol.source.TileArcGISRest = function(opt_options) {};
 
 
 /**
  * @return {Object}
  */
-ol.source.TileArcGISRest.prototype.getParams = function() { };
+ol.source.TileArcGISRest.prototype.getParams = function() {};
 
 
 /**
  * @param {Object} params
  */
-ol.source.TileArcGISRest.prototype.updateParams = function(params) { };
+ol.source.TileArcGISRest.prototype.updateParams = function(params) {};
 
 
 /**
@@ -5500,7 +5507,7 @@ ol.source.TileArcGISRest.prototype.updateParams = function(params) { };
  * @extends {ol.source.Tile}
  * @param {olx.source.TileDebugOptions} options
  */
-ol.source.TileDebug = function(options) { };
+ol.source.TileDebug = function(options) {};
 
 
 /**
@@ -5508,20 +5515,20 @@ ol.source.TileDebug = function(options) { };
  * @extends {ol.source.Tile}
  * @param {olx.source.TileImageOptions} options
  */
-ol.source.TileImage = function(options) { };
+ol.source.TileImage = function(options) {};
 
 
 /**
  * @param {boolean} render
  */
-ol.source.TileImage.prototype.setRenderReprojectionEdges = function(render) { };
+ol.source.TileImage.prototype.setRenderReprojectionEdges = function(render) {};
 
 
 /**
  * @param {ol.ProjectionLike} projection
  * @param {ol.tilegrid.TileGrid} tilegrid
  */
-ol.source.TileImage.prototype.setTileGridForProjection = function(projection, tilegrid) { };
+ol.source.TileImage.prototype.setTileGridForProjection = function(projection, tilegrid) {};
 
 
 /**
@@ -5529,13 +5536,13 @@ ol.source.TileImage.prototype.setTileGridForProjection = function(projection, ti
  * @extends {ol.source.TileImage}
  * @param {olx.source.TileJSONOptions} options
  */
-ol.source.TileJSON = function(options) { };
+ol.source.TileJSON = function(options) {};
 
 
 /**
  * @return {TileJSON}
  */
-ol.source.TileJSON.prototype.getTileJSON = function() { };
+ol.source.TileJSON.prototype.getTileJSON = function() {};
 
 
 /**
@@ -5543,13 +5550,13 @@ ol.source.TileJSON.prototype.getTileJSON = function() { };
  * @extends {ol.source.Tile}
  * @param {olx.source.TileUTFGridOptions} options
  */
-ol.source.TileUTFGrid = function(options) { };
+ol.source.TileUTFGrid = function(options) {};
 
 
 /**
  * @return {string|undefined}
  */
-ol.source.TileUTFGrid.prototype.getTemplate = function() { };
+ol.source.TileUTFGrid.prototype.getTemplate = function() {};
 
 
 /**
@@ -5560,7 +5567,7 @@ ol.source.TileUTFGrid.prototype.getTemplate = function() { };
  * @param {boolean=} opt_request
  * @template T
  */
-ol.source.TileUTFGrid.prototype.forDataAtCoordinateAndResolution = function(coordinate, resolution, callback, opt_this, opt_request) { };
+ol.source.TileUTFGrid.prototype.forDataAtCoordinateAndResolution = function(coordinate, resolution, callback, opt_this, opt_request) {};
 
 
 /**
@@ -5568,7 +5575,7 @@ ol.source.TileUTFGrid.prototype.forDataAtCoordinateAndResolution = function(coor
  * @extends {ol.source.TileImage}
  * @param {olx.source.TileWMSOptions=} opt_options
  */
-ol.source.TileWMS = function(opt_options) { };
+ol.source.TileWMS = function(opt_options) {};
 
 
 /**
@@ -5578,62 +5585,62 @@ ol.source.TileWMS = function(opt_options) { };
  * @param {Object} params
  * @return {string|undefined}
  */
-ol.source.TileWMS.prototype.getGetFeatureInfoUrl = function(coordinate, resolution, projection, params) { };
+ol.source.TileWMS.prototype.getGetFeatureInfoUrl = function(coordinate, resolution, projection, params) {};
 
 
 /**
  * @return {Object}
  */
-ol.source.TileWMS.prototype.getParams = function() { };
+ol.source.TileWMS.prototype.getParams = function() {};
 
 
 /**
  * @param {Object} params
  */
-ol.source.TileWMS.prototype.updateParams = function(params) { };
+ol.source.TileWMS.prototype.updateParams = function(params) {};
 
 
 /**
  * @return {ol.TileLoadFunctionType}
  */
-ol.source.UrlTile.prototype.getTileLoadFunction = function() { };
+ol.source.UrlTile.prototype.getTileLoadFunction = function() {};
 
 
 /**
  * @return {ol.TileUrlFunctionType}
  */
-ol.source.UrlTile.prototype.getTileUrlFunction = function() { };
+ol.source.UrlTile.prototype.getTileUrlFunction = function() {};
 
 
 /**
  * @return {!Array.<string>|null}
  */
-ol.source.UrlTile.prototype.getUrls = function() { };
+ol.source.UrlTile.prototype.getUrls = function() {};
 
 
 /**
  * @param {ol.TileLoadFunctionType} tileLoadFunction
  */
-ol.source.UrlTile.prototype.setTileLoadFunction = function(tileLoadFunction) { };
+ol.source.UrlTile.prototype.setTileLoadFunction = function(tileLoadFunction) {};
 
 
 /**
  * @param {ol.TileUrlFunctionType} tileUrlFunction
  * @param {string=} opt_key
  */
-ol.source.UrlTile.prototype.setTileUrlFunction = function(tileUrlFunction, opt_key) { };
+ol.source.UrlTile.prototype.setTileUrlFunction = function(tileUrlFunction, opt_key) {};
 
 
 /**
  * @param {string} url
  */
-ol.source.UrlTile.prototype.setUrl = function(url) { };
+ol.source.UrlTile.prototype.setUrl = function(url) {};
 
 
 /**
  * @param {Array.<string>} urls
  */
-ol.source.UrlTile.prototype.setUrls = function(urls) { };
+ol.source.UrlTile.prototype.setUrls = function(urls) {};
 
 
 /**
@@ -5641,25 +5648,25 @@ ol.source.UrlTile.prototype.setUrls = function(urls) { };
  * @extends {ol.source.Source}
  * @param {olx.source.VectorOptions=} opt_options
  */
-ol.source.Vector = function(opt_options) { };
+ol.source.Vector = function(opt_options) {};
 
 
 /**
  * @param {ol.Feature} feature
  */
-ol.source.Vector.prototype.addFeature = function(feature) { };
+ol.source.Vector.prototype.addFeature = function(feature) {};
 
 
 /**
  * @param {Array.<ol.Feature>} features
  */
-ol.source.Vector.prototype.addFeatures = function(features) { };
+ol.source.Vector.prototype.addFeatures = function(features) {};
 
 
 /**
  * @param {boolean=} opt_fast
  */
-ol.source.Vector.prototype.clear = function(opt_fast) { };
+ol.source.Vector.prototype.clear = function(opt_fast) {};
 
 
 /**
@@ -5668,17 +5675,7 @@ ol.source.Vector.prototype.clear = function(opt_fast) { };
  * @return {S|undefined}
  * @template T,S
  */
-ol.source.Vector.prototype.forEachFeature = function(callback, opt_this) { };
-
-
-/**
- * @param {ol.Extent} extent
- * @param {Function} callback
- * @param {T=} opt_this
- * @return {S|undefined}
- * @template T,S
- */
-ol.source.Vector.prototype.forEachFeatureInExtent = function(extent, callback, opt_this) { };
+ol.source.Vector.prototype.forEachFeature = function(callback, opt_this) {};
 
 
 /**
@@ -5688,33 +5685,43 @@ ol.source.Vector.prototype.forEachFeatureInExtent = function(extent, callback, o
  * @return {S|undefined}
  * @template T,S
  */
-ol.source.Vector.prototype.forEachFeatureIntersectingExtent = function(extent, callback, opt_this) { };
+ol.source.Vector.prototype.forEachFeatureInExtent = function(extent, callback, opt_this) {};
+
+
+/**
+ * @param {ol.Extent} extent
+ * @param {Function} callback
+ * @param {T=} opt_this
+ * @return {S|undefined}
+ * @template T,S
+ */
+ol.source.Vector.prototype.forEachFeatureIntersectingExtent = function(extent, callback, opt_this) {};
 
 
 /**
  * @return {ol.Collection.<ol.Feature>}
  */
-ol.source.Vector.prototype.getFeaturesCollection = function() { };
+ol.source.Vector.prototype.getFeaturesCollection = function() {};
 
 
 /**
  * @return {Array.<ol.Feature>}
  */
-ol.source.Vector.prototype.getFeatures = function() { };
+ol.source.Vector.prototype.getFeatures = function() {};
 
 
 /**
  * @param {ol.Coordinate} coordinate
  * @return {Array.<ol.Feature>}
  */
-ol.source.Vector.prototype.getFeaturesAtCoordinate = function(coordinate) { };
+ol.source.Vector.prototype.getFeaturesAtCoordinate = function(coordinate) {};
 
 
 /**
  * @param {ol.Extent} extent
  * @return {Array.<ol.Feature>}
  */
-ol.source.Vector.prototype.getFeaturesInExtent = function(extent) { };
+ol.source.Vector.prototype.getFeaturesInExtent = function(extent) {};
 
 
 /**
@@ -5722,57 +5729,57 @@ ol.source.Vector.prototype.getFeaturesInExtent = function(extent) { };
  * @param {Function} opt_filter
  * @return {ol.Feature}
  */
-ol.source.Vector.prototype.getClosestFeatureToCoordinate = function(coordinate, opt_filter) { };
+ol.source.Vector.prototype.getClosestFeatureToCoordinate = function(coordinate, opt_filter) {};
 
 
 /**
  * @param {ol.Extent=} opt_extent
  * @return {ol.Extent}
  */
-ol.source.Vector.prototype.getExtent = function(opt_extent) { };
+ol.source.Vector.prototype.getExtent = function(opt_extent) {};
 
 
 /**
  * @param {string|number} id
  * @return {ol.Feature}
  */
-ol.source.Vector.prototype.getFeatureById = function(id) { };
+ol.source.Vector.prototype.getFeatureById = function(id) {};
 
 
 /**
  * @return {ol.format.Feature|undefined}
  */
-ol.source.Vector.prototype.getFormat = function() { };
+ol.source.Vector.prototype.getFormat = function() {};
 
 
 /**
  * @return {string|ol.FeatureUrlFunction|undefined}
  */
-ol.source.Vector.prototype.getUrl = function() { };
+ol.source.Vector.prototype.getUrl = function() {};
 
 
 /**
  * @param {ol.Extent} extent
  */
-ol.source.Vector.prototype.removeLoadedExtent = function(extent) { };
+ol.source.Vector.prototype.removeLoadedExtent = function(extent) {};
 
 
 /**
  * @param {ol.Feature} feature
  */
-ol.source.Vector.prototype.removeFeature = function(feature) { };
+ol.source.Vector.prototype.removeFeature = function(feature) {};
 
 
 /**
  * @param {ol.FeatureLoader} loader
  */
-ol.source.Vector.prototype.setLoader = function(loader) { };
+ol.source.Vector.prototype.setLoader = function(loader) {};
 
 
 /**
  * @constructor
  */
-ol.source.Vector.Event = function() { };
+ol.source.Vector.Event = function() {};
 
 
 /**
@@ -5786,12 +5793,12 @@ ol.source.Vector.Event.prototype.feature;
  * @extends {ol.source.Tile}
  * @param {olx.source.VectorTileOptions} options
  */
-ol.source.VectorTile = function(options) { };
+ol.source.VectorTile = function(options) {};
 
 
 /**
  */
-ol.source.VectorTile.prototype.clear = function() { };
+ol.source.VectorTile.prototype.clear = function() {};
 
 
 /**
@@ -5799,55 +5806,55 @@ ol.source.VectorTile.prototype.clear = function() { };
  * @extends {ol.source.TileImage}
  * @param {olx.source.WMTSOptions} options
  */
-ol.source.WMTS = function(options) { };
+ol.source.WMTS = function(options) {};
 
 
 /**
  * @return {Object}
  */
-ol.source.WMTS.prototype.getDimensions = function() { };
+ol.source.WMTS.prototype.getDimensions = function() {};
 
 
 /**
  * @return {string}
  */
-ol.source.WMTS.prototype.getFormat = function() { };
+ol.source.WMTS.prototype.getFormat = function() {};
 
 
 /**
  * @return {string}
  */
-ol.source.WMTS.prototype.getLayer = function() { };
+ol.source.WMTS.prototype.getLayer = function() {};
 
 
 /**
  * @return {string}
  */
-ol.source.WMTS.prototype.getMatrixSet = function() { };
+ol.source.WMTS.prototype.getMatrixSet = function() {};
 
 
 /**
  * @return {ol.source.WMTSRequestEncoding}
  */
-ol.source.WMTS.prototype.getRequestEncoding = function() { };
+ol.source.WMTS.prototype.getRequestEncoding = function() {};
 
 
 /**
  * @return {string}
  */
-ol.source.WMTS.prototype.getStyle = function() { };
+ol.source.WMTS.prototype.getStyle = function() {};
 
 
 /**
  * @return {string}
  */
-ol.source.WMTS.prototype.getVersion = function() { };
+ol.source.WMTS.prototype.getVersion = function() {};
 
 
 /**
  * @param {Object} dimensions
  */
-ol.source.WMTS.prototype.updateDimensions = function(dimensions) { };
+ol.source.WMTS.prototype.updateDimensions = function(dimensions) {};
 
 
 /**
@@ -5855,7 +5862,7 @@ ol.source.WMTS.prototype.updateDimensions = function(dimensions) { };
  * @param {Object} config
  * @return {!olx.source.WMTSOptions}
  */
-ol.source.WMTS.optionsFromCapabilities = function(wmtsCap, config) { };
+ol.source.WMTS.optionsFromCapabilities = function(wmtsCap, config) {};
 
 
 /**
@@ -5863,7 +5870,7 @@ ol.source.WMTS.optionsFromCapabilities = function(wmtsCap, config) { };
  * @extends {ol.source.TileImage}
  * @param {olx.source.XYZOptions=} opt_options
  */
-ol.source.XYZ = function(opt_options) { };
+ol.source.XYZ = function(opt_options) {};
 
 
 /**
@@ -5871,21 +5878,21 @@ ol.source.XYZ = function(opt_options) { };
  * @extends {ol.source.TileImage}
  * @param {olx.source.ZoomifyOptions=} opt_options
  */
-ol.source.Zoomify = function(opt_options) { };
+ol.source.Zoomify = function(opt_options) {};
 
 
 /**
  * @constructor
  * @param {number} radius
  */
-ol.Sphere = function(radius) { };
+ol.Sphere = function(radius) {};
 
 
 /**
  * @param {Array.<ol.Coordinate>} coordinates
  * @return {number}
  */
-ol.Sphere.prototype.geodesicArea = function(coordinates) { };
+ol.Sphere.prototype.geodesicArea = function(coordinates) {};
 
 
 /**
@@ -5893,7 +5900,7 @@ ol.Sphere.prototype.geodesicArea = function(coordinates) { };
  * @param {ol.Coordinate} c2
  * @return {number}
  */
-ol.Sphere.prototype.haversineDistance = function(c1, c2) { };
+ol.Sphere.prototype.haversineDistance = function(c1, c2) {};
 
 
 /**
@@ -5901,7 +5908,7 @@ ol.Sphere.prototype.haversineDistance = function(c1, c2) { };
  * @param {olx.SphereMetricOptions=} opt_options
  * @return {number}
  */
-ol.Sphere.getLength = function(geometry, opt_options) { };
+ol.Sphere.getLength = function(geometry, opt_options) {};
 
 
 /**
@@ -5909,7 +5916,7 @@ ol.Sphere.getLength = function(geometry, opt_options) { };
  * @param {olx.SphereMetricOptions=} opt_options
  * @return {number}
  */
-ol.Sphere.getArea = function(geometry, opt_options) { };
+ol.Sphere.getArea = function(geometry, opt_options) {};
 
 
 /**
@@ -5922,7 +5929,7 @@ ol.style;
  * @constructor
  * @param {olx.style.AtlasManagerOptions=} opt_options
  */
-ol.style.AtlasManager = function(opt_options) { };
+ol.style.AtlasManager = function(opt_options) {};
 
 
 /**
@@ -5930,38 +5937,38 @@ ol.style.AtlasManager = function(opt_options) { };
  * @extends {ol.style.RegularShape}
  * @param {olx.style.CircleOptions=} opt_options
  */
-ol.style.Circle = function(opt_options) { };
+ol.style.Circle = function(opt_options) {};
 
 
 /**
  * @param {number} radius
  */
-ol.style.Circle.prototype.setRadius = function(radius) { };
+ol.style.Circle.prototype.setRadius = function(radius) {};
 
 
 /**
  * @constructor
  * @param {olx.style.FillOptions=} opt_options
  */
-ol.style.Fill = function(opt_options) { };
+ol.style.Fill = function(opt_options) {};
 
 
 /**
  * @return {ol.style.Fill}
  */
-ol.style.Fill.prototype.clone = function() { };
+ol.style.Fill.prototype.clone = function() {};
 
 
 /**
  * @return {ol.Color|ol.ColorLike}
  */
-ol.style.Fill.prototype.getColor = function() { };
+ol.style.Fill.prototype.getColor = function() {};
 
 
 /**
  * @param {ol.Color|ol.ColorLike} color
  */
-ol.style.Fill.prototype.setColor = function(color) { };
+ol.style.Fill.prototype.setColor = function(color) {};
 
 
 /**
@@ -5969,119 +5976,119 @@ ol.style.Fill.prototype.setColor = function(color) { };
  * @extends {ol.style.Image}
  * @param {olx.style.IconOptions=} opt_options
  */
-ol.style.Icon = function(opt_options) { };
+ol.style.Icon = function(opt_options) {};
 
 
 /**
  * @return {ol.style.Icon}
  */
-ol.style.Icon.prototype.clone = function() { };
+ol.style.Icon.prototype.clone = function() {};
 
 
 /**
  */
-ol.style.Icon.prototype.getAnchor = function() { };
+ol.style.Icon.prototype.getAnchor = function() {};
 
 
 /**
  * @return {ol.Color}
  */
-ol.style.Icon.prototype.getColor = function() { };
+ol.style.Icon.prototype.getColor = function() {};
 
 
 /**
  * @param {number} pixelRatio
  * @return {Image|HTMLCanvasElement}
  */
-ol.style.Icon.prototype.getImage = function(pixelRatio) { };
+ol.style.Icon.prototype.getImage = function(pixelRatio) {};
 
 
 /**
  */
-ol.style.Icon.prototype.getOrigin = function() { };
+ol.style.Icon.prototype.getOrigin = function() {};
 
 
 /**
  * @return {string|undefined}
  */
-ol.style.Icon.prototype.getSrc = function() { };
+ol.style.Icon.prototype.getSrc = function() {};
 
 
 /**
  */
-ol.style.Icon.prototype.getSize = function() { };
+ol.style.Icon.prototype.getSize = function() {};
 
 
 /**
  */
-ol.style.Icon.prototype.load = function() { };
+ol.style.Icon.prototype.load = function() {};
 
 
 /**
  * @constructor
  */
-ol.style.IconImageCache = function() { };
+ol.style.IconImageCache = function() {};
 
 
 /**
  * @param {number} maxCacheSize
  */
-ol.style.IconImageCache.prototype.setSize = function(maxCacheSize) { };
+ol.style.IconImageCache.prototype.setSize = function(maxCacheSize) {};
 
 
 /**
  * @constructor
  * @param {ol.StyleImageOptions} options
  */
-ol.style.Image = function(options) { };
+ol.style.Image = function(options) {};
 
 
 /**
  * @return {number}
  */
-ol.style.Image.prototype.getOpacity = function() { };
+ol.style.Image.prototype.getOpacity = function() {};
 
 
 /**
  * @return {boolean}
  */
-ol.style.Image.prototype.getRotateWithView = function() { };
+ol.style.Image.prototype.getRotateWithView = function() {};
 
 
 /**
  * @return {number}
  */
-ol.style.Image.prototype.getRotation = function() { };
+ol.style.Image.prototype.getRotation = function() {};
 
 
 /**
  * @return {number}
  */
-ol.style.Image.prototype.getScale = function() { };
+ol.style.Image.prototype.getScale = function() {};
 
 
 /**
  * @return {boolean}
  */
-ol.style.Image.prototype.getSnapToPixel = function() { };
+ol.style.Image.prototype.getSnapToPixel = function() {};
 
 
 /**
  * @param {number} opacity
  */
-ol.style.Image.prototype.setOpacity = function(opacity) { };
+ol.style.Image.prototype.setOpacity = function(opacity) {};
 
 
 /**
  * @param {number} rotation
  */
-ol.style.Image.prototype.setRotation = function(rotation) { };
+ol.style.Image.prototype.setRotation = function(rotation) {};
 
 
 /**
  * @param {number} scale
  */
-ol.style.Image.prototype.setScale = function(scale) { };
+ol.style.Image.prototype.setScale = function(scale) {};
 
 
 /**
@@ -6089,480 +6096,480 @@ ol.style.Image.prototype.setScale = function(scale) { };
  * @extends {ol.style.Image}
  * @param {olx.style.RegularShapeOptions} options
  */
-ol.style.RegularShape = function(options) { };
+ol.style.RegularShape = function(options) {};
 
 
 /**
  * @return {ol.style.RegularShape}
  */
-ol.style.RegularShape.prototype.clone = function() { };
+ol.style.RegularShape.prototype.clone = function() {};
 
 
 /**
  */
-ol.style.RegularShape.prototype.getAnchor = function() { };
+ol.style.RegularShape.prototype.getAnchor = function() {};
 
 
 /**
  * @return {number}
  */
-ol.style.RegularShape.prototype.getAngle = function() { };
+ol.style.RegularShape.prototype.getAngle = function() {};
 
 
 /**
  * @return {ol.style.Fill}
  */
-ol.style.RegularShape.prototype.getFill = function() { };
+ol.style.RegularShape.prototype.getFill = function() {};
 
 
 /**
  */
-ol.style.RegularShape.prototype.getImage = function() { };
+ol.style.RegularShape.prototype.getImage = function() {};
 
 
 /**
  */
-ol.style.RegularShape.prototype.getOrigin = function() { };
-
-
-/**
- * @return {number}
- */
-ol.style.RegularShape.prototype.getPoints = function() { };
+ol.style.RegularShape.prototype.getOrigin = function() {};
 
 
 /**
  * @return {number}
  */
-ol.style.RegularShape.prototype.getRadius = function() { };
+ol.style.RegularShape.prototype.getPoints = function() {};
+
+
+/**
+ * @return {number}
+ */
+ol.style.RegularShape.prototype.getRadius = function() {};
 
 
 /**
  * @return {number|undefined}
  */
-ol.style.RegularShape.prototype.getRadius2 = function() { };
+ol.style.RegularShape.prototype.getRadius2 = function() {};
 
 
 /**
  */
-ol.style.RegularShape.prototype.getSize = function() { };
+ol.style.RegularShape.prototype.getSize = function() {};
 
 
 /**
  * @return {ol.style.Stroke}
  */
-ol.style.RegularShape.prototype.getStroke = function() { };
+ol.style.RegularShape.prototype.getStroke = function() {};
 
 
 /**
  * @constructor
  * @param {olx.style.StrokeOptions=} opt_options
  */
-ol.style.Stroke = function(opt_options) { };
+ol.style.Stroke = function(opt_options) {};
 
 
 /**
  * @return {ol.style.Stroke}
  */
-ol.style.Stroke.prototype.clone = function() { };
+ol.style.Stroke.prototype.clone = function() {};
 
 
 /**
  * @return {ol.Color|ol.ColorLike}
  */
-ol.style.Stroke.prototype.getColor = function() { };
+ol.style.Stroke.prototype.getColor = function() {};
 
 
 /**
  * @return {string|undefined}
  */
-ol.style.Stroke.prototype.getLineCap = function() { };
+ol.style.Stroke.prototype.getLineCap = function() {};
 
 
 /**
  * @return {Array.<number>}
  */
-ol.style.Stroke.prototype.getLineDash = function() { };
+ol.style.Stroke.prototype.getLineDash = function() {};
 
 
 /**
  * @return {number|undefined}
  */
-ol.style.Stroke.prototype.getLineDashOffset = function() { };
+ol.style.Stroke.prototype.getLineDashOffset = function() {};
 
 
 /**
  * @return {string|undefined}
  */
-ol.style.Stroke.prototype.getLineJoin = function() { };
+ol.style.Stroke.prototype.getLineJoin = function() {};
 
 
 /**
  * @return {number|undefined}
  */
-ol.style.Stroke.prototype.getMiterLimit = function() { };
+ol.style.Stroke.prototype.getMiterLimit = function() {};
 
 
 /**
  * @return {number|undefined}
  */
-ol.style.Stroke.prototype.getWidth = function() { };
+ol.style.Stroke.prototype.getWidth = function() {};
 
 
 /**
  * @param {ol.Color|ol.ColorLike} color
  */
-ol.style.Stroke.prototype.setColor = function(color) { };
+ol.style.Stroke.prototype.setColor = function(color) {};
 
 
 /**
  * @param {string|undefined} lineCap
  */
-ol.style.Stroke.prototype.setLineCap = function(lineCap) { };
+ol.style.Stroke.prototype.setLineCap = function(lineCap) {};
 
 
 /**
  * @param {Array.<number>} lineDash
  */
-ol.style.Stroke.prototype.setLineDash = function(lineDash) { };
+ol.style.Stroke.prototype.setLineDash = function(lineDash) {};
 
 
 /**
  * @param {number|undefined} lineDashOffset
  */
-ol.style.Stroke.prototype.setLineDashOffset = function(lineDashOffset) { };
+ol.style.Stroke.prototype.setLineDashOffset = function(lineDashOffset) {};
 
 
 /**
  * @param {string|undefined} lineJoin
  */
-ol.style.Stroke.prototype.setLineJoin = function(lineJoin) { };
+ol.style.Stroke.prototype.setLineJoin = function(lineJoin) {};
 
 
 /**
  * @param {number|undefined} miterLimit
  */
-ol.style.Stroke.prototype.setMiterLimit = function(miterLimit) { };
+ol.style.Stroke.prototype.setMiterLimit = function(miterLimit) {};
 
 
 /**
  * @param {number|undefined} width
  */
-ol.style.Stroke.prototype.setWidth = function(width) { };
+ol.style.Stroke.prototype.setWidth = function(width) {};
 
 
 /**
  * @constructor
  * @param {olx.style.StyleOptions=} opt_options
  */
-ol.style.Style = function(opt_options) { };
+ol.style.Style = function(opt_options) {};
 
 
 /**
  * @return {ol.style.Style}
  */
-ol.style.Style.prototype.clone = function() { };
+ol.style.Style.prototype.clone = function() {};
 
 
 /**
  * @return {ol.StyleRenderFunction|null}
  */
-ol.style.Style.prototype.getRenderer = function() { };
+ol.style.Style.prototype.getRenderer = function() {};
 
 
 /**
  * @param {ol.StyleRenderFunction|null} renderer
  */
-ol.style.Style.prototype.setRenderer = function(renderer) { };
+ol.style.Style.prototype.setRenderer = function(renderer) {};
 
 
 /**
  * @return {string|ol.geom.Geometry|ol.StyleGeometryFunction}
  */
-ol.style.Style.prototype.getGeometry = function() { };
+ol.style.Style.prototype.getGeometry = function() {};
 
 
 /**
  * @return {ol.StyleGeometryFunction}
  */
-ol.style.Style.prototype.getGeometryFunction = function() { };
+ol.style.Style.prototype.getGeometryFunction = function() {};
 
 
 /**
  * @return {ol.style.Fill}
  */
-ol.style.Style.prototype.getFill = function() { };
+ol.style.Style.prototype.getFill = function() {};
 
 
 /**
  * @param {ol.style.Fill} fill
  */
-ol.style.Style.prototype.setFill = function(fill) { };
+ol.style.Style.prototype.setFill = function(fill) {};
 
 
 /**
  * @return {ol.style.Image}
  */
-ol.style.Style.prototype.getImage = function() { };
+ol.style.Style.prototype.getImage = function() {};
 
 
 /**
  * @param {ol.style.Image} image
  */
-ol.style.Style.prototype.setImage = function(image) { };
+ol.style.Style.prototype.setImage = function(image) {};
 
 
 /**
  * @return {ol.style.Stroke}
  */
-ol.style.Style.prototype.getStroke = function() { };
+ol.style.Style.prototype.getStroke = function() {};
 
 
 /**
  * @param {ol.style.Stroke} stroke
  */
-ol.style.Style.prototype.setStroke = function(stroke) { };
+ol.style.Style.prototype.setStroke = function(stroke) {};
 
 
 /**
  * @return {ol.style.Text}
  */
-ol.style.Style.prototype.getText = function() { };
+ol.style.Style.prototype.getText = function() {};
 
 
 /**
  * @param {ol.style.Text} text
  */
-ol.style.Style.prototype.setText = function(text) { };
+ol.style.Style.prototype.setText = function(text) {};
 
 
 /**
  * @return {number|undefined}
  */
-ol.style.Style.prototype.getZIndex = function() { };
+ol.style.Style.prototype.getZIndex = function() {};
 
 
 /**
  * @param {string|ol.geom.Geometry|ol.StyleGeometryFunction} geometry
  */
-ol.style.Style.prototype.setGeometry = function(geometry) { };
+ol.style.Style.prototype.setGeometry = function(geometry) {};
 
 
 /**
  * @param {number|undefined} zIndex
  */
-ol.style.Style.prototype.setZIndex = function(zIndex) { };
+ol.style.Style.prototype.setZIndex = function(zIndex) {};
 
 
 /**
  * @constructor
  * @param {olx.style.TextOptions=} opt_options
  */
-ol.style.Text = function(opt_options) { };
+ol.style.Text = function(opt_options) {};
 
 
 /**
  * @return {ol.style.Text}
  */
-ol.style.Text.prototype.clone = function() { };
+ol.style.Text.prototype.clone = function() {};
 
 
 /**
  * @return {boolean}
  */
-ol.style.Text.prototype.getOverflow = function() { };
+ol.style.Text.prototype.getOverflow = function() {};
 
 
 /**
  * @return {string|undefined}
  */
-ol.style.Text.prototype.getFont = function() { };
+ol.style.Text.prototype.getFont = function() {};
 
 
 /**
  * @return {number}
  */
-ol.style.Text.prototype.getMaxAngle = function() { };
+ol.style.Text.prototype.getMaxAngle = function() {};
 
 
 /**
  * @return {ol.style.TextPlacement|string}
  */
-ol.style.Text.prototype.getPlacement = function() { };
+ol.style.Text.prototype.getPlacement = function() {};
 
 
 /**
  * @return {number}
  */
-ol.style.Text.prototype.getOffsetX = function() { };
+ol.style.Text.prototype.getOffsetX = function() {};
 
 
 /**
  * @return {number}
  */
-ol.style.Text.prototype.getOffsetY = function() { };
+ol.style.Text.prototype.getOffsetY = function() {};
 
 
 /**
  * @return {ol.style.Fill}
  */
-ol.style.Text.prototype.getFill = function() { };
+ol.style.Text.prototype.getFill = function() {};
 
 
 /**
  * @return {boolean|undefined}
  */
-ol.style.Text.prototype.getRotateWithView = function() { };
+ol.style.Text.prototype.getRotateWithView = function() {};
 
 
 /**
  * @return {number|undefined}
  */
-ol.style.Text.prototype.getRotation = function() { };
+ol.style.Text.prototype.getRotation = function() {};
 
 
 /**
  * @return {number|undefined}
  */
-ol.style.Text.prototype.getScale = function() { };
+ol.style.Text.prototype.getScale = function() {};
 
 
 /**
  * @return {ol.style.Stroke}
  */
-ol.style.Text.prototype.getStroke = function() { };
+ol.style.Text.prototype.getStroke = function() {};
 
 
 /**
  * @return {string|undefined}
  */
-ol.style.Text.prototype.getText = function() { };
+ol.style.Text.prototype.getText = function() {};
 
 
 /**
  * @return {string|undefined}
  */
-ol.style.Text.prototype.getTextAlign = function() { };
+ol.style.Text.prototype.getTextAlign = function() {};
 
 
 /**
  * @return {string|undefined}
  */
-ol.style.Text.prototype.getTextBaseline = function() { };
+ol.style.Text.prototype.getTextBaseline = function() {};
 
 
 /**
  * @return {ol.style.Fill}
  */
-ol.style.Text.prototype.getBackgroundFill = function() { };
+ol.style.Text.prototype.getBackgroundFill = function() {};
 
 
 /**
  * @return {ol.style.Stroke}
  */
-ol.style.Text.prototype.getBackgroundStroke = function() { };
+ol.style.Text.prototype.getBackgroundStroke = function() {};
 
 
 /**
  * @return {Array.<number>}
  */
-ol.style.Text.prototype.getPadding = function() { };
+ol.style.Text.prototype.getPadding = function() {};
 
 
 /**
  * @param {boolean} overflow
  */
-ol.style.Text.prototype.setOverflow = function(overflow) { };
+ol.style.Text.prototype.setOverflow = function(overflow) {};
 
 
 /**
  * @param {string|undefined} font
  */
-ol.style.Text.prototype.setFont = function(font) { };
+ol.style.Text.prototype.setFont = function(font) {};
 
 
 /**
  * @param {number} maxAngle
  */
-ol.style.Text.prototype.setMaxAngle = function(maxAngle) { };
+ol.style.Text.prototype.setMaxAngle = function(maxAngle) {};
 
 
 /**
  * @param {number} offsetX
  */
-ol.style.Text.prototype.setOffsetX = function(offsetX) { };
+ol.style.Text.prototype.setOffsetX = function(offsetX) {};
 
 
 /**
  * @param {number} offsetY
  */
-ol.style.Text.prototype.setOffsetY = function(offsetY) { };
+ol.style.Text.prototype.setOffsetY = function(offsetY) {};
 
 
 /**
  * @param {ol.style.TextPlacement|string} placement
  */
-ol.style.Text.prototype.setPlacement = function(placement) { };
+ol.style.Text.prototype.setPlacement = function(placement) {};
 
 
 /**
  * @param {ol.style.Fill} fill
  */
-ol.style.Text.prototype.setFill = function(fill) { };
+ol.style.Text.prototype.setFill = function(fill) {};
 
 
 /**
  * @param {number|undefined} rotation
  */
-ol.style.Text.prototype.setRotation = function(rotation) { };
+ol.style.Text.prototype.setRotation = function(rotation) {};
 
 
 /**
  * @param {number|undefined} scale
  */
-ol.style.Text.prototype.setScale = function(scale) { };
+ol.style.Text.prototype.setScale = function(scale) {};
 
 
 /**
  * @param {ol.style.Stroke} stroke
  */
-ol.style.Text.prototype.setStroke = function(stroke) { };
+ol.style.Text.prototype.setStroke = function(stroke) {};
 
 
 /**
  * @param {string|undefined} text
  */
-ol.style.Text.prototype.setText = function(text) { };
+ol.style.Text.prototype.setText = function(text) {};
 
 
 /**
  * @param {string|undefined} textAlign
  */
-ol.style.Text.prototype.setTextAlign = function(textAlign) { };
+ol.style.Text.prototype.setTextAlign = function(textAlign) {};
 
 
 /**
  * @param {string|undefined} textBaseline
  */
-ol.style.Text.prototype.setTextBaseline = function(textBaseline) { };
+ol.style.Text.prototype.setTextBaseline = function(textBaseline) {};
 
 
 /**
  * @param {ol.style.Fill} fill
  */
-ol.style.Text.prototype.setBackgroundFill = function(fill) { };
+ol.style.Text.prototype.setBackgroundFill = function(fill) {};
 
 
 /**
  * @param {ol.style.Stroke} stroke
  */
-ol.style.Text.prototype.setBackgroundStroke = function(stroke) { };
+ol.style.Text.prototype.setBackgroundStroke = function(stroke) {};
 
 
 /**
  * @param {Array.<number>} padding
  */
-ol.style.Text.prototype.setPadding = function(padding) { };
+ol.style.Text.prototype.setPadding = function(padding) {};
 
 
 /**
@@ -6573,12 +6580,12 @@ ol.style.iconImageCache;
 /**
  * @return {ol.TileCoord}
  */
-ol.Tile.prototype.getTileCoord = function() { };
+ol.Tile.prototype.getTileCoord = function() {};
 
 
 /**
  */
-ol.Tile.prototype.load = function() { };
+ol.Tile.prototype.load = function() {};
 
 
 /**
@@ -6591,7 +6598,7 @@ ol.tilegrid;
  * @constructor
  * @param {olx.tilegrid.TileGridOptions} options
  */
-ol.tilegrid.TileGrid = function(options) { };
+ol.tilegrid.TileGrid = function(options) {};
 
 
 /**
@@ -6599,39 +6606,39 @@ ol.tilegrid.TileGrid = function(options) { };
  * @param {number} zoom
  * @param {Function} callback
  */
-ol.tilegrid.TileGrid.prototype.forEachTileCoord = function(extent, zoom, callback) { };
+ol.tilegrid.TileGrid.prototype.forEachTileCoord = function(extent, zoom, callback) {};
 
 
 /**
  * @return {number}
  */
-ol.tilegrid.TileGrid.prototype.getMaxZoom = function() { };
+ol.tilegrid.TileGrid.prototype.getMaxZoom = function() {};
 
 
 /**
  * @return {number}
  */
-ol.tilegrid.TileGrid.prototype.getMinZoom = function() { };
+ol.tilegrid.TileGrid.prototype.getMinZoom = function() {};
 
 
 /**
  * @param {number} z
  * @return {ol.Coordinate}
  */
-ol.tilegrid.TileGrid.prototype.getOrigin = function(z) { };
+ol.tilegrid.TileGrid.prototype.getOrigin = function(z) {};
 
 
 /**
  * @param {number} z
  * @return {number}
  */
-ol.tilegrid.TileGrid.prototype.getResolution = function(z) { };
+ol.tilegrid.TileGrid.prototype.getResolution = function(z) {};
 
 
 /**
  * @return {Array.<number>}
  */
-ol.tilegrid.TileGrid.prototype.getResolutions = function() { };
+ol.tilegrid.TileGrid.prototype.getResolutions = function() {};
 
 
 /**
@@ -6639,7 +6646,7 @@ ol.tilegrid.TileGrid.prototype.getResolutions = function() { };
  * @param {ol.Extent=} opt_extent
  * @return {ol.Extent}
  */
-ol.tilegrid.TileGrid.prototype.getTileCoordExtent = function(tileCoord, opt_extent) { };
+ol.tilegrid.TileGrid.prototype.getTileCoordExtent = function(tileCoord, opt_extent) {};
 
 
 /**
@@ -6648,7 +6655,7 @@ ol.tilegrid.TileGrid.prototype.getTileCoordExtent = function(tileCoord, opt_exte
  * @param {ol.TileCoord=} opt_tileCoord
  * @return {ol.TileCoord}
  */
-ol.tilegrid.TileGrid.prototype.getTileCoordForCoordAndResolution = function(coordinate, resolution, opt_tileCoord) { };
+ol.tilegrid.TileGrid.prototype.getTileCoordForCoordAndResolution = function(coordinate, resolution, opt_tileCoord) {};
 
 
 /**
@@ -6657,14 +6664,14 @@ ol.tilegrid.TileGrid.prototype.getTileCoordForCoordAndResolution = function(coor
  * @param {ol.TileCoord=} opt_tileCoord
  * @return {ol.TileCoord}
  */
-ol.tilegrid.TileGrid.prototype.getTileCoordForCoordAndZ = function(coordinate, z, opt_tileCoord) { };
+ol.tilegrid.TileGrid.prototype.getTileCoordForCoordAndZ = function(coordinate, z, opt_tileCoord) {};
 
 
 /**
  * @param {number} z
  * @return {number|ol.Size}
  */
-ol.tilegrid.TileGrid.prototype.getTileSize = function(z) { };
+ol.tilegrid.TileGrid.prototype.getTileSize = function(z) {};
 
 
 /**
@@ -6672,7 +6679,7 @@ ol.tilegrid.TileGrid.prototype.getTileSize = function(z) { };
  * @param {number=} opt_direction
  * @return {number}
  */
-ol.tilegrid.TileGrid.prototype.getZForResolution = function(resolution, opt_direction) { };
+ol.tilegrid.TileGrid.prototype.getZForResolution = function(resolution, opt_direction) {};
 
 
 /**
@@ -6680,13 +6687,13 @@ ol.tilegrid.TileGrid.prototype.getZForResolution = function(resolution, opt_dire
  * @extends {ol.tilegrid.TileGrid}
  * @param {olx.tilegrid.WMTSOptions} options
  */
-ol.tilegrid.WMTS = function(options) { };
+ol.tilegrid.WMTS = function(options) {};
 
 
 /**
  * @return {Array.<string>}
  */
-ol.tilegrid.WMTS.prototype.getMatrixIds = function() { };
+ol.tilegrid.WMTS.prototype.getMatrixIds = function() {};
 
 
 /**
@@ -6695,68 +6702,68 @@ ol.tilegrid.WMTS.prototype.getMatrixIds = function() { };
  * @param {Array.<Object>=} opt_matrixLimits
  * @return {ol.tilegrid.WMTS}
  */
-ol.tilegrid.WMTS.createFromCapabilitiesMatrixSet = function(matrixSet, opt_extent, opt_matrixLimits) { };
+ol.tilegrid.WMTS.createFromCapabilitiesMatrixSet = function(matrixSet, opt_extent, opt_matrixLimits) {};
 
 
 /**
  * @param {olx.tilegrid.XYZOptions=} opt_options
  * @return {ol.tilegrid.TileGrid}
  */
-ol.tilegrid.createXYZ = function(opt_options) { };
+ol.tilegrid.createXYZ = function(opt_options) {};
 
 
 /**
  * @constructor
  */
-ol.VectorTile = function() { };
+ol.VectorTile = function() {};
 
 
 /**
  * @return {ol.Extent}
  */
-ol.VectorTile.prototype.getExtent = function() { };
+ol.VectorTile.prototype.getExtent = function() {};
 
 
 /**
  * @return {ol.format.Feature}
  */
-ol.VectorTile.prototype.getFormat = function() { };
+ol.VectorTile.prototype.getFormat = function() {};
 
 
 /**
  * @return {Array.<(ol.Feature|ol.render.Feature)>}
  */
-ol.VectorTile.prototype.getFeatures = function() { };
+ol.VectorTile.prototype.getFeatures = function() {};
 
 
 /**
  * @return {ol.proj.Projection}
  */
-ol.VectorTile.prototype.getProjection = function() { };
+ol.VectorTile.prototype.getProjection = function() {};
 
 
 /**
  * @param {ol.Extent} extent
  */
-ol.VectorTile.prototype.setExtent = function(extent) { };
+ol.VectorTile.prototype.setExtent = function(extent) {};
 
 
 /**
  * @param {Array.<ol.Feature>} features
  */
-ol.VectorTile.prototype.setFeatures = function(features) { };
+ol.VectorTile.prototype.setFeatures = function(features) {};
 
 
 /**
  * @param {ol.proj.Projection} projection
  */
-ol.VectorTile.prototype.setProjection = function(projection) { };
+ol.VectorTile.prototype.setProjection = function(projection) {};
 
 
 /**
  * @param {ol.FeatureLoader} loader
  */
-ol.VectorTile.prototype.setLoader = function(loader) { };
+ol.VectorTile.prototype.setLoader = function(loader) {};
 
 
 /**
@@ -6764,37 +6771,37 @@ ol.VectorTile.prototype.setLoader = function(loader) { };
  * @extends {ol.Object}
  * @param {olx.ViewOptions=} opt_options
  */
-ol.View = function(opt_options) { };
+ol.View = function(opt_options) {};
 
 
 /**
  * @param {...olx.AnimationOptions|Function} var_args
  */
-ol.View.prototype.animate = function(var_args) { };
+ol.View.prototype.animate = function(var_args) {};
 
 
 /**
  * @return {boolean}
  */
-ol.View.prototype.getAnimating = function() { };
+ol.View.prototype.getAnimating = function() {};
 
 
 /**
  * @return {boolean}
  */
-ol.View.prototype.getInteracting = function() { };
+ol.View.prototype.getInteracting = function() {};
 
 
 /**
  */
-ol.View.prototype.cancelAnimations = function() { };
+ol.View.prototype.cancelAnimations = function() {};
 
 
 /**
  * @param {ol.Coordinate|undefined} center
  * @return {ol.Coordinate|undefined}
  */
-ol.View.prototype.constrainCenter = function(center) { };
+ol.View.prototype.constrainCenter = function(center) {};
 
 
 /**
@@ -6803,7 +6810,7 @@ ol.View.prototype.constrainCenter = function(center) { };
  * @param {number=} opt_direction
  * @return {number|undefined}
  */
-ol.View.prototype.constrainResolution = function(resolution, opt_delta, opt_direction) { };
+ol.View.prototype.constrainResolution = function(resolution, opt_delta, opt_direction) {};
 
 
 /**
@@ -6811,74 +6818,74 @@ ol.View.prototype.constrainResolution = function(resolution, opt_delta, opt_dire
  * @param {number=} opt_delta
  * @return {number|undefined}
  */
-ol.View.prototype.constrainRotation = function(rotation, opt_delta) { };
+ol.View.prototype.constrainRotation = function(rotation, opt_delta) {};
 
 
 /**
  * @return {ol.Coordinate|undefined}
  */
-ol.View.prototype.getCenter = function() { };
+ol.View.prototype.getCenter = function() {};
 
 
 /**
  * @param {ol.Size=} opt_size
  * @return {ol.Extent}
  */
-ol.View.prototype.calculateExtent = function(opt_size) { };
+ol.View.prototype.calculateExtent = function(opt_size) {};
 
 
 /**
  * @return {number}
  */
-ol.View.prototype.getMaxResolution = function() { };
+ol.View.prototype.getMaxResolution = function() {};
 
 
 /**
  * @return {number}
  */
-ol.View.prototype.getMinResolution = function() { };
+ol.View.prototype.getMinResolution = function() {};
 
 
 /**
  * @return {number}
  */
-ol.View.prototype.getMaxZoom = function() { };
+ol.View.prototype.getMaxZoom = function() {};
 
 
 /**
  * @param {number} zoom
  */
-ol.View.prototype.setMaxZoom = function(zoom) { };
+ol.View.prototype.setMaxZoom = function(zoom) {};
 
 
 /**
  * @return {number}
  */
-ol.View.prototype.getMinZoom = function() { };
+ol.View.prototype.getMinZoom = function() {};
 
 
 /**
  * @param {number} zoom
  */
-ol.View.prototype.setMinZoom = function(zoom) { };
+ol.View.prototype.setMinZoom = function(zoom) {};
 
 
 /**
  * @return {ol.proj.Projection}
  */
-ol.View.prototype.getProjection = function() { };
+ol.View.prototype.getProjection = function() {};
 
 
 /**
  * @return {number|undefined}
  */
-ol.View.prototype.getResolution = function() { };
+ol.View.prototype.getResolution = function() {};
 
 
 /**
  * @return {Array.<number>|undefined}
  */
-ol.View.prototype.getResolutions = function() { };
+ol.View.prototype.getResolutions = function() {};
 
 
 /**
@@ -6886,40 +6893,40 @@ ol.View.prototype.getResolutions = function() { };
  * @param {ol.Size=} opt_size
  * @return {number}
  */
-ol.View.prototype.getResolutionForExtent = function(extent, opt_size) { };
+ol.View.prototype.getResolutionForExtent = function(extent, opt_size) {};
 
 
 /**
  * @return {number}
  */
-ol.View.prototype.getRotation = function() { };
+ol.View.prototype.getRotation = function() {};
 
 
 /**
  * @return {number|undefined}
  */
-ol.View.prototype.getZoom = function() { };
+ol.View.prototype.getZoom = function() {};
 
 
 /**
  * @param {number} resolution
  * @return {number|undefined}
  */
-ol.View.prototype.getZoomForResolution = function(resolution) { };
+ol.View.prototype.getZoomForResolution = function(resolution) {};
 
 
 /**
  * @param {number} zoom
  * @return {number}
  */
-ol.View.prototype.getResolutionForZoom = function(zoom) { };
+ol.View.prototype.getResolutionForZoom = function(zoom) {};
 
 
 /**
  * @param {ol.geom.SimpleGeometry|ol.Extent} geometryOrExtent
  * @param {olx.view.FitOptions=} opt_options
  */
-ol.View.prototype.fit = function(geometryOrExtent, opt_options) { };
+ol.View.prototype.fit = function(geometryOrExtent, opt_options) {};
 
 
 /**
@@ -6927,57 +6934,65 @@ ol.View.prototype.fit = function(geometryOrExtent, opt_options) { };
  * @param {ol.Size} size
  * @param {ol.Pixel} position
  */
-ol.View.prototype.centerOn = function(coordinate, size, position) { };
+ol.View.prototype.centerOn = function(coordinate, size, position) {};
 
 
 /**
  * @param {number} rotation
  * @param {ol.Coordinate=} opt_anchor
  */
-ol.View.prototype.rotate = function(rotation, opt_anchor) { };
+ol.View.prototype.rotate = function(rotation, opt_anchor) {};
 
 
 /**
  * @param {ol.Coordinate|undefined} center
  */
-ol.View.prototype.setCenter = function(center) { };
+ol.View.prototype.setCenter = function(center) {};
 
 
 /**
  * @param {number|undefined} resolution
  */
-ol.View.prototype.setResolution = function(resolution) { };
+ol.View.prototype.setResolution = function(resolution) {};
 
 
 /**
  * @param {number} rotation
  */
-ol.View.prototype.setRotation = function(rotation) { };
+ol.View.prototype.setRotation = function(rotation) {};
 
 
 /**
  * @param {number} zoom
  */
-ol.View.prototype.setZoom = function(zoom) { };
+ol.View.prototype.setZoom = function(zoom) {};
+
+
+/**
+ * @constructor
+ * @param {Array.<number>=} opt_arr
+ * @param {number=} opt_usage
+ */
+ol.webgl.Buffer = function(opt_arr, opt_usage) {};
 
 
 /**
  * @constructor
  */
-ol.webgl.Context = function() { };
+ol.webgl.Context = function() {};
 
 
 /**
  * @return {WebGLRenderingContext}
  */
-ol.webgl.Context.prototype.getGL = function() { };
+ol.webgl.Context.prototype.getGL = function() {};
 
 
 /**
  * @param {WebGLProgram} program
  * @return {boolean}
  */
-ol.webgl.Context.prototype.useProgram = function(program) { };
+ol.webgl.Context.prototype.useProgram = function(program) {};
 
 
 /**
@@ -6991,31 +7006,31 @@ ol.xml;
  * @param {boolean} normalizeWhitespace
  * @return {string}
  */
-ol.xml.getAllTextContent = function(node, normalizeWhitespace) { };
+ol.xml.getAllTextContent = function(node, normalizeWhitespace) {};
 
 
 /**
  * @param {string} xml
  * @return {Document}
  */
-ol.xml.parse = function(xml) { };
+ol.xml.parse = function(xml) {};
 
 
 /**
  */
-ol.Object.prototype.changed = function() { };
+ol.Object.prototype.changed = function() {};
 
 
 /**
  * @param {Object|ol.events.Event|string} event
  */
-ol.Object.prototype.dispatchEvent = function(event) { };
+ol.Object.prototype.dispatchEvent = function(event) {};
 
 
 /**
  * @return {number}
  */
-ol.Object.prototype.getRevision = function() { };
+ol.Object.prototype.getRevision = function() {};
 
 
 /**
@@ -7024,7 +7039,7 @@ ol.Object.prototype.getRevision = function() { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.Object.prototype.on = function(type, listener, opt_this) { };
+ol.Object.prototype.on = function(type, listener, opt_this) {};
 
 
 /**
@@ -7033,7 +7048,7 @@ ol.Object.prototype.on = function(type, listener, opt_this) { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.Object.prototype.once = function(type, listener, opt_this) { };
+ol.Object.prototype.once = function(type, listener, opt_this) {};
 
 
 /**
@@ -7041,26 +7056,26 @@ ol.Object.prototype.once = function(type, listener, opt_this) { };
  * @param {Function} listener
  * @param {Object=} opt_this
  */
-ol.Object.prototype.un = function(type, listener, opt_this) { };
+ol.Object.prototype.un = function(type, listener, opt_this) {};
 
 
 /**
  * @param {string} key
  * @return {*}
  */
-ol.PluggableMap.prototype.get = function(key) { };
+ol.PluggableMap.prototype.get = function(key) {};
 
 
 /**
  * @return {Array.<string>}
  */
-ol.PluggableMap.prototype.getKeys = function() { };
+ol.PluggableMap.prototype.getKeys = function() {};
 
 
 /**
  * @return {Object.<string, *>}
  */
-ol.PluggableMap.prototype.getProperties = function() { };
+ol.PluggableMap.prototype.getProperties = function() {};
 
 
 /**
@@ -7068,38 +7083,38 @@ ol.PluggableMap.prototype.getProperties = function() { };
  * @param {*} value
  * @param {boolean=} opt_silent
  */
-ol.PluggableMap.prototype.set = function(key, value, opt_silent) { };
+ol.PluggableMap.prototype.set = function(key, value, opt_silent) {};
 
 
 /**
  * @param {Object.<string, *>} values
  * @param {boolean=} opt_silent
  */
-ol.PluggableMap.prototype.setProperties = function(values, opt_silent) { };
+ol.PluggableMap.prototype.setProperties = function(values, opt_silent) {};
 
 
 /**
  * @param {string} key
  * @param {boolean=} opt_silent
  */
-ol.PluggableMap.prototype.unset = function(key, opt_silent) { };
+ol.PluggableMap.prototype.unset = function(key, opt_silent) {};
 
 
 /**
  */
-ol.PluggableMap.prototype.changed = function() { };
+ol.PluggableMap.prototype.changed = function() {};
 
 
 /**
  * @param {Object|ol.events.Event|string} event
  */
-ol.PluggableMap.prototype.dispatchEvent = function(event) { };
+ol.PluggableMap.prototype.dispatchEvent = function(event) {};
 
 
 /**
  * @return {number}
  */
-ol.PluggableMap.prototype.getRevision = function() { };
+ol.PluggableMap.prototype.getRevision = function() {};
 
 
 /**
@@ -7108,7 +7123,7 @@ ol.PluggableMap.prototype.getRevision = function() { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.PluggableMap.prototype.on = function(type, listener, opt_this) { };
+ol.PluggableMap.prototype.on = function(type, listener, opt_this) {};
 
 
 /**
@@ -7117,7 +7132,7 @@ ol.PluggableMap.prototype.on = function(type, listener, opt_this) { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.PluggableMap.prototype.once = function(type, listener, opt_this) { };
+ol.PluggableMap.prototype.once = function(type, listener, opt_this) {};
 
 
 /**
@@ -7125,31 +7140,31 @@ ol.PluggableMap.prototype.once = function(type, listener, opt_this) { };
  * @param {Function} listener
  * @param {Object=} opt_this
  */
-ol.PluggableMap.prototype.un = function(type, listener, opt_this) { };
+ol.PluggableMap.prototype.un = function(type, listener, opt_this) {};
 
 
 /**
  * @param {ol.control.Control} control
  */
-ol.CanvasMap.prototype.addControl = function(control) { };
+ol.CanvasMap.prototype.addControl = function(control) {};
 
 
 /**
  * @param {ol.interaction.Interaction} interaction
  */
-ol.CanvasMap.prototype.addInteraction = function(interaction) { };
+ol.CanvasMap.prototype.addInteraction = function(interaction) {};
 
 
 /**
  * @param {ol.layer.Base} layer
  */
-ol.CanvasMap.prototype.addLayer = function(layer) { };
+ol.CanvasMap.prototype.addLayer = function(layer) {};
 
 
 /**
  * @param {ol.Overlay} overlay
  */
-ol.CanvasMap.prototype.addOverlay = function(overlay) { };
+ol.CanvasMap.prototype.addOverlay = function(overlay) {};
 
 
 /**
@@ -7159,7 +7174,7 @@ ol.CanvasMap.prototype.addOverlay = function(overlay) { };
  * @return {T|undefined}
  * @template S,T
  */
-ol.CanvasMap.prototype.forEachFeatureAtPixel = function(pixel, callback, opt_options) { };
+ol.CanvasMap.prototype.forEachFeatureAtPixel = function(pixel, callback, opt_options) {};
 
 
 /**
@@ -7167,7 +7182,7 @@ ol.CanvasMap.prototype.forEachFeatureAtPixel = function(pixel, callback, opt_opt
  * @param {olx.AtPixelOptions=} opt_options
  * @return {Array.<(ol.Feature|ol.render.Feature)>}
  */
-ol.CanvasMap.prototype.getFeaturesAtPixel = function(pixel, opt_options) { };
+ol.CanvasMap.prototype.getFeaturesAtPixel = function(pixel, opt_options) {};
 
 
 /**
@@ -7179,7 +7194,7 @@ ol.CanvasMap.prototype.getFeaturesAtPixel = function(pixel, opt_options) { };
  * @return {T|undefined}
  * @template S,T,U
  */
-ol.CanvasMap.prototype.forEachLayerAtPixel = function(pixel, callback, opt_this, opt_layerFilter, opt_this2) { };
+ol.CanvasMap.prototype.forEachLayerAtPixel = function(pixel, callback, opt_this, opt_layerFilter, opt_this2) {};
 
 
 /**
@@ -7188,188 +7203,188 @@ ol.CanvasMap.prototype.forEachLayerAtPixel = function(pixel, callback, opt_this,
  * @return {boolean}
  * @template U
  */
-ol.CanvasMap.prototype.hasFeatureAtPixel = function(pixel, opt_options) { };
+ol.CanvasMap.prototype.hasFeatureAtPixel = function(pixel, opt_options) {};
 
 
 /**
  * @param {Event} event
  * @return {ol.Coordinate}
  */
-ol.CanvasMap.prototype.getEventCoordinate = function(event) { };
+ol.CanvasMap.prototype.getEventCoordinate = function(event) {};
 
 
 /**
  * @param {Event} event
  * @return {ol.Pixel}
  */
-ol.CanvasMap.prototype.getEventPixel = function(event) { };
+ol.CanvasMap.prototype.getEventPixel = function(event) {};
 
 
 /**
  * @return {Element|string|undefined}
  */
-ol.CanvasMap.prototype.getTarget = function() { };
+ol.CanvasMap.prototype.getTarget = function() {};
 
 
 /**
  * @return {Element}
  */
-ol.CanvasMap.prototype.getTargetElement = function() { };
+ol.CanvasMap.prototype.getTargetElement = function() {};
 
 
 /**
  * @param {ol.Pixel} pixel
  * @return {ol.Coordinate}
  */
-ol.CanvasMap.prototype.getCoordinateFromPixel = function(pixel) { };
+ol.CanvasMap.prototype.getCoordinateFromPixel = function(pixel) {};
 
 
 /**
  * @return {ol.Collection.<ol.control.Control>}
  */
-ol.CanvasMap.prototype.getControls = function() { };
+ol.CanvasMap.prototype.getControls = function() {};
 
 
 /**
  * @return {ol.Collection.<ol.Overlay>}
  */
-ol.CanvasMap.prototype.getOverlays = function() { };
+ol.CanvasMap.prototype.getOverlays = function() {};
 
 
 /**
  * @param {string|number} id
  * @return {ol.Overlay}
  */
-ol.CanvasMap.prototype.getOverlayById = function(id) { };
+ol.CanvasMap.prototype.getOverlayById = function(id) {};
 
 
 /**
  * @return {ol.Collection.<ol.interaction.Interaction>}
  */
-ol.CanvasMap.prototype.getInteractions = function() { };
+ol.CanvasMap.prototype.getInteractions = function() {};
 
 
 /**
  * @return {ol.layer.Group}
  */
-ol.CanvasMap.prototype.getLayerGroup = function() { };
+ol.CanvasMap.prototype.getLayerGroup = function() {};
 
 
 /**
  * @return {ol.Collection.<ol.layer.Base>}
  */
-ol.CanvasMap.prototype.getLayers = function() { };
+ol.CanvasMap.prototype.getLayers = function() {};
 
 
 /**
  * @param {ol.Coordinate} coordinate
  * @return {ol.Pixel}
  */
-ol.CanvasMap.prototype.getPixelFromCoordinate = function(coordinate) { };
+ol.CanvasMap.prototype.getPixelFromCoordinate = function(coordinate) {};
 
 
 /**
  * @return {ol.Size|undefined}
  */
-ol.CanvasMap.prototype.getSize = function() { };
+ol.CanvasMap.prototype.getSize = function() {};
 
 
 /**
  * @return {ol.View}
  */
-ol.CanvasMap.prototype.getView = function() { };
+ol.CanvasMap.prototype.getView = function() {};
 
 
 /**
  * @return {Element}
  */
-ol.CanvasMap.prototype.getViewport = function() { };
+ol.CanvasMap.prototype.getViewport = function() {};
 
 
 /**
  */
-ol.CanvasMap.prototype.renderSync = function() { };
+ol.CanvasMap.prototype.renderSync = function() {};
 
 
 /**
  */
-ol.CanvasMap.prototype.render = function() { };
+ol.CanvasMap.prototype.render = function() {};
 
 
 /**
  * @param {ol.control.Control} control
  * @return {ol.control.Control|undefined}
  */
-ol.CanvasMap.prototype.removeControl = function(control) { };
+ol.CanvasMap.prototype.removeControl = function(control) {};
 
 
 /**
  * @param {ol.interaction.Interaction} interaction
  * @return {ol.interaction.Interaction|undefined}
  */
-ol.CanvasMap.prototype.removeInteraction = function(interaction) { };
+ol.CanvasMap.prototype.removeInteraction = function(interaction) {};
 
 
 /**
  * @param {ol.layer.Base} layer
  * @return {ol.layer.Base|undefined}
  */
-ol.CanvasMap.prototype.removeLayer = function(layer) { };
+ol.CanvasMap.prototype.removeLayer = function(layer) {};
 
 
 /**
  * @param {ol.Overlay} overlay
  * @return {ol.Overlay|undefined}
  */
-ol.CanvasMap.prototype.removeOverlay = function(overlay) { };
+ol.CanvasMap.prototype.removeOverlay = function(overlay) {};
 
 
 /**
  * @param {ol.layer.Group} layerGroup
  */
-ol.CanvasMap.prototype.setLayerGroup = function(layerGroup) { };
+ol.CanvasMap.prototype.setLayerGroup = function(layerGroup) {};
 
 
 /**
  * @param {ol.Size|undefined} size
  */
-ol.CanvasMap.prototype.setSize = function(size) { };
+ol.CanvasMap.prototype.setSize = function(size) {};
 
 
 /**
  * @param {Element|string|undefined} target
  */
-ol.CanvasMap.prototype.setTarget = function(target) { };
+ol.CanvasMap.prototype.setTarget = function(target) {};
 
 
 /**
  * @param {ol.View} view
  */
-ol.CanvasMap.prototype.setView = function(view) { };
+ol.CanvasMap.prototype.setView = function(view) {};
 
 
 /**
  */
-ol.CanvasMap.prototype.updateSize = function() { };
+ol.CanvasMap.prototype.updateSize = function() {};
 
 
 /**
  * @param {string} key
  * @return {*}
  */
-ol.CanvasMap.prototype.get = function(key) { };
+ol.CanvasMap.prototype.get = function(key) {};
 
 
 /**
  * @return {Array.<string>}
  */
-ol.CanvasMap.prototype.getKeys = function() { };
+ol.CanvasMap.prototype.getKeys = function() {};
 
 
 /**
  * @return {Object.<string, *>}
  */
-ol.CanvasMap.prototype.getProperties = function() { };
+ol.CanvasMap.prototype.getProperties = function() {};
 
 
 /**
@@ -7377,38 +7392,38 @@ ol.CanvasMap.prototype.getProperties = function() { };
  * @param {*} value
  * @param {boolean=} opt_silent
  */
-ol.CanvasMap.prototype.set = function(key, value, opt_silent) { };
+ol.CanvasMap.prototype.set = function(key, value, opt_silent) {};
 
 
 /**
  * @param {Object.<string, *>} values
  * @param {boolean=} opt_silent
  */
-ol.CanvasMap.prototype.setProperties = function(values, opt_silent) { };
+ol.CanvasMap.prototype.setProperties = function(values, opt_silent) {};
 
 
 /**
  * @param {string} key
  * @param {boolean=} opt_silent
  */
-ol.CanvasMap.prototype.unset = function(key, opt_silent) { };
+ol.CanvasMap.prototype.unset = function(key, opt_silent) {};
 
 
 /**
  */
-ol.CanvasMap.prototype.changed = function() { };
+ol.CanvasMap.prototype.changed = function() {};
 
 
 /**
  * @param {Object|ol.events.Event|string} event
  */
-ol.CanvasMap.prototype.dispatchEvent = function(event) { };
+ol.CanvasMap.prototype.dispatchEvent = function(event) {};
 
 
 /**
  * @return {number}
  */
-ol.CanvasMap.prototype.getRevision = function() { };
+ol.CanvasMap.prototype.getRevision = function() {};
 
 
 /**
@@ -7417,7 +7432,7 @@ ol.CanvasMap.prototype.getRevision = function() { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.CanvasMap.prototype.on = function(type, listener, opt_this) { };
+ol.CanvasMap.prototype.on = function(type, listener, opt_this) {};
 
 
 /**
@@ -7426,7 +7441,7 @@ ol.CanvasMap.prototype.on = function(type, listener, opt_this) { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.CanvasMap.prototype.once = function(type, listener, opt_this) { };
+ol.CanvasMap.prototype.once = function(type, listener, opt_this) {};
 
 
 /**
@@ -7434,26 +7449,26 @@ ol.CanvasMap.prototype.once = function(type, listener, opt_this) { };
  * @param {Function} listener
  * @param {Object=} opt_this
  */
-ol.CanvasMap.prototype.un = function(type, listener, opt_this) { };
+ol.CanvasMap.prototype.un = function(type, listener, opt_this) {};
 
 
 /**
  * @param {string} key
  * @return {*}
  */
-ol.Collection.prototype.get = function(key) { };
+ol.Collection.prototype.get = function(key) {};
 
 
 /**
  * @return {Array.<string>}
  */
-ol.Collection.prototype.getKeys = function() { };
+ol.Collection.prototype.getKeys = function() {};
 
 
 /**
  * @return {Object.<string, *>}
  */
-ol.Collection.prototype.getProperties = function() { };
+ol.Collection.prototype.getProperties = function() {};
 
 
 /**
@@ -7461,38 +7476,38 @@ ol.Collection.prototype.getProperties = function() { };
  * @param {*} value
  * @param {boolean=} opt_silent
  */
-ol.Collection.prototype.set = function(key, value, opt_silent) { };
+ol.Collection.prototype.set = function(key, value, opt_silent) {};
 
 
 /**
  * @param {Object.<string, *>} values
  * @param {boolean=} opt_silent
  */
-ol.Collection.prototype.setProperties = function(values, opt_silent) { };
+ol.Collection.prototype.setProperties = function(values, opt_silent) {};
 
 
 /**
  * @param {string} key
  * @param {boolean=} opt_silent
  */
-ol.Collection.prototype.unset = function(key, opt_silent) { };
+ol.Collection.prototype.unset = function(key, opt_silent) {};
 
 
 /**
  */
-ol.Collection.prototype.changed = function() { };
+ol.Collection.prototype.changed = function() {};
 
 
 /**
  * @param {Object|ol.events.Event|string} event
  */
-ol.Collection.prototype.dispatchEvent = function(event) { };
+ol.Collection.prototype.dispatchEvent = function(event) {};
 
 
 /**
  * @return {number}
  */
-ol.Collection.prototype.getRevision = function() { };
+ol.Collection.prototype.getRevision = function() {};
 
 
 /**
@@ -7501,7 +7516,7 @@ ol.Collection.prototype.getRevision = function() { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.Collection.prototype.on = function(type, listener, opt_this) { };
+ol.Collection.prototype.on = function(type, listener, opt_this) {};
 
 
 /**
@@ -7510,7 +7525,7 @@ ol.Collection.prototype.on = function(type, listener, opt_this) { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.Collection.prototype.once = function(type, listener, opt_this) { };
+ol.Collection.prototype.once = function(type, listener, opt_this) {};
 
 
 /**
@@ -7518,7 +7533,7 @@ ol.Collection.prototype.once = function(type, listener, opt_this) { };
  * @param {Function} listener
  * @param {Object=} opt_this
  */
-ol.Collection.prototype.un = function(type, listener, opt_this) { };
+ol.Collection.prototype.un = function(type, listener, opt_this) {};
 
 
 /**
@@ -7535,31 +7550,31 @@ ol.Collection.Event.prototype.target;
 
 /**
  */
-ol.Collection.Event.prototype.preventDefault = function() { };
+ol.Collection.Event.prototype.preventDefault = function() {};
 
 
 /**
  */
-ol.Collection.Event.prototype.stopPropagation = function() { };
+ol.Collection.Event.prototype.stopPropagation = function() {};
 
 
 /**
  * @param {string} key
  * @return {*}
  */
-ol.control.Control.prototype.get = function(key) { };
+ol.control.Control.prototype.get = function(key) {};
 
 
 /**
  * @return {Array.<string>}
  */
-ol.control.Control.prototype.getKeys = function() { };
+ol.control.Control.prototype.getKeys = function() {};
 
 
 /**
  * @return {Object.<string, *>}
  */
-ol.control.Control.prototype.getProperties = function() { };
+ol.control.Control.prototype.getProperties = function() {};
 
 
 /**
@@ -7567,38 +7582,38 @@ ol.control.Control.prototype.getProperties = function() { };
  * @param {*} value
  * @param {boolean=} opt_silent
  */
-ol.control.Control.prototype.set = function(key, value, opt_silent) { };
+ol.control.Control.prototype.set = function(key, value, opt_silent) {};
 
 
 /**
  * @param {Object.<string, *>} values
  * @param {boolean=} opt_silent
  */
-ol.control.Control.prototype.setProperties = function(values, opt_silent) { };
+ol.control.Control.prototype.setProperties = function(values, opt_silent) {};
 
 
 /**
  * @param {string} key
  * @param {boolean=} opt_silent
  */
-ol.control.Control.prototype.unset = function(key, opt_silent) { };
+ol.control.Control.prototype.unset = function(key, opt_silent) {};
 
 
 /**
  */
-ol.control.Control.prototype.changed = function() { };
+ol.control.Control.prototype.changed = function() {};
 
 
 /**
  * @param {Object|ol.events.Event|string} event
  */
-ol.control.Control.prototype.dispatchEvent = function(event) { };
+ol.control.Control.prototype.dispatchEvent = function(event) {};
 
 
 /**
  * @return {number}
  */
-ol.control.Control.prototype.getRevision = function() { };
+ol.control.Control.prototype.getRevision = function() {};
 
 
 /**
@@ -7607,7 +7622,7 @@ ol.control.Control.prototype.getRevision = function() { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.control.Control.prototype.on = function(type, listener, opt_this) { };
+ol.control.Control.prototype.on = function(type, listener, opt_this) {};
 
 
 /**
@@ -7616,7 +7631,7 @@ ol.control.Control.prototype.on = function(type, listener, opt_this) { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.control.Control.prototype.once = function(type, listener, opt_this) { };
+ol.control.Control.prototype.once = function(type, listener, opt_this) {};
 
 
 /**
@@ -7624,44 +7639,44 @@ ol.control.Control.prototype.once = function(type, listener, opt_this) { };
  * @param {Function} listener
  * @param {Object=} opt_this
  */
-ol.control.Control.prototype.un = function(type, listener, opt_this) { };
+ol.control.Control.prototype.un = function(type, listener, opt_this) {};
 
 
 /**
  * @return {ol.PluggableMap}
  */
-ol.control.Attribution.prototype.getMap = function() { };
+ol.control.Attribution.prototype.getMap = function() {};
 
 
 /**
  * @param {ol.PluggableMap} map
  */
-ol.control.Attribution.prototype.setMap = function(map) { };
+ol.control.Attribution.prototype.setMap = function(map) {};
 
 
 /**
  * @param {Element|string} target
  */
-ol.control.Attribution.prototype.setTarget = function(target) { };
+ol.control.Attribution.prototype.setTarget = function(target) {};
 
 
 /**
  * @param {string} key
  * @return {*}
  */
-ol.control.Attribution.prototype.get = function(key) { };
+ol.control.Attribution.prototype.get = function(key) {};
 
 
 /**
  * @return {Array.<string>}
  */
-ol.control.Attribution.prototype.getKeys = function() { };
+ol.control.Attribution.prototype.getKeys = function() {};
 
 
 /**
  * @return {Object.<string, *>}
  */
-ol.control.Attribution.prototype.getProperties = function() { };
+ol.control.Attribution.prototype.getProperties = function() {};
 
 
 /**
@@ -7669,38 +7684,38 @@ ol.control.Attribution.prototype.getProperties = function() { };
  * @param {*} value
  * @param {boolean=} opt_silent
  */
-ol.control.Attribution.prototype.set = function(key, value, opt_silent) { };
+ol.control.Attribution.prototype.set = function(key, value, opt_silent) {};
 
 
 /**
  * @param {Object.<string, *>} values
  * @param {boolean=} opt_silent
  */
-ol.control.Attribution.prototype.setProperties = function(values, opt_silent) { };
+ol.control.Attribution.prototype.setProperties = function(values, opt_silent) {};
 
 
 /**
  * @param {string} key
  * @param {boolean=} opt_silent
  */
-ol.control.Attribution.prototype.unset = function(key, opt_silent) { };
+ol.control.Attribution.prototype.unset = function(key, opt_silent) {};
 
 
 /**
  */
-ol.control.Attribution.prototype.changed = function() { };
+ol.control.Attribution.prototype.changed = function() {};
 
 
 /**
  * @param {Object|ol.events.Event|string} event
  */
-ol.control.Attribution.prototype.dispatchEvent = function(event) { };
+ol.control.Attribution.prototype.dispatchEvent = function(event) {};
 
 
 /**
  * @return {number}
  */
-ol.control.Attribution.prototype.getRevision = function() { };
+ol.control.Attribution.prototype.getRevision = function() {};
 
 
 /**
@@ -7709,7 +7724,7 @@ ol.control.Attribution.prototype.getRevision = function() { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.control.Attribution.prototype.on = function(type, listener, opt_this) { };
+ol.control.Attribution.prototype.on = function(type, listener, opt_this) {};
 
 
 /**
@@ -7718,7 +7733,7 @@ ol.control.Attribution.prototype.on = function(type, listener, opt_this) { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.control.Attribution.prototype.once = function(type, listener, opt_this) { };
+ol.control.Attribution.prototype.once = function(type, listener, opt_this) {};
 
 
 /**
@@ -7726,44 +7741,44 @@ ol.control.Attribution.prototype.once = function(type, listener, opt_this) { };
  * @param {Function} listener
  * @param {Object=} opt_this
  */
-ol.control.Attribution.prototype.un = function(type, listener, opt_this) { };
+ol.control.Attribution.prototype.un = function(type, listener, opt_this) {};
 
 
 /**
  * @return {ol.PluggableMap}
  */
-ol.control.FullScreen.prototype.getMap = function() { };
+ol.control.FullScreen.prototype.getMap = function() {};
 
 
 /**
  * @param {ol.PluggableMap} map
  */
-ol.control.FullScreen.prototype.setMap = function(map) { };
+ol.control.FullScreen.prototype.setMap = function(map) {};
 
 
 /**
  * @param {Element|string} target
  */
-ol.control.FullScreen.prototype.setTarget = function(target) { };
+ol.control.FullScreen.prototype.setTarget = function(target) {};
 
 
 /**
  * @param {string} key
  * @return {*}
  */
-ol.control.FullScreen.prototype.get = function(key) { };
+ol.control.FullScreen.prototype.get = function(key) {};
 
 
 /**
  * @return {Array.<string>}
  */
-ol.control.FullScreen.prototype.getKeys = function() { };
+ol.control.FullScreen.prototype.getKeys = function() {};
 
 
 /**
  * @return {Object.<string, *>}
  */
-ol.control.FullScreen.prototype.getProperties = function() { };
+ol.control.FullScreen.prototype.getProperties = function() {};
 
 
 /**
@@ -7771,38 +7786,38 @@ ol.control.FullScreen.prototype.getProperties = function() { };
  * @param {*} value
  * @param {boolean=} opt_silent
  */
-ol.control.FullScreen.prototype.set = function(key, value, opt_silent) { };
+ol.control.FullScreen.prototype.set = function(key, value, opt_silent) {};
 
 
 /**
  * @param {Object.<string, *>} values
  * @param {boolean=} opt_silent
  */
-ol.control.FullScreen.prototype.setProperties = function(values, opt_silent) { };
+ol.control.FullScreen.prototype.setProperties = function(values, opt_silent) {};
 
 
 /**
  * @param {string} key
  * @param {boolean=} opt_silent
  */
-ol.control.FullScreen.prototype.unset = function(key, opt_silent) { };
+ol.control.FullScreen.prototype.unset = function(key, opt_silent) {};
 
 
 /**
  */
-ol.control.FullScreen.prototype.changed = function() { };
+ol.control.FullScreen.prototype.changed = function() {};
 
 
 /**
  * @param {Object|ol.events.Event|string} event
  */
-ol.control.FullScreen.prototype.dispatchEvent = function(event) { };
+ol.control.FullScreen.prototype.dispatchEvent = function(event) {};
 
 
 /**
  * @return {number}
  */
-ol.control.FullScreen.prototype.getRevision = function() { };
+ol.control.FullScreen.prototype.getRevision = function() {};
 
 
 /**
@@ -7811,7 +7826,7 @@ ol.control.FullScreen.prototype.getRevision = function() { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.control.FullScreen.prototype.on = function(type, listener, opt_this) { };
+ol.control.FullScreen.prototype.on = function(type, listener, opt_this) {};
 
 
 /**
@@ -7820,7 +7835,7 @@ ol.control.FullScreen.prototype.on = function(type, listener, opt_this) { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.control.FullScreen.prototype.once = function(type, listener, opt_this) { };
+ol.control.FullScreen.prototype.once = function(type, listener, opt_this) {};
 
 
 /**
@@ -7828,44 +7843,44 @@ ol.control.FullScreen.prototype.once = function(type, listener, opt_this) { };
  * @param {Function} listener
  * @param {Object=} opt_this
  */
-ol.control.FullScreen.prototype.un = function(type, listener, opt_this) { };
+ol.control.FullScreen.prototype.un = function(type, listener, opt_this) {};
 
 
 /**
  * @return {ol.PluggableMap}
  */
-ol.control.MousePosition.prototype.getMap = function() { };
+ol.control.MousePosition.prototype.getMap = function() {};
 
 
 /**
  * @param {ol.PluggableMap} map
  */
-ol.control.MousePosition.prototype.setMap = function(map) { };
+ol.control.MousePosition.prototype.setMap = function(map) {};
 
 
 /**
  * @param {Element|string} target
  */
-ol.control.MousePosition.prototype.setTarget = function(target) { };
+ol.control.MousePosition.prototype.setTarget = function(target) {};
 
 
 /**
  * @param {string} key
  * @return {*}
  */
-ol.control.MousePosition.prototype.get = function(key) { };
+ol.control.MousePosition.prototype.get = function(key) {};
 
 
 /**
  * @return {Array.<string>}
  */
-ol.control.MousePosition.prototype.getKeys = function() { };
+ol.control.MousePosition.prototype.getKeys = function() {};
 
 
 /**
  * @return {Object.<string, *>}
  */
-ol.control.MousePosition.prototype.getProperties = function() { };
+ol.control.MousePosition.prototype.getProperties = function() {};
 
 
 /**
@@ -7873,38 +7888,38 @@ ol.control.MousePosition.prototype.getProperties = function() { };
  * @param {*} value
  * @param {boolean=} opt_silent
  */
-ol.control.MousePosition.prototype.set = function(key, value, opt_silent) { };
+ol.control.MousePosition.prototype.set = function(key, value, opt_silent) {};
 
 
 /**
  * @param {Object.<string, *>} values
  * @param {boolean=} opt_silent
  */
-ol.control.MousePosition.prototype.setProperties = function(values, opt_silent) { };
+ol.control.MousePosition.prototype.setProperties = function(values, opt_silent) {};
 
 
 /**
  * @param {string} key
  * @param {boolean=} opt_silent
  */
-ol.control.MousePosition.prototype.unset = function(key, opt_silent) { };
+ol.control.MousePosition.prototype.unset = function(key, opt_silent) {};
 
 
 /**
  */
-ol.control.MousePosition.prototype.changed = function() { };
+ol.control.MousePosition.prototype.changed = function() {};
 
 
 /**
  * @param {Object|ol.events.Event|string} event
  */
-ol.control.MousePosition.prototype.dispatchEvent = function(event) { };
+ol.control.MousePosition.prototype.dispatchEvent = function(event) {};
 
 
 /**
  * @return {number}
  */
-ol.control.MousePosition.prototype.getRevision = function() { };
+ol.control.MousePosition.prototype.getRevision = function() {};
 
 
 /**
@@ -7913,7 +7928,7 @@ ol.control.MousePosition.prototype.getRevision = function() { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.control.MousePosition.prototype.on = function(type, listener, opt_this) { };
+ol.control.MousePosition.prototype.on = function(type, listener, opt_this) {};
 
 
 /**
@@ -7922,7 +7937,7 @@ ol.control.MousePosition.prototype.on = function(type, listener, opt_this) { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.control.MousePosition.prototype.once = function(type, listener, opt_this) { };
+ol.control.MousePosition.prototype.once = function(type, listener, opt_this) {};
 
 
 /**
@@ -7930,44 +7945,44 @@ ol.control.MousePosition.prototype.once = function(type, listener, opt_this) { }
  * @param {Function} listener
  * @param {Object=} opt_this
  */
-ol.control.MousePosition.prototype.un = function(type, listener, opt_this) { };
+ol.control.MousePosition.prototype.un = function(type, listener, opt_this) {};
 
 
 /**
  * @return {ol.PluggableMap}
  */
-ol.control.OverviewMap.prototype.getMap = function() { };
+ol.control.OverviewMap.prototype.getMap = function() {};
 
 
 /**
  * @param {ol.PluggableMap} map
  */
-ol.control.OverviewMap.prototype.setMap = function(map) { };
+ol.control.OverviewMap.prototype.setMap = function(map) {};
 
 
 /**
  * @param {Element|string} target
  */
-ol.control.OverviewMap.prototype.setTarget = function(target) { };
+ol.control.OverviewMap.prototype.setTarget = function(target) {};
 
 
 /**
  * @param {string} key
  * @return {*}
  */
-ol.control.OverviewMap.prototype.get = function(key) { };
+ol.control.OverviewMap.prototype.get = function(key) {};
 
 
 /**
  * @return {Array.<string>}
  */
-ol.control.OverviewMap.prototype.getKeys = function() { };
+ol.control.OverviewMap.prototype.getKeys = function() {};
 
 
 /**
  * @return {Object.<string, *>}
  */
-ol.control.OverviewMap.prototype.getProperties = function() { };
+ol.control.OverviewMap.prototype.getProperties = function() {};
 
 
 /**
@@ -7975,38 +7990,38 @@ ol.control.OverviewMap.prototype.getProperties = function() { };
  * @param {*} value
  * @param {boolean=} opt_silent
  */
-ol.control.OverviewMap.prototype.set = function(key, value, opt_silent) { };
+ol.control.OverviewMap.prototype.set = function(key, value, opt_silent) {};
 
 
 /**
  * @param {Object.<string, *>} values
  * @param {boolean=} opt_silent
  */
-ol.control.OverviewMap.prototype.setProperties = function(values, opt_silent) { };
+ol.control.OverviewMap.prototype.setProperties = function(values, opt_silent) {};
 
 
 /**
  * @param {string} key
  * @param {boolean=} opt_silent
  */
-ol.control.OverviewMap.prototype.unset = function(key, opt_silent) { };
+ol.control.OverviewMap.prototype.unset = function(key, opt_silent) {};
 
 
 /**
  */
-ol.control.OverviewMap.prototype.changed = function() { };
+ol.control.OverviewMap.prototype.changed = function() {};
 
 
 /**
  * @param {Object|ol.events.Event|string} event
  */
-ol.control.OverviewMap.prototype.dispatchEvent = function(event) { };
+ol.control.OverviewMap.prototype.dispatchEvent = function(event) {};
 
 
 /**
  * @return {number}
  */
-ol.control.OverviewMap.prototype.getRevision = function() { };
+ol.control.OverviewMap.prototype.getRevision = function() {};
 
 
 /**
@@ -8015,7 +8030,7 @@ ol.control.OverviewMap.prototype.getRevision = function() { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.control.OverviewMap.prototype.on = function(type, listener, opt_this) { };
+ol.control.OverviewMap.prototype.on = function(type, listener, opt_this) {};
 
 
 /**
@@ -8024,7 +8039,7 @@ ol.control.OverviewMap.prototype.on = function(type, listener, opt_this) { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.control.OverviewMap.prototype.once = function(type, listener, opt_this) { };
+ol.control.OverviewMap.prototype.once = function(type, listener, opt_this) {};
 
 
 /**
@@ -8032,44 +8047,44 @@ ol.control.OverviewMap.prototype.once = function(type, listener, opt_this) { };
  * @param {Function} listener
  * @param {Object=} opt_this
  */
-ol.control.OverviewMap.prototype.un = function(type, listener, opt_this) { };
+ol.control.OverviewMap.prototype.un = function(type, listener, opt_this) {};
 
 
 /**
  * @return {ol.PluggableMap}
  */
-ol.control.Rotate.prototype.getMap = function() { };
+ol.control.Rotate.prototype.getMap = function() {};
 
 
 /**
  * @param {ol.PluggableMap} map
  */
-ol.control.Rotate.prototype.setMap = function(map) { };
+ol.control.Rotate.prototype.setMap = function(map) {};
 
 
 /**
  * @param {Element|string} target
  */
-ol.control.Rotate.prototype.setTarget = function(target) { };
+ol.control.Rotate.prototype.setTarget = function(target) {};
 
 
 /**
  * @param {string} key
  * @return {*}
  */
-ol.control.Rotate.prototype.get = function(key) { };
+ol.control.Rotate.prototype.get = function(key) {};
 
 
 /**
  * @return {Array.<string>}
  */
-ol.control.Rotate.prototype.getKeys = function() { };
+ol.control.Rotate.prototype.getKeys = function() {};
 
 
 /**
  * @return {Object.<string, *>}
  */
-ol.control.Rotate.prototype.getProperties = function() { };
+ol.control.Rotate.prototype.getProperties = function() {};
 
 
 /**
@@ -8077,38 +8092,38 @@ ol.control.Rotate.prototype.getProperties = function() { };
  * @param {*} value
  * @param {boolean=} opt_silent
  */
-ol.control.Rotate.prototype.set = function(key, value, opt_silent) { };
+ol.control.Rotate.prototype.set = function(key, value, opt_silent) {};
 
 
 /**
  * @param {Object.<string, *>} values
  * @param {boolean=} opt_silent
  */
-ol.control.Rotate.prototype.setProperties = function(values, opt_silent) { };
+ol.control.Rotate.prototype.setProperties = function(values, opt_silent) {};
 
 
 /**
  * @param {string} key
  * @param {boolean=} opt_silent
  */
-ol.control.Rotate.prototype.unset = function(key, opt_silent) { };
+ol.control.Rotate.prototype.unset = function(key, opt_silent) {};
 
 
 /**
  */
-ol.control.Rotate.prototype.changed = function() { };
+ol.control.Rotate.prototype.changed = function() {};
 
 
 /**
  * @param {Object|ol.events.Event|string} event
  */
-ol.control.Rotate.prototype.dispatchEvent = function(event) { };
+ol.control.Rotate.prototype.dispatchEvent = function(event) {};
 
 
 /**
  * @return {number}
  */
-ol.control.Rotate.prototype.getRevision = function() { };
+ol.control.Rotate.prototype.getRevision = function() {};
 
 
 /**
@@ -8117,7 +8132,7 @@ ol.control.Rotate.prototype.getRevision = function() { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.control.Rotate.prototype.on = function(type, listener, opt_this) { };
+ol.control.Rotate.prototype.on = function(type, listener, opt_this) {};
 
 
 /**
@@ -8126,7 +8141,7 @@ ol.control.Rotate.prototype.on = function(type, listener, opt_this) { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.control.Rotate.prototype.once = function(type, listener, opt_this) { };
+ol.control.Rotate.prototype.once = function(type, listener, opt_this) {};
 
 
 /**
@@ -8134,44 +8149,44 @@ ol.control.Rotate.prototype.once = function(type, listener, opt_this) { };
  * @param {Function} listener
  * @param {Object=} opt_this
  */
-ol.control.Rotate.prototype.un = function(type, listener, opt_this) { };
+ol.control.Rotate.prototype.un = function(type, listener, opt_this) {};
 
 
 /**
  * @return {ol.PluggableMap}
  */
-ol.control.ScaleLine.prototype.getMap = function() { };
+ol.control.ScaleLine.prototype.getMap = function() {};
 
 
 /**
  * @param {ol.PluggableMap} map
  */
-ol.control.ScaleLine.prototype.setMap = function(map) { };
+ol.control.ScaleLine.prototype.setMap = function(map) {};
 
 
 /**
  * @param {Element|string} target
  */
-ol.control.ScaleLine.prototype.setTarget = function(target) { };
+ol.control.ScaleLine.prototype.setTarget = function(target) {};
 
 
 /**
  * @param {string} key
  * @return {*}
  */
-ol.control.ScaleLine.prototype.get = function(key) { };
+ol.control.ScaleLine.prototype.get = function(key) {};
 
 
 /**
  * @return {Array.<string>}
  */
-ol.control.ScaleLine.prototype.getKeys = function() { };
+ol.control.ScaleLine.prototype.getKeys = function() {};
 
 
 /**
  * @return {Object.<string, *>}
  */
-ol.control.ScaleLine.prototype.getProperties = function() { };
+ol.control.ScaleLine.prototype.getProperties = function() {};
 
 
 /**
@@ -8179,38 +8194,38 @@ ol.control.ScaleLine.prototype.getProperties = function() { };
  * @param {*} value
  * @param {boolean=} opt_silent
  */
-ol.control.ScaleLine.prototype.set = function(key, value, opt_silent) { };
+ol.control.ScaleLine.prototype.set = function(key, value, opt_silent) {};
 
 
 /**
  * @param {Object.<string, *>} values
  * @param {boolean=} opt_silent
  */
-ol.control.ScaleLine.prototype.setProperties = function(values, opt_silent) { };
+ol.control.ScaleLine.prototype.setProperties = function(values, opt_silent) {};
 
 
 /**
  * @param {string} key
  * @param {boolean=} opt_silent
  */
-ol.control.ScaleLine.prototype.unset = function(key, opt_silent) { };
+ol.control.ScaleLine.prototype.unset = function(key, opt_silent) {};
 
 
 /**
  */
-ol.control.ScaleLine.prototype.changed = function() { };
+ol.control.ScaleLine.prototype.changed = function() {};
 
 
 /**
  * @param {Object|ol.events.Event|string} event
  */
-ol.control.ScaleLine.prototype.dispatchEvent = function(event) { };
+ol.control.ScaleLine.prototype.dispatchEvent = function(event) {};
 
 
 /**
  * @return {number}
  */
-ol.control.ScaleLine.prototype.getRevision = function() { };
+ol.control.ScaleLine.prototype.getRevision = function() {};
 
 
 /**
@@ -8219,7 +8234,7 @@ ol.control.ScaleLine.prototype.getRevision = function() { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.control.ScaleLine.prototype.on = function(type, listener, opt_this) { };
+ol.control.ScaleLine.prototype.on = function(type, listener, opt_this) {};
 
 
 /**
@@ -8228,7 +8243,7 @@ ol.control.ScaleLine.prototype.on = function(type, listener, opt_this) { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.control.ScaleLine.prototype.once = function(type, listener, opt_this) { };
+ol.control.ScaleLine.prototype.once = function(type, listener, opt_this) {};
 
 
 /**
@@ -8236,44 +8251,44 @@ ol.control.ScaleLine.prototype.once = function(type, listener, opt_this) { };
  * @param {Function} listener
  * @param {Object=} opt_this
  */
-ol.control.ScaleLine.prototype.un = function(type, listener, opt_this) { };
+ol.control.ScaleLine.prototype.un = function(type, listener, opt_this) {};
 
 
 /**
  * @return {ol.PluggableMap}
  */
-ol.control.Zoom.prototype.getMap = function() { };
+ol.control.Zoom.prototype.getMap = function() {};
 
 
 /**
  * @param {ol.PluggableMap} map
  */
-ol.control.Zoom.prototype.setMap = function(map) { };
+ol.control.Zoom.prototype.setMap = function(map) {};
 
 
 /**
  * @param {Element|string} target
  */
-ol.control.Zoom.prototype.setTarget = function(target) { };
+ol.control.Zoom.prototype.setTarget = function(target) {};
 
 
 /**
  * @param {string} key
  * @return {*}
  */
-ol.control.Zoom.prototype.get = function(key) { };
+ol.control.Zoom.prototype.get = function(key) {};
 
 
 /**
  * @return {Array.<string>}
  */
-ol.control.Zoom.prototype.getKeys = function() { };
+ol.control.Zoom.prototype.getKeys = function() {};
 
 
 /**
  * @return {Object.<string, *>}
  */
-ol.control.Zoom.prototype.getProperties = function() { };
+ol.control.Zoom.prototype.getProperties = function() {};
 
 
 /**
@@ -8281,38 +8296,38 @@ ol.control.Zoom.prototype.getProperties = function() { };
  * @param {*} value
  * @param {boolean=} opt_silent
  */
-ol.control.Zoom.prototype.set = function(key, value, opt_silent) { };
+ol.control.Zoom.prototype.set = function(key, value, opt_silent) {};
 
 
 /**
  * @param {Object.<string, *>} values
  * @param {boolean=} opt_silent
  */
-ol.control.Zoom.prototype.setProperties = function(values, opt_silent) { };
+ol.control.Zoom.prototype.setProperties = function(values, opt_silent) {};
 
 
 /**
  * @param {string} key
  * @param {boolean=} opt_silent
  */
-ol.control.Zoom.prototype.unset = function(key, opt_silent) { };
+ol.control.Zoom.prototype.unset = function(key, opt_silent) {};
 
 
 /**
  */
-ol.control.Zoom.prototype.changed = function() { };
+ol.control.Zoom.prototype.changed = function() {};
 
 
 /**
  * @param {Object|ol.events.Event|string} event
  */
-ol.control.Zoom.prototype.dispatchEvent = function(event) { };
+ol.control.Zoom.prototype.dispatchEvent = function(event) {};
 
 
 /**
  * @return {number}
  */
-ol.control.Zoom.prototype.getRevision = function() { };
+ol.control.Zoom.prototype.getRevision = function() {};
 
 
 /**
@@ -8321,7 +8336,7 @@ ol.control.Zoom.prototype.getRevision = function() { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.control.Zoom.prototype.on = function(type, listener, opt_this) { };
+ol.control.Zoom.prototype.on = function(type, listener, opt_this) {};
 
 
 /**
@@ -8330,7 +8345,7 @@ ol.control.Zoom.prototype.on = function(type, listener, opt_this) { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.control.Zoom.prototype.once = function(type, listener, opt_this) { };
+ol.control.Zoom.prototype.once = function(type, listener, opt_this) {};
 
 
 /**
@@ -8338,44 +8353,44 @@ ol.control.Zoom.prototype.once = function(type, listener, opt_this) { };
  * @param {Function} listener
  * @param {Object=} opt_this
  */
-ol.control.Zoom.prototype.un = function(type, listener, opt_this) { };
+ol.control.Zoom.prototype.un = function(type, listener, opt_this) {};
 
 
 /**
  * @return {ol.PluggableMap}
  */
-ol.control.ZoomSlider.prototype.getMap = function() { };
+ol.control.ZoomSlider.prototype.getMap = function() {};
 
 
 /**
  * @param {ol.PluggableMap} map
  */
-ol.control.ZoomSlider.prototype.setMap = function(map) { };
+ol.control.ZoomSlider.prototype.setMap = function(map) {};
 
 
 /**
  * @param {Element|string} target
  */
-ol.control.ZoomSlider.prototype.setTarget = function(target) { };
+ol.control.ZoomSlider.prototype.setTarget = function(target) {};
 
 
 /**
  * @param {string} key
  * @return {*}
  */
-ol.control.ZoomSlider.prototype.get = function(key) { };
+ol.control.ZoomSlider.prototype.get = function(key) {};
 
 
 /**
  * @return {Array.<string>}
  */
-ol.control.ZoomSlider.prototype.getKeys = function() { };
+ol.control.ZoomSlider.prototype.getKeys = function() {};
 
 
 /**
  * @return {Object.<string, *>}
  */
-ol.control.ZoomSlider.prototype.getProperties = function() { };
+ol.control.ZoomSlider.prototype.getProperties = function() {};
 
 
 /**
@@ -8383,38 +8398,38 @@ ol.control.ZoomSlider.prototype.getProperties = function() { };
  * @param {*} value
  * @param {boolean=} opt_silent
  */
-ol.control.ZoomSlider.prototype.set = function(key, value, opt_silent) { };
+ol.control.ZoomSlider.prototype.set = function(key, value, opt_silent) {};
 
 
 /**
  * @param {Object.<string, *>} values
  * @param {boolean=} opt_silent
  */
-ol.control.ZoomSlider.prototype.setProperties = function(values, opt_silent) { };
+ol.control.ZoomSlider.prototype.setProperties = function(values, opt_silent) {};
 
 
 /**
  * @param {string} key
  * @param {boolean=} opt_silent
  */
-ol.control.ZoomSlider.prototype.unset = function(key, opt_silent) { };
+ol.control.ZoomSlider.prototype.unset = function(key, opt_silent) {};
 
 
 /**
  */
-ol.control.ZoomSlider.prototype.changed = function() { };
+ol.control.ZoomSlider.prototype.changed = function() {};
 
 
 /**
  * @param {Object|ol.events.Event|string} event
  */
-ol.control.ZoomSlider.prototype.dispatchEvent = function(event) { };
+ol.control.ZoomSlider.prototype.dispatchEvent = function(event) {};
 
 
 /**
  * @return {number}
  */
-ol.control.ZoomSlider.prototype.getRevision = function() { };
+ol.control.ZoomSlider.prototype.getRevision = function() {};
 
 
 /**
@@ -8423,7 +8438,7 @@ ol.control.ZoomSlider.prototype.getRevision = function() { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.control.ZoomSlider.prototype.on = function(type, listener, opt_this) { };
+ol.control.ZoomSlider.prototype.on = function(type, listener, opt_this) {};
 
 
 /**
@@ -8432,7 +8447,7 @@ ol.control.ZoomSlider.prototype.on = function(type, listener, opt_this) { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.control.ZoomSlider.prototype.once = function(type, listener, opt_this) { };
+ol.control.ZoomSlider.prototype.once = function(type, listener, opt_this) {};
 
 
 /**
@@ -8440,44 +8455,44 @@ ol.control.ZoomSlider.prototype.once = function(type, listener, opt_this) { };
  * @param {Function} listener
  * @param {Object=} opt_this
  */
-ol.control.ZoomSlider.prototype.un = function(type, listener, opt_this) { };
+ol.control.ZoomSlider.prototype.un = function(type, listener, opt_this) {};
 
 
 /**
  * @return {ol.PluggableMap}
  */
-ol.control.ZoomToExtent.prototype.getMap = function() { };
+ol.control.ZoomToExtent.prototype.getMap = function() {};
 
 
 /**
  * @param {ol.PluggableMap} map
  */
-ol.control.ZoomToExtent.prototype.setMap = function(map) { };
+ol.control.ZoomToExtent.prototype.setMap = function(map) {};
 
 
 /**
  * @param {Element|string} target
  */
-ol.control.ZoomToExtent.prototype.setTarget = function(target) { };
+ol.control.ZoomToExtent.prototype.setTarget = function(target) {};
 
 
 /**
  * @param {string} key
  * @return {*}
  */
-ol.control.ZoomToExtent.prototype.get = function(key) { };
+ol.control.ZoomToExtent.prototype.get = function(key) {};
 
 
 /**
  * @return {Array.<string>}
  */
-ol.control.ZoomToExtent.prototype.getKeys = function() { };
+ol.control.ZoomToExtent.prototype.getKeys = function() {};
 
 
 /**
  * @return {Object.<string, *>}
  */
-ol.control.ZoomToExtent.prototype.getProperties = function() { };
+ol.control.ZoomToExtent.prototype.getProperties = function() {};
 
 
 /**
@@ -8485,38 +8500,38 @@ ol.control.ZoomToExtent.prototype.getProperties = function() { };
  * @param {*} value
  * @param {boolean=} opt_silent
  */
-ol.control.ZoomToExtent.prototype.set = function(key, value, opt_silent) { };
+ol.control.ZoomToExtent.prototype.set = function(key, value, opt_silent) {};
 
 
 /**
  * @param {Object.<string, *>} values
  * @param {boolean=} opt_silent
  */
-ol.control.ZoomToExtent.prototype.setProperties = function(values, opt_silent) { };
+ol.control.ZoomToExtent.prototype.setProperties = function(values, opt_silent) {};
 
 
 /**
  * @param {string} key
  * @param {boolean=} opt_silent
  */
-ol.control.ZoomToExtent.prototype.unset = function(key, opt_silent) { };
+ol.control.ZoomToExtent.prototype.unset = function(key, opt_silent) {};
 
 
 /**
  */
-ol.control.ZoomToExtent.prototype.changed = function() { };
+ol.control.ZoomToExtent.prototype.changed = function() {};
 
 
 /**
  * @param {Object|ol.events.Event|string} event
  */
-ol.control.ZoomToExtent.prototype.dispatchEvent = function(event) { };
+ol.control.ZoomToExtent.prototype.dispatchEvent = function(event) {};
 
 
 /**
  * @return {number}
  */
-ol.control.ZoomToExtent.prototype.getRevision = function() { };
+ol.control.ZoomToExtent.prototype.getRevision = function() {};
 
 
 /**
@@ -8525,7 +8540,7 @@ ol.control.ZoomToExtent.prototype.getRevision = function() { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.control.ZoomToExtent.prototype.on = function(type, listener, opt_this) { };
+ol.control.ZoomToExtent.prototype.on = function(type, listener, opt_this) {};
 
 
 /**
@@ -8534,7 +8549,7 @@ ol.control.ZoomToExtent.prototype.on = function(type, listener, opt_this) { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.control.ZoomToExtent.prototype.once = function(type, listener, opt_this) { };
+ol.control.ZoomToExtent.prototype.once = function(type, listener, opt_this) {};
 
 
 /**
@@ -8542,26 +8557,26 @@ ol.control.ZoomToExtent.prototype.once = function(type, listener, opt_this) { };
  * @param {Function} listener
  * @param {Object=} opt_this
  */
-ol.control.ZoomToExtent.prototype.un = function(type, listener, opt_this) { };
+ol.control.ZoomToExtent.prototype.un = function(type, listener, opt_this) {};
 
 
 /**
  * @param {string} key
  * @return {*}
  */
-ol.DeviceOrientation.prototype.get = function(key) { };
+ol.DeviceOrientation.prototype.get = function(key) {};
 
 
 /**
  * @return {Array.<string>}
  */
-ol.DeviceOrientation.prototype.getKeys = function() { };
+ol.DeviceOrientation.prototype.getKeys = function() {};
 
 
 /**
  * @return {Object.<string, *>}
  */
-ol.DeviceOrientation.prototype.getProperties = function() { };
+ol.DeviceOrientation.prototype.getProperties = function() {};
 
 
 /**
@@ -8569,38 +8584,38 @@ ol.DeviceOrientation.prototype.getProperties = function() { };
  * @param {*} value
  * @param {boolean=} opt_silent
  */
-ol.DeviceOrientation.prototype.set = function(key, value, opt_silent) { };
+ol.DeviceOrientation.prototype.set = function(key, value, opt_silent) {};
 
 
 /**
  * @param {Object.<string, *>} values
  * @param {boolean=} opt_silent
  */
-ol.DeviceOrientation.prototype.setProperties = function(values, opt_silent) { };
+ol.DeviceOrientation.prototype.setProperties = function(values, opt_silent) {};
 
 
 /**
  * @param {string} key
  * @param {boolean=} opt_silent
  */
-ol.DeviceOrientation.prototype.unset = function(key, opt_silent) { };
+ol.DeviceOrientation.prototype.unset = function(key, opt_silent) {};
 
 
 /**
  */
-ol.DeviceOrientation.prototype.changed = function() { };
+ol.DeviceOrientation.prototype.changed = function() {};
 
 
 /**
  * @param {Object|ol.events.Event|string} event
  */
-ol.DeviceOrientation.prototype.dispatchEvent = function(event) { };
+ol.DeviceOrientation.prototype.dispatchEvent = function(event) {};
 
 
 /**
  * @return {number}
  */
-ol.DeviceOrientation.prototype.getRevision = function() { };
+ol.DeviceOrientation.prototype.getRevision = function() {};
 
 
 /**
@@ -8609,7 +8624,7 @@ ol.DeviceOrientation.prototype.getRevision = function() { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.DeviceOrientation.prototype.on = function(type, listener, opt_this) { };
+ol.DeviceOrientation.prototype.on = function(type, listener, opt_this) {};
 
 
 /**
@@ -8618,7 +8633,7 @@ ol.DeviceOrientation.prototype.on = function(type, listener, opt_this) { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.DeviceOrientation.prototype.once = function(type, listener, opt_this) { };
+ol.DeviceOrientation.prototype.once = function(type, listener, opt_this) {};
 
 
 /**
@@ -8626,26 +8641,26 @@ ol.DeviceOrientation.prototype.once = function(type, listener, opt_this) { };
  * @param {Function} listener
  * @param {Object=} opt_this
  */
-ol.DeviceOrientation.prototype.un = function(type, listener, opt_this) { };
+ol.DeviceOrientation.prototype.un = function(type, listener, opt_this) {};
 
 
 /**
  * @param {string} key
  * @return {*}
  */
-ol.Feature.prototype.get = function(key) { };
+ol.Feature.prototype.get = function(key) {};
 
 
 /**
  * @return {Array.<string>}
  */
-ol.Feature.prototype.getKeys = function() { };
+ol.Feature.prototype.getKeys = function() {};
 
 
 /**
  * @return {Object.<string, *>}
  */
-ol.Feature.prototype.getProperties = function() { };
+ol.Feature.prototype.getProperties = function() {};
 
 
 /**
@@ -8653,38 +8668,38 @@ ol.Feature.prototype.getProperties = function() { };
  * @param {*} value
  * @param {boolean=} opt_silent
  */
-ol.Feature.prototype.set = function(key, value, opt_silent) { };
+ol.Feature.prototype.set = function(key, value, opt_silent) {};
 
 
 /**
  * @param {Object.<string, *>} values
  * @param {boolean=} opt_silent
  */
-ol.Feature.prototype.setProperties = function(values, opt_silent) { };
+ol.Feature.prototype.setProperties = function(values, opt_silent) {};
 
 
 /**
  * @param {string} key
  * @param {boolean=} opt_silent
  */
-ol.Feature.prototype.unset = function(key, opt_silent) { };
+ol.Feature.prototype.unset = function(key, opt_silent) {};
 
 
 /**
  */
-ol.Feature.prototype.changed = function() { };
+ol.Feature.prototype.changed = function() {};
 
 
 /**
  * @param {Object|ol.events.Event|string} event
  */
-ol.Feature.prototype.dispatchEvent = function(event) { };
+ol.Feature.prototype.dispatchEvent = function(event) {};
 
 
 /**
  * @return {number}
  */
-ol.Feature.prototype.getRevision = function() { };
+ol.Feature.prototype.getRevision = function() {};
 
 
 /**
@@ -8693,7 +8708,7 @@ ol.Feature.prototype.getRevision = function() { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.Feature.prototype.on = function(type, listener, opt_this) { };
+ol.Feature.prototype.on = function(type, listener, opt_this) {};
 
 
 /**
@@ -8702,7 +8717,7 @@ ol.Feature.prototype.on = function(type, listener, opt_this) { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.Feature.prototype.once = function(type, listener, opt_this) { };
+ol.Feature.prototype.once = function(type, listener, opt_this) {};
 
 
 /**
@@ -8710,7 +8725,7 @@ ol.Feature.prototype.once = function(type, listener, opt_this) { };
  * @param {Function} listener
  * @param {Object=} opt_this
  */
-ol.Feature.prototype.un = function(type, listener, opt_this) { };
+ol.Feature.prototype.un = function(type, listener, opt_this) {};
 
 
 /**
@@ -8718,7 +8733,7 @@ ol.Feature.prototype.un = function(type, listener, opt_this) { };
  * @param {olx.format.ReadOptions=} opt_options
  * @return {Array.<ol.Feature>}
  */
-ol.format.GML.prototype.readFeatures = function(source, opt_options) { };
+ol.format.GML.prototype.readFeatures = function(source, opt_options) {};
 
 
 /**
@@ -8726,7 +8741,7 @@ ol.format.GML.prototype.readFeatures = function(source, opt_options) { };
  * @param {olx.format.ReadOptions=} opt_options
  * @return {Array.<ol.Feature>}
  */
-ol.format.GML2.prototype.readFeatures = function(source, opt_options) { };
+ol.format.GML2.prototype.readFeatures = function(source, opt_options) {};
 
 
 /**
@@ -8734,26 +8749,26 @@ ol.format.GML2.prototype.readFeatures = function(source, opt_options) { };
  * @param {olx.format.ReadOptions=} opt_options
  * @return {Array.<ol.Feature>}
  */
-ol.format.GML3.prototype.readFeatures = function(source, opt_options) { };
+ol.format.GML3.prototype.readFeatures = function(source, opt_options) {};
 
 
 /**
  * @param {string} key
  * @return {*}
  */
-ol.Geolocation.prototype.get = function(key) { };
+ol.Geolocation.prototype.get = function(key) {};
 
 
 /**
  * @return {Array.<string>}
  */
-ol.Geolocation.prototype.getKeys = function() { };
+ol.Geolocation.prototype.getKeys = function() {};
 
 
 /**
  * @return {Object.<string, *>}
  */
-ol.Geolocation.prototype.getProperties = function() { };
+ol.Geolocation.prototype.getProperties = function() {};
 
 
 /**
@@ -8761,38 +8776,38 @@ ol.Geolocation.prototype.getProperties = function() { };
  * @param {*} value
  * @param {boolean=} opt_silent
  */
-ol.Geolocation.prototype.set = function(key, value, opt_silent) { };
+ol.Geolocation.prototype.set = function(key, value, opt_silent) {};
 
 
 /**
  * @param {Object.<string, *>} values
  * @param {boolean=} opt_silent
  */
-ol.Geolocation.prototype.setProperties = function(values, opt_silent) { };
+ol.Geolocation.prototype.setProperties = function(values, opt_silent) {};
 
 
 /**
  * @param {string} key
  * @param {boolean=} opt_silent
  */
-ol.Geolocation.prototype.unset = function(key, opt_silent) { };
+ol.Geolocation.prototype.unset = function(key, opt_silent) {};
 
 
 /**
  */
-ol.Geolocation.prototype.changed = function() { };
+ol.Geolocation.prototype.changed = function() {};
 
 
 /**
  * @param {Object|ol.events.Event|string} event
  */
-ol.Geolocation.prototype.dispatchEvent = function(event) { };
+ol.Geolocation.prototype.dispatchEvent = function(event) {};
 
 
 /**
  * @return {number}
  */
-ol.Geolocation.prototype.getRevision = function() { };
+ol.Geolocation.prototype.getRevision = function() {};
 
 
 /**
@@ -8801,7 +8816,7 @@ ol.Geolocation.prototype.getRevision = function() { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.Geolocation.prototype.on = function(type, listener, opt_this) { };
+ol.Geolocation.prototype.on = function(type, listener, opt_this) {};
 
 
 /**
@@ -8810,7 +8825,7 @@ ol.Geolocation.prototype.on = function(type, listener, opt_this) { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.Geolocation.prototype.once = function(type, listener, opt_this) { };
+ol.Geolocation.prototype.once = function(type, listener, opt_this) {};
 
 
 /**
@@ -8818,26 +8833,26 @@ ol.Geolocation.prototype.once = function(type, listener, opt_this) { };
  * @param {Function} listener
  * @param {Object=} opt_this
  */
-ol.Geolocation.prototype.un = function(type, listener, opt_this) { };
+ol.Geolocation.prototype.un = function(type, listener, opt_this) {};
 
 
 /**
  * @param {string} key
  * @return {*}
  */
-ol.geom.Geometry.prototype.get = function(key) { };
+ol.geom.Geometry.prototype.get = function(key) {};
 
 
 /**
  * @return {Array.<string>}
  */
-ol.geom.Geometry.prototype.getKeys = function() { };
+ol.geom.Geometry.prototype.getKeys = function() {};
 
 
 /**
  * @return {Object.<string, *>}
  */
-ol.geom.Geometry.prototype.getProperties = function() { };
+ol.geom.Geometry.prototype.getProperties = function() {};
 
 
 /**
@@ -8845,38 +8860,38 @@ ol.geom.Geometry.prototype.getProperties = function() { };
  * @param {*} value
  * @param {boolean=} opt_silent
  */
-ol.geom.Geometry.prototype.set = function(key, value, opt_silent) { };
+ol.geom.Geometry.prototype.set = function(key, value, opt_silent) {};
 
 
 /**
  * @param {Object.<string, *>} values
  * @param {boolean=} opt_silent
  */
-ol.geom.Geometry.prototype.setProperties = function(values, opt_silent) { };
+ol.geom.Geometry.prototype.setProperties = function(values, opt_silent) {};
 
 
 /**
  * @param {string} key
  * @param {boolean=} opt_silent
  */
-ol.geom.Geometry.prototype.unset = function(key, opt_silent) { };
+ol.geom.Geometry.prototype.unset = function(key, opt_silent) {};
 
 
 /**
  */
-ol.geom.Geometry.prototype.changed = function() { };
+ol.geom.Geometry.prototype.changed = function() {};
 
 
 /**
  * @param {Object|ol.events.Event|string} event
  */
-ol.geom.Geometry.prototype.dispatchEvent = function(event) { };
+ol.geom.Geometry.prototype.dispatchEvent = function(event) {};
 
 
 /**
  * @return {number}
  */
-ol.geom.Geometry.prototype.getRevision = function() { };
+ol.geom.Geometry.prototype.getRevision = function() {};
 
 
 /**
@@ -8885,7 +8900,7 @@ ol.geom.Geometry.prototype.getRevision = function() { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.geom.Geometry.prototype.on = function(type, listener, opt_this) { };
+ol.geom.Geometry.prototype.on = function(type, listener, opt_this) {};
 
 
 /**
@@ -8894,7 +8909,7 @@ ol.geom.Geometry.prototype.on = function(type, listener, opt_this) { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.geom.Geometry.prototype.once = function(type, listener, opt_this) { };
+ol.geom.Geometry.prototype.once = function(type, listener, opt_this) {};
 
 
 /**
@@ -8902,7 +8917,7 @@ ol.geom.Geometry.prototype.once = function(type, listener, opt_this) { };
  * @param {Function} listener
  * @param {Object=} opt_this
  */
-ol.geom.Geometry.prototype.un = function(type, listener, opt_this) { };
+ol.geom.Geometry.prototype.un = function(type, listener, opt_this) {};
 
 
 /**
@@ -8910,14 +8925,14 @@ ol.geom.Geometry.prototype.un = function(type, listener, opt_this) { };
  * @param {ol.Coordinate=} opt_closestPoint
  * @return {ol.Coordinate}
  */
-ol.geom.SimpleGeometry.prototype.getClosestPoint = function(point, opt_closestPoint) { };
+ol.geom.SimpleGeometry.prototype.getClosestPoint = function(point, opt_closestPoint) {};
 
 
 /**
  * @param {ol.Coordinate} coordinate
  * @return {boolean}
  */
-ol.geom.SimpleGeometry.prototype.intersectsCoordinate = function(coordinate) { };
+ol.geom.SimpleGeometry.prototype.intersectsCoordinate = function(coordinate) {};
 
 
 /**
@@ -8932,14 +8947,14 @@ ol.geom.SimpleGeometry.prototype.containsXY;
  * @param {ol.Extent=} opt_extent
  * @return {ol.Extent}
  */
-ol.geom.SimpleGeometry.prototype.getExtent = function(opt_extent) { };
+ol.geom.SimpleGeometry.prototype.getExtent = function(opt_extent) {};
 
 
 /**
  * @param {number} angle
  * @param {ol.Coordinate} anchor
  */
-ol.geom.SimpleGeometry.prototype.rotate = function(angle, anchor) { };
+ol.geom.SimpleGeometry.prototype.rotate = function(angle, anchor) {};
 
 
 /**
@@ -8947,14 +8962,14 @@ ol.geom.SimpleGeometry.prototype.rotate = function(angle, anchor) { };
  * @param {number=} opt_sy
  * @param {ol.Coordinate=} opt_anchor
  */
-ol.geom.SimpleGeometry.prototype.scale = function(sx, opt_sy, opt_anchor) { };
+ol.geom.SimpleGeometry.prototype.scale = function(sx, opt_sy, opt_anchor) {};
 
 
 /**
  * @param {number} tolerance
  * @return {ol.geom.Geometry}
  */
-ol.geom.SimpleGeometry.prototype.simplify = function(tolerance) { };
+ol.geom.SimpleGeometry.prototype.simplify = function(tolerance) {};
 
 
 /**
@@ -8962,26 +8977,26 @@ ol.geom.SimpleGeometry.prototype.simplify = function(tolerance) { };
  * @param {ol.ProjectionLike} destination
  * @return {ol.geom.Geometry}
  */
-ol.geom.SimpleGeometry.prototype.transform = function(source, destination) { };
+ol.geom.SimpleGeometry.prototype.transform = function(source, destination) {};
 
 
 /**
  * @param {string} key
  * @return {*}
  */
-ol.geom.SimpleGeometry.prototype.get = function(key) { };
+ol.geom.SimpleGeometry.prototype.get = function(key) {};
 
 
 /**
  * @return {Array.<string>}
  */
-ol.geom.SimpleGeometry.prototype.getKeys = function() { };
+ol.geom.SimpleGeometry.prototype.getKeys = function() {};
 
 
 /**
  * @return {Object.<string, *>}
  */
-ol.geom.SimpleGeometry.prototype.getProperties = function() { };
+ol.geom.SimpleGeometry.prototype.getProperties = function() {};
 
 
 /**
@@ -8989,38 +9004,38 @@ ol.geom.SimpleGeometry.prototype.getProperties = function() { };
  * @param {*} value
  * @param {boolean=} opt_silent
  */
-ol.geom.SimpleGeometry.prototype.set = function(key, value, opt_silent) { };
+ol.geom.SimpleGeometry.prototype.set = function(key, value, opt_silent) {};
 
 
 /**
  * @param {Object.<string, *>} values
  * @param {boolean=} opt_silent
  */
-ol.geom.SimpleGeometry.prototype.setProperties = function(values, opt_silent) { };
+ol.geom.SimpleGeometry.prototype.setProperties = function(values, opt_silent) {};
 
 
 /**
  * @param {string} key
  * @param {boolean=} opt_silent
  */
-ol.geom.SimpleGeometry.prototype.unset = function(key, opt_silent) { };
+ol.geom.SimpleGeometry.prototype.unset = function(key, opt_silent) {};
 
 
 /**
  */
-ol.geom.SimpleGeometry.prototype.changed = function() { };
+ol.geom.SimpleGeometry.prototype.changed = function() {};
 
 
 /**
  * @param {Object|ol.events.Event|string} event
  */
-ol.geom.SimpleGeometry.prototype.dispatchEvent = function(event) { };
+ol.geom.SimpleGeometry.prototype.dispatchEvent = function(event) {};
 
 
 /**
  * @return {number}
  */
-ol.geom.SimpleGeometry.prototype.getRevision = function() { };
+ol.geom.SimpleGeometry.prototype.getRevision = function() {};
 
 
 /**
@@ -9029,7 +9044,7 @@ ol.geom.SimpleGeometry.prototype.getRevision = function() { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.geom.SimpleGeometry.prototype.on = function(type, listener, opt_this) { };
+ol.geom.SimpleGeometry.prototype.on = function(type, listener, opt_this) {};
 
 
 /**
@@ -9038,7 +9053,7 @@ ol.geom.SimpleGeometry.prototype.on = function(type, listener, opt_this) { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.geom.SimpleGeometry.prototype.once = function(type, listener, opt_this) { };
+ol.geom.SimpleGeometry.prototype.once = function(type, listener, opt_this) {};
 
 
 /**
@@ -9046,7 +9061,7 @@ ol.geom.SimpleGeometry.prototype.once = function(type, listener, opt_this) { };
  * @param {Function} listener
  * @param {Object=} opt_this
  */
-ol.geom.SimpleGeometry.prototype.un = function(type, listener, opt_this) { };
+ol.geom.SimpleGeometry.prototype.un = function(type, listener, opt_this) {};
 
 
 /**
@@ -9060,26 +9075,26 @@ ol.geom.Circle.prototype.containsXY;
 /**
  * @return {ol.Coordinate}
  */
-ol.geom.Circle.prototype.getFirstCoordinate = function() { };
+ol.geom.Circle.prototype.getFirstCoordinate = function() {};
 
 
 /**
  * @return {ol.Coordinate}
  */
-ol.geom.Circle.prototype.getLastCoordinate = function() { };
+ol.geom.Circle.prototype.getLastCoordinate = function() {};
 
 
 /**
  * @return {ol.geom.GeometryLayout}
  */
-ol.geom.Circle.prototype.getLayout = function() { };
+ol.geom.Circle.prototype.getLayout = function() {};
 
 
 /**
  * @param {number} angle
  * @param {ol.Coordinate} anchor
  */
-ol.geom.Circle.prototype.rotate = function(angle, anchor) { };
+ol.geom.Circle.prototype.rotate = function(angle, anchor) {};
 
 
 /**
@@ -9087,7 +9102,7 @@ ol.geom.Circle.prototype.rotate = function(angle, anchor) { };
  * @param {number=} opt_sy
  * @param {ol.Coordinate=} opt_anchor
  */
-ol.geom.Circle.prototype.scale = function(sx, opt_sy, opt_anchor) { };
+ol.geom.Circle.prototype.scale = function(sx, opt_sy, opt_anchor) {};
 
 
 /**
@@ -9095,47 +9110,47 @@ ol.geom.Circle.prototype.scale = function(sx, opt_sy, opt_anchor) { };
  * @param {ol.Coordinate=} opt_closestPoint
  * @return {ol.Coordinate}
  */
-ol.geom.Circle.prototype.getClosestPoint = function(point, opt_closestPoint) { };
+ol.geom.Circle.prototype.getClosestPoint = function(point, opt_closestPoint) {};
 
 
 /**
  * @param {ol.Coordinate} coordinate
  * @return {boolean}
  */
-ol.geom.Circle.prototype.intersectsCoordinate = function(coordinate) { };
+ol.geom.Circle.prototype.intersectsCoordinate = function(coordinate) {};
 
 
 /**
  * @param {ol.Extent=} opt_extent
  * @return {ol.Extent}
  */
-ol.geom.Circle.prototype.getExtent = function(opt_extent) { };
+ol.geom.Circle.prototype.getExtent = function(opt_extent) {};
 
 
 /**
  * @param {number} tolerance
  * @return {ol.geom.Geometry}
  */
-ol.geom.Circle.prototype.simplify = function(tolerance) { };
+ol.geom.Circle.prototype.simplify = function(tolerance) {};
 
 
 /**
  * @param {string} key
  * @return {*}
  */
-ol.geom.Circle.prototype.get = function(key) { };
+ol.geom.Circle.prototype.get = function(key) {};
 
 
 /**
  * @return {Array.<string>}
  */
-ol.geom.Circle.prototype.getKeys = function() { };
+ol.geom.Circle.prototype.getKeys = function() {};
 
 
 /**
  * @return {Object.<string, *>}
  */
-ol.geom.Circle.prototype.getProperties = function() { };
+ol.geom.Circle.prototype.getProperties = function() {};
 
 
 /**
@@ -9143,38 +9158,38 @@ ol.geom.Circle.prototype.getProperties = function() { };
  * @param {*} value
  * @param {boolean=} opt_silent
  */
-ol.geom.Circle.prototype.set = function(key, value, opt_silent) { };
+ol.geom.Circle.prototype.set = function(key, value, opt_silent) {};
 
 
 /**
  * @param {Object.<string, *>} values
  * @param {boolean=} opt_silent
  */
-ol.geom.Circle.prototype.setProperties = function(values, opt_silent) { };
+ol.geom.Circle.prototype.setProperties = function(values, opt_silent) {};
 
 
 /**
  * @param {string} key
  * @param {boolean=} opt_silent
  */
-ol.geom.Circle.prototype.unset = function(key, opt_silent) { };
+ol.geom.Circle.prototype.unset = function(key, opt_silent) {};
 
 
 /**
  */
-ol.geom.Circle.prototype.changed = function() { };
+ol.geom.Circle.prototype.changed = function() {};
 
 
 /**
  * @param {Object|ol.events.Event|string} event
  */
-ol.geom.Circle.prototype.dispatchEvent = function(event) { };
+ol.geom.Circle.prototype.dispatchEvent = function(event) {};
 
 
 /**
  * @return {number}
  */
-ol.geom.Circle.prototype.getRevision = function() { };
+ol.geom.Circle.prototype.getRevision = function() {};
 
 
 /**
@@ -9183,7 +9198,7 @@ ol.geom.Circle.prototype.getRevision = function() { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.geom.Circle.prototype.on = function(type, listener, opt_this) { };
+ol.geom.Circle.prototype.on = function(type, listener, opt_this) {};
 
 
 /**
@@ -9192,7 +9207,7 @@ ol.geom.Circle.prototype.on = function(type, listener, opt_this) { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.geom.Circle.prototype.once = function(type, listener, opt_this) { };
+ol.geom.Circle.prototype.once = function(type, listener, opt_this) {};
 
 
 /**
@@ -9200,7 +9215,7 @@ ol.geom.Circle.prototype.once = function(type, listener, opt_this) { };
  * @param {Function} listener
  * @param {Object=} opt_this
  */
-ol.geom.Circle.prototype.un = function(type, listener, opt_this) { };
+ol.geom.Circle.prototype.un = function(type, listener, opt_this) {};
 
 
 /**
@@ -9208,14 +9223,14 @@ ol.geom.Circle.prototype.un = function(type, listener, opt_this) { };
  * @param {ol.Coordinate=} opt_closestPoint
  * @return {ol.Coordinate}
  */
-ol.geom.GeometryCollection.prototype.getClosestPoint = function(point, opt_closestPoint) { };
+ol.geom.GeometryCollection.prototype.getClosestPoint = function(point, opt_closestPoint) {};
 
 
 /**
  * @param {ol.Coordinate} coordinate
  * @return {boolean}
  */
-ol.geom.GeometryCollection.prototype.intersectsCoordinate = function(coordinate) { };
+ol.geom.GeometryCollection.prototype.intersectsCoordinate = function(coordinate) {};
 
 
 /**
@@ -9230,14 +9245,14 @@ ol.geom.GeometryCollection.prototype.containsXY;
  * @param {ol.Extent=} opt_extent
  * @return {ol.Extent}
  */
-ol.geom.GeometryCollection.prototype.getExtent = function(opt_extent) { };
+ol.geom.GeometryCollection.prototype.getExtent = function(opt_extent) {};
 
 
 /**
  * @param {number} angle
  * @param {ol.Coordinate} anchor
  */
-ol.geom.GeometryCollection.prototype.rotate = function(angle, anchor) { };
+ol.geom.GeometryCollection.prototype.rotate = function(angle, anchor) {};
 
 
 /**
@@ -9245,14 +9260,14 @@ ol.geom.GeometryCollection.prototype.rotate = function(angle, anchor) { };
  * @param {number=} opt_sy
  * @param {ol.Coordinate=} opt_anchor
  */
-ol.geom.GeometryCollection.prototype.scale = function(sx, opt_sy, opt_anchor) { };
+ol.geom.GeometryCollection.prototype.scale = function(sx, opt_sy, opt_anchor) {};
 
 
 /**
  * @param {number} tolerance
  * @return {ol.geom.Geometry}
  */
-ol.geom.GeometryCollection.prototype.simplify = function(tolerance) { };
+ol.geom.GeometryCollection.prototype.simplify = function(tolerance) {};
 
 
 /**
@@ -9260,26 +9275,26 @@ ol.geom.GeometryCollection.prototype.simplify = function(tolerance) { };
  * @param {ol.ProjectionLike} destination
  * @return {ol.geom.Geometry}
  */
-ol.geom.GeometryCollection.prototype.transform = function(source, destination) { };
+ol.geom.GeometryCollection.prototype.transform = function(source, destination) {};
 
 
 /**
  * @param {string} key
  * @return {*}
  */
-ol.geom.GeometryCollection.prototype.get = function(key) { };
+ol.geom.GeometryCollection.prototype.get = function(key) {};
 
 
 /**
  * @return {Array.<string>}
  */
-ol.geom.GeometryCollection.prototype.getKeys = function() { };
+ol.geom.GeometryCollection.prototype.getKeys = function() {};
 
 
 /**
  * @return {Object.<string, *>}
  */
-ol.geom.GeometryCollection.prototype.getProperties = function() { };
+ol.geom.GeometryCollection.prototype.getProperties = function() {};
 
 
 /**
@@ -9287,38 +9302,38 @@ ol.geom.GeometryCollection.prototype.getProperties = function() { };
  * @param {*} value
  * @param {boolean=} opt_silent
  */
-ol.geom.GeometryCollection.prototype.set = function(key, value, opt_silent) { };
+ol.geom.GeometryCollection.prototype.set = function(key, value, opt_silent) {};
 
 
 /**
  * @param {Object.<string, *>} values
  * @param {boolean=} opt_silent
  */
-ol.geom.GeometryCollection.prototype.setProperties = function(values, opt_silent) { };
+ol.geom.GeometryCollection.prototype.setProperties = function(values, opt_silent) {};
 
 
 /**
  * @param {string} key
  * @param {boolean=} opt_silent
  */
-ol.geom.GeometryCollection.prototype.unset = function(key, opt_silent) { };
+ol.geom.GeometryCollection.prototype.unset = function(key, opt_silent) {};
 
 
 /**
  */
-ol.geom.GeometryCollection.prototype.changed = function() { };
+ol.geom.GeometryCollection.prototype.changed = function() {};
 
 
 /**
  * @param {Object|ol.events.Event|string} event
  */
-ol.geom.GeometryCollection.prototype.dispatchEvent = function(event) { };
+ol.geom.GeometryCollection.prototype.dispatchEvent = function(event) {};
 
 
 /**
  * @return {number}
  */
-ol.geom.GeometryCollection.prototype.getRevision = function() { };
+ol.geom.GeometryCollection.prototype.getRevision = function() {};
 
 
 /**
@@ -9327,7 +9342,7 @@ ol.geom.GeometryCollection.prototype.getRevision = function() { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.geom.GeometryCollection.prototype.on = function(type, listener, opt_this) { };
+ol.geom.GeometryCollection.prototype.on = function(type, listener, opt_this) {};
 
 
 /**
@@ -9336,7 +9351,7 @@ ol.geom.GeometryCollection.prototype.on = function(type, listener, opt_this) { }
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.geom.GeometryCollection.prototype.once = function(type, listener, opt_this) { };
+ol.geom.GeometryCollection.prototype.once = function(type, listener, opt_this) {};
 
 
 /**
@@ -9344,7 +9359,7 @@ ol.geom.GeometryCollection.prototype.once = function(type, listener, opt_this) {
  * @param {Function} listener
  * @param {Object=} opt_this
  */
-ol.geom.GeometryCollection.prototype.un = function(type, listener, opt_this) { };
+ol.geom.GeometryCollection.prototype.un = function(type, listener, opt_this) {};
 
 
 /**
@@ -9358,26 +9373,26 @@ ol.geom.LinearRing.prototype.containsXY;
 /**
  * @return {ol.Coordinate}
  */
-ol.geom.LinearRing.prototype.getFirstCoordinate = function() { };
+ol.geom.LinearRing.prototype.getFirstCoordinate = function() {};
 
 
 /**
  * @return {ol.Coordinate}
  */
-ol.geom.LinearRing.prototype.getLastCoordinate = function() { };
+ol.geom.LinearRing.prototype.getLastCoordinate = function() {};
 
 
 /**
  * @return {ol.geom.GeometryLayout}
  */
-ol.geom.LinearRing.prototype.getLayout = function() { };
+ol.geom.LinearRing.prototype.getLayout = function() {};
 
 
 /**
  * @param {number} angle
  * @param {ol.Coordinate} anchor
  */
-ol.geom.LinearRing.prototype.rotate = function(angle, anchor) { };
+ol.geom.LinearRing.prototype.rotate = function(angle, anchor) {};
 
 
 /**
@@ -9385,7 +9400,7 @@ ol.geom.LinearRing.prototype.rotate = function(angle, anchor) { };
  * @param {number=} opt_sy
  * @param {ol.Coordinate=} opt_anchor
  */
-ol.geom.LinearRing.prototype.scale = function(sx, opt_sy, opt_anchor) { };
+ol.geom.LinearRing.prototype.scale = function(sx, opt_sy, opt_anchor) {};
 
 
 /**
@@ -9393,28 +9408,28 @@ ol.geom.LinearRing.prototype.scale = function(sx, opt_sy, opt_anchor) { };
  * @param {ol.Coordinate=} opt_closestPoint
  * @return {ol.Coordinate}
  */
-ol.geom.LinearRing.prototype.getClosestPoint = function(point, opt_closestPoint) { };
+ol.geom.LinearRing.prototype.getClosestPoint = function(point, opt_closestPoint) {};
 
 
 /**
  * @param {ol.Coordinate} coordinate
  * @return {boolean}
  */
-ol.geom.LinearRing.prototype.intersectsCoordinate = function(coordinate) { };
+ol.geom.LinearRing.prototype.intersectsCoordinate = function(coordinate) {};
 
 
 /**
  * @param {ol.Extent=} opt_extent
  * @return {ol.Extent}
  */
-ol.geom.LinearRing.prototype.getExtent = function(opt_extent) { };
+ol.geom.LinearRing.prototype.getExtent = function(opt_extent) {};
 
 
 /**
  * @param {number} tolerance
  * @return {ol.geom.Geometry}
  */
-ol.geom.LinearRing.prototype.simplify = function(tolerance) { };
+ol.geom.LinearRing.prototype.simplify = function(tolerance) {};
 
 
 /**
@@ -9422,26 +9437,26 @@ ol.geom.LinearRing.prototype.simplify = function(tolerance) { };
  * @param {ol.ProjectionLike} destination
  * @return {ol.geom.Geometry}
  */
-ol.geom.LinearRing.prototype.transform = function(source, destination) { };
+ol.geom.LinearRing.prototype.transform = function(source, destination) {};
 
 
 /**
  * @param {string} key
  * @return {*}
  */
-ol.geom.LinearRing.prototype.get = function(key) { };
+ol.geom.LinearRing.prototype.get = function(key) {};
 
 
 /**
  * @return {Array.<string>}
  */
-ol.geom.LinearRing.prototype.getKeys = function() { };
+ol.geom.LinearRing.prototype.getKeys = function() {};
 
 
 /**
  * @return {Object.<string, *>}
  */
-ol.geom.LinearRing.prototype.getProperties = function() { };
+ol.geom.LinearRing.prototype.getProperties = function() {};
 
 
 /**
@@ -9449,38 +9464,38 @@ ol.geom.LinearRing.prototype.getProperties = function() { };
  * @param {*} value
  * @param {boolean=} opt_silent
  */
-ol.geom.LinearRing.prototype.set = function(key, value, opt_silent) { };
+ol.geom.LinearRing.prototype.set = function(key, value, opt_silent) {};
 
 
 /**
  * @param {Object.<string, *>} values
  * @param {boolean=} opt_silent
  */
-ol.geom.LinearRing.prototype.setProperties = function(values, opt_silent) { };
+ol.geom.LinearRing.prototype.setProperties = function(values, opt_silent) {};
 
 
 /**
  * @param {string} key
  * @param {boolean=} opt_silent
  */
-ol.geom.LinearRing.prototype.unset = function(key, opt_silent) { };
+ol.geom.LinearRing.prototype.unset = function(key, opt_silent) {};
 
 
 /**
  */
-ol.geom.LinearRing.prototype.changed = function() { };
+ol.geom.LinearRing.prototype.changed = function() {};
 
 
 /**
  * @param {Object|ol.events.Event|string} event
  */
-ol.geom.LinearRing.prototype.dispatchEvent = function(event) { };
+ol.geom.LinearRing.prototype.dispatchEvent = function(event) {};
 
 
 /**
  * @return {number}
  */
-ol.geom.LinearRing.prototype.getRevision = function() { };
+ol.geom.LinearRing.prototype.getRevision = function() {};
 
 
 /**
@@ -9489,7 +9504,7 @@ ol.geom.LinearRing.prototype.getRevision = function() { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.geom.LinearRing.prototype.on = function(type, listener, opt_this) { };
+ol.geom.LinearRing.prototype.on = function(type, listener, opt_this) {};
 
 
 /**
@@ -9498,7 +9513,7 @@ ol.geom.LinearRing.prototype.on = function(type, listener, opt_this) { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.geom.LinearRing.prototype.once = function(type, listener, opt_this) { };
+ol.geom.LinearRing.prototype.once = function(type, listener, opt_this) {};
 
 
 /**
@@ -9506,7 +9521,7 @@ ol.geom.LinearRing.prototype.once = function(type, listener, opt_this) { };
  * @param {Function} listener
  * @param {Object=} opt_this
  */
-ol.geom.LinearRing.prototype.un = function(type, listener, opt_this) { };
+ol.geom.LinearRing.prototype.un = function(type, listener, opt_this) {};
 
 
 /**
@@ -9520,26 +9535,26 @@ ol.geom.LineString.prototype.containsXY;
 /**
  * @return {ol.Coordinate}
  */
-ol.geom.LineString.prototype.getFirstCoordinate = function() { };
+ol.geom.LineString.prototype.getFirstCoordinate = function() {};
 
 
 /**
  * @return {ol.Coordinate}
  */
-ol.geom.LineString.prototype.getLastCoordinate = function() { };
+ol.geom.LineString.prototype.getLastCoordinate = function() {};
 
 
 /**
  * @return {ol.geom.GeometryLayout}
  */
-ol.geom.LineString.prototype.getLayout = function() { };
+ol.geom.LineString.prototype.getLayout = function() {};
 
 
 /**
  * @param {number} angle
  * @param {ol.Coordinate} anchor
  */
-ol.geom.LineString.prototype.rotate = function(angle, anchor) { };
+ol.geom.LineString.prototype.rotate = function(angle, anchor) {};
 
 
 /**
@@ -9547,7 +9562,7 @@ ol.geom.LineString.prototype.rotate = function(angle, anchor) { };
  * @param {number=} opt_sy
  * @param {ol.Coordinate=} opt_anchor
  */
-ol.geom.LineString.prototype.scale = function(sx, opt_sy, opt_anchor) { };
+ol.geom.LineString.prototype.scale = function(sx, opt_sy, opt_anchor) {};
 
 
 /**
@@ -9555,28 +9570,28 @@ ol.geom.LineString.prototype.scale = function(sx, opt_sy, opt_anchor) { };
  * @param {ol.Coordinate=} opt_closestPoint
  * @return {ol.Coordinate}
  */
-ol.geom.LineString.prototype.getClosestPoint = function(point, opt_closestPoint) { };
+ol.geom.LineString.prototype.getClosestPoint = function(point, opt_closestPoint) {};
 
 
 /**
  * @param {ol.Coordinate} coordinate
  * @return {boolean}
  */
-ol.geom.LineString.prototype.intersectsCoordinate = function(coordinate) { };
+ol.geom.LineString.prototype.intersectsCoordinate = function(coordinate) {};
 
 
 /**
  * @param {ol.Extent=} opt_extent
  * @return {ol.Extent}
  */
-ol.geom.LineString.prototype.getExtent = function(opt_extent) { };
+ol.geom.LineString.prototype.getExtent = function(opt_extent) {};
 
 
 /**
  * @param {number} tolerance
  * @return {ol.geom.Geometry}
  */
-ol.geom.LineString.prototype.simplify = function(tolerance) { };
+ol.geom.LineString.prototype.simplify = function(tolerance) {};
 
 
 /**
@@ -9584,26 +9599,26 @@ ol.geom.LineString.prototype.simplify = function(tolerance) { };
  * @param {ol.ProjectionLike} destination
  * @return {ol.geom.Geometry}
  */
-ol.geom.LineString.prototype.transform = function(source, destination) { };
+ol.geom.LineString.prototype.transform = function(source, destination) {};
 
 
 /**
  * @param {string} key
  * @return {*}
  */
-ol.geom.LineString.prototype.get = function(key) { };
+ol.geom.LineString.prototype.get = function(key) {};
 
 
 /**
  * @return {Array.<string>}
  */
-ol.geom.LineString.prototype.getKeys = function() { };
+ol.geom.LineString.prototype.getKeys = function() {};
 
 
 /**
  * @return {Object.<string, *>}
  */
-ol.geom.LineString.prototype.getProperties = function() { };
+ol.geom.LineString.prototype.getProperties = function() {};
 
 
 /**
@@ -9611,38 +9626,38 @@ ol.geom.LineString.prototype.getProperties = function() { };
  * @param {*} value
  * @param {boolean=} opt_silent
  */
-ol.geom.LineString.prototype.set = function(key, value, opt_silent) { };
+ol.geom.LineString.prototype.set = function(key, value, opt_silent) {};
 
 
 /**
  * @param {Object.<string, *>} values
  * @param {boolean=} opt_silent
  */
-ol.geom.LineString.prototype.setProperties = function(values, opt_silent) { };
+ol.geom.LineString.prototype.setProperties = function(values, opt_silent) {};
 
 
 /**
  * @param {string} key
  * @param {boolean=} opt_silent
  */
-ol.geom.LineString.prototype.unset = function(key, opt_silent) { };
+ol.geom.LineString.prototype.unset = function(key, opt_silent) {};
 
 
 /**
  */
-ol.geom.LineString.prototype.changed = function() { };
+ol.geom.LineString.prototype.changed = function() {};
 
 
 /**
  * @param {Object|ol.events.Event|string} event
  */
-ol.geom.LineString.prototype.dispatchEvent = function(event) { };
+ol.geom.LineString.prototype.dispatchEvent = function(event) {};
 
 
 /**
  * @return {number}
  */
-ol.geom.LineString.prototype.getRevision = function() { };
+ol.geom.LineString.prototype.getRevision = function() {};
 
 
 /**
@@ -9651,7 +9666,7 @@ ol.geom.LineString.prototype.getRevision = function() { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.geom.LineString.prototype.on = function(type, listener, opt_this) { };
+ol.geom.LineString.prototype.on = function(type, listener, opt_this) {};
 
 
 /**
@@ -9660,7 +9675,7 @@ ol.geom.LineString.prototype.on = function(type, listener, opt_this) { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.geom.LineString.prototype.once = function(type, listener, opt_this) { };
+ol.geom.LineString.prototype.once = function(type, listener, opt_this) {};
 
 
 /**
@@ -9668,7 +9683,7 @@ ol.geom.LineString.prototype.once = function(type, listener, opt_this) { };
  * @param {Function} listener
  * @param {Object=} opt_this
  */
-ol.geom.LineString.prototype.un = function(type, listener, opt_this) { };
+ol.geom.LineString.prototype.un = function(type, listener, opt_this) {};
 
 
 /**
@@ -9682,26 +9697,26 @@ ol.geom.MultiLineString.prototype.containsXY;
 /**
  * @return {ol.Coordinate}
  */
-ol.geom.MultiLineString.prototype.getFirstCoordinate = function() { };
+ol.geom.MultiLineString.prototype.getFirstCoordinate = function() {};
 
 
 /**
  * @return {ol.Coordinate}
  */
-ol.geom.MultiLineString.prototype.getLastCoordinate = function() { };
+ol.geom.MultiLineString.prototype.getLastCoordinate = function() {};
 
 
 /**
  * @return {ol.geom.GeometryLayout}
  */
-ol.geom.MultiLineString.prototype.getLayout = function() { };
+ol.geom.MultiLineString.prototype.getLayout = function() {};
 
 
 /**
  * @param {number} angle
  * @param {ol.Coordinate} anchor
  */
-ol.geom.MultiLineString.prototype.rotate = function(angle, anchor) { };
+ol.geom.MultiLineString.prototype.rotate = function(angle, anchor) {};
 
 
 /**
@@ -9709,7 +9724,7 @@ ol.geom.MultiLineString.prototype.rotate = function(angle, anchor) { };
  * @param {number=} opt_sy
  * @param {ol.Coordinate=} opt_anchor
  */
-ol.geom.MultiLineString.prototype.scale = function(sx, opt_sy, opt_anchor) { };
+ol.geom.MultiLineString.prototype.scale = function(sx, opt_sy, opt_anchor) {};
 
 
 /**
@@ -9717,28 +9732,28 @@ ol.geom.MultiLineString.prototype.scale = function(sx, opt_sy, opt_anchor) { };
  * @param {ol.Coordinate=} opt_closestPoint
  * @return {ol.Coordinate}
  */
-ol.geom.MultiLineString.prototype.getClosestPoint = function(point, opt_closestPoint) { };
+ol.geom.MultiLineString.prototype.getClosestPoint = function(point, opt_closestPoint) {};
 
 
 /**
  * @param {ol.Coordinate} coordinate
  * @return {boolean}
  */
-ol.geom.MultiLineString.prototype.intersectsCoordinate = function(coordinate) { };
+ol.geom.MultiLineString.prototype.intersectsCoordinate = function(coordinate) {};
 
 
 /**
  * @param {ol.Extent=} opt_extent
  * @return {ol.Extent}
  */
-ol.geom.MultiLineString.prototype.getExtent = function(opt_extent) { };
+ol.geom.MultiLineString.prototype.getExtent = function(opt_extent) {};
 
 
 /**
  * @param {number} tolerance
  * @return {ol.geom.Geometry}
  */
-ol.geom.MultiLineString.prototype.simplify = function(tolerance) { };
+ol.geom.MultiLineString.prototype.simplify = function(tolerance) {};
 
 
 /**
@@ -9746,26 +9761,26 @@ ol.geom.MultiLineString.prototype.simplify = function(tolerance) { };
  * @param {ol.ProjectionLike} destination
  * @return {ol.geom.Geometry}
  */
-ol.geom.MultiLineString.prototype.transform = function(source, destination) { };
+ol.geom.MultiLineString.prototype.transform = function(source, destination) {};
 
 
 /**
  * @param {string} key
  * @return {*}
  */
-ol.geom.MultiLineString.prototype.get = function(key) { };
+ol.geom.MultiLineString.prototype.get = function(key) {};
 
 
 /**
  * @return {Array.<string>}
  */
-ol.geom.MultiLineString.prototype.getKeys = function() { };
+ol.geom.MultiLineString.prototype.getKeys = function() {};
 
 
 /**
  * @return {Object.<string, *>}
  */
-ol.geom.MultiLineString.prototype.getProperties = function() { };
+ol.geom.MultiLineString.prototype.getProperties = function() {};
 
 
 /**
@@ -9773,38 +9788,38 @@ ol.geom.MultiLineString.prototype.getProperties = function() { };
  * @param {*} value
  * @param {boolean=} opt_silent
  */
-ol.geom.MultiLineString.prototype.set = function(key, value, opt_silent) { };
+ol.geom.MultiLineString.prototype.set = function(key, value, opt_silent) {};
 
 
 /**
  * @param {Object.<string, *>} values
  * @param {boolean=} opt_silent
  */
-ol.geom.MultiLineString.prototype.setProperties = function(values, opt_silent) { };
+ol.geom.MultiLineString.prototype.setProperties = function(values, opt_silent) {};
 
 
 /**
  * @param {string} key
  * @param {boolean=} opt_silent
  */
-ol.geom.MultiLineString.prototype.unset = function(key, opt_silent) { };
+ol.geom.MultiLineString.prototype.unset = function(key, opt_silent) {};
 
 
 /**
  */
-ol.geom.MultiLineString.prototype.changed = function() { };
+ol.geom.MultiLineString.prototype.changed = function() {};
 
 
 /**
  * @param {Object|ol.events.Event|string} event
  */
-ol.geom.MultiLineString.prototype.dispatchEvent = function(event) { };
+ol.geom.MultiLineString.prototype.dispatchEvent = function(event) {};
 
 
 /**
  * @return {number}
  */
-ol.geom.MultiLineString.prototype.getRevision = function() { };
+ol.geom.MultiLineString.prototype.getRevision = function() {};
 
 
 /**
@@ -9813,7 +9828,7 @@ ol.geom.MultiLineString.prototype.getRevision = function() { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.geom.MultiLineString.prototype.on = function(type, listener, opt_this) { };
+ol.geom.MultiLineString.prototype.on = function(type, listener, opt_this) {};
 
 
 /**
@@ -9822,7 +9837,7 @@ ol.geom.MultiLineString.prototype.on = function(type, listener, opt_this) { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.geom.MultiLineString.prototype.once = function(type, listener, opt_this) { };
+ol.geom.MultiLineString.prototype.once = function(type, listener, opt_this) {};
 
 
 /**
@@ -9830,7 +9845,7 @@ ol.geom.MultiLineString.prototype.once = function(type, listener, opt_this) { };
  * @param {Function} listener
  * @param {Object=} opt_this
  */
-ol.geom.MultiLineString.prototype.un = function(type, listener, opt_this) { };
+ol.geom.MultiLineString.prototype.un = function(type, listener, opt_this) {};
 
 
 /**
@@ -9844,26 +9859,26 @@ ol.geom.MultiPoint.prototype.containsXY;
 /**
  * @return {ol.Coordinate}
  */
-ol.geom.MultiPoint.prototype.getFirstCoordinate = function() { };
+ol.geom.MultiPoint.prototype.getFirstCoordinate = function() {};
 
 
 /**
  * @return {ol.Coordinate}
  */
-ol.geom.MultiPoint.prototype.getLastCoordinate = function() { };
+ol.geom.MultiPoint.prototype.getLastCoordinate = function() {};
 
 
 /**
  * @return {ol.geom.GeometryLayout}
  */
-ol.geom.MultiPoint.prototype.getLayout = function() { };
+ol.geom.MultiPoint.prototype.getLayout = function() {};
 
 
 /**
  * @param {number} angle
  * @param {ol.Coordinate} anchor
  */
-ol.geom.MultiPoint.prototype.rotate = function(angle, anchor) { };
+ol.geom.MultiPoint.prototype.rotate = function(angle, anchor) {};
 
 
 /**
@@ -9871,7 +9886,7 @@ ol.geom.MultiPoint.prototype.rotate = function(angle, anchor) { };
  * @param {number=} opt_sy
  * @param {ol.Coordinate=} opt_anchor
  */
-ol.geom.MultiPoint.prototype.scale = function(sx, opt_sy, opt_anchor) { };
+ol.geom.MultiPoint.prototype.scale = function(sx, opt_sy, opt_anchor) {};
 
 
 /**
@@ -9879,28 +9894,28 @@ ol.geom.MultiPoint.prototype.scale = function(sx, opt_sy, opt_anchor) { };
  * @param {ol.Coordinate=} opt_closestPoint
  * @return {ol.Coordinate}
  */
-ol.geom.MultiPoint.prototype.getClosestPoint = function(point, opt_closestPoint) { };
+ol.geom.MultiPoint.prototype.getClosestPoint = function(point, opt_closestPoint) {};
 
 
 /**
  * @param {ol.Coordinate} coordinate
  * @return {boolean}
  */
-ol.geom.MultiPoint.prototype.intersectsCoordinate = function(coordinate) { };
+ol.geom.MultiPoint.prototype.intersectsCoordinate = function(coordinate) {};
 
 
 /**
  * @param {ol.Extent=} opt_extent
  * @return {ol.Extent}
  */
-ol.geom.MultiPoint.prototype.getExtent = function(opt_extent) { };
+ol.geom.MultiPoint.prototype.getExtent = function(opt_extent) {};
 
 
 /**
  * @param {number} tolerance
  * @return {ol.geom.Geometry}
  */
-ol.geom.MultiPoint.prototype.simplify = function(tolerance) { };
+ol.geom.MultiPoint.prototype.simplify = function(tolerance) {};
 
 
 /**
@@ -9908,26 +9923,26 @@ ol.geom.MultiPoint.prototype.simplify = function(tolerance) { };
  * @param {ol.ProjectionLike} destination
  * @return {ol.geom.Geometry}
  */
-ol.geom.MultiPoint.prototype.transform = function(source, destination) { };
+ol.geom.MultiPoint.prototype.transform = function(source, destination) {};
 
 
 /**
  * @param {string} key
  * @return {*}
  */
-ol.geom.MultiPoint.prototype.get = function(key) { };
+ol.geom.MultiPoint.prototype.get = function(key) {};
 
 
 /**
  * @return {Array.<string>}
  */
-ol.geom.MultiPoint.prototype.getKeys = function() { };
+ol.geom.MultiPoint.prototype.getKeys = function() {};
 
 
 /**
  * @return {Object.<string, *>}
  */
-ol.geom.MultiPoint.prototype.getProperties = function() { };
+ol.geom.MultiPoint.prototype.getProperties = function() {};
 
 
 /**
@@ -9935,38 +9950,38 @@ ol.geom.MultiPoint.prototype.getProperties = function() { };
  * @param {*} value
  * @param {boolean=} opt_silent
  */
-ol.geom.MultiPoint.prototype.set = function(key, value, opt_silent) { };
+ol.geom.MultiPoint.prototype.set = function(key, value, opt_silent) {};
 
 
 /**
  * @param {Object.<string, *>} values
  * @param {boolean=} opt_silent
  */
-ol.geom.MultiPoint.prototype.setProperties = function(values, opt_silent) { };
+ol.geom.MultiPoint.prototype.setProperties = function(values, opt_silent) {};
 
 
 /**
  * @param {string} key
  * @param {boolean=} opt_silent
  */
-ol.geom.MultiPoint.prototype.unset = function(key, opt_silent) { };
+ol.geom.MultiPoint.prototype.unset = function(key, opt_silent) {};
 
 
 /**
  */
-ol.geom.MultiPoint.prototype.changed = function() { };
+ol.geom.MultiPoint.prototype.changed = function() {};
 
 
 /**
  * @param {Object|ol.events.Event|string} event
  */
-ol.geom.MultiPoint.prototype.dispatchEvent = function(event) { };
+ol.geom.MultiPoint.prototype.dispatchEvent = function(event) {};
 
 
 /**
  * @return {number}
  */
-ol.geom.MultiPoint.prototype.getRevision = function() { };
+ol.geom.MultiPoint.prototype.getRevision = function() {};
 
 
 /**
@@ -9975,7 +9990,7 @@ ol.geom.MultiPoint.prototype.getRevision = function() { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.geom.MultiPoint.prototype.on = function(type, listener, opt_this) { };
+ol.geom.MultiPoint.prototype.on = function(type, listener, opt_this) {};
 
 
 /**
@@ -9984,7 +9999,7 @@ ol.geom.MultiPoint.prototype.on = function(type, listener, opt_this) { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.geom.MultiPoint.prototype.once = function(type, listener, opt_this) { };
+ol.geom.MultiPoint.prototype.once = function(type, listener, opt_this) {};
 
 
 /**
@@ -9992,7 +10007,7 @@ ol.geom.MultiPoint.prototype.once = function(type, listener, opt_this) { };
  * @param {Function} listener
  * @param {Object=} opt_this
  */
-ol.geom.MultiPoint.prototype.un = function(type, listener, opt_this) { };
+ol.geom.MultiPoint.prototype.un = function(type, listener, opt_this) {};
 
 
 /**
@@ -10006,26 +10021,26 @@ ol.geom.MultiPolygon.prototype.containsXY;
 /**
  * @return {ol.Coordinate}
  */
-ol.geom.MultiPolygon.prototype.getFirstCoordinate = function() { };
+ol.geom.MultiPolygon.prototype.getFirstCoordinate = function() {};
 
 
 /**
  * @return {ol.Coordinate}
  */
-ol.geom.MultiPolygon.prototype.getLastCoordinate = function() { };
+ol.geom.MultiPolygon.prototype.getLastCoordinate = function() {};
 
 
 /**
  * @return {ol.geom.GeometryLayout}
  */
-ol.geom.MultiPolygon.prototype.getLayout = function() { };
+ol.geom.MultiPolygon.prototype.getLayout = function() {};
 
 
 /**
  * @param {number} angle
  * @param {ol.Coordinate} anchor
  */
-ol.geom.MultiPolygon.prototype.rotate = function(angle, anchor) { };
+ol.geom.MultiPolygon.prototype.rotate = function(angle, anchor) {};
 
 
 /**
@@ -10033,7 +10048,7 @@ ol.geom.MultiPolygon.prototype.rotate = function(angle, anchor) { };
  * @param {number=} opt_sy
  * @param {ol.Coordinate=} opt_anchor
  */
-ol.geom.MultiPolygon.prototype.scale = function(sx, opt_sy, opt_anchor) { };
+ol.geom.MultiPolygon.prototype.scale = function(sx, opt_sy, opt_anchor) {};
 
 
 /**
@@ -10041,28 +10056,28 @@ ol.geom.MultiPolygon.prototype.scale = function(sx, opt_sy, opt_anchor) { };
  * @param {ol.Coordinate=} opt_closestPoint
  * @return {ol.Coordinate}
  */
-ol.geom.MultiPolygon.prototype.getClosestPoint = function(point, opt_closestPoint) { };
+ol.geom.MultiPolygon.prototype.getClosestPoint = function(point, opt_closestPoint) {};
 
 
 /**
  * @param {ol.Coordinate} coordinate
  * @return {boolean}
  */
-ol.geom.MultiPolygon.prototype.intersectsCoordinate = function(coordinate) { };
+ol.geom.MultiPolygon.prototype.intersectsCoordinate = function(coordinate) {};
 
 
 /**
  * @param {ol.Extent=} opt_extent
  * @return {ol.Extent}
  */
-ol.geom.MultiPolygon.prototype.getExtent = function(opt_extent) { };
+ol.geom.MultiPolygon.prototype.getExtent = function(opt_extent) {};
 
 
 /**
  * @param {number} tolerance
  * @return {ol.geom.Geometry}
  */
-ol.geom.MultiPolygon.prototype.simplify = function(tolerance) { };
+ol.geom.MultiPolygon.prototype.simplify = function(tolerance) {};
 
 
 /**
@@ -10070,26 +10085,26 @@ ol.geom.MultiPolygon.prototype.simplify = function(tolerance) { };
  * @param {ol.ProjectionLike} destination
  * @return {ol.geom.Geometry}
  */
-ol.geom.MultiPolygon.prototype.transform = function(source, destination) { };
+ol.geom.MultiPolygon.prototype.transform = function(source, destination) {};
 
 
 /**
  * @param {string} key
  * @return {*}
  */
-ol.geom.MultiPolygon.prototype.get = function(key) { };
+ol.geom.MultiPolygon.prototype.get = function(key) {};
 
 
 /**
  * @return {Array.<string>}
  */
-ol.geom.MultiPolygon.prototype.getKeys = function() { };
+ol.geom.MultiPolygon.prototype.getKeys = function() {};
 
 
 /**
  * @return {Object.<string, *>}
  */
-ol.geom.MultiPolygon.prototype.getProperties = function() { };
+ol.geom.MultiPolygon.prototype.getProperties = function() {};
 
 
 /**
@@ -10097,38 +10112,38 @@ ol.geom.MultiPolygon.prototype.getProperties = function() { };
  * @param {*} value
  * @param {boolean=} opt_silent
  */
-ol.geom.MultiPolygon.prototype.set = function(key, value, opt_silent) { };
+ol.geom.MultiPolygon.prototype.set = function(key, value, opt_silent) {};
 
 
 /**
  * @param {Object.<string, *>} values
  * @param {boolean=} opt_silent
  */
-ol.geom.MultiPolygon.prototype.setProperties = function(values, opt_silent) { };
+ol.geom.MultiPolygon.prototype.setProperties = function(values, opt_silent) {};
 
 
 /**
  * @param {string} key
  * @param {boolean=} opt_silent
  */
-ol.geom.MultiPolygon.prototype.unset = function(key, opt_silent) { };
+ol.geom.MultiPolygon.prototype.unset = function(key, opt_silent) {};
 
 
 /**
  */
-ol.geom.MultiPolygon.prototype.changed = function() { };
+ol.geom.MultiPolygon.prototype.changed = function() {};
 
 
 /**
  * @param {Object|ol.events.Event|string} event
  */
-ol.geom.MultiPolygon.prototype.dispatchEvent = function(event) { };
+ol.geom.MultiPolygon.prototype.dispatchEvent = function(event) {};
 
 
 /**
  * @return {number}
  */
-ol.geom.MultiPolygon.prototype.getRevision = function() { };
+ol.geom.MultiPolygon.prototype.getRevision = function() {};
 
 
 /**
@@ -10137,7 +10152,7 @@ ol.geom.MultiPolygon.prototype.getRevision = function() { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.geom.MultiPolygon.prototype.on = function(type, listener, opt_this) { };
+ol.geom.MultiPolygon.prototype.on = function(type, listener, opt_this) {};
 
 
 /**
@@ -10146,7 +10161,7 @@ ol.geom.MultiPolygon.prototype.on = function(type, listener, opt_this) { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.geom.MultiPolygon.prototype.once = function(type, listener, opt_this) { };
+ol.geom.MultiPolygon.prototype.once = function(type, listener, opt_this) {};
 
 
 /**
@@ -10154,7 +10169,7 @@ ol.geom.MultiPolygon.prototype.once = function(type, listener, opt_this) { };
  * @param {Function} listener
  * @param {Object=} opt_this
  */
-ol.geom.MultiPolygon.prototype.un = function(type, listener, opt_this) { };
+ol.geom.MultiPolygon.prototype.un = function(type, listener, opt_this) {};
 
 
 /**
@@ -10168,26 +10183,26 @@ ol.geom.Point.prototype.containsXY;
 /**
  * @return {ol.Coordinate}
  */
-ol.geom.Point.prototype.getFirstCoordinate = function() { };
+ol.geom.Point.prototype.getFirstCoordinate = function() {};
 
 
 /**
  * @return {ol.Coordinate}
  */
-ol.geom.Point.prototype.getLastCoordinate = function() { };
+ol.geom.Point.prototype.getLastCoordinate = function() {};
 
 
 /**
  * @return {ol.geom.GeometryLayout}
  */
-ol.geom.Point.prototype.getLayout = function() { };
+ol.geom.Point.prototype.getLayout = function() {};
 
 
 /**
  * @param {number} angle
  * @param {ol.Coordinate} anchor
  */
-ol.geom.Point.prototype.rotate = function(angle, anchor) { };
+ol.geom.Point.prototype.rotate = function(angle, anchor) {};
 
 
 /**
@@ -10195,7 +10210,7 @@ ol.geom.Point.prototype.rotate = function(angle, anchor) { };
  * @param {number=} opt_sy
  * @param {ol.Coordinate=} opt_anchor
  */
-ol.geom.Point.prototype.scale = function(sx, opt_sy, opt_anchor) { };
+ol.geom.Point.prototype.scale = function(sx, opt_sy, opt_anchor) {};
 
 
 /**
@@ -10203,28 +10218,28 @@ ol.geom.Point.prototype.scale = function(sx, opt_sy, opt_anchor) { };
  * @param {ol.Coordinate=} opt_closestPoint
  * @return {ol.Coordinate}
  */
-ol.geom.Point.prototype.getClosestPoint = function(point, opt_closestPoint) { };
+ol.geom.Point.prototype.getClosestPoint = function(point, opt_closestPoint) {};
 
 
 /**
  * @param {ol.Coordinate} coordinate
  * @return {boolean}
  */
-ol.geom.Point.prototype.intersectsCoordinate = function(coordinate) { };
+ol.geom.Point.prototype.intersectsCoordinate = function(coordinate) {};
 
 
 /**
  * @param {ol.Extent=} opt_extent
  * @return {ol.Extent}
  */
-ol.geom.Point.prototype.getExtent = function(opt_extent) { };
+ol.geom.Point.prototype.getExtent = function(opt_extent) {};
 
 
 /**
  * @param {number} tolerance
  * @return {ol.geom.Geometry}
  */
-ol.geom.Point.prototype.simplify = function(tolerance) { };
+ol.geom.Point.prototype.simplify = function(tolerance) {};
 
 
 /**
@@ -10232,26 +10247,26 @@ ol.geom.Point.prototype.simplify = function(tolerance) { };
  * @param {ol.ProjectionLike} destination
  * @return {ol.geom.Geometry}
  */
-ol.geom.Point.prototype.transform = function(source, destination) { };
+ol.geom.Point.prototype.transform = function(source, destination) {};
 
 
 /**
  * @param {string} key
  * @return {*}
  */
-ol.geom.Point.prototype.get = function(key) { };
+ol.geom.Point.prototype.get = function(key) {};
 
 
 /**
  * @return {Array.<string>}
  */
-ol.geom.Point.prototype.getKeys = function() { };
+ol.geom.Point.prototype.getKeys = function() {};
 
 
 /**
  * @return {Object.<string, *>}
  */
-ol.geom.Point.prototype.getProperties = function() { };
+ol.geom.Point.prototype.getProperties = function() {};
 
 
 /**
@@ -10259,38 +10274,38 @@ ol.geom.Point.prototype.getProperties = function() { };
  * @param {*} value
  * @param {boolean=} opt_silent
  */
-ol.geom.Point.prototype.set = function(key, value, opt_silent) { };
+ol.geom.Point.prototype.set = function(key, value, opt_silent) {};
 
 
 /**
  * @param {Object.<string, *>} values
  * @param {boolean=} opt_silent
  */
-ol.geom.Point.prototype.setProperties = function(values, opt_silent) { };
+ol.geom.Point.prototype.setProperties = function(values, opt_silent) {};
 
 
 /**
  * @param {string} key
  * @param {boolean=} opt_silent
  */
-ol.geom.Point.prototype.unset = function(key, opt_silent) { };
+ol.geom.Point.prototype.unset = function(key, opt_silent) {};
 
 
 /**
  */
-ol.geom.Point.prototype.changed = function() { };
+ol.geom.Point.prototype.changed = function() {};
 
 
 /**
  * @param {Object|ol.events.Event|string} event
  */
-ol.geom.Point.prototype.dispatchEvent = function(event) { };
+ol.geom.Point.prototype.dispatchEvent = function(event) {};
 
 
 /**
  * @return {number}
  */
-ol.geom.Point.prototype.getRevision = function() { };
+ol.geom.Point.prototype.getRevision = function() {};
 
 
 /**
@@ -10299,7 +10314,7 @@ ol.geom.Point.prototype.getRevision = function() { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.geom.Point.prototype.on = function(type, listener, opt_this) { };
+ol.geom.Point.prototype.on = function(type, listener, opt_this) {};
 
 
 /**
@@ -10308,7 +10323,7 @@ ol.geom.Point.prototype.on = function(type, listener, opt_this) { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.geom.Point.prototype.once = function(type, listener, opt_this) { };
+ol.geom.Point.prototype.once = function(type, listener, opt_this) {};
 
 
 /**
@@ -10316,7 +10331,7 @@ ol.geom.Point.prototype.once = function(type, listener, opt_this) { };
  * @param {Function} listener
  * @param {Object=} opt_this
  */
-ol.geom.Point.prototype.un = function(type, listener, opt_this) { };
+ol.geom.Point.prototype.un = function(type, listener, opt_this) {};
 
 
 /**
@@ -10330,26 +10345,26 @@ ol.geom.Polygon.prototype.containsXY;
 /**
  * @return {ol.Coordinate}
  */
-ol.geom.Polygon.prototype.getFirstCoordinate = function() { };
+ol.geom.Polygon.prototype.getFirstCoordinate = function() {};
 
 
 /**
  * @return {ol.Coordinate}
  */
-ol.geom.Polygon.prototype.getLastCoordinate = function() { };
+ol.geom.Polygon.prototype.getLastCoordinate = function() {};
 
 
 /**
  * @return {ol.geom.GeometryLayout}
  */
-ol.geom.Polygon.prototype.getLayout = function() { };
+ol.geom.Polygon.prototype.getLayout = function() {};
 
 
 /**
  * @param {number} angle
  * @param {ol.Coordinate} anchor
  */
-ol.geom.Polygon.prototype.rotate = function(angle, anchor) { };
+ol.geom.Polygon.prototype.rotate = function(angle, anchor) {};
 
 
 /**
@@ -10357,7 +10372,7 @@ ol.geom.Polygon.prototype.rotate = function(angle, anchor) { };
  * @param {number=} opt_sy
  * @param {ol.Coordinate=} opt_anchor
  */
-ol.geom.Polygon.prototype.scale = function(sx, opt_sy, opt_anchor) { };
+ol.geom.Polygon.prototype.scale = function(sx, opt_sy, opt_anchor) {};
 
 
 /**
@@ -10365,28 +10380,28 @@ ol.geom.Polygon.prototype.scale = function(sx, opt_sy, opt_anchor) { };
  * @param {ol.Coordinate=} opt_closestPoint
  * @return {ol.Coordinate}
  */
-ol.geom.Polygon.prototype.getClosestPoint = function(point, opt_closestPoint) { };
+ol.geom.Polygon.prototype.getClosestPoint = function(point, opt_closestPoint) {};
 
 
 /**
  * @param {ol.Coordinate} coordinate
  * @return {boolean}
  */
-ol.geom.Polygon.prototype.intersectsCoordinate = function(coordinate) { };
+ol.geom.Polygon.prototype.intersectsCoordinate = function(coordinate) {};
 
 
 /**
  * @param {ol.Extent=} opt_extent
  * @return {ol.Extent}
  */
-ol.geom.Polygon.prototype.getExtent = function(opt_extent) { };
+ol.geom.Polygon.prototype.getExtent = function(opt_extent) {};
 
 
 /**
  * @param {number} tolerance
  * @return {ol.geom.Geometry}
  */
-ol.geom.Polygon.prototype.simplify = function(tolerance) { };
+ol.geom.Polygon.prototype.simplify = function(tolerance) {};
 
 
 /**
@@ -10394,26 +10409,26 @@ ol.geom.Polygon.prototype.simplify = function(tolerance) { };
  * @param {ol.ProjectionLike} destination
  * @return {ol.geom.Geometry}
  */
-ol.geom.Polygon.prototype.transform = function(source, destination) { };
+ol.geom.Polygon.prototype.transform = function(source, destination) {};
 
 
 /**
  * @param {string} key
  * @return {*}
  */
-ol.geom.Polygon.prototype.get = function(key) { };
+ol.geom.Polygon.prototype.get = function(key) {};
 
 
 /**
  * @return {Array.<string>}
  */
-ol.geom.Polygon.prototype.getKeys = function() { };
+ol.geom.Polygon.prototype.getKeys = function() {};
 
 
 /**
  * @return {Object.<string, *>}
  */
-ol.geom.Polygon.prototype.getProperties = function() { };
+ol.geom.Polygon.prototype.getProperties = function() {};
 
 
 /**
@@ -10421,38 +10436,38 @@ ol.geom.Polygon.prototype.getProperties = function() { };
  * @param {*} value
  * @param {boolean=} opt_silent
  */
-ol.geom.Polygon.prototype.set = function(key, value, opt_silent) { };
+ol.geom.Polygon.prototype.set = function(key, value, opt_silent) {};
 
 
 /**
  * @param {Object.<string, *>} values
  * @param {boolean=} opt_silent
  */
-ol.geom.Polygon.prototype.setProperties = function(values, opt_silent) { };
+ol.geom.Polygon.prototype.setProperties = function(values, opt_silent) {};
 
 
 /**
  * @param {string} key
  * @param {boolean=} opt_silent
  */
-ol.geom.Polygon.prototype.unset = function(key, opt_silent) { };
+ol.geom.Polygon.prototype.unset = function(key, opt_silent) {};
 
 
 /**
  */
-ol.geom.Polygon.prototype.changed = function() { };
+ol.geom.Polygon.prototype.changed = function() {};
 
 
 /**
  * @param {Object|ol.events.Event|string} event
  */
-ol.geom.Polygon.prototype.dispatchEvent = function(event) { };
+ol.geom.Polygon.prototype.dispatchEvent = function(event) {};
 
 
 /**
  * @return {number}
  */
-ol.geom.Polygon.prototype.getRevision = function() { };
+ol.geom.Polygon.prototype.getRevision = function() {};
 
 
 /**
@@ -10461,7 +10476,7 @@ ol.geom.Polygon.prototype.getRevision = function() { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.geom.Polygon.prototype.on = function(type, listener, opt_this) { };
+ol.geom.Polygon.prototype.on = function(type, listener, opt_this) {};
 
 
 /**
@@ -10470,7 +10485,7 @@ ol.geom.Polygon.prototype.on = function(type, listener, opt_this) { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.geom.Polygon.prototype.once = function(type, listener, opt_this) { };
+ol.geom.Polygon.prototype.once = function(type, listener, opt_this) {};
 
 
 /**
@@ -10478,37 +10493,37 @@ ol.geom.Polygon.prototype.once = function(type, listener, opt_this) { };
  * @param {Function} listener
  * @param {Object=} opt_this
  */
-ol.geom.Polygon.prototype.un = function(type, listener, opt_this) { };
+ol.geom.Polygon.prototype.un = function(type, listener, opt_this) {};
 
 
 /**
  * @return {ol.TileCoord}
  */
-ol.ImageTile.prototype.getTileCoord = function() { };
+ol.ImageTile.prototype.getTileCoord = function() {};
 
 
 /**
  */
-ol.ImageTile.prototype.load = function() { };
+ol.ImageTile.prototype.load = function() {};
 
 
 /**
  * @param {string} key
  * @return {*}
  */
-ol.interaction.Interaction.prototype.get = function(key) { };
+ol.interaction.Interaction.prototype.get = function(key) {};
 
 
 /**
  * @return {Array.<string>}
  */
-ol.interaction.Interaction.prototype.getKeys = function() { };
+ol.interaction.Interaction.prototype.getKeys = function() {};
 
 
 /**
  * @return {Object.<string, *>}
  */
-ol.interaction.Interaction.prototype.getProperties = function() { };
+ol.interaction.Interaction.prototype.getProperties = function() {};
 
 
 /**
@@ -10516,38 +10531,38 @@ ol.interaction.Interaction.prototype.getProperties = function() { };
  * @param {*} value
  * @param {boolean=} opt_silent
  */
-ol.interaction.Interaction.prototype.set = function(key, value, opt_silent) { };
+ol.interaction.Interaction.prototype.set = function(key, value, opt_silent) {};
 
 
 /**
  * @param {Object.<string, *>} values
  * @param {boolean=} opt_silent
  */
-ol.interaction.Interaction.prototype.setProperties = function(values, opt_silent) { };
+ol.interaction.Interaction.prototype.setProperties = function(values, opt_silent) {};
 
 
 /**
  * @param {string} key
  * @param {boolean=} opt_silent
  */
-ol.interaction.Interaction.prototype.unset = function(key, opt_silent) { };
+ol.interaction.Interaction.prototype.unset = function(key, opt_silent) {};
 
 
 /**
  */
-ol.interaction.Interaction.prototype.changed = function() { };
+ol.interaction.Interaction.prototype.changed = function() {};
 
 
 /**
  * @param {Object|ol.events.Event|string} event
  */
-ol.interaction.Interaction.prototype.dispatchEvent = function(event) { };
+ol.interaction.Interaction.prototype.dispatchEvent = function(event) {};
 
 
 /**
  * @return {number}
  */
-ol.interaction.Interaction.prototype.getRevision = function() { };
+ol.interaction.Interaction.prototype.getRevision = function() {};
 
 
 /**
@@ -10556,7 +10571,7 @@ ol.interaction.Interaction.prototype.getRevision = function() { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.interaction.Interaction.prototype.on = function(type, listener, opt_this) { };
+ol.interaction.Interaction.prototype.on = function(type, listener, opt_this) {};
 
 
 /**
@@ -10565,7 +10580,7 @@ ol.interaction.Interaction.prototype.on = function(type, listener, opt_this) { }
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.interaction.Interaction.prototype.once = function(type, listener, opt_this) { };
+ol.interaction.Interaction.prototype.once = function(type, listener, opt_this) {};
 
 
 /**
@@ -10573,44 +10588,44 @@ ol.interaction.Interaction.prototype.once = function(type, listener, opt_this) {
  * @param {Function} listener
  * @param {Object=} opt_this
  */
-ol.interaction.Interaction.prototype.un = function(type, listener, opt_this) { };
+ol.interaction.Interaction.prototype.un = function(type, listener, opt_this) {};
 
 
 /**
  * @return {boolean}
  */
-ol.interaction.DoubleClickZoom.prototype.getActive = function() { };
+ol.interaction.DoubleClickZoom.prototype.getActive = function() {};
 
 
 /**
  * @return {ol.PluggableMap}
  */
-ol.interaction.DoubleClickZoom.prototype.getMap = function() { };
+ol.interaction.DoubleClickZoom.prototype.getMap = function() {};
 
 
 /**
  * @param {boolean} active
  */
-ol.interaction.DoubleClickZoom.prototype.setActive = function(active) { };
+ol.interaction.DoubleClickZoom.prototype.setActive = function(active) {};
 
 
 /**
  * @param {string} key
  * @return {*}
  */
-ol.interaction.DoubleClickZoom.prototype.get = function(key) { };
+ol.interaction.DoubleClickZoom.prototype.get = function(key) {};
 
 
 /**
  * @return {Array.<string>}
  */
-ol.interaction.DoubleClickZoom.prototype.getKeys = function() { };
+ol.interaction.DoubleClickZoom.prototype.getKeys = function() {};
 
 
 /**
  * @return {Object.<string, *>}
  */
-ol.interaction.DoubleClickZoom.prototype.getProperties = function() { };
+ol.interaction.DoubleClickZoom.prototype.getProperties = function() {};
 
 
 /**
@@ -10618,38 +10633,38 @@ ol.interaction.DoubleClickZoom.prototype.getProperties = function() { };
  * @param {*} value
  * @param {boolean=} opt_silent
  */
-ol.interaction.DoubleClickZoom.prototype.set = function(key, value, opt_silent) { };
+ol.interaction.DoubleClickZoom.prototype.set = function(key, value, opt_silent) {};
 
 
 /**
  * @param {Object.<string, *>} values
  * @param {boolean=} opt_silent
  */
-ol.interaction.DoubleClickZoom.prototype.setProperties = function(values, opt_silent) { };
+ol.interaction.DoubleClickZoom.prototype.setProperties = function(values, opt_silent) {};
 
 
 /**
  * @param {string} key
  * @param {boolean=} opt_silent
  */
-ol.interaction.DoubleClickZoom.prototype.unset = function(key, opt_silent) { };
+ol.interaction.DoubleClickZoom.prototype.unset = function(key, opt_silent) {};
 
 
 /**
  */
-ol.interaction.DoubleClickZoom.prototype.changed = function() { };
+ol.interaction.DoubleClickZoom.prototype.changed = function() {};
 
 
 /**
  * @param {Object|ol.events.Event|string} event
  */
-ol.interaction.DoubleClickZoom.prototype.dispatchEvent = function(event) { };
+ol.interaction.DoubleClickZoom.prototype.dispatchEvent = function(event) {};
 
 
 /**
  * @return {number}
  */
-ol.interaction.DoubleClickZoom.prototype.getRevision = function() { };
+ol.interaction.DoubleClickZoom.prototype.getRevision = function() {};
 
 
 /**
@@ -10658,7 +10673,7 @@ ol.interaction.DoubleClickZoom.prototype.getRevision = function() { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.interaction.DoubleClickZoom.prototype.on = function(type, listener, opt_this) { };
+ol.interaction.DoubleClickZoom.prototype.on = function(type, listener, opt_this) {};
 
 
 /**
@@ -10667,7 +10682,7 @@ ol.interaction.DoubleClickZoom.prototype.on = function(type, listener, opt_this)
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.interaction.DoubleClickZoom.prototype.once = function(type, listener, opt_this) { };
+ol.interaction.DoubleClickZoom.prototype.once = function(type, listener, opt_this) {};
 
 
 /**
@@ -10675,44 +10690,44 @@ ol.interaction.DoubleClickZoom.prototype.once = function(type, listener, opt_thi
  * @param {Function} listener
  * @param {Object=} opt_this
  */
-ol.interaction.DoubleClickZoom.prototype.un = function(type, listener, opt_this) { };
+ol.interaction.DoubleClickZoom.prototype.un = function(type, listener, opt_this) {};
 
 
 /**
  * @return {boolean}
  */
-ol.interaction.DragAndDrop.prototype.getActive = function() { };
+ol.interaction.DragAndDrop.prototype.getActive = function() {};
 
 
 /**
  * @return {ol.PluggableMap}
  */
-ol.interaction.DragAndDrop.prototype.getMap = function() { };
+ol.interaction.DragAndDrop.prototype.getMap = function() {};
 
 
 /**
  * @param {boolean} active
  */
-ol.interaction.DragAndDrop.prototype.setActive = function(active) { };
+ol.interaction.DragAndDrop.prototype.setActive = function(active) {};
 
 
 /**
  * @param {string} key
  * @return {*}
  */
-ol.interaction.DragAndDrop.prototype.get = function(key) { };
+ol.interaction.DragAndDrop.prototype.get = function(key) {};
 
 
 /**
  * @return {Array.<string>}
  */
-ol.interaction.DragAndDrop.prototype.getKeys = function() { };
+ol.interaction.DragAndDrop.prototype.getKeys = function() {};
 
 
 /**
  * @return {Object.<string, *>}
  */
-ol.interaction.DragAndDrop.prototype.getProperties = function() { };
+ol.interaction.DragAndDrop.prototype.getProperties = function() {};
 
 
 /**
@@ -10720,38 +10735,38 @@ ol.interaction.DragAndDrop.prototype.getProperties = function() { };
  * @param {*} value
  * @param {boolean=} opt_silent
  */
-ol.interaction.DragAndDrop.prototype.set = function(key, value, opt_silent) { };
+ol.interaction.DragAndDrop.prototype.set = function(key, value, opt_silent) {};
 
 
 /**
  * @param {Object.<string, *>} values
  * @param {boolean=} opt_silent
  */
-ol.interaction.DragAndDrop.prototype.setProperties = function(values, opt_silent) { };
+ol.interaction.DragAndDrop.prototype.setProperties = function(values, opt_silent) {};
 
 
 /**
  * @param {string} key
  * @param {boolean=} opt_silent
  */
-ol.interaction.DragAndDrop.prototype.unset = function(key, opt_silent) { };
+ol.interaction.DragAndDrop.prototype.unset = function(key, opt_silent) {};
 
 
 /**
  */
-ol.interaction.DragAndDrop.prototype.changed = function() { };
+ol.interaction.DragAndDrop.prototype.changed = function() {};
 
 
 /**
  * @param {Object|ol.events.Event|string} event
  */
-ol.interaction.DragAndDrop.prototype.dispatchEvent = function(event) { };
+ol.interaction.DragAndDrop.prototype.dispatchEvent = function(event) {};
 
 
 /**
  * @return {number}
  */
-ol.interaction.DragAndDrop.prototype.getRevision = function() { };
+ol.interaction.DragAndDrop.prototype.getRevision = function() {};
 
 
 /**
@@ -10760,7 +10775,7 @@ ol.interaction.DragAndDrop.prototype.getRevision = function() { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.interaction.DragAndDrop.prototype.on = function(type, listener, opt_this) { };
+ol.interaction.DragAndDrop.prototype.on = function(type, listener, opt_this) {};
 
 
 /**
@@ -10769,7 +10784,7 @@ ol.interaction.DragAndDrop.prototype.on = function(type, listener, opt_this) { }
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.interaction.DragAndDrop.prototype.once = function(type, listener, opt_this) { };
+ol.interaction.DragAndDrop.prototype.once = function(type, listener, opt_this) {};
 
 
 /**
@@ -10777,7 +10792,7 @@ ol.interaction.DragAndDrop.prototype.once = function(type, listener, opt_this) {
  * @param {Function} listener
  * @param {Object=} opt_this
  */
-ol.interaction.DragAndDrop.prototype.un = function(type, listener, opt_this) { };
+ol.interaction.DragAndDrop.prototype.un = function(type, listener, opt_this) {};
 
 
 /**
@@ -10794,49 +10809,49 @@ ol.interaction.DragAndDrop.Event.prototype.target;
 
 /**
  */
-ol.interaction.DragAndDrop.Event.prototype.preventDefault = function() { };
+ol.interaction.DragAndDrop.Event.prototype.preventDefault = function() {};
 
 
 /**
  */
-ol.interaction.DragAndDrop.Event.prototype.stopPropagation = function() { };
+ol.interaction.DragAndDrop.Event.prototype.stopPropagation = function() {};
 
 
 /**
  * @return {boolean}
  */
-ol.interaction.Pointer.prototype.getActive = function() { };
+ol.interaction.Pointer.prototype.getActive = function() {};
 
 
 /**
  * @return {ol.PluggableMap}
  */
-ol.interaction.Pointer.prototype.getMap = function() { };
+ol.interaction.Pointer.prototype.getMap = function() {};
 
 
 /**
  * @param {boolean} active
  */
-ol.interaction.Pointer.prototype.setActive = function(active) { };
+ol.interaction.Pointer.prototype.setActive = function(active) {};
 
 
 /**
  * @param {string} key
  * @return {*}
  */
-ol.interaction.Pointer.prototype.get = function(key) { };
+ol.interaction.Pointer.prototype.get = function(key) {};
 
 
 /**
  * @return {Array.<string>}
  */
-ol.interaction.Pointer.prototype.getKeys = function() { };
+ol.interaction.Pointer.prototype.getKeys = function() {};
 
 
 /**
  * @return {Object.<string, *>}
  */
-ol.interaction.Pointer.prototype.getProperties = function() { };
+ol.interaction.Pointer.prototype.getProperties = function() {};
 
 
 /**
@@ -10844,38 +10859,38 @@ ol.interaction.Pointer.prototype.getProperties = function() { };
  * @param {*} value
  * @param {boolean=} opt_silent
  */
-ol.interaction.Pointer.prototype.set = function(key, value, opt_silent) { };
+ol.interaction.Pointer.prototype.set = function(key, value, opt_silent) {};
 
 
 /**
  * @param {Object.<string, *>} values
  * @param {boolean=} opt_silent
  */
-ol.interaction.Pointer.prototype.setProperties = function(values, opt_silent) { };
+ol.interaction.Pointer.prototype.setProperties = function(values, opt_silent) {};
 
 
 /**
  * @param {string} key
  * @param {boolean=} opt_silent
  */
-ol.interaction.Pointer.prototype.unset = function(key, opt_silent) { };
+ol.interaction.Pointer.prototype.unset = function(key, opt_silent) {};
 
 
 /**
  */
-ol.interaction.Pointer.prototype.changed = function() { };
+ol.interaction.Pointer.prototype.changed = function() {};
 
 
 /**
  * @param {Object|ol.events.Event|string} event
  */
-ol.interaction.Pointer.prototype.dispatchEvent = function(event) { };
+ol.interaction.Pointer.prototype.dispatchEvent = function(event) {};
 
 
 /**
  * @return {number}
  */
-ol.interaction.Pointer.prototype.getRevision = function() { };
+ol.interaction.Pointer.prototype.getRevision = function() {};
 
 
 /**
@@ -10884,7 +10899,7 @@ ol.interaction.Pointer.prototype.getRevision = function() { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.interaction.Pointer.prototype.on = function(type, listener, opt_this) { };
+ol.interaction.Pointer.prototype.on = function(type, listener, opt_this) {};
 
 
 /**
@@ -10893,7 +10908,7 @@ ol.interaction.Pointer.prototype.on = function(type, listener, opt_this) { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.interaction.Pointer.prototype.once = function(type, listener, opt_this) { };
+ol.interaction.Pointer.prototype.once = function(type, listener, opt_this) {};
 
 
 /**
@@ -10901,44 +10916,44 @@ ol.interaction.Pointer.prototype.once = function(type, listener, opt_this) { };
  * @param {Function} listener
  * @param {Object=} opt_this
  */
-ol.interaction.Pointer.prototype.un = function(type, listener, opt_this) { };
+ol.interaction.Pointer.prototype.un = function(type, listener, opt_this) {};
 
 
 /**
  * @return {boolean}
  */
-ol.interaction.DragBox.prototype.getActive = function() { };
+ol.interaction.DragBox.prototype.getActive = function() {};
 
 
 /**
  * @return {ol.PluggableMap}
  */
-ol.interaction.DragBox.prototype.getMap = function() { };
+ol.interaction.DragBox.prototype.getMap = function() {};
 
 
 /**
  * @param {boolean} active
  */
-ol.interaction.DragBox.prototype.setActive = function(active) { };
+ol.interaction.DragBox.prototype.setActive = function(active) {};
 
 
 /**
  * @param {string} key
  * @return {*}
  */
-ol.interaction.DragBox.prototype.get = function(key) { };
+ol.interaction.DragBox.prototype.get = function(key) {};
 
 
 /**
  * @return {Array.<string>}
  */
-ol.interaction.DragBox.prototype.getKeys = function() { };
+ol.interaction.DragBox.prototype.getKeys = function() {};
 
 
 /**
  * @return {Object.<string, *>}
  */
-ol.interaction.DragBox.prototype.getProperties = function() { };
+ol.interaction.DragBox.prototype.getProperties = function() {};
 
 
 /**
@@ -10946,38 +10961,38 @@ ol.interaction.DragBox.prototype.getProperties = function() { };
  * @param {*} value
  * @param {boolean=} opt_silent
  */
-ol.interaction.DragBox.prototype.set = function(key, value, opt_silent) { };
+ol.interaction.DragBox.prototype.set = function(key, value, opt_silent) {};
 
 
 /**
  * @param {Object.<string, *>} values
  * @param {boolean=} opt_silent
  */
-ol.interaction.DragBox.prototype.setProperties = function(values, opt_silent) { };
+ol.interaction.DragBox.prototype.setProperties = function(values, opt_silent) {};
 
 
 /**
  * @param {string} key
  * @param {boolean=} opt_silent
  */
-ol.interaction.DragBox.prototype.unset = function(key, opt_silent) { };
+ol.interaction.DragBox.prototype.unset = function(key, opt_silent) {};
 
 
 /**
  */
-ol.interaction.DragBox.prototype.changed = function() { };
+ol.interaction.DragBox.prototype.changed = function() {};
 
 
 /**
  * @param {Object|ol.events.Event|string} event
  */
-ol.interaction.DragBox.prototype.dispatchEvent = function(event) { };
+ol.interaction.DragBox.prototype.dispatchEvent = function(event) {};
 
 
 /**
  * @return {number}
  */
-ol.interaction.DragBox.prototype.getRevision = function() { };
+ol.interaction.DragBox.prototype.getRevision = function() {};
 
 
 /**
@@ -10986,7 +11001,7 @@ ol.interaction.DragBox.prototype.getRevision = function() { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.interaction.DragBox.prototype.on = function(type, listener, opt_this) { };
+ol.interaction.DragBox.prototype.on = function(type, listener, opt_this) {};
 
 
 /**
@@ -10995,7 +11010,7 @@ ol.interaction.DragBox.prototype.on = function(type, listener, opt_this) { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.interaction.DragBox.prototype.once = function(type, listener, opt_this) { };
+ol.interaction.DragBox.prototype.once = function(type, listener, opt_this) {};
 
 
 /**
@@ -11003,7 +11018,7 @@ ol.interaction.DragBox.prototype.once = function(type, listener, opt_this) { };
  * @param {Function} listener
  * @param {Object=} opt_this
  */
-ol.interaction.DragBox.prototype.un = function(type, listener, opt_this) { };
+ol.interaction.DragBox.prototype.un = function(type, listener, opt_this) {};
 
 
 /**
@@ -11020,49 +11035,49 @@ ol.interaction.DragBox.Event.prototype.target;
 
 /**
  */
-ol.interaction.DragBox.Event.prototype.preventDefault = function() { };
+ol.interaction.DragBox.Event.prototype.preventDefault = function() {};
 
 
 /**
  */
-ol.interaction.DragBox.Event.prototype.stopPropagation = function() { };
+ol.interaction.DragBox.Event.prototype.stopPropagation = function() {};
 
 
 /**
  * @return {boolean}
  */
-ol.interaction.DragPan.prototype.getActive = function() { };
+ol.interaction.DragPan.prototype.getActive = function() {};
 
 
 /**
  * @return {ol.PluggableMap}
  */
-ol.interaction.DragPan.prototype.getMap = function() { };
+ol.interaction.DragPan.prototype.getMap = function() {};
 
 
 /**
  * @param {boolean} active
  */
-ol.interaction.DragPan.prototype.setActive = function(active) { };
+ol.interaction.DragPan.prototype.setActive = function(active) {};
 
 
 /**
  * @param {string} key
  * @return {*}
  */
-ol.interaction.DragPan.prototype.get = function(key) { };
+ol.interaction.DragPan.prototype.get = function(key) {};
 
 
 /**
  * @return {Array.<string>}
  */
-ol.interaction.DragPan.prototype.getKeys = function() { };
+ol.interaction.DragPan.prototype.getKeys = function() {};
 
 
 /**
  * @return {Object.<string, *>}
  */
-ol.interaction.DragPan.prototype.getProperties = function() { };
+ol.interaction.DragPan.prototype.getProperties = function() {};
 
 
 /**
@@ -11070,38 +11085,38 @@ ol.interaction.DragPan.prototype.getProperties = function() { };
  * @param {*} value
  * @param {boolean=} opt_silent
  */
-ol.interaction.DragPan.prototype.set = function(key, value, opt_silent) { };
+ol.interaction.DragPan.prototype.set = function(key, value, opt_silent) {};
 
 
 /**
  * @param {Object.<string, *>} values
  * @param {boolean=} opt_silent
  */
-ol.interaction.DragPan.prototype.setProperties = function(values, opt_silent) { };
+ol.interaction.DragPan.prototype.setProperties = function(values, opt_silent) {};
 
 
 /**
  * @param {string} key
  * @param {boolean=} opt_silent
  */
-ol.interaction.DragPan.prototype.unset = function(key, opt_silent) { };
+ol.interaction.DragPan.prototype.unset = function(key, opt_silent) {};
 
 
 /**
  */
-ol.interaction.DragPan.prototype.changed = function() { };
+ol.interaction.DragPan.prototype.changed = function() {};
 
 
 /**
  * @param {Object|ol.events.Event|string} event
  */
-ol.interaction.DragPan.prototype.dispatchEvent = function(event) { };
+ol.interaction.DragPan.prototype.dispatchEvent = function(event) {};
 
 
 /**
  * @return {number}
  */
-ol.interaction.DragPan.prototype.getRevision = function() { };
+ol.interaction.DragPan.prototype.getRevision = function() {};
 
 
 /**
@@ -11110,7 +11125,7 @@ ol.interaction.DragPan.prototype.getRevision = function() { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.interaction.DragPan.prototype.on = function(type, listener, opt_this) { };
+ol.interaction.DragPan.prototype.on = function(type, listener, opt_this) {};
 
 
 /**
@@ -11119,7 +11134,7 @@ ol.interaction.DragPan.prototype.on = function(type, listener, opt_this) { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.interaction.DragPan.prototype.once = function(type, listener, opt_this) { };
+ol.interaction.DragPan.prototype.once = function(type, listener, opt_this) {};
 
 
 /**
@@ -11127,44 +11142,44 @@ ol.interaction.DragPan.prototype.once = function(type, listener, opt_this) { };
  * @param {Function} listener
  * @param {Object=} opt_this
  */
-ol.interaction.DragPan.prototype.un = function(type, listener, opt_this) { };
+ol.interaction.DragPan.prototype.un = function(type, listener, opt_this) {};
 
 
 /**
  * @return {boolean}
  */
-ol.interaction.DragRotate.prototype.getActive = function() { };
+ol.interaction.DragRotate.prototype.getActive = function() {};
 
 
 /**
  * @return {ol.PluggableMap}
  */
-ol.interaction.DragRotate.prototype.getMap = function() { };
+ol.interaction.DragRotate.prototype.getMap = function() {};
 
 
 /**
  * @param {boolean} active
  */
-ol.interaction.DragRotate.prototype.setActive = function(active) { };
+ol.interaction.DragRotate.prototype.setActive = function(active) {};
 
 
 /**
  * @param {string} key
  * @return {*}
  */
-ol.interaction.DragRotate.prototype.get = function(key) { };
+ol.interaction.DragRotate.prototype.get = function(key) {};
 
 
 /**
  * @return {Array.<string>}
  */
-ol.interaction.DragRotate.prototype.getKeys = function() { };
+ol.interaction.DragRotate.prototype.getKeys = function() {};
 
 
 /**
  * @return {Object.<string, *>}
  */
-ol.interaction.DragRotate.prototype.getProperties = function() { };
+ol.interaction.DragRotate.prototype.getProperties = function() {};
 
 
 /**
@@ -11172,38 +11187,38 @@ ol.interaction.DragRotate.prototype.getProperties = function() { };
  * @param {*} value
  * @param {boolean=} opt_silent
  */
-ol.interaction.DragRotate.prototype.set = function(key, value, opt_silent) { };
+ol.interaction.DragRotate.prototype.set = function(key, value, opt_silent) {};
 
 
 /**
  * @param {Object.<string, *>} values
  * @param {boolean=} opt_silent
  */
-ol.interaction.DragRotate.prototype.setProperties = function(values, opt_silent) { };
+ol.interaction.DragRotate.prototype.setProperties = function(values, opt_silent) {};
 
 
 /**
  * @param {string} key
  * @param {boolean=} opt_silent
  */
-ol.interaction.DragRotate.prototype.unset = function(key, opt_silent) { };
+ol.interaction.DragRotate.prototype.unset = function(key, opt_silent) {};
 
 
 /**
  */
-ol.interaction.DragRotate.prototype.changed = function() { };
+ol.interaction.DragRotate.prototype.changed = function() {};
 
 
 /**
  * @param {Object|ol.events.Event|string} event
  */
-ol.interaction.DragRotate.prototype.dispatchEvent = function(event) { };
+ol.interaction.DragRotate.prototype.dispatchEvent = function(event) {};
 
 
 /**
  * @return {number}
  */
-ol.interaction.DragRotate.prototype.getRevision = function() { };
+ol.interaction.DragRotate.prototype.getRevision = function() {};
 
 
 /**
@@ -11212,7 +11227,7 @@ ol.interaction.DragRotate.prototype.getRevision = function() { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.interaction.DragRotate.prototype.on = function(type, listener, opt_this) { };
+ol.interaction.DragRotate.prototype.on = function(type, listener, opt_this) {};
 
 
 /**
@@ -11221,7 +11236,7 @@ ol.interaction.DragRotate.prototype.on = function(type, listener, opt_this) { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.interaction.DragRotate.prototype.once = function(type, listener, opt_this) { };
+ol.interaction.DragRotate.prototype.once = function(type, listener, opt_this) {};
 
 
 /**
@@ -11229,44 +11244,44 @@ ol.interaction.DragRotate.prototype.once = function(type, listener, opt_this) { 
  * @param {Function} listener
  * @param {Object=} opt_this
  */
-ol.interaction.DragRotate.prototype.un = function(type, listener, opt_this) { };
+ol.interaction.DragRotate.prototype.un = function(type, listener, opt_this) {};
 
 
 /**
  * @return {boolean}
  */
-ol.interaction.DragRotateAndZoom.prototype.getActive = function() { };
+ol.interaction.DragRotateAndZoom.prototype.getActive = function() {};
 
 
 /**
  * @return {ol.PluggableMap}
  */
-ol.interaction.DragRotateAndZoom.prototype.getMap = function() { };
+ol.interaction.DragRotateAndZoom.prototype.getMap = function() {};
 
 
 /**
  * @param {boolean} active
  */
-ol.interaction.DragRotateAndZoom.prototype.setActive = function(active) { };
+ol.interaction.DragRotateAndZoom.prototype.setActive = function(active) {};
 
 
 /**
  * @param {string} key
  * @return {*}
  */
-ol.interaction.DragRotateAndZoom.prototype.get = function(key) { };
+ol.interaction.DragRotateAndZoom.prototype.get = function(key) {};
 
 
 /**
  * @return {Array.<string>}
  */
-ol.interaction.DragRotateAndZoom.prototype.getKeys = function() { };
+ol.interaction.DragRotateAndZoom.prototype.getKeys = function() {};
 
 
 /**
  * @return {Object.<string, *>}
  */
-ol.interaction.DragRotateAndZoom.prototype.getProperties = function() { };
+ol.interaction.DragRotateAndZoom.prototype.getProperties = function() {};
 
 
 /**
@@ -11274,38 +11289,38 @@ ol.interaction.DragRotateAndZoom.prototype.getProperties = function() { };
  * @param {*} value
  * @param {boolean=} opt_silent
  */
-ol.interaction.DragRotateAndZoom.prototype.set = function(key, value, opt_silent) { };
+ol.interaction.DragRotateAndZoom.prototype.set = function(key, value, opt_silent) {};
 
 
 /**
  * @param {Object.<string, *>} values
  * @param {boolean=} opt_silent
  */
-ol.interaction.DragRotateAndZoom.prototype.setProperties = function(values, opt_silent) { };
+ol.interaction.DragRotateAndZoom.prototype.setProperties = function(values, opt_silent) {};
 
 
 /**
  * @param {string} key
  * @param {boolean=} opt_silent
  */
-ol.interaction.DragRotateAndZoom.prototype.unset = function(key, opt_silent) { };
+ol.interaction.DragRotateAndZoom.prototype.unset = function(key, opt_silent) {};
 
 
 /**
  */
-ol.interaction.DragRotateAndZoom.prototype.changed = function() { };
+ol.interaction.DragRotateAndZoom.prototype.changed = function() {};
 
 
 /**
  * @param {Object|ol.events.Event|string} event
  */
-ol.interaction.DragRotateAndZoom.prototype.dispatchEvent = function(event) { };
+ol.interaction.DragRotateAndZoom.prototype.dispatchEvent = function(event) {};
 
 
 /**
  * @return {number}
  */
-ol.interaction.DragRotateAndZoom.prototype.getRevision = function() { };
+ol.interaction.DragRotateAndZoom.prototype.getRevision = function() {};
 
 
 /**
@@ -11314,7 +11329,7 @@ ol.interaction.DragRotateAndZoom.prototype.getRevision = function() { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.interaction.DragRotateAndZoom.prototype.on = function(type, listener, opt_this) { };
+ol.interaction.DragRotateAndZoom.prototype.on = function(type, listener, opt_this) {};
 
 
 /**
@@ -11323,7 +11338,7 @@ ol.interaction.DragRotateAndZoom.prototype.on = function(type, listener, opt_thi
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.interaction.DragRotateAndZoom.prototype.once = function(type, listener, opt_this) { };
+ol.interaction.DragRotateAndZoom.prototype.once = function(type, listener, opt_this) {};
 
 
 /**
@@ -11331,50 +11346,50 @@ ol.interaction.DragRotateAndZoom.prototype.once = function(type, listener, opt_t
  * @param {Function} listener
  * @param {Object=} opt_this
  */
-ol.interaction.DragRotateAndZoom.prototype.un = function(type, listener, opt_this) { };
+ol.interaction.DragRotateAndZoom.prototype.un = function(type, listener, opt_this) {};
 
 
 /**
  * @return {ol.geom.Polygon}
  */
-ol.interaction.DragZoom.prototype.getGeometry = function() { };
+ol.interaction.DragZoom.prototype.getGeometry = function() {};
 
 
 /**
  * @return {boolean}
  */
-ol.interaction.DragZoom.prototype.getActive = function() { };
+ol.interaction.DragZoom.prototype.getActive = function() {};
 
 
 /**
  * @return {ol.PluggableMap}
  */
-ol.interaction.DragZoom.prototype.getMap = function() { };
+ol.interaction.DragZoom.prototype.getMap = function() {};
 
 
 /**
  * @param {boolean} active
  */
-ol.interaction.DragZoom.prototype.setActive = function(active) { };
+ol.interaction.DragZoom.prototype.setActive = function(active) {};
 
 
 /**
  * @param {string} key
  * @return {*}
  */
-ol.interaction.DragZoom.prototype.get = function(key) { };
+ol.interaction.DragZoom.prototype.get = function(key) {};
 
 
 /**
  * @return {Array.<string>}
  */
-ol.interaction.DragZoom.prototype.getKeys = function() { };
+ol.interaction.DragZoom.prototype.getKeys = function() {};
 
 
 /**
  * @return {Object.<string, *>}
  */
-ol.interaction.DragZoom.prototype.getProperties = function() { };
+ol.interaction.DragZoom.prototype.getProperties = function() {};
 
 
 /**
@@ -11382,38 +11397,38 @@ ol.interaction.DragZoom.prototype.getProperties = function() { };
  * @param {*} value
  * @param {boolean=} opt_silent
  */
-ol.interaction.DragZoom.prototype.set = function(key, value, opt_silent) { };
+ol.interaction.DragZoom.prototype.set = function(key, value, opt_silent) {};
 
 
 /**
  * @param {Object.<string, *>} values
  * @param {boolean=} opt_silent
  */
-ol.interaction.DragZoom.prototype.setProperties = function(values, opt_silent) { };
+ol.interaction.DragZoom.prototype.setProperties = function(values, opt_silent) {};
 
 
 /**
  * @param {string} key
  * @param {boolean=} opt_silent
  */
-ol.interaction.DragZoom.prototype.unset = function(key, opt_silent) { };
+ol.interaction.DragZoom.prototype.unset = function(key, opt_silent) {};
 
 
 /**
  */
-ol.interaction.DragZoom.prototype.changed = function() { };
+ol.interaction.DragZoom.prototype.changed = function() {};
 
 
 /**
  * @param {Object|ol.events.Event|string} event
  */
-ol.interaction.DragZoom.prototype.dispatchEvent = function(event) { };
+ol.interaction.DragZoom.prototype.dispatchEvent = function(event) {};
 
 
 /**
  * @return {number}
  */
-ol.interaction.DragZoom.prototype.getRevision = function() { };
+ol.interaction.DragZoom.prototype.getRevision = function() {};
 
 
 /**
@@ -11422,7 +11437,7 @@ ol.interaction.DragZoom.prototype.getRevision = function() { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.interaction.DragZoom.prototype.on = function(type, listener, opt_this) { };
+ol.interaction.DragZoom.prototype.on = function(type, listener, opt_this) {};
 
 
 /**
@@ -11431,7 +11446,7 @@ ol.interaction.DragZoom.prototype.on = function(type, listener, opt_this) { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.interaction.DragZoom.prototype.once = function(type, listener, opt_this) { };
+ol.interaction.DragZoom.prototype.once = function(type, listener, opt_this) {};
 
 
 /**
@@ -11439,44 +11454,44 @@ ol.interaction.DragZoom.prototype.once = function(type, listener, opt_this) { };
  * @param {Function} listener
  * @param {Object=} opt_this
  */
-ol.interaction.DragZoom.prototype.un = function(type, listener, opt_this) { };
+ol.interaction.DragZoom.prototype.un = function(type, listener, opt_this) {};
 
 
 /**
  * @return {boolean}
  */
-ol.interaction.Draw.prototype.getActive = function() { };
+ol.interaction.Draw.prototype.getActive = function() {};
 
 
 /**
  * @return {ol.PluggableMap}
  */
-ol.interaction.Draw.prototype.getMap = function() { };
+ol.interaction.Draw.prototype.getMap = function() {};
 
 
 /**
  * @param {boolean} active
  */
-ol.interaction.Draw.prototype.setActive = function(active) { };
+ol.interaction.Draw.prototype.setActive = function(active) {};
 
 
 /**
  * @param {string} key
  * @return {*}
  */
-ol.interaction.Draw.prototype.get = function(key) { };
+ol.interaction.Draw.prototype.get = function(key) {};
 
 
 /**
  * @return {Array.<string>}
  */
-ol.interaction.Draw.prototype.getKeys = function() { };
+ol.interaction.Draw.prototype.getKeys = function() {};
 
 
 /**
  * @return {Object.<string, *>}
  */
-ol.interaction.Draw.prototype.getProperties = function() { };
+ol.interaction.Draw.prototype.getProperties = function() {};
 
 
 /**
@@ -11484,38 +11499,38 @@ ol.interaction.Draw.prototype.getProperties = function() { };
  * @param {*} value
  * @param {boolean=} opt_silent
  */
-ol.interaction.Draw.prototype.set = function(key, value, opt_silent) { };
+ol.interaction.Draw.prototype.set = function(key, value, opt_silent) {};
 
 
 /**
  * @param {Object.<string, *>} values
  * @param {boolean=} opt_silent
  */
-ol.interaction.Draw.prototype.setProperties = function(values, opt_silent) { };
+ol.interaction.Draw.prototype.setProperties = function(values, opt_silent) {};
 
 
 /**
  * @param {string} key
  * @param {boolean=} opt_silent
  */
-ol.interaction.Draw.prototype.unset = function(key, opt_silent) { };
+ol.interaction.Draw.prototype.unset = function(key, opt_silent) {};
 
 
 /**
  */
-ol.interaction.Draw.prototype.changed = function() { };
+ol.interaction.Draw.prototype.changed = function() {};
 
 
 /**
  * @param {Object|ol.events.Event|string} event
  */
-ol.interaction.Draw.prototype.dispatchEvent = function(event) { };
+ol.interaction.Draw.prototype.dispatchEvent = function(event) {};
 
 
 /**
  * @return {number}
  */
-ol.interaction.Draw.prototype.getRevision = function() { };
+ol.interaction.Draw.prototype.getRevision = function() {};
 
 
 /**
@@ -11524,7 +11539,7 @@ ol.interaction.Draw.prototype.getRevision = function() { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.interaction.Draw.prototype.on = function(type, listener, opt_this) { };
+ol.interaction.Draw.prototype.on = function(type, listener, opt_this) {};
 
 
 /**
@@ -11533,7 +11548,7 @@ ol.interaction.Draw.prototype.on = function(type, listener, opt_this) { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.interaction.Draw.prototype.once = function(type, listener, opt_this) { };
+ol.interaction.Draw.prototype.once = function(type, listener, opt_this) {};
 
 
 /**
@@ -11541,7 +11556,7 @@ ol.interaction.Draw.prototype.once = function(type, listener, opt_this) { };
  * @param {Function} listener
  * @param {Object=} opt_this
  */
-ol.interaction.Draw.prototype.un = function(type, listener, opt_this) { };
+ol.interaction.Draw.prototype.un = function(type, listener, opt_this) {};
 
 
 /**
@@ -11558,49 +11573,49 @@ ol.interaction.Draw.Event.prototype.target;
 
 /**
  */
-ol.interaction.Draw.Event.prototype.preventDefault = function() { };
+ol.interaction.Draw.Event.prototype.preventDefault = function() {};
 
 
 /**
  */
-ol.interaction.Draw.Event.prototype.stopPropagation = function() { };
+ol.interaction.Draw.Event.prototype.stopPropagation = function() {};
 
 
 /**
  * @return {boolean}
  */
-ol.interaction.Extent.prototype.getActive = function() { };
+ol.interaction.Extent.prototype.getActive = function() {};
 
 
 /**
  * @return {ol.PluggableMap}
  */
-ol.interaction.Extent.prototype.getMap = function() { };
+ol.interaction.Extent.prototype.getMap = function() {};
 
 
 /**
  * @param {boolean} active
  */
-ol.interaction.Extent.prototype.setActive = function(active) { };
+ol.interaction.Extent.prototype.setActive = function(active) {};
 
 
 /**
  * @param {string} key
  * @return {*}
  */
-ol.interaction.Extent.prototype.get = function(key) { };
+ol.interaction.Extent.prototype.get = function(key) {};
 
 
 /**
  * @return {Array.<string>}
  */
-ol.interaction.Extent.prototype.getKeys = function() { };
+ol.interaction.Extent.prototype.getKeys = function() {};
 
 
 /**
  * @return {Object.<string, *>}
  */
-ol.interaction.Extent.prototype.getProperties = function() { };
+ol.interaction.Extent.prototype.getProperties = function() {};
 
 
 /**
@@ -11608,38 +11623,38 @@ ol.interaction.Extent.prototype.getProperties = function() { };
  * @param {*} value
  * @param {boolean=} opt_silent
  */
-ol.interaction.Extent.prototype.set = function(key, value, opt_silent) { };
+ol.interaction.Extent.prototype.set = function(key, value, opt_silent) {};
 
 
 /**
  * @param {Object.<string, *>} values
  * @param {boolean=} opt_silent
  */
-ol.interaction.Extent.prototype.setProperties = function(values, opt_silent) { };
+ol.interaction.Extent.prototype.setProperties = function(values, opt_silent) {};
 
 
 /**
  * @param {string} key
  * @param {boolean=} opt_silent
  */
-ol.interaction.Extent.prototype.unset = function(key, opt_silent) { };
+ol.interaction.Extent.prototype.unset = function(key, opt_silent) {};
 
 
 /**
  */
-ol.interaction.Extent.prototype.changed = function() { };
+ol.interaction.Extent.prototype.changed = function() {};
 
 
 /**
  * @param {Object|ol.events.Event|string} event
  */
-ol.interaction.Extent.prototype.dispatchEvent = function(event) { };
+ol.interaction.Extent.prototype.dispatchEvent = function(event) {};
 
 
 /**
  * @return {number}
  */
-ol.interaction.Extent.prototype.getRevision = function() { };
+ol.interaction.Extent.prototype.getRevision = function() {};
 
 
 /**
@@ -11648,7 +11663,7 @@ ol.interaction.Extent.prototype.getRevision = function() { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.interaction.Extent.prototype.on = function(type, listener, opt_this) { };
+ol.interaction.Extent.prototype.on = function(type, listener, opt_this) {};
 
 
 /**
@@ -11657,7 +11672,7 @@ ol.interaction.Extent.prototype.on = function(type, listener, opt_this) { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.interaction.Extent.prototype.once = function(type, listener, opt_this) { };
+ol.interaction.Extent.prototype.once = function(type, listener, opt_this) {};
 
 
 /**
@@ -11665,7 +11680,7 @@ ol.interaction.Extent.prototype.once = function(type, listener, opt_this) { };
  * @param {Function} listener
  * @param {Object=} opt_this
  */
-ol.interaction.Extent.prototype.un = function(type, listener, opt_this) { };
+ol.interaction.Extent.prototype.un = function(type, listener, opt_this) {};
 
 
 /**
@@ -11682,49 +11697,49 @@ ol.interaction.Extent.Event.prototype.target;
 
 /**
  */
-ol.interaction.Extent.Event.prototype.preventDefault = function() { };
+ol.interaction.Extent.Event.prototype.preventDefault = function() {};
 
 
 /**
  */
-ol.interaction.Extent.Event.prototype.stopPropagation = function() { };
+ol.interaction.Extent.Event.prototype.stopPropagation = function() {};
 
 
 /**
  * @return {boolean}
  */
-ol.interaction.KeyboardPan.prototype.getActive = function() { };
+ol.interaction.KeyboardPan.prototype.getActive = function() {};
 
 
 /**
  * @return {ol.PluggableMap}
  */
-ol.interaction.KeyboardPan.prototype.getMap = function() { };
+ol.interaction.KeyboardPan.prototype.getMap = function() {};
 
 
 /**
  * @param {boolean} active
  */
-ol.interaction.KeyboardPan.prototype.setActive = function(active) { };
+ol.interaction.KeyboardPan.prototype.setActive = function(active) {};
 
 
 /**
  * @param {string} key
  * @return {*}
  */
-ol.interaction.KeyboardPan.prototype.get = function(key) { };
+ol.interaction.KeyboardPan.prototype.get = function(key) {};
 
 
 /**
  * @return {Array.<string>}
  */
-ol.interaction.KeyboardPan.prototype.getKeys = function() { };
+ol.interaction.KeyboardPan.prototype.getKeys = function() {};
 
 
 /**
  * @return {Object.<string, *>}
  */
-ol.interaction.KeyboardPan.prototype.getProperties = function() { };
+ol.interaction.KeyboardPan.prototype.getProperties = function() {};
 
 
 /**
@@ -11732,38 +11747,38 @@ ol.interaction.KeyboardPan.prototype.getProperties = function() { };
  * @param {*} value
  * @param {boolean=} opt_silent
  */
-ol.interaction.KeyboardPan.prototype.set = function(key, value, opt_silent) { };
+ol.interaction.KeyboardPan.prototype.set = function(key, value, opt_silent) {};
 
 
 /**
  * @param {Object.<string, *>} values
  * @param {boolean=} opt_silent
  */
-ol.interaction.KeyboardPan.prototype.setProperties = function(values, opt_silent) { };
+ol.interaction.KeyboardPan.prototype.setProperties = function(values, opt_silent) {};
 
 
 /**
  * @param {string} key
  * @param {boolean=} opt_silent
  */
-ol.interaction.KeyboardPan.prototype.unset = function(key, opt_silent) { };
+ol.interaction.KeyboardPan.prototype.unset = function(key, opt_silent) {};
 
 
 /**
  */
-ol.interaction.KeyboardPan.prototype.changed = function() { };
+ol.interaction.KeyboardPan.prototype.changed = function() {};
 
 
 /**
  * @param {Object|ol.events.Event|string} event
  */
-ol.interaction.KeyboardPan.prototype.dispatchEvent = function(event) { };
+ol.interaction.KeyboardPan.prototype.dispatchEvent = function(event) {};
 
 
 /**
  * @return {number}
  */
-ol.interaction.KeyboardPan.prototype.getRevision = function() { };
+ol.interaction.KeyboardPan.prototype.getRevision = function() {};
 
 
 /**
@@ -11772,7 +11787,7 @@ ol.interaction.KeyboardPan.prototype.getRevision = function() { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.interaction.KeyboardPan.prototype.on = function(type, listener, opt_this) { };
+ol.interaction.KeyboardPan.prototype.on = function(type, listener, opt_this) {};
 
 
 /**
@@ -11781,7 +11796,7 @@ ol.interaction.KeyboardPan.prototype.on = function(type, listener, opt_this) { }
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.interaction.KeyboardPan.prototype.once = function(type, listener, opt_this) { };
+ol.interaction.KeyboardPan.prototype.once = function(type, listener, opt_this) {};
 
 
 /**
@@ -11789,44 +11804,44 @@ ol.interaction.KeyboardPan.prototype.once = function(type, listener, opt_this) {
  * @param {Function} listener
  * @param {Object=} opt_this
  */
-ol.interaction.KeyboardPan.prototype.un = function(type, listener, opt_this) { };
+ol.interaction.KeyboardPan.prototype.un = function(type, listener, opt_this) {};
 
 
 /**
  * @return {boolean}
  */
-ol.interaction.KeyboardZoom.prototype.getActive = function() { };
+ol.interaction.KeyboardZoom.prototype.getActive = function() {};
 
 
 /**
  * @return {ol.PluggableMap}
  */
-ol.interaction.KeyboardZoom.prototype.getMap = function() { };
+ol.interaction.KeyboardZoom.prototype.getMap = function() {};
 
 
 /**
  * @param {boolean} active
  */
-ol.interaction.KeyboardZoom.prototype.setActive = function(active) { };
+ol.interaction.KeyboardZoom.prototype.setActive = function(active) {};
 
 
 /**
  * @param {string} key
  * @return {*}
  */
-ol.interaction.KeyboardZoom.prototype.get = function(key) { };
+ol.interaction.KeyboardZoom.prototype.get = function(key) {};
 
 
 /**
  * @return {Array.<string>}
  */
-ol.interaction.KeyboardZoom.prototype.getKeys = function() { };
+ol.interaction.KeyboardZoom.prototype.getKeys = function() {};
 
 
 /**
  * @return {Object.<string, *>}
  */
-ol.interaction.KeyboardZoom.prototype.getProperties = function() { };
+ol.interaction.KeyboardZoom.prototype.getProperties = function() {};
 
 
 /**
@@ -11834,38 +11849,38 @@ ol.interaction.KeyboardZoom.prototype.getProperties = function() { };
  * @param {*} value
  * @param {boolean=} opt_silent
  */
-ol.interaction.KeyboardZoom.prototype.set = function(key, value, opt_silent) { };
+ol.interaction.KeyboardZoom.prototype.set = function(key, value, opt_silent) {};
 
 
 /**
  * @param {Object.<string, *>} values
  * @param {boolean=} opt_silent
  */
-ol.interaction.KeyboardZoom.prototype.setProperties = function(values, opt_silent) { };
+ol.interaction.KeyboardZoom.prototype.setProperties = function(values, opt_silent) {};
 
 
 /**
  * @param {string} key
  * @param {boolean=} opt_silent
  */
-ol.interaction.KeyboardZoom.prototype.unset = function(key, opt_silent) { };
+ol.interaction.KeyboardZoom.prototype.unset = function(key, opt_silent) {};
 
 
 /**
  */
-ol.interaction.KeyboardZoom.prototype.changed = function() { };
+ol.interaction.KeyboardZoom.prototype.changed = function() {};
 
 
 /**
  * @param {Object|ol.events.Event|string} event
  */
-ol.interaction.KeyboardZoom.prototype.dispatchEvent = function(event) { };
+ol.interaction.KeyboardZoom.prototype.dispatchEvent = function(event) {};
 
 
 /**
  * @return {number}
  */
-ol.interaction.KeyboardZoom.prototype.getRevision = function() { };
+ol.interaction.KeyboardZoom.prototype.getRevision = function() {};
 
 
 /**
@@ -11874,7 +11889,7 @@ ol.interaction.KeyboardZoom.prototype.getRevision = function() { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.interaction.KeyboardZoom.prototype.on = function(type, listener, opt_this) { };
+ol.interaction.KeyboardZoom.prototype.on = function(type, listener, opt_this) {};
 
 
 /**
@@ -11883,7 +11898,7 @@ ol.interaction.KeyboardZoom.prototype.on = function(type, listener, opt_this) { 
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.interaction.KeyboardZoom.prototype.once = function(type, listener, opt_this) { };
+ol.interaction.KeyboardZoom.prototype.once = function(type, listener, opt_this) {};
 
 
 /**
@@ -11891,44 +11906,44 @@ ol.interaction.KeyboardZoom.prototype.once = function(type, listener, opt_this) 
  * @param {Function} listener
  * @param {Object=} opt_this
  */
-ol.interaction.KeyboardZoom.prototype.un = function(type, listener, opt_this) { };
+ol.interaction.KeyboardZoom.prototype.un = function(type, listener, opt_this) {};
 
 
 /**
  * @return {boolean}
  */
-ol.interaction.Modify.prototype.getActive = function() { };
+ol.interaction.Modify.prototype.getActive = function() {};
 
 
 /**
  * @return {ol.PluggableMap}
  */
-ol.interaction.Modify.prototype.getMap = function() { };
+ol.interaction.Modify.prototype.getMap = function() {};
 
 
 /**
  * @param {boolean} active
  */
-ol.interaction.Modify.prototype.setActive = function(active) { };
+ol.interaction.Modify.prototype.setActive = function(active) {};
 
 
 /**
  * @param {string} key
  * @return {*}
  */
-ol.interaction.Modify.prototype.get = function(key) { };
+ol.interaction.Modify.prototype.get = function(key) {};
 
 
 /**
  * @return {Array.<string>}
  */
-ol.interaction.Modify.prototype.getKeys = function() { };
+ol.interaction.Modify.prototype.getKeys = function() {};
 
 
 /**
  * @return {Object.<string, *>}
  */
-ol.interaction.Modify.prototype.getProperties = function() { };
+ol.interaction.Modify.prototype.getProperties = function() {};
 
 
 /**
@@ -11936,38 +11951,38 @@ ol.interaction.Modify.prototype.getProperties = function() { };
  * @param {*} value
  * @param {boolean=} opt_silent
  */
-ol.interaction.Modify.prototype.set = function(key, value, opt_silent) { };
+ol.interaction.Modify.prototype.set = function(key, value, opt_silent) {};
 
 
 /**
  * @param {Object.<string, *>} values
  * @param {boolean=} opt_silent
  */
-ol.interaction.Modify.prototype.setProperties = function(values, opt_silent) { };
+ol.interaction.Modify.prototype.setProperties = function(values, opt_silent) {};
 
 
 /**
  * @param {string} key
  * @param {boolean=} opt_silent
  */
-ol.interaction.Modify.prototype.unset = function(key, opt_silent) { };
+ol.interaction.Modify.prototype.unset = function(key, opt_silent) {};
 
 
 /**
  */
-ol.interaction.Modify.prototype.changed = function() { };
+ol.interaction.Modify.prototype.changed = function() {};
 
 
 /**
  * @param {Object|ol.events.Event|string} event
  */
-ol.interaction.Modify.prototype.dispatchEvent = function(event) { };
+ol.interaction.Modify.prototype.dispatchEvent = function(event) {};
 
 
 /**
  * @return {number}
  */
-ol.interaction.Modify.prototype.getRevision = function() { };
+ol.interaction.Modify.prototype.getRevision = function() {};
 
 
 /**
@@ -11976,7 +11991,7 @@ ol.interaction.Modify.prototype.getRevision = function() { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.interaction.Modify.prototype.on = function(type, listener, opt_this) { };
+ol.interaction.Modify.prototype.on = function(type, listener, opt_this) {};
 
 
 /**
@@ -11985,7 +12000,7 @@ ol.interaction.Modify.prototype.on = function(type, listener, opt_this) { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.interaction.Modify.prototype.once = function(type, listener, opt_this) { };
+ol.interaction.Modify.prototype.once = function(type, listener, opt_this) {};
 
 
 /**
@@ -11993,7 +12008,7 @@ ol.interaction.Modify.prototype.once = function(type, listener, opt_this) { };
  * @param {Function} listener
  * @param {Object=} opt_this
  */
-ol.interaction.Modify.prototype.un = function(type, listener, opt_this) { };
+ol.interaction.Modify.prototype.un = function(type, listener, opt_this) {};
 
 
 /**
@@ -12010,49 +12025,49 @@ ol.interaction.Modify.Event.prototype.target;
 
 /**
  */
-ol.interaction.Modify.Event.prototype.preventDefault = function() { };
+ol.interaction.Modify.Event.prototype.preventDefault = function() {};
 
 
 /**
  */
-ol.interaction.Modify.Event.prototype.stopPropagation = function() { };
+ol.interaction.Modify.Event.prototype.stopPropagation = function() {};
 
 
 /**
  * @return {boolean}
  */
-ol.interaction.MouseWheelZoom.prototype.getActive = function() { };
+ol.interaction.MouseWheelZoom.prototype.getActive = function() {};
 
 
 /**
  * @return {ol.PluggableMap}
  */
-ol.interaction.MouseWheelZoom.prototype.getMap = function() { };
+ol.interaction.MouseWheelZoom.prototype.getMap = function() {};
 
 
 /**
  * @param {boolean} active
  */
-ol.interaction.MouseWheelZoom.prototype.setActive = function(active) { };
+ol.interaction.MouseWheelZoom.prototype.setActive = function(active) {};
 
 
 /**
  * @param {string} key
  * @return {*}
  */
-ol.interaction.MouseWheelZoom.prototype.get = function(key) { };
+ol.interaction.MouseWheelZoom.prototype.get = function(key) {};
 
 
 /**
  * @return {Array.<string>}
  */
-ol.interaction.MouseWheelZoom.prototype.getKeys = function() { };
+ol.interaction.MouseWheelZoom.prototype.getKeys = function() {};
 
 
 /**
  * @return {Object.<string, *>}
  */
-ol.interaction.MouseWheelZoom.prototype.getProperties = function() { };
+ol.interaction.MouseWheelZoom.prototype.getProperties = function() {};
 
 
 /**
@@ -12060,38 +12075,38 @@ ol.interaction.MouseWheelZoom.prototype.getProperties = function() { };
  * @param {*} value
  * @param {boolean=} opt_silent
  */
-ol.interaction.MouseWheelZoom.prototype.set = function(key, value, opt_silent) { };
+ol.interaction.MouseWheelZoom.prototype.set = function(key, value, opt_silent) {};
 
 
 /**
  * @param {Object.<string, *>} values
  * @param {boolean=} opt_silent
  */
-ol.interaction.MouseWheelZoom.prototype.setProperties = function(values, opt_silent) { };
+ol.interaction.MouseWheelZoom.prototype.setProperties = function(values, opt_silent) {};
 
 
 /**
  * @param {string} key
  * @param {boolean=} opt_silent
  */
-ol.interaction.MouseWheelZoom.prototype.unset = function(key, opt_silent) { };
+ol.interaction.MouseWheelZoom.prototype.unset = function(key, opt_silent) {};
 
 
 /**
  */
-ol.interaction.MouseWheelZoom.prototype.changed = function() { };
+ol.interaction.MouseWheelZoom.prototype.changed = function() {};
 
 
 /**
  * @param {Object|ol.events.Event|string} event
  */
-ol.interaction.MouseWheelZoom.prototype.dispatchEvent = function(event) { };
+ol.interaction.MouseWheelZoom.prototype.dispatchEvent = function(event) {};
 
 
 /**
  * @return {number}
  */
-ol.interaction.MouseWheelZoom.prototype.getRevision = function() { };
+ol.interaction.MouseWheelZoom.prototype.getRevision = function() {};
 
 
 /**
@@ -12100,7 +12115,7 @@ ol.interaction.MouseWheelZoom.prototype.getRevision = function() { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.interaction.MouseWheelZoom.prototype.on = function(type, listener, opt_this) { };
+ol.interaction.MouseWheelZoom.prototype.on = function(type, listener, opt_this) {};
 
 
 /**
@@ -12109,7 +12124,7 @@ ol.interaction.MouseWheelZoom.prototype.on = function(type, listener, opt_this) 
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.interaction.MouseWheelZoom.prototype.once = function(type, listener, opt_this) { };
+ol.interaction.MouseWheelZoom.prototype.once = function(type, listener, opt_this) {};
 
 
 /**
@@ -12117,44 +12132,44 @@ ol.interaction.MouseWheelZoom.prototype.once = function(type, listener, opt_this
  * @param {Function} listener
  * @param {Object=} opt_this
  */
-ol.interaction.MouseWheelZoom.prototype.un = function(type, listener, opt_this) { };
+ol.interaction.MouseWheelZoom.prototype.un = function(type, listener, opt_this) {};
 
 
 /**
  * @return {boolean}
  */
-ol.interaction.PinchRotate.prototype.getActive = function() { };
+ol.interaction.PinchRotate.prototype.getActive = function() {};
 
 
 /**
  * @return {ol.PluggableMap}
  */
-ol.interaction.PinchRotate.prototype.getMap = function() { };
+ol.interaction.PinchRotate.prototype.getMap = function() {};
 
 
 /**
  * @param {boolean} active
  */
-ol.interaction.PinchRotate.prototype.setActive = function(active) { };
+ol.interaction.PinchRotate.prototype.setActive = function(active) {};
 
 
 /**
  * @param {string} key
  * @return {*}
  */
-ol.interaction.PinchRotate.prototype.get = function(key) { };
+ol.interaction.PinchRotate.prototype.get = function(key) {};
 
 
 /**
  * @return {Array.<string>}
  */
-ol.interaction.PinchRotate.prototype.getKeys = function() { };
+ol.interaction.PinchRotate.prototype.getKeys = function() {};
 
 
 /**
  * @return {Object.<string, *>}
  */
-ol.interaction.PinchRotate.prototype.getProperties = function() { };
+ol.interaction.PinchRotate.prototype.getProperties = function() {};
 
 
 /**
@@ -12162,38 +12177,38 @@ ol.interaction.PinchRotate.prototype.getProperties = function() { };
  * @param {*} value
  * @param {boolean=} opt_silent
  */
-ol.interaction.PinchRotate.prototype.set = function(key, value, opt_silent) { };
+ol.interaction.PinchRotate.prototype.set = function(key, value, opt_silent) {};
 
 
 /**
  * @param {Object.<string, *>} values
  * @param {boolean=} opt_silent
  */
-ol.interaction.PinchRotate.prototype.setProperties = function(values, opt_silent) { };
+ol.interaction.PinchRotate.prototype.setProperties = function(values, opt_silent) {};
 
 
 /**
  * @param {string} key
  * @param {boolean=} opt_silent
  */
-ol.interaction.PinchRotate.prototype.unset = function(key, opt_silent) { };
+ol.interaction.PinchRotate.prototype.unset = function(key, opt_silent) {};
 
 
 /**
  */
-ol.interaction.PinchRotate.prototype.changed = function() { };
+ol.interaction.PinchRotate.prototype.changed = function() {};
 
 
 /**
  * @param {Object|ol.events.Event|string} event
  */
-ol.interaction.PinchRotate.prototype.dispatchEvent = function(event) { };
+ol.interaction.PinchRotate.prototype.dispatchEvent = function(event) {};
 
 
 /**
  * @return {number}
  */
-ol.interaction.PinchRotate.prototype.getRevision = function() { };
+ol.interaction.PinchRotate.prototype.getRevision = function() {};
 
 
 /**
@@ -12202,7 +12217,7 @@ ol.interaction.PinchRotate.prototype.getRevision = function() { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.interaction.PinchRotate.prototype.on = function(type, listener, opt_this) { };
+ol.interaction.PinchRotate.prototype.on = function(type, listener, opt_this) {};
 
 
 /**
@@ -12211,7 +12226,7 @@ ol.interaction.PinchRotate.prototype.on = function(type, listener, opt_this) { }
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.interaction.PinchRotate.prototype.once = function(type, listener, opt_this) { };
+ol.interaction.PinchRotate.prototype.once = function(type, listener, opt_this) {};
 
 
 /**
@@ -12219,44 +12234,44 @@ ol.interaction.PinchRotate.prototype.once = function(type, listener, opt_this) {
  * @param {Function} listener
  * @param {Object=} opt_this
  */
-ol.interaction.PinchRotate.prototype.un = function(type, listener, opt_this) { };
+ol.interaction.PinchRotate.prototype.un = function(type, listener, opt_this) {};
 
 
 /**
  * @return {boolean}
  */
-ol.interaction.PinchZoom.prototype.getActive = function() { };
+ol.interaction.PinchZoom.prototype.getActive = function() {};
 
 
 /**
  * @return {ol.PluggableMap}
  */
-ol.interaction.PinchZoom.prototype.getMap = function() { };
+ol.interaction.PinchZoom.prototype.getMap = function() {};
 
 
 /**
  * @param {boolean} active
  */
-ol.interaction.PinchZoom.prototype.setActive = function(active) { };
+ol.interaction.PinchZoom.prototype.setActive = function(active) {};
 
 
 /**
  * @param {string} key
  * @return {*}
  */
-ol.interaction.PinchZoom.prototype.get = function(key) { };
+ol.interaction.PinchZoom.prototype.get = function(key) {};
 
 
 /**
  * @return {Array.<string>}
  */
-ol.interaction.PinchZoom.prototype.getKeys = function() { };
+ol.interaction.PinchZoom.prototype.getKeys = function() {};
 
 
 /**
  * @return {Object.<string, *>}
  */
-ol.interaction.PinchZoom.prototype.getProperties = function() { };
+ol.interaction.PinchZoom.prototype.getProperties = function() {};
 
 
 /**
@@ -12264,38 +12279,38 @@ ol.interaction.PinchZoom.prototype.getProperties = function() { };
  * @param {*} value
  * @param {boolean=} opt_silent
  */
-ol.interaction.PinchZoom.prototype.set = function(key, value, opt_silent) { };
+ol.interaction.PinchZoom.prototype.set = function(key, value, opt_silent) {};
 
 
 /**
  * @param {Object.<string, *>} values
  * @param {boolean=} opt_silent
  */
-ol.interaction.PinchZoom.prototype.setProperties = function(values, opt_silent) { };
+ol.interaction.PinchZoom.prototype.setProperties = function(values, opt_silent) {};
 
 
 /**
  * @param {string} key
  * @param {boolean=} opt_silent
  */
-ol.interaction.PinchZoom.prototype.unset = function(key, opt_silent) { };
+ol.interaction.PinchZoom.prototype.unset = function(key, opt_silent) {};
 
 
 /**
  */
-ol.interaction.PinchZoom.prototype.changed = function() { };
+ol.interaction.PinchZoom.prototype.changed = function() {};
 
 
 /**
  * @param {Object|ol.events.Event|string} event
  */
-ol.interaction.PinchZoom.prototype.dispatchEvent = function(event) { };
+ol.interaction.PinchZoom.prototype.dispatchEvent = function(event) {};
 
 
 /**
  * @return {number}
  */
-ol.interaction.PinchZoom.prototype.getRevision = function() { };
+ol.interaction.PinchZoom.prototype.getRevision = function() {};
 
 
 /**
@@ -12304,7 +12319,7 @@ ol.interaction.PinchZoom.prototype.getRevision = function() { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.interaction.PinchZoom.prototype.on = function(type, listener, opt_this) { };
+ol.interaction.PinchZoom.prototype.on = function(type, listener, opt_this) {};
 
 
 /**
@@ -12313,7 +12328,7 @@ ol.interaction.PinchZoom.prototype.on = function(type, listener, opt_this) { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.interaction.PinchZoom.prototype.once = function(type, listener, opt_this) { };
+ol.interaction.PinchZoom.prototype.once = function(type, listener, opt_this) {};
 
 
 /**
@@ -12321,44 +12336,44 @@ ol.interaction.PinchZoom.prototype.once = function(type, listener, opt_this) { }
  * @param {Function} listener
  * @param {Object=} opt_this
  */
-ol.interaction.PinchZoom.prototype.un = function(type, listener, opt_this) { };
+ol.interaction.PinchZoom.prototype.un = function(type, listener, opt_this) {};
 
 
 /**
  * @return {boolean}
  */
-ol.interaction.Select.prototype.getActive = function() { };
+ol.interaction.Select.prototype.getActive = function() {};
 
 
 /**
  * @return {ol.PluggableMap}
  */
-ol.interaction.Select.prototype.getMap = function() { };
+ol.interaction.Select.prototype.getMap = function() {};
 
 
 /**
  * @param {boolean} active
  */
-ol.interaction.Select.prototype.setActive = function(active) { };
+ol.interaction.Select.prototype.setActive = function(active) {};
 
 
 /**
  * @param {string} key
  * @return {*}
  */
-ol.interaction.Select.prototype.get = function(key) { };
+ol.interaction.Select.prototype.get = function(key) {};
 
 
 /**
  * @return {Array.<string>}
  */
-ol.interaction.Select.prototype.getKeys = function() { };
+ol.interaction.Select.prototype.getKeys = function() {};
 
 
 /**
  * @return {Object.<string, *>}
  */
-ol.interaction.Select.prototype.getProperties = function() { };
+ol.interaction.Select.prototype.getProperties = function() {};
 
 
 /**
@@ -12366,38 +12381,38 @@ ol.interaction.Select.prototype.getProperties = function() { };
  * @param {*} value
  * @param {boolean=} opt_silent
  */
-ol.interaction.Select.prototype.set = function(key, value, opt_silent) { };
+ol.interaction.Select.prototype.set = function(key, value, opt_silent) {};
 
 
 /**
  * @param {Object.<string, *>} values
  * @param {boolean=} opt_silent
  */
-ol.interaction.Select.prototype.setProperties = function(values, opt_silent) { };
+ol.interaction.Select.prototype.setProperties = function(values, opt_silent) {};
 
 
 /**
  * @param {string} key
  * @param {boolean=} opt_silent
  */
-ol.interaction.Select.prototype.unset = function(key, opt_silent) { };
+ol.interaction.Select.prototype.unset = function(key, opt_silent) {};
 
 
 /**
  */
-ol.interaction.Select.prototype.changed = function() { };
+ol.interaction.Select.prototype.changed = function() {};
 
 
 /**
  * @param {Object|ol.events.Event|string} event
  */
-ol.interaction.Select.prototype.dispatchEvent = function(event) { };
+ol.interaction.Select.prototype.dispatchEvent = function(event) {};
 
 
 /**
  * @return {number}
  */
-ol.interaction.Select.prototype.getRevision = function() { };
+ol.interaction.Select.prototype.getRevision = function() {};
 
 
 /**
@@ -12406,7 +12421,7 @@ ol.interaction.Select.prototype.getRevision = function() { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.interaction.Select.prototype.on = function(type, listener, opt_this) { };
+ol.interaction.Select.prototype.on = function(type, listener, opt_this) {};
 
 
 /**
@@ -12415,7 +12430,7 @@ ol.interaction.Select.prototype.on = function(type, listener, opt_this) { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.interaction.Select.prototype.once = function(type, listener, opt_this) { };
+ol.interaction.Select.prototype.once = function(type, listener, opt_this) {};
 
 
 /**
@@ -12423,7 +12438,7 @@ ol.interaction.Select.prototype.once = function(type, listener, opt_this) { };
  * @param {Function} listener
  * @param {Object=} opt_this
  */
-ol.interaction.Select.prototype.un = function(type, listener, opt_this) { };
+ol.interaction.Select.prototype.un = function(type, listener, opt_this) {};
 
 
 /**
@@ -12440,49 +12455,49 @@ ol.interaction.Select.Event.prototype.target;
 
 /**
  */
-ol.interaction.Select.Event.prototype.preventDefault = function() { };
+ol.interaction.Select.Event.prototype.preventDefault = function() {};
 
 
 /**
  */
-ol.interaction.Select.Event.prototype.stopPropagation = function() { };
+ol.interaction.Select.Event.prototype.stopPropagation = function() {};
 
 
 /**
  * @return {boolean}
  */
-ol.interaction.Snap.prototype.getActive = function() { };
+ol.interaction.Snap.prototype.getActive = function() {};
 
 
 /**
  * @return {ol.PluggableMap}
  */
-ol.interaction.Snap.prototype.getMap = function() { };
+ol.interaction.Snap.prototype.getMap = function() {};
 
 
 /**
  * @param {boolean} active
  */
-ol.interaction.Snap.prototype.setActive = function(active) { };
+ol.interaction.Snap.prototype.setActive = function(active) {};
 
 
 /**
  * @param {string} key
  * @return {*}
  */
-ol.interaction.Snap.prototype.get = function(key) { };
+ol.interaction.Snap.prototype.get = function(key) {};
 
 
 /**
  * @return {Array.<string>}
  */
-ol.interaction.Snap.prototype.getKeys = function() { };
+ol.interaction.Snap.prototype.getKeys = function() {};
 
 
 /**
  * @return {Object.<string, *>}
  */
-ol.interaction.Snap.prototype.getProperties = function() { };
+ol.interaction.Snap.prototype.getProperties = function() {};
 
 
 /**
@@ -12490,38 +12505,38 @@ ol.interaction.Snap.prototype.getProperties = function() { };
  * @param {*} value
  * @param {boolean=} opt_silent
  */
-ol.interaction.Snap.prototype.set = function(key, value, opt_silent) { };
+ol.interaction.Snap.prototype.set = function(key, value, opt_silent) {};
 
 
 /**
  * @param {Object.<string, *>} values
  * @param {boolean=} opt_silent
  */
-ol.interaction.Snap.prototype.setProperties = function(values, opt_silent) { };
+ol.interaction.Snap.prototype.setProperties = function(values, opt_silent) {};
 
 
 /**
  * @param {string} key
  * @param {boolean=} opt_silent
  */
-ol.interaction.Snap.prototype.unset = function(key, opt_silent) { };
+ol.interaction.Snap.prototype.unset = function(key, opt_silent) {};
 
 
 /**
  */
-ol.interaction.Snap.prototype.changed = function() { };
+ol.interaction.Snap.prototype.changed = function() {};
 
 
 /**
  * @param {Object|ol.events.Event|string} event
  */
-ol.interaction.Snap.prototype.dispatchEvent = function(event) { };
+ol.interaction.Snap.prototype.dispatchEvent = function(event) {};
 
 
 /**
  * @return {number}
  */
-ol.interaction.Snap.prototype.getRevision = function() { };
+ol.interaction.Snap.prototype.getRevision = function() {};
 
 
 /**
@@ -12530,7 +12545,7 @@ ol.interaction.Snap.prototype.getRevision = function() { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.interaction.Snap.prototype.on = function(type, listener, opt_this) { };
+ol.interaction.Snap.prototype.on = function(type, listener, opt_this) {};
 
 
 /**
@@ -12539,7 +12554,7 @@ ol.interaction.Snap.prototype.on = function(type, listener, opt_this) { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.interaction.Snap.prototype.once = function(type, listener, opt_this) { };
+ol.interaction.Snap.prototype.once = function(type, listener, opt_this) {};
 
 
 /**
@@ -12547,44 +12562,44 @@ ol.interaction.Snap.prototype.once = function(type, listener, opt_this) { };
  * @param {Function} listener
  * @param {Object=} opt_this
  */
-ol.interaction.Snap.prototype.un = function(type, listener, opt_this) { };
+ol.interaction.Snap.prototype.un = function(type, listener, opt_this) {};
 
 
 /**
  * @return {boolean}
  */
-ol.interaction.Translate.prototype.getActive = function() { };
+ol.interaction.Translate.prototype.getActive = function() {};
 
 
 /**
  * @return {ol.PluggableMap}
  */
-ol.interaction.Translate.prototype.getMap = function() { };
+ol.interaction.Translate.prototype.getMap = function() {};
 
 
 /**
  * @param {boolean} active
  */
-ol.interaction.Translate.prototype.setActive = function(active) { };
+ol.interaction.Translate.prototype.setActive = function(active) {};
 
 
 /**
  * @param {string} key
  * @return {*}
  */
-ol.interaction.Translate.prototype.get = function(key) { };
+ol.interaction.Translate.prototype.get = function(key) {};
 
 
 /**
  * @return {Array.<string>}
  */
-ol.interaction.Translate.prototype.getKeys = function() { };
+ol.interaction.Translate.prototype.getKeys = function() {};
 
 
 /**
  * @return {Object.<string, *>}
  */
-ol.interaction.Translate.prototype.getProperties = function() { };
+ol.interaction.Translate.prototype.getProperties = function() {};
 
 
 /**
@@ -12592,38 +12607,38 @@ ol.interaction.Translate.prototype.getProperties = function() { };
  * @param {*} value
  * @param {boolean=} opt_silent
  */
-ol.interaction.Translate.prototype.set = function(key, value, opt_silent) { };
+ol.interaction.Translate.prototype.set = function(key, value, opt_silent) {};
 
 
 /**
  * @param {Object.<string, *>} values
  * @param {boolean=} opt_silent
  */
-ol.interaction.Translate.prototype.setProperties = function(values, opt_silent) { };
+ol.interaction.Translate.prototype.setProperties = function(values, opt_silent) {};
 
 
 /**
  * @param {string} key
  * @param {boolean=} opt_silent
  */
-ol.interaction.Translate.prototype.unset = function(key, opt_silent) { };
+ol.interaction.Translate.prototype.unset = function(key, opt_silent) {};
 
 
 /**
  */
-ol.interaction.Translate.prototype.changed = function() { };
+ol.interaction.Translate.prototype.changed = function() {};
 
 
 /**
  * @param {Object|ol.events.Event|string} event
  */
-ol.interaction.Translate.prototype.dispatchEvent = function(event) { };
+ol.interaction.Translate.prototype.dispatchEvent = function(event) {};
 
 
 /**
  * @return {number}
  */
-ol.interaction.Translate.prototype.getRevision = function() { };
+ol.interaction.Translate.prototype.getRevision = function() {};
 
 
 /**
@@ -12632,7 +12647,7 @@ ol.interaction.Translate.prototype.getRevision = function() { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.interaction.Translate.prototype.on = function(type, listener, opt_this) { };
+ol.interaction.Translate.prototype.on = function(type, listener, opt_this) {};
 
 
 /**
@@ -12641,7 +12656,7 @@ ol.interaction.Translate.prototype.on = function(type, listener, opt_this) { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.interaction.Translate.prototype.once = function(type, listener, opt_this) { };
+ol.interaction.Translate.prototype.once = function(type, listener, opt_this) {};
 
 
 /**
@@ -12649,7 +12664,7 @@ ol.interaction.Translate.prototype.once = function(type, listener, opt_this) { }
  * @param {Function} listener
  * @param {Object=} opt_this
  */
-ol.interaction.Translate.prototype.un = function(type, listener, opt_this) { };
+ol.interaction.Translate.prototype.un = function(type, listener, opt_this) {};
 
 
 /**
@@ -12666,31 +12681,31 @@ ol.interaction.Translate.Event.prototype.target;
 
 /**
  */
-ol.interaction.Translate.Event.prototype.preventDefault = function() { };
+ol.interaction.Translate.Event.prototype.preventDefault = function() {};
 
 
 /**
  */
-ol.interaction.Translate.Event.prototype.stopPropagation = function() { };
+ol.interaction.Translate.Event.prototype.stopPropagation = function() {};
 
 
 /**
  * @param {string} key
  * @return {*}
  */
-ol.layer.Base.prototype.get = function(key) { };
+ol.layer.Base.prototype.get = function(key) {};
 
 
 /**
  * @return {Array.<string>}
  */
-ol.layer.Base.prototype.getKeys = function() { };
+ol.layer.Base.prototype.getKeys = function() {};
 
 
 /**
  * @return {Object.<string, *>}
  */
-ol.layer.Base.prototype.getProperties = function() { };
+ol.layer.Base.prototype.getProperties = function() {};
 
 
 /**
@@ -12698,38 +12713,38 @@ ol.layer.Base.prototype.getProperties = function() { };
  * @param {*} value
  * @param {boolean=} opt_silent
  */
-ol.layer.Base.prototype.set = function(key, value, opt_silent) { };
+ol.layer.Base.prototype.set = function(key, value, opt_silent) {};
 
 
 /**
  * @param {Object.<string, *>} values
  * @param {boolean=} opt_silent
  */
-ol.layer.Base.prototype.setProperties = function(values, opt_silent) { };
+ol.layer.Base.prototype.setProperties = function(values, opt_silent) {};
 
 
 /**
  * @param {string} key
  * @param {boolean=} opt_silent
  */
-ol.layer.Base.prototype.unset = function(key, opt_silent) { };
+ol.layer.Base.prototype.unset = function(key, opt_silent) {};
 
 
 /**
  */
-ol.layer.Base.prototype.changed = function() { };
+ol.layer.Base.prototype.changed = function() {};
 
 
 /**
  * @param {Object|ol.events.Event|string} event
  */
-ol.layer.Base.prototype.dispatchEvent = function(event) { };
+ol.layer.Base.prototype.dispatchEvent = function(event) {};
 
 
 /**
  * @return {number}
  */
-ol.layer.Base.prototype.getRevision = function() { };
+ol.layer.Base.prototype.getRevision = function() {};
 
 
 /**
@@ -12738,7 +12753,7 @@ ol.layer.Base.prototype.getRevision = function() { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.layer.Base.prototype.on = function(type, listener, opt_this) { };
+ol.layer.Base.prototype.on = function(type, listener, opt_this) {};
 
 
 /**
@@ -12747,7 +12762,7 @@ ol.layer.Base.prototype.on = function(type, listener, opt_this) { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.layer.Base.prototype.once = function(type, listener, opt_this) { };
+ol.layer.Base.prototype.once = function(type, listener, opt_this) {};
 
 
 /**
@@ -12755,98 +12770,98 @@ ol.layer.Base.prototype.once = function(type, listener, opt_this) { };
  * @param {Function} listener
  * @param {Object=} opt_this
  */
-ol.layer.Base.prototype.un = function(type, listener, opt_this) { };
+ol.layer.Base.prototype.un = function(type, listener, opt_this) {};
 
 
 /**
  * @return {ol.Extent|undefined}
  */
-ol.layer.Group.prototype.getExtent = function() { };
+ol.layer.Group.prototype.getExtent = function() {};
 
 
 /**
  * @return {number}
  */
-ol.layer.Group.prototype.getMaxResolution = function() { };
+ol.layer.Group.prototype.getMaxResolution = function() {};
 
 
 /**
  * @return {number}
  */
-ol.layer.Group.prototype.getMinResolution = function() { };
+ol.layer.Group.prototype.getMinResolution = function() {};
 
 
 /**
  * @return {number}
  */
-ol.layer.Group.prototype.getOpacity = function() { };
+ol.layer.Group.prototype.getOpacity = function() {};
 
 
 /**
  * @return {boolean}
  */
-ol.layer.Group.prototype.getVisible = function() { };
+ol.layer.Group.prototype.getVisible = function() {};
 
 
 /**
  * @return {number}
  */
-ol.layer.Group.prototype.getZIndex = function() { };
+ol.layer.Group.prototype.getZIndex = function() {};
 
 
 /**
  * @param {ol.Extent|undefined} extent
  */
-ol.layer.Group.prototype.setExtent = function(extent) { };
+ol.layer.Group.prototype.setExtent = function(extent) {};
 
 
 /**
  * @param {number} maxResolution
  */
-ol.layer.Group.prototype.setMaxResolution = function(maxResolution) { };
+ol.layer.Group.prototype.setMaxResolution = function(maxResolution) {};
 
 
 /**
  * @param {number} minResolution
  */
-ol.layer.Group.prototype.setMinResolution = function(minResolution) { };
+ol.layer.Group.prototype.setMinResolution = function(minResolution) {};
 
 
 /**
  * @param {number} opacity
  */
-ol.layer.Group.prototype.setOpacity = function(opacity) { };
+ol.layer.Group.prototype.setOpacity = function(opacity) {};
 
 
 /**
  * @param {boolean} visible
  */
-ol.layer.Group.prototype.setVisible = function(visible) { };
+ol.layer.Group.prototype.setVisible = function(visible) {};
 
 
 /**
  * @param {number} zindex
  */
-ol.layer.Group.prototype.setZIndex = function(zindex) { };
+ol.layer.Group.prototype.setZIndex = function(zindex) {};
 
 
 /**
  * @param {string} key
  * @return {*}
  */
-ol.layer.Group.prototype.get = function(key) { };
+ol.layer.Group.prototype.get = function(key) {};
 
 
 /**
  * @return {Array.<string>}
  */
-ol.layer.Group.prototype.getKeys = function() { };
+ol.layer.Group.prototype.getKeys = function() {};
 
 
 /**
  * @return {Object.<string, *>}
  */
-ol.layer.Group.prototype.getProperties = function() { };
+ol.layer.Group.prototype.getProperties = function() {};
 
 
 /**
@@ -12854,38 +12869,38 @@ ol.layer.Group.prototype.getProperties = function() { };
  * @param {*} value
  * @param {boolean=} opt_silent
  */
-ol.layer.Group.prototype.set = function(key, value, opt_silent) { };
+ol.layer.Group.prototype.set = function(key, value, opt_silent) {};
 
 
 /**
  * @param {Object.<string, *>} values
  * @param {boolean=} opt_silent
  */
-ol.layer.Group.prototype.setProperties = function(values, opt_silent) { };
+ol.layer.Group.prototype.setProperties = function(values, opt_silent) {};
 
 
 /**
  * @param {string} key
  * @param {boolean=} opt_silent
  */
-ol.layer.Group.prototype.unset = function(key, opt_silent) { };
+ol.layer.Group.prototype.unset = function(key, opt_silent) {};
 
 
 /**
  */
-ol.layer.Group.prototype.changed = function() { };
+ol.layer.Group.prototype.changed = function() {};
 
 
 /**
  * @param {Object|ol.events.Event|string} event
  */
-ol.layer.Group.prototype.dispatchEvent = function(event) { };
+ol.layer.Group.prototype.dispatchEvent = function(event) {};
 
 
 /**
  * @return {number}
  */
-ol.layer.Group.prototype.getRevision = function() { };
+ol.layer.Group.prototype.getRevision = function() {};
 
 
 /**
@@ -12894,7 +12909,7 @@ ol.layer.Group.prototype.getRevision = function() { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.layer.Group.prototype.on = function(type, listener, opt_this) { };
+ol.layer.Group.prototype.on = function(type, listener, opt_this) {};
 
 
 /**
@@ -12903,7 +12918,7 @@ ol.layer.Group.prototype.on = function(type, listener, opt_this) { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.layer.Group.prototype.once = function(type, listener, opt_this) { };
+ol.layer.Group.prototype.once = function(type, listener, opt_this) {};
 
 
 /**
@@ -12911,98 +12926,98 @@ ol.layer.Group.prototype.once = function(type, listener, opt_this) { };
  * @param {Function} listener
  * @param {Object=} opt_this
  */
-ol.layer.Group.prototype.un = function(type, listener, opt_this) { };
+ol.layer.Group.prototype.un = function(type, listener, opt_this) {};
 
 
 /**
  * @return {ol.Extent|undefined}
  */
-ol.layer.Layer.prototype.getExtent = function() { };
+ol.layer.Layer.prototype.getExtent = function() {};
 
 
 /**
  * @return {number}
  */
-ol.layer.Layer.prototype.getMaxResolution = function() { };
+ol.layer.Layer.prototype.getMaxResolution = function() {};
 
 
 /**
  * @return {number}
  */
-ol.layer.Layer.prototype.getMinResolution = function() { };
+ol.layer.Layer.prototype.getMinResolution = function() {};
 
 
 /**
  * @return {number}
  */
-ol.layer.Layer.prototype.getOpacity = function() { };
+ol.layer.Layer.prototype.getOpacity = function() {};
 
 
 /**
  * @return {boolean}
  */
-ol.layer.Layer.prototype.getVisible = function() { };
+ol.layer.Layer.prototype.getVisible = function() {};
 
 
 /**
  * @return {number}
  */
-ol.layer.Layer.prototype.getZIndex = function() { };
+ol.layer.Layer.prototype.getZIndex = function() {};
 
 
 /**
  * @param {ol.Extent|undefined} extent
  */
-ol.layer.Layer.prototype.setExtent = function(extent) { };
+ol.layer.Layer.prototype.setExtent = function(extent) {};
 
 
 /**
  * @param {number} maxResolution
  */
-ol.layer.Layer.prototype.setMaxResolution = function(maxResolution) { };
+ol.layer.Layer.prototype.setMaxResolution = function(maxResolution) {};
 
 
 /**
  * @param {number} minResolution
  */
-ol.layer.Layer.prototype.setMinResolution = function(minResolution) { };
+ol.layer.Layer.prototype.setMinResolution = function(minResolution) {};
 
 
 /**
  * @param {number} opacity
  */
-ol.layer.Layer.prototype.setOpacity = function(opacity) { };
+ol.layer.Layer.prototype.setOpacity = function(opacity) {};
 
 
 /**
  * @param {boolean} visible
  */
-ol.layer.Layer.prototype.setVisible = function(visible) { };
+ol.layer.Layer.prototype.setVisible = function(visible) {};
 
 
 /**
  * @param {number} zindex
  */
-ol.layer.Layer.prototype.setZIndex = function(zindex) { };
+ol.layer.Layer.prototype.setZIndex = function(zindex) {};
 
 
 /**
  * @param {string} key
  * @return {*}
  */
-ol.layer.Layer.prototype.get = function(key) { };
+ol.layer.Layer.prototype.get = function(key) {};
 
 
 /**
  * @return {Array.<string>}
  */
-ol.layer.Layer.prototype.getKeys = function() { };
+ol.layer.Layer.prototype.getKeys = function() {};
 
 
 /**
  * @return {Object.<string, *>}
  */
-ol.layer.Layer.prototype.getProperties = function() { };
+ol.layer.Layer.prototype.getProperties = function() {};
 
 
 /**
@@ -13010,38 +13025,38 @@ ol.layer.Layer.prototype.getProperties = function() { };
  * @param {*} value
  * @param {boolean=} opt_silent
  */
-ol.layer.Layer.prototype.set = function(key, value, opt_silent) { };
+ol.layer.Layer.prototype.set = function(key, value, opt_silent) {};
 
 
 /**
  * @param {Object.<string, *>} values
  * @param {boolean=} opt_silent
  */
-ol.layer.Layer.prototype.setProperties = function(values, opt_silent) { };
+ol.layer.Layer.prototype.setProperties = function(values, opt_silent) {};
 
 
 /**
  * @param {string} key
  * @param {boolean=} opt_silent
  */
-ol.layer.Layer.prototype.unset = function(key, opt_silent) { };
+ol.layer.Layer.prototype.unset = function(key, opt_silent) {};
 
 
 /**
  */
-ol.layer.Layer.prototype.changed = function() { };
+ol.layer.Layer.prototype.changed = function() {};
 
 
 /**
  * @param {Object|ol.events.Event|string} event
  */
-ol.layer.Layer.prototype.dispatchEvent = function(event) { };
+ol.layer.Layer.prototype.dispatchEvent = function(event) {};
 
 
 /**
  * @return {number}
  */
-ol.layer.Layer.prototype.getRevision = function() { };
+ol.layer.Layer.prototype.getRevision = function() {};
 
 
 /**
@@ -13050,7 +13065,7 @@ ol.layer.Layer.prototype.getRevision = function() { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.layer.Layer.prototype.on = function(type, listener, opt_this) { };
+ol.layer.Layer.prototype.on = function(type, listener, opt_this) {};
 
 
 /**
@@ -13059,7 +13074,7 @@ ol.layer.Layer.prototype.on = function(type, listener, opt_this) { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.layer.Layer.prototype.once = function(type, listener, opt_this) { };
+ol.layer.Layer.prototype.once = function(type, listener, opt_this) {};
 
 
 /**
@@ -13067,110 +13082,110 @@ ol.layer.Layer.prototype.once = function(type, listener, opt_this) { };
  * @param {Function} listener
  * @param {Object=} opt_this
  */
-ol.layer.Layer.prototype.un = function(type, listener, opt_this) { };
+ol.layer.Layer.prototype.un = function(type, listener, opt_this) {};
 
 
 /**
  * @param {ol.PluggableMap} map
  */
-ol.layer.Vector.prototype.setMap = function(map) { };
+ol.layer.Vector.prototype.setMap = function(map) {};
 
 
 /**
  * @param {ol.source.Source} source
  */
-ol.layer.Vector.prototype.setSource = function(source) { };
+ol.layer.Vector.prototype.setSource = function(source) {};
 
 
 /**
  * @return {ol.Extent|undefined}
  */
-ol.layer.Vector.prototype.getExtent = function() { };
+ol.layer.Vector.prototype.getExtent = function() {};
 
 
 /**
  * @return {number}
  */
-ol.layer.Vector.prototype.getMaxResolution = function() { };
+ol.layer.Vector.prototype.getMaxResolution = function() {};
 
 
 /**
  * @return {number}
  */
-ol.layer.Vector.prototype.getMinResolution = function() { };
+ol.layer.Vector.prototype.getMinResolution = function() {};
 
 
 /**
  * @return {number}
  */
-ol.layer.Vector.prototype.getOpacity = function() { };
+ol.layer.Vector.prototype.getOpacity = function() {};
 
 
 /**
  * @return {boolean}
  */
-ol.layer.Vector.prototype.getVisible = function() { };
+ol.layer.Vector.prototype.getVisible = function() {};
 
 
 /**
  * @return {number}
  */
-ol.layer.Vector.prototype.getZIndex = function() { };
+ol.layer.Vector.prototype.getZIndex = function() {};
 
 
 /**
  * @param {ol.Extent|undefined} extent
  */
-ol.layer.Vector.prototype.setExtent = function(extent) { };
+ol.layer.Vector.prototype.setExtent = function(extent) {};
 
 
 /**
  * @param {number} maxResolution
  */
-ol.layer.Vector.prototype.setMaxResolution = function(maxResolution) { };
+ol.layer.Vector.prototype.setMaxResolution = function(maxResolution) {};
 
 
 /**
  * @param {number} minResolution
  */
-ol.layer.Vector.prototype.setMinResolution = function(minResolution) { };
+ol.layer.Vector.prototype.setMinResolution = function(minResolution) {};
 
 
 /**
  * @param {number} opacity
  */
-ol.layer.Vector.prototype.setOpacity = function(opacity) { };
+ol.layer.Vector.prototype.setOpacity = function(opacity) {};
 
 
 /**
  * @param {boolean} visible
  */
-ol.layer.Vector.prototype.setVisible = function(visible) { };
+ol.layer.Vector.prototype.setVisible = function(visible) {};
 
 
 /**
  * @param {number} zindex
  */
-ol.layer.Vector.prototype.setZIndex = function(zindex) { };
+ol.layer.Vector.prototype.setZIndex = function(zindex) {};
 
 
 /**
  * @param {string} key
  * @return {*}
  */
-ol.layer.Vector.prototype.get = function(key) { };
+ol.layer.Vector.prototype.get = function(key) {};
 
 
 /**
  * @return {Array.<string>}
  */
-ol.layer.Vector.prototype.getKeys = function() { };
+ol.layer.Vector.prototype.getKeys = function() {};
 
 
 /**
  * @return {Object.<string, *>}
  */
-ol.layer.Vector.prototype.getProperties = function() { };
+ol.layer.Vector.prototype.getProperties = function() {};
 
 
 /**
@@ -13178,38 +13193,38 @@ ol.layer.Vector.prototype.getProperties = function() { };
  * @param {*} value
  * @param {boolean=} opt_silent
  */
-ol.layer.Vector.prototype.set = function(key, value, opt_silent) { };
+ol.layer.Vector.prototype.set = function(key, value, opt_silent) {};
 
 
 /**
  * @param {Object.<string, *>} values
  * @param {boolean=} opt_silent
  */
-ol.layer.Vector.prototype.setProperties = function(values, opt_silent) { };
+ol.layer.Vector.prototype.setProperties = function(values, opt_silent) {};
 
 
 /**
  * @param {string} key
  * @param {boolean=} opt_silent
  */
-ol.layer.Vector.prototype.unset = function(key, opt_silent) { };
+ol.layer.Vector.prototype.unset = function(key, opt_silent) {};
 
 
 /**
  */
-ol.layer.Vector.prototype.changed = function() { };
+ol.layer.Vector.prototype.changed = function() {};
 
 
 /**
  * @param {Object|ol.events.Event|string} event
  */
-ol.layer.Vector.prototype.dispatchEvent = function(event) { };
+ol.layer.Vector.prototype.dispatchEvent = function(event) {};
 
 
 /**
  * @return {number}
  */
-ol.layer.Vector.prototype.getRevision = function() { };
+ol.layer.Vector.prototype.getRevision = function() {};
 
 
 /**
@@ -13218,7 +13233,7 @@ ol.layer.Vector.prototype.getRevision = function() { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.layer.Vector.prototype.on = function(type, listener, opt_this) { };
+ol.layer.Vector.prototype.on = function(type, listener, opt_this) {};
 
 
 /**
@@ -13227,7 +13242,7 @@ ol.layer.Vector.prototype.on = function(type, listener, opt_this) { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.layer.Vector.prototype.once = function(type, listener, opt_this) { };
+ol.layer.Vector.prototype.once = function(type, listener, opt_this) {};
 
 
 /**
@@ -13235,134 +13250,134 @@ ol.layer.Vector.prototype.once = function(type, listener, opt_this) { };
  * @param {Function} listener
  * @param {Object=} opt_this
  */
-ol.layer.Vector.prototype.un = function(type, listener, opt_this) { };
+ol.layer.Vector.prototype.un = function(type, listener, opt_this) {};
 
 
 /**
  * @return {ol.source.Vector}
  */
-ol.layer.Heatmap.prototype.getSource = function() { };
+ol.layer.Heatmap.prototype.getSource = function() {};
 
 
 /**
  * @return {ol.style.Style|Array.<ol.style.Style>|ol.StyleFunction}
  */
-ol.layer.Heatmap.prototype.getStyle = function() { };
+ol.layer.Heatmap.prototype.getStyle = function() {};
 
 
 /**
  * @return {ol.StyleFunction|undefined}
  */
-ol.layer.Heatmap.prototype.getStyleFunction = function() { };
+ol.layer.Heatmap.prototype.getStyleFunction = function() {};
 
 
 /**
  * @param {ol.style.Style|Array.<ol.style.Style>|ol.StyleFunction|null|undefined} style
  */
-ol.layer.Heatmap.prototype.setStyle = function(style) { };
+ol.layer.Heatmap.prototype.setStyle = function(style) {};
 
 
 /**
  * @param {ol.PluggableMap} map
  */
-ol.layer.Heatmap.prototype.setMap = function(map) { };
+ol.layer.Heatmap.prototype.setMap = function(map) {};
 
 
 /**
  * @param {ol.source.Source} source
  */
-ol.layer.Heatmap.prototype.setSource = function(source) { };
+ol.layer.Heatmap.prototype.setSource = function(source) {};
 
 
 /**
  * @return {ol.Extent|undefined}
  */
-ol.layer.Heatmap.prototype.getExtent = function() { };
+ol.layer.Heatmap.prototype.getExtent = function() {};
 
 
 /**
  * @return {number}
  */
-ol.layer.Heatmap.prototype.getMaxResolution = function() { };
+ol.layer.Heatmap.prototype.getMaxResolution = function() {};
 
 
 /**
  * @return {number}
  */
-ol.layer.Heatmap.prototype.getMinResolution = function() { };
+ol.layer.Heatmap.prototype.getMinResolution = function() {};
 
 
 /**
  * @return {number}
  */
-ol.layer.Heatmap.prototype.getOpacity = function() { };
+ol.layer.Heatmap.prototype.getOpacity = function() {};
 
 
 /**
  * @return {boolean}
  */
-ol.layer.Heatmap.prototype.getVisible = function() { };
+ol.layer.Heatmap.prototype.getVisible = function() {};
 
 
 /**
  * @return {number}
  */
-ol.layer.Heatmap.prototype.getZIndex = function() { };
+ol.layer.Heatmap.prototype.getZIndex = function() {};
 
 
 /**
  * @param {ol.Extent|undefined} extent
  */
-ol.layer.Heatmap.prototype.setExtent = function(extent) { };
+ol.layer.Heatmap.prototype.setExtent = function(extent) {};
 
 
 /**
  * @param {number} maxResolution
  */
-ol.layer.Heatmap.prototype.setMaxResolution = function(maxResolution) { };
+ol.layer.Heatmap.prototype.setMaxResolution = function(maxResolution) {};
 
 
 /**
  * @param {number} minResolution
  */
-ol.layer.Heatmap.prototype.setMinResolution = function(minResolution) { };
+ol.layer.Heatmap.prototype.setMinResolution = function(minResolution) {};
 
 
 /**
  * @param {number} opacity
  */
-ol.layer.Heatmap.prototype.setOpacity = function(opacity) { };
+ol.layer.Heatmap.prototype.setOpacity = function(opacity) {};
 
 
 /**
  * @param {boolean} visible
  */
-ol.layer.Heatmap.prototype.setVisible = function(visible) { };
+ol.layer.Heatmap.prototype.setVisible = function(visible) {};
 
 
 /**
  * @param {number} zindex
  */
-ol.layer.Heatmap.prototype.setZIndex = function(zindex) { };
+ol.layer.Heatmap.prototype.setZIndex = function(zindex) {};
 
 
 /**
  * @param {string} key
  * @return {*}
  */
-ol.layer.Heatmap.prototype.get = function(key) { };
+ol.layer.Heatmap.prototype.get = function(key) {};
 
 
 /**
  * @return {Array.<string>}
  */
-ol.layer.Heatmap.prototype.getKeys = function() { };
+ol.layer.Heatmap.prototype.getKeys = function() {};
 
 
 /**
  * @return {Object.<string, *>}
  */
-ol.layer.Heatmap.prototype.getProperties = function() { };
+ol.layer.Heatmap.prototype.getProperties = function() {};
 
 
 /**
@@ -13370,38 +13385,38 @@ ol.layer.Heatmap.prototype.getProperties = function() { };
  * @param {*} value
  * @param {boolean=} opt_silent
  */
-ol.layer.Heatmap.prototype.set = function(key, value, opt_silent) { };
+ol.layer.Heatmap.prototype.set = function(key, value, opt_silent) {};
 
 
 /**
  * @param {Object.<string, *>} values
  * @param {boolean=} opt_silent
  */
-ol.layer.Heatmap.prototype.setProperties = function(values, opt_silent) { };
+ol.layer.Heatmap.prototype.setProperties = function(values, opt_silent) {};
 
 
 /**
  * @param {string} key
  * @param {boolean=} opt_silent
  */
-ol.layer.Heatmap.prototype.unset = function(key, opt_silent) { };
+ol.layer.Heatmap.prototype.unset = function(key, opt_silent) {};
 
 
 /**
  */
-ol.layer.Heatmap.prototype.changed = function() { };
+ol.layer.Heatmap.prototype.changed = function() {};
 
 
 /**
  * @param {Object|ol.events.Event|string} event
  */
-ol.layer.Heatmap.prototype.dispatchEvent = function(event) { };
+ol.layer.Heatmap.prototype.dispatchEvent = function(event) {};
 
 
 /**
  * @return {number}
  */
-ol.layer.Heatmap.prototype.getRevision = function() { };
+ol.layer.Heatmap.prototype.getRevision = function() {};
 
 
 /**
@@ -13410,7 +13425,7 @@ ol.layer.Heatmap.prototype.getRevision = function() { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.layer.Heatmap.prototype.on = function(type, listener, opt_this) { };
+ol.layer.Heatmap.prototype.on = function(type, listener, opt_this) {};
 
 
 /**
@@ -13419,7 +13434,7 @@ ol.layer.Heatmap.prototype.on = function(type, listener, opt_this) { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.layer.Heatmap.prototype.once = function(type, listener, opt_this) { };
+ol.layer.Heatmap.prototype.once = function(type, listener, opt_this) {};
 
 
 /**
@@ -13427,110 +13442,110 @@ ol.layer.Heatmap.prototype.once = function(type, listener, opt_this) { };
  * @param {Function} listener
  * @param {Object=} opt_this
  */
-ol.layer.Heatmap.prototype.un = function(type, listener, opt_this) { };
+ol.layer.Heatmap.prototype.un = function(type, listener, opt_this) {};
 
 
 /**
  * @param {ol.PluggableMap} map
  */
-ol.layer.Image.prototype.setMap = function(map) { };
+ol.layer.Image.prototype.setMap = function(map) {};
 
 
 /**
  * @param {ol.source.Source} source
  */
-ol.layer.Image.prototype.setSource = function(source) { };
+ol.layer.Image.prototype.setSource = function(source) {};
 
 
 /**
  * @return {ol.Extent|undefined}
  */
-ol.layer.Image.prototype.getExtent = function() { };
+ol.layer.Image.prototype.getExtent = function() {};
 
 
 /**
  * @return {number}
  */
-ol.layer.Image.prototype.getMaxResolution = function() { };
+ol.layer.Image.prototype.getMaxResolution = function() {};
 
 
 /**
  * @return {number}
  */
-ol.layer.Image.prototype.getMinResolution = function() { };
+ol.layer.Image.prototype.getMinResolution = function() {};
 
 
 /**
  * @return {number}
  */
-ol.layer.Image.prototype.getOpacity = function() { };
+ol.layer.Image.prototype.getOpacity = function() {};
 
 
 /**
  * @return {boolean}
  */
-ol.layer.Image.prototype.getVisible = function() { };
+ol.layer.Image.prototype.getVisible = function() {};
 
 
 /**
  * @return {number}
  */
-ol.layer.Image.prototype.getZIndex = function() { };
+ol.layer.Image.prototype.getZIndex = function() {};
 
 
 /**
  * @param {ol.Extent|undefined} extent
  */
-ol.layer.Image.prototype.setExtent = function(extent) { };
+ol.layer.Image.prototype.setExtent = function(extent) {};
 
 
 /**
  * @param {number} maxResolution
  */
-ol.layer.Image.prototype.setMaxResolution = function(maxResolution) { };
+ol.layer.Image.prototype.setMaxResolution = function(maxResolution) {};
 
 
 /**
  * @param {number} minResolution
  */
-ol.layer.Image.prototype.setMinResolution = function(minResolution) { };
+ol.layer.Image.prototype.setMinResolution = function(minResolution) {};
 
 
 /**
  * @param {number} opacity
  */
-ol.layer.Image.prototype.setOpacity = function(opacity) { };
+ol.layer.Image.prototype.setOpacity = function(opacity) {};
 
 
 /**
  * @param {boolean} visible
  */
-ol.layer.Image.prototype.setVisible = function(visible) { };
+ol.layer.Image.prototype.setVisible = function(visible) {};
 
 
 /**
  * @param {number} zindex
  */
-ol.layer.Image.prototype.setZIndex = function(zindex) { };
+ol.layer.Image.prototype.setZIndex = function(zindex) {};
 
 
 /**
  * @param {string} key
  * @return {*}
  */
-ol.layer.Image.prototype.get = function(key) { };
+ol.layer.Image.prototype.get = function(key) {};
 
 
 /**
  * @return {Array.<string>}
  */
-ol.layer.Image.prototype.getKeys = function() { };
+ol.layer.Image.prototype.getKeys = function() {};
 
 
 /**
  * @return {Object.<string, *>}
  */
-ol.layer.Image.prototype.getProperties = function() { };
+ol.layer.Image.prototype.getProperties = function() {};
 
 
 /**
@@ -13538,38 +13553,38 @@ ol.layer.Image.prototype.getProperties = function() { };
  * @param {*} value
  * @param {boolean=} opt_silent
  */
-ol.layer.Image.prototype.set = function(key, value, opt_silent) { };
+ol.layer.Image.prototype.set = function(key, value, opt_silent) {};
 
 
 /**
  * @param {Object.<string, *>} values
  * @param {boolean=} opt_silent
  */
-ol.layer.Image.prototype.setProperties = function(values, opt_silent) { };
+ol.layer.Image.prototype.setProperties = function(values, opt_silent) {};
 
 
 /**
  * @param {string} key
  * @param {boolean=} opt_silent
  */
-ol.layer.Image.prototype.unset = function(key, opt_silent) { };
+ol.layer.Image.prototype.unset = function(key, opt_silent) {};
 
 
 /**
  */
-ol.layer.Image.prototype.changed = function() { };
+ol.layer.Image.prototype.changed = function() {};
 
 
 /**
  * @param {Object|ol.events.Event|string} event
  */
-ol.layer.Image.prototype.dispatchEvent = function(event) { };
+ol.layer.Image.prototype.dispatchEvent = function(event) {};
 
 
 /**
  * @return {number}
  */
-ol.layer.Image.prototype.getRevision = function() { };
+ol.layer.Image.prototype.getRevision = function() {};
 
 
 /**
@@ -13578,7 +13593,7 @@ ol.layer.Image.prototype.getRevision = function() { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.layer.Image.prototype.on = function(type, listener, opt_this) { };
+ol.layer.Image.prototype.on = function(type, listener, opt_this) {};
 
 
 /**
@@ -13587,7 +13602,7 @@ ol.layer.Image.prototype.on = function(type, listener, opt_this) { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.layer.Image.prototype.once = function(type, listener, opt_this) { };
+ol.layer.Image.prototype.once = function(type, listener, opt_this) {};
 
 
 /**
@@ -13595,110 +13610,110 @@ ol.layer.Image.prototype.once = function(type, listener, opt_this) { };
  * @param {Function} listener
  * @param {Object=} opt_this
  */
-ol.layer.Image.prototype.un = function(type, listener, opt_this) { };
+ol.layer.Image.prototype.un = function(type, listener, opt_this) {};
 
 
 /**
  * @param {ol.PluggableMap} map
  */
-ol.layer.Tile.prototype.setMap = function(map) { };
+ol.layer.Tile.prototype.setMap = function(map) {};
 
 
 /**
  * @param {ol.source.Source} source
  */
-ol.layer.Tile.prototype.setSource = function(source) { };
+ol.layer.Tile.prototype.setSource = function(source) {};
 
 
 /**
  * @return {ol.Extent|undefined}
  */
-ol.layer.Tile.prototype.getExtent = function() { };
+ol.layer.Tile.prototype.getExtent = function() {};
 
 
 /**
  * @return {number}
  */
-ol.layer.Tile.prototype.getMaxResolution = function() { };
+ol.layer.Tile.prototype.getMaxResolution = function() {};
 
 
 /**
  * @return {number}
  */
-ol.layer.Tile.prototype.getMinResolution = function() { };
+ol.layer.Tile.prototype.getMinResolution = function() {};
 
 
 /**
  * @return {number}
  */
-ol.layer.Tile.prototype.getOpacity = function() { };
+ol.layer.Tile.prototype.getOpacity = function() {};
 
 
 /**
  * @return {boolean}
  */
-ol.layer.Tile.prototype.getVisible = function() { };
+ol.layer.Tile.prototype.getVisible = function() {};
 
 
 /**
  * @return {number}
  */
-ol.layer.Tile.prototype.getZIndex = function() { };
+ol.layer.Tile.prototype.getZIndex = function() {};
 
 
 /**
  * @param {ol.Extent|undefined} extent
  */
-ol.layer.Tile.prototype.setExtent = function(extent) { };
+ol.layer.Tile.prototype.setExtent = function(extent) {};
 
 
 /**
  * @param {number} maxResolution
  */
-ol.layer.Tile.prototype.setMaxResolution = function(maxResolution) { };
+ol.layer.Tile.prototype.setMaxResolution = function(maxResolution) {};
 
 
 /**
  * @param {number} minResolution
  */
-ol.layer.Tile.prototype.setMinResolution = function(minResolution) { };
+ol.layer.Tile.prototype.setMinResolution = function(minResolution) {};
 
 
 /**
  * @param {number} opacity
  */
-ol.layer.Tile.prototype.setOpacity = function(opacity) { };
+ol.layer.Tile.prototype.setOpacity = function(opacity) {};
 
 
 /**
  * @param {boolean} visible
  */
-ol.layer.Tile.prototype.setVisible = function(visible) { };
+ol.layer.Tile.prototype.setVisible = function(visible) {};
 
 
 /**
  * @param {number} zindex
  */
-ol.layer.Tile.prototype.setZIndex = function(zindex) { };
+ol.layer.Tile.prototype.setZIndex = function(zindex) {};
 
 
 /**
  * @param {string} key
  * @return {*}
  */
-ol.layer.Tile.prototype.get = function(key) { };
+ol.layer.Tile.prototype.get = function(key) {};
 
 
 /**
  * @return {Array.<string>}
  */
-ol.layer.Tile.prototype.getKeys = function() { };
+ol.layer.Tile.prototype.getKeys = function() {};
 
 
 /**
  * @return {Object.<string, *>}
  */
-ol.layer.Tile.prototype.getProperties = function() { };
+ol.layer.Tile.prototype.getProperties = function() {};
 
 
 /**
@@ -13706,38 +13721,38 @@ ol.layer.Tile.prototype.getProperties = function() { };
  * @param {*} value
  * @param {boolean=} opt_silent
  */
-ol.layer.Tile.prototype.set = function(key, value, opt_silent) { };
+ol.layer.Tile.prototype.set = function(key, value, opt_silent) {};
 
 
 /**
  * @param {Object.<string, *>} values
  * @param {boolean=} opt_silent
  */
-ol.layer.Tile.prototype.setProperties = function(values, opt_silent) { };
+ol.layer.Tile.prototype.setProperties = function(values, opt_silent) {};
 
 
 /**
  * @param {string} key
  * @param {boolean=} opt_silent
  */
-ol.layer.Tile.prototype.unset = function(key, opt_silent) { };
+ol.layer.Tile.prototype.unset = function(key, opt_silent) {};
 
 
 /**
  */
-ol.layer.Tile.prototype.changed = function() { };
+ol.layer.Tile.prototype.changed = function() {};
 
 
 /**
  * @param {Object|ol.events.Event|string} event
  */
-ol.layer.Tile.prototype.dispatchEvent = function(event) { };
+ol.layer.Tile.prototype.dispatchEvent = function(event) {};
 
 
 /**
  * @return {number}
  */
-ol.layer.Tile.prototype.getRevision = function() { };
+ol.layer.Tile.prototype.getRevision = function() {};
 
 
 /**
@@ -13746,7 +13761,7 @@ ol.layer.Tile.prototype.getRevision = function() { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.layer.Tile.prototype.on = function(type, listener, opt_this) { };
+ol.layer.Tile.prototype.on = function(type, listener, opt_this) {};
 
 
 /**
@@ -13755,7 +13770,7 @@ ol.layer.Tile.prototype.on = function(type, listener, opt_this) { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.layer.Tile.prototype.once = function(type, listener, opt_this) { };
+ol.layer.Tile.prototype.once = function(type, listener, opt_this) {};
 
 
 /**
@@ -13763,128 +13778,128 @@ ol.layer.Tile.prototype.once = function(type, listener, opt_this) { };
  * @param {Function} listener
  * @param {Object=} opt_this
  */
-ol.layer.Tile.prototype.un = function(type, listener, opt_this) { };
+ol.layer.Tile.prototype.un = function(type, listener, opt_this) {};
 
 
 /**
  * @return {ol.style.Style|Array.<ol.style.Style>|ol.StyleFunction}
  */
-ol.layer.VectorTile.prototype.getStyle = function() { };
+ol.layer.VectorTile.prototype.getStyle = function() {};
 
 
 /**
  * @return {ol.StyleFunction|undefined}
  */
-ol.layer.VectorTile.prototype.getStyleFunction = function() { };
+ol.layer.VectorTile.prototype.getStyleFunction = function() {};
 
 
 /**
  * @param {ol.style.Style|Array.<ol.style.Style>|ol.StyleFunction|null|undefined} style
  */
-ol.layer.VectorTile.prototype.setStyle = function(style) { };
+ol.layer.VectorTile.prototype.setStyle = function(style) {};
 
 
 /**
  * @param {ol.PluggableMap} map
  */
-ol.layer.VectorTile.prototype.setMap = function(map) { };
+ol.layer.VectorTile.prototype.setMap = function(map) {};
 
 
 /**
  * @param {ol.source.Source} source
  */
-ol.layer.VectorTile.prototype.setSource = function(source) { };
+ol.layer.VectorTile.prototype.setSource = function(source) {};
 
 
 /**
  * @return {ol.Extent|undefined}
  */
-ol.layer.VectorTile.prototype.getExtent = function() { };
+ol.layer.VectorTile.prototype.getExtent = function() {};
 
 
 /**
  * @return {number}
  */
-ol.layer.VectorTile.prototype.getMaxResolution = function() { };
+ol.layer.VectorTile.prototype.getMaxResolution = function() {};
 
 
 /**
  * @return {number}
  */
-ol.layer.VectorTile.prototype.getMinResolution = function() { };
+ol.layer.VectorTile.prototype.getMinResolution = function() {};
 
 
 /**
  * @return {number}
  */
-ol.layer.VectorTile.prototype.getOpacity = function() { };
+ol.layer.VectorTile.prototype.getOpacity = function() {};
 
 
 /**
  * @return {boolean}
  */
-ol.layer.VectorTile.prototype.getVisible = function() { };
+ol.layer.VectorTile.prototype.getVisible = function() {};
 
 
 /**
  * @return {number}
  */
-ol.layer.VectorTile.prototype.getZIndex = function() { };
+ol.layer.VectorTile.prototype.getZIndex = function() {};
 
 
 /**
  * @param {ol.Extent|undefined} extent
  */
-ol.layer.VectorTile.prototype.setExtent = function(extent) { };
+ol.layer.VectorTile.prototype.setExtent = function(extent) {};
 
 
 /**
  * @param {number} maxResolution
  */
-ol.layer.VectorTile.prototype.setMaxResolution = function(maxResolution) { };
+ol.layer.VectorTile.prototype.setMaxResolution = function(maxResolution) {};
 
 
 /**
  * @param {number} minResolution
  */
-ol.layer.VectorTile.prototype.setMinResolution = function(minResolution) { };
+ol.layer.VectorTile.prototype.setMinResolution = function(minResolution) {};
 
 
 /**
  * @param {number} opacity
  */
-ol.layer.VectorTile.prototype.setOpacity = function(opacity) { };
+ol.layer.VectorTile.prototype.setOpacity = function(opacity) {};
 
 
 /**
  * @param {boolean} visible
  */
-ol.layer.VectorTile.prototype.setVisible = function(visible) { };
+ol.layer.VectorTile.prototype.setVisible = function(visible) {};
 
 
 /**
  * @param {number} zindex
  */
-ol.layer.VectorTile.prototype.setZIndex = function(zindex) { };
+ol.layer.VectorTile.prototype.setZIndex = function(zindex) {};
 
 
 /**
  * @param {string} key
  * @return {*}
  */
-ol.layer.VectorTile.prototype.get = function(key) { };
+ol.layer.VectorTile.prototype.get = function(key) {};
 
 
 /**
  * @return {Array.<string>}
  */
-ol.layer.VectorTile.prototype.getKeys = function() { };
+ol.layer.VectorTile.prototype.getKeys = function() {};
 
 
 /**
  * @return {Object.<string, *>}
  */
-ol.layer.VectorTile.prototype.getProperties = function() { };
+ol.layer.VectorTile.prototype.getProperties = function() {};
 
 
 /**
@@ -13892,38 +13907,38 @@ ol.layer.VectorTile.prototype.getProperties = function() { };
  * @param {*} value
  * @param {boolean=} opt_silent
  */
-ol.layer.VectorTile.prototype.set = function(key, value, opt_silent) { };
+ol.layer.VectorTile.prototype.set = function(key, value, opt_silent) {};
 
 
 /**
  * @param {Object.<string, *>} values
  * @param {boolean=} opt_silent
  */
-ol.layer.VectorTile.prototype.setProperties = function(values, opt_silent) { };
+ol.layer.VectorTile.prototype.setProperties = function(values, opt_silent) {};
 
 
 /**
  * @param {string} key
  * @param {boolean=} opt_silent
  */
-ol.layer.VectorTile.prototype.unset = function(key, opt_silent) { };
+ol.layer.VectorTile.prototype.unset = function(key, opt_silent) {};
 
 
 /**
  */
-ol.layer.VectorTile.prototype.changed = function() { };
+ol.layer.VectorTile.prototype.changed = function() {};
 
 
 /**
  * @param {Object|ol.events.Event|string} event
  */
-ol.layer.VectorTile.prototype.dispatchEvent = function(event) { };
+ol.layer.VectorTile.prototype.dispatchEvent = function(event) {};
 
 
 /**
  * @return {number}
  */
-ol.layer.VectorTile.prototype.getRevision = function() { };
+ol.layer.VectorTile.prototype.getRevision = function() {};
 
 
 /**
@@ -13932,7 +13947,7 @@ ol.layer.VectorTile.prototype.getRevision = function() { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.layer.VectorTile.prototype.on = function(type, listener, opt_this) { };
+ol.layer.VectorTile.prototype.on = function(type, listener, opt_this) {};
 
 
 /**
@@ -13941,7 +13956,7 @@ ol.layer.VectorTile.prototype.on = function(type, listener, opt_this) { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.layer.VectorTile.prototype.once = function(type, listener, opt_this) { };
+ol.layer.VectorTile.prototype.once = function(type, listener, opt_this) {};
 
 
 /**
@@ -13949,31 +13964,31 @@ ol.layer.VectorTile.prototype.once = function(type, listener, opt_this) { };
  * @param {Function} listener
  * @param {Object=} opt_this
  */
-ol.layer.VectorTile.prototype.un = function(type, listener, opt_this) { };
+ol.layer.VectorTile.prototype.un = function(type, listener, opt_this) {};
 
 
 /**
  * @param {ol.control.Control} control
  */
-ol.Map.prototype.addControl = function(control) { };
+ol.Map.prototype.addControl = function(control) {};
 
 
 /**
  * @param {ol.interaction.Interaction} interaction
  */
-ol.Map.prototype.addInteraction = function(interaction) { };
+ol.Map.prototype.addInteraction = function(interaction) {};
 
 
 /**
  * @param {ol.layer.Base} layer
  */
-ol.Map.prototype.addLayer = function(layer) { };
+ol.Map.prototype.addLayer = function(layer) {};
 
 
 /**
  * @param {ol.Overlay} overlay
  */
-ol.Map.prototype.addOverlay = function(overlay) { };
+ol.Map.prototype.addOverlay = function(overlay) {};
 
 
 /**
@@ -13983,7 +13998,7 @@ ol.Map.prototype.addOverlay = function(overlay) { };
  * @return {T|undefined}
  * @template S,T
  */
-ol.Map.prototype.forEachFeatureAtPixel = function(pixel, callback, opt_options) { };
+ol.Map.prototype.forEachFeatureAtPixel = function(pixel, callback, opt_options) {};
 
 
 /**
@@ -13991,7 +14006,7 @@ ol.Map.prototype.forEachFeatureAtPixel = function(pixel, callback, opt_options) 
  * @param {olx.AtPixelOptions=} opt_options
  * @return {Array.<(ol.Feature|ol.render.Feature)>}
  */
-ol.Map.prototype.getFeaturesAtPixel = function(pixel, opt_options) { };
+ol.Map.prototype.getFeaturesAtPixel = function(pixel, opt_options) {};
 
 
 /**
@@ -14003,7 +14018,7 @@ ol.Map.prototype.getFeaturesAtPixel = function(pixel, opt_options) { };
  * @return {T|undefined}
  * @template S,T,U
  */
-ol.Map.prototype.forEachLayerAtPixel = function(pixel, callback, opt_this, opt_layerFilter, opt_this2) { };
+ol.Map.prototype.forEachLayerAtPixel = function(pixel, callback, opt_this, opt_layerFilter, opt_this2) {};
 
 
 /**
@@ -14012,188 +14027,188 @@ ol.Map.prototype.forEachLayerAtPixel = function(pixel, callback, opt_this, opt_l
  * @return {boolean}
  * @template U
  */
-ol.Map.prototype.hasFeatureAtPixel = function(pixel, opt_options) { };
+ol.Map.prototype.hasFeatureAtPixel = function(pixel, opt_options) {};
 
 
 /**
  * @param {Event} event
  * @return {ol.Coordinate}
  */
-ol.Map.prototype.getEventCoordinate = function(event) { };
+ol.Map.prototype.getEventCoordinate = function(event) {};
 
 
 /**
  * @param {Event} event
  * @return {ol.Pixel}
  */
-ol.Map.prototype.getEventPixel = function(event) { };
+ol.Map.prototype.getEventPixel = function(event) {};
 
 
 /**
  * @return {Element|string|undefined}
  */
-ol.Map.prototype.getTarget = function() { };
+ol.Map.prototype.getTarget = function() {};
 
 
 /**
  * @return {Element}
  */
-ol.Map.prototype.getTargetElement = function() { };
+ol.Map.prototype.getTargetElement = function() {};
 
 
 /**
  * @param {ol.Pixel} pixel
  * @return {ol.Coordinate}
  */
-ol.Map.prototype.getCoordinateFromPixel = function(pixel) { };
+ol.Map.prototype.getCoordinateFromPixel = function(pixel) {};
 
 
 /**
  * @return {ol.Collection.<ol.control.Control>}
  */
-ol.Map.prototype.getControls = function() { };
+ol.Map.prototype.getControls = function() {};
 
 
 /**
  * @return {ol.Collection.<ol.Overlay>}
  */
-ol.Map.prototype.getOverlays = function() { };
+ol.Map.prototype.getOverlays = function() {};
 
 
 /**
  * @param {string|number} id
  * @return {ol.Overlay}
  */
-ol.Map.prototype.getOverlayById = function(id) { };
+ol.Map.prototype.getOverlayById = function(id) {};
 
 
 /**
  * @return {ol.Collection.<ol.interaction.Interaction>}
  */
-ol.Map.prototype.getInteractions = function() { };
+ol.Map.prototype.getInteractions = function() {};
 
 
 /**
  * @return {ol.layer.Group}
  */
-ol.Map.prototype.getLayerGroup = function() { };
+ol.Map.prototype.getLayerGroup = function() {};
 
 
 /**
  * @return {ol.Collection.<ol.layer.Base>}
  */
-ol.Map.prototype.getLayers = function() { };
+ol.Map.prototype.getLayers = function() {};
 
 
 /**
  * @param {ol.Coordinate} coordinate
  * @return {ol.Pixel}
  */
-ol.Map.prototype.getPixelFromCoordinate = function(coordinate) { };
+ol.Map.prototype.getPixelFromCoordinate = function(coordinate) {};
 
 
 /**
  * @return {ol.Size|undefined}
  */
-ol.Map.prototype.getSize = function() { };
+ol.Map.prototype.getSize = function() {};
 
 
 /**
  * @return {ol.View}
  */
-ol.Map.prototype.getView = function() { };
+ol.Map.prototype.getView = function() {};
 
 
 /**
  * @return {Element}
  */
-ol.Map.prototype.getViewport = function() { };
+ol.Map.prototype.getViewport = function() {};
 
 
 /**
  */
-ol.Map.prototype.renderSync = function() { };
+ol.Map.prototype.renderSync = function() {};
 
 
 /**
  */
-ol.Map.prototype.render = function() { };
+ol.Map.prototype.render = function() {};
 
 
 /**
  * @param {ol.control.Control} control
  * @return {ol.control.Control|undefined}
  */
-ol.Map.prototype.removeControl = function(control) { };
+ol.Map.prototype.removeControl = function(control) {};
 
 
 /**
  * @param {ol.interaction.Interaction} interaction
  * @return {ol.interaction.Interaction|undefined}
  */
-ol.Map.prototype.removeInteraction = function(interaction) { };
+ol.Map.prototype.removeInteraction = function(interaction) {};
 
 
 /**
  * @param {ol.layer.Base} layer
  * @return {ol.layer.Base|undefined}
  */
-ol.Map.prototype.removeLayer = function(layer) { };
+ol.Map.prototype.removeLayer = function(layer) {};
 
 
 /**
  * @param {ol.Overlay} overlay
  * @return {ol.Overlay|undefined}
  */
-ol.Map.prototype.removeOverlay = function(overlay) { };
+ol.Map.prototype.removeOverlay = function(overlay) {};
 
 
 /**
  * @param {ol.layer.Group} layerGroup
  */
-ol.Map.prototype.setLayerGroup = function(layerGroup) { };
+ol.Map.prototype.setLayerGroup = function(layerGroup) {};
 
 
 /**
  * @param {ol.Size|undefined} size
  */
-ol.Map.prototype.setSize = function(size) { };
+ol.Map.prototype.setSize = function(size) {};
 
 
 /**
  * @param {Element|string|undefined} target
  */
-ol.Map.prototype.setTarget = function(target) { };
+ol.Map.prototype.setTarget = function(target) {};
 
 
 /**
  * @param {ol.View} view
  */
-ol.Map.prototype.setView = function(view) { };
+ol.Map.prototype.setView = function(view) {};
 
 
 /**
  */
-ol.Map.prototype.updateSize = function() { };
+ol.Map.prototype.updateSize = function() {};
 
 
 /**
  * @param {string} key
  * @return {*}
  */
-ol.Map.prototype.get = function(key) { };
+ol.Map.prototype.get = function(key) {};
 
 
 /**
  * @return {Array.<string>}
  */
-ol.Map.prototype.getKeys = function() { };
+ol.Map.prototype.getKeys = function() {};
 
 
 /**
  * @return {Object.<string, *>}
  */
-ol.Map.prototype.getProperties = function() { };
+ol.Map.prototype.getProperties = function() {};
 
 
 /**
@@ -14201,38 +14216,38 @@ ol.Map.prototype.getProperties = function() { };
  * @param {*} value
  * @param {boolean=} opt_silent
  */
-ol.Map.prototype.set = function(key, value, opt_silent) { };
+ol.Map.prototype.set = function(key, value, opt_silent) {};
 
 
 /**
  * @param {Object.<string, *>} values
  * @param {boolean=} opt_silent
  */
-ol.Map.prototype.setProperties = function(values, opt_silent) { };
+ol.Map.prototype.setProperties = function(values, opt_silent) {};
 
 
 /**
  * @param {string} key
  * @param {boolean=} opt_silent
  */
-ol.Map.prototype.unset = function(key, opt_silent) { };
+ol.Map.prototype.unset = function(key, opt_silent) {};
 
 
 /**
  */
-ol.Map.prototype.changed = function() { };
+ol.Map.prototype.changed = function() {};
 
 
 /**
  * @param {Object|ol.events.Event|string} event
  */
-ol.Map.prototype.dispatchEvent = function(event) { };
+ol.Map.prototype.dispatchEvent = function(event) {};
 
 
 /**
  * @return {number}
  */
-ol.Map.prototype.getRevision = function() { };
+ol.Map.prototype.getRevision = function() {};
 
 
 /**
@@ -14241,7 +14256,7 @@ ol.Map.prototype.getRevision = function() { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.Map.prototype.on = function(type, listener, opt_this) { };
+ol.Map.prototype.on = function(type, listener, opt_this) {};
 
 
 /**
@@ -14250,7 +14265,7 @@ ol.Map.prototype.on = function(type, listener, opt_this) { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.Map.prototype.once = function(type, listener, opt_this) { };
+ol.Map.prototype.once = function(type, listener, opt_this) {};
 
 
 /**
@@ -14258,7 +14273,7 @@ ol.Map.prototype.once = function(type, listener, opt_this) { };
  * @param {Function} listener
  * @param {Object=} opt_this
  */
-ol.Map.prototype.un = function(type, listener, opt_this) { };
+ol.Map.prototype.un = function(type, listener, opt_this) {};
 
 
 /**
@@ -14275,12 +14290,12 @@ ol.MapEvent.prototype.target;
 
 /**
  */
-ol.MapEvent.prototype.preventDefault = function() { };
+ol.MapEvent.prototype.preventDefault = function() {};
 
 
 /**
  */
-ol.MapEvent.prototype.stopPropagation = function() { };
+ol.MapEvent.prototype.stopPropagation = function() {};
 
 
 /**
@@ -14309,18 +14324,18 @@ ol.MapBrowserEvent.prototype.target;
 
 /**
  */
-ol.MapBrowserEvent.prototype.preventDefault = function() { };
+ol.MapBrowserEvent.prototype.preventDefault = function() {};
 
 
 /**
  */
-ol.MapBrowserEvent.prototype.stopPropagation = function() { };
+ol.MapBrowserEvent.prototype.stopPropagation = function() {};
 
 
 /**
  * @constructor
  */
-ol.MapBrowserPointerEvent = function() { };
+ol.MapBrowserPointerEvent = function() {};
 
 
 /**
@@ -14349,12 +14364,12 @@ ol.MapBrowserPointerEvent.prototype.dragging;
 
 /**
  */
-ol.MapBrowserPointerEvent.prototype.preventDefault = function() { };
+ol.MapBrowserPointerEvent.prototype.preventDefault = function() {};
 
 
 /**
  */
-ol.MapBrowserPointerEvent.prototype.stopPropagation = function() { };
+ol.MapBrowserPointerEvent.prototype.stopPropagation = function() {};
 
 
 /**
@@ -14395,31 +14410,31 @@ ol.Object.Event.prototype.target;
 
 /**
  */
-ol.Object.Event.prototype.preventDefault = function() { };
+ol.Object.Event.prototype.preventDefault = function() {};
 
 
 /**
  */
-ol.Object.Event.prototype.stopPropagation = function() { };
+ol.Object.Event.prototype.stopPropagation = function() {};
 
 
 /**
  * @param {string} key
  * @return {*}
  */
-ol.Overlay.prototype.get = function(key) { };
+ol.Overlay.prototype.get = function(key) {};
 
 
 /**
  * @return {Array.<string>}
  */
-ol.Overlay.prototype.getKeys = function() { };
+ol.Overlay.prototype.getKeys = function() {};
 
 
 /**
  * @return {Object.<string, *>}
  */
-ol.Overlay.prototype.getProperties = function() { };
+ol.Overlay.prototype.getProperties = function() {};
 
 
 /**
@@ -14427,38 +14442,38 @@ ol.Overlay.prototype.getProperties = function() { };
  * @param {*} value
  * @param {boolean=} opt_silent
  */
-ol.Overlay.prototype.set = function(key, value, opt_silent) { };
+ol.Overlay.prototype.set = function(key, value, opt_silent) {};
 
 
 /**
  * @param {Object.<string, *>} values
  * @param {boolean=} opt_silent
  */
-ol.Overlay.prototype.setProperties = function(values, opt_silent) { };
+ol.Overlay.prototype.setProperties = function(values, opt_silent) {};
 
 
 /**
  * @param {string} key
  * @param {boolean=} opt_silent
  */
-ol.Overlay.prototype.unset = function(key, opt_silent) { };
+ol.Overlay.prototype.unset = function(key, opt_silent) {};
 
 
 /**
  */
-ol.Overlay.prototype.changed = function() { };
+ol.Overlay.prototype.changed = function() {};
 
 
 /**
  * @param {Object|ol.events.Event|string} event
  */
-ol.Overlay.prototype.dispatchEvent = function(event) { };
+ol.Overlay.prototype.dispatchEvent = function(event) {};
 
 
 /**
  * @return {number}
  */
-ol.Overlay.prototype.getRevision = function() { };
+ol.Overlay.prototype.getRevision = function() {};
 
 
 /**
@@ -14467,7 +14482,7 @@ ol.Overlay.prototype.getRevision = function() { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.Overlay.prototype.on = function(type, listener, opt_this) { };
+ol.Overlay.prototype.on = function(type, listener, opt_this) {};
 
 
 /**
@@ -14476,7 +14491,7 @@ ol.Overlay.prototype.on = function(type, listener, opt_this) { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.Overlay.prototype.once = function(type, listener, opt_this) { };
+ol.Overlay.prototype.once = function(type, listener, opt_this) {};
 
 
 /**
@@ -14484,7 +14499,7 @@ ol.Overlay.prototype.once = function(type, listener, opt_this) { };
  * @param {Function} listener
  * @param {Object=} opt_this
  */
-ol.Overlay.prototype.un = function(type, listener, opt_this) { };
+ol.Overlay.prototype.un = function(type, listener, opt_this) {};
 
 
 /**
@@ -14496,7 +14511,7 @@ ol.pointer;
 /**
  * @constructor
  */
-ol.pointer.PointerEvent = function() { };
+ol.pointer.PointerEvent = function() {};
 
 
 /**
@@ -14513,12 +14528,12 @@ ol.pointer.PointerEvent.prototype.target;
 
 /**
  */
-ol.pointer.PointerEvent.prototype.preventDefault = function() { };
+ol.pointer.PointerEvent.prototype.preventDefault = function() {};
 
 
 /**
  */
-ol.pointer.PointerEvent.prototype.stopPropagation = function() { };
+ol.pointer.PointerEvent.prototype.stopPropagation = function() {};
 
 
 /**
@@ -14535,78 +14550,35 @@ ol.render.Event.prototype.target;
 
 /**
  */
-ol.render.Event.prototype.preventDefault = function() { };
+ol.render.Event.prototype.preventDefault = function() {};
 
 
 /**
  */
-ol.render.Event.prototype.stopPropagation = function() { };
+ol.render.Event.prototype.stopPropagation = function() {};
 
 
 /**
  * @constructor
  */
-ol.renderer.Layer = function() { };
+ol.renderer.Layer = function() {};
 
 
 /**
  */
-ol.renderer.Layer.prototype.changed = function() { };
-
-
-/**
- * @param {Object|ol.events.Event|string} event
- */
-ol.renderer.Layer.prototype.dispatchEvent = function(event) { };
-
-
-/**
- * @return {number}
- */
-ol.renderer.Layer.prototype.getRevision = function() { };
-
-
-/**
- * @param {string|Array.<string>} type
- * @param {Function} listener
- * @param {Object=} opt_this
- * @return {ol.EventsKey|Array.<ol.EventsKey>}
- */
-ol.renderer.Layer.prototype.on = function(type, listener, opt_this) { };
-
-
-/**
- * @param {string|Array.<string>} type
- * @param {Function} listener
- * @param {Object=} opt_this
- * @return {ol.EventsKey|Array.<ol.EventsKey>}
- */
-ol.renderer.Layer.prototype.once = function(type, listener, opt_this) { };
-
-
-/**
- * @param {string|Array.<string>} type
- * @param {Function} listener
- * @param {Object=} opt_this
- */
-ol.renderer.Layer.prototype.un = function(type, listener, opt_this) { };
-
-
-/**
- */
-ol.renderer.canvas.Layer.prototype.changed = function() { };
+ol.renderer.Layer.prototype.changed = function() {};
 
 
 /**
  * @param {Object|ol.events.Event|string} event
  */
-ol.renderer.canvas.Layer.prototype.dispatchEvent = function(event) { };
+ol.renderer.Layer.prototype.dispatchEvent = function(event) {};
 
 
 /**
  * @return {number}
  */
-ol.renderer.canvas.Layer.prototype.getRevision = function() { };
+ol.renderer.Layer.prototype.getRevision = function() {};
 
 
 /**
@@ -14615,7 +14587,7 @@ ol.renderer.canvas.Layer.prototype.getRevision = function() { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.renderer.canvas.Layer.prototype.on = function(type, listener, opt_this) { };
+ol.renderer.Layer.prototype.on = function(type, listener, opt_this) {};
 
 
 /**
@@ -14624,7 +14596,7 @@ ol.renderer.canvas.Layer.prototype.on = function(type, listener, opt_this) { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.renderer.canvas.Layer.prototype.once = function(type, listener, opt_this) { };
+ol.renderer.Layer.prototype.once = function(type, listener, opt_this) {};
 
 
 /**
@@ -14632,24 +14604,24 @@ ol.renderer.canvas.Layer.prototype.once = function(type, listener, opt_this) { }
  * @param {Function} listener
  * @param {Object=} opt_this
  */
-ol.renderer.canvas.Layer.prototype.un = function(type, listener, opt_this) { };
+ol.renderer.Layer.prototype.un = function(type, listener, opt_this) {};
 
 
 /**
  */
-ol.renderer.canvas.IntermediateCanvas.prototype.changed = function() { };
+ol.renderer.canvas.Layer.prototype.changed = function() {};
 
 
 /**
  * @param {Object|ol.events.Event|string} event
  */
-ol.renderer.canvas.IntermediateCanvas.prototype.dispatchEvent = function(event) { };
+ol.renderer.canvas.Layer.prototype.dispatchEvent = function(event) {};
 
 
 /**
  * @return {number}
  */
-ol.renderer.canvas.IntermediateCanvas.prototype.getRevision = function() { };
+ol.renderer.canvas.Layer.prototype.getRevision = function() {};
 
 
 /**
@@ -14658,7 +14630,7 @@ ol.renderer.canvas.IntermediateCanvas.prototype.getRevision = function() { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.renderer.canvas.IntermediateCanvas.prototype.on = function(type, listener, opt_this) { };
+ol.renderer.canvas.Layer.prototype.on = function(type, listener, opt_this) {};
 
 
 /**
@@ -14667,7 +14639,7 @@ ol.renderer.canvas.IntermediateCanvas.prototype.on = function(type, listener, op
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.renderer.canvas.IntermediateCanvas.prototype.once = function(type, listener, opt_this) { };
+ol.renderer.canvas.Layer.prototype.once = function(type, listener, opt_this) {};
 
 
 /**
@@ -14675,24 +14647,24 @@ ol.renderer.canvas.IntermediateCanvas.prototype.once = function(type, listener, 
  * @param {Function} listener
  * @param {Object=} opt_this
  */
-ol.renderer.canvas.IntermediateCanvas.prototype.un = function(type, listener, opt_this) { };
+ol.renderer.canvas.Layer.prototype.un = function(type, listener, opt_this) {};
 
 
 /**
  */
-ol.renderer.canvas.ImageLayer.prototype.changed = function() { };
+ol.renderer.canvas.IntermediateCanvas.prototype.changed = function() {};
 
 
 /**
  * @param {Object|ol.events.Event|string} event
  */
-ol.renderer.canvas.ImageLayer.prototype.dispatchEvent = function(event) { };
+ol.renderer.canvas.IntermediateCanvas.prototype.dispatchEvent = function(event) {};
 
 
 /**
  * @return {number}
  */
-ol.renderer.canvas.ImageLayer.prototype.getRevision = function() { };
+ol.renderer.canvas.IntermediateCanvas.prototype.getRevision = function() {};
 
 
 /**
@@ -14701,7 +14673,7 @@ ol.renderer.canvas.ImageLayer.prototype.getRevision = function() { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.renderer.canvas.ImageLayer.prototype.on = function(type, listener, opt_this) { };
+ol.renderer.canvas.IntermediateCanvas.prototype.on = function(type, listener, opt_this) {};
 
 
 /**
@@ -14710,7 +14682,7 @@ ol.renderer.canvas.ImageLayer.prototype.on = function(type, listener, opt_this) 
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.renderer.canvas.ImageLayer.prototype.once = function(type, listener, opt_this) { };
+ol.renderer.canvas.IntermediateCanvas.prototype.once = function(type, listener, opt_this) {};
 
 
 /**
@@ -14718,24 +14690,24 @@ ol.renderer.canvas.ImageLayer.prototype.once = function(type, listener, opt_this
  * @param {Function} listener
  * @param {Object=} opt_this
  */
-ol.renderer.canvas.ImageLayer.prototype.un = function(type, listener, opt_this) { };
+ol.renderer.canvas.IntermediateCanvas.prototype.un = function(type, listener, opt_this) {};
 
 
 /**
  */
-ol.renderer.canvas.TileLayer.prototype.changed = function() { };
+ol.renderer.canvas.ImageLayer.prototype.changed = function() {};
 
 
 /**
  * @param {Object|ol.events.Event|string} event
  */
-ol.renderer.canvas.TileLayer.prototype.dispatchEvent = function(event) { };
+ol.renderer.canvas.ImageLayer.prototype.dispatchEvent = function(event) {};
 
 
 /**
  * @return {number}
  */
-ol.renderer.canvas.TileLayer.prototype.getRevision = function() { };
+ol.renderer.canvas.ImageLayer.prototype.getRevision = function() {};
 
 
 /**
@@ -14744,7 +14716,7 @@ ol.renderer.canvas.TileLayer.prototype.getRevision = function() { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.renderer.canvas.TileLayer.prototype.on = function(type, listener, opt_this) { };
+ol.renderer.canvas.ImageLayer.prototype.on = function(type, listener, opt_this) {};
 
 
 /**
@@ -14753,7 +14725,7 @@ ol.renderer.canvas.TileLayer.prototype.on = function(type, listener, opt_this) {
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.renderer.canvas.TileLayer.prototype.once = function(type, listener, opt_this) { };
+ol.renderer.canvas.ImageLayer.prototype.once = function(type, listener, opt_this) {};
 
 
 /**
@@ -14761,24 +14733,24 @@ ol.renderer.canvas.TileLayer.prototype.once = function(type, listener, opt_this)
  * @param {Function} listener
  * @param {Object=} opt_this
  */
-ol.renderer.canvas.TileLayer.prototype.un = function(type, listener, opt_this) { };
+ol.renderer.canvas.ImageLayer.prototype.un = function(type, listener, opt_this) {};
 
 
 /**
  */
-ol.renderer.canvas.VectorLayer.prototype.changed = function() { };
+ol.renderer.canvas.TileLayer.prototype.changed = function() {};
 
 
 /**
  * @param {Object|ol.events.Event|string} event
  */
-ol.renderer.canvas.VectorLayer.prototype.dispatchEvent = function(event) { };
+ol.renderer.canvas.TileLayer.prototype.dispatchEvent = function(event) {};
 
 
 /**
  * @return {number}
  */
-ol.renderer.canvas.VectorLayer.prototype.getRevision = function() { };
+ol.renderer.canvas.TileLayer.prototype.getRevision = function() {};
 
 
 /**
@@ -14787,7 +14759,7 @@ ol.renderer.canvas.VectorLayer.prototype.getRevision = function() { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.renderer.canvas.VectorLayer.prototype.on = function(type, listener, opt_this) { };
+ol.renderer.canvas.TileLayer.prototype.on = function(type, listener, opt_this) {};
 
 
 /**
@@ -14796,7 +14768,7 @@ ol.renderer.canvas.VectorLayer.prototype.on = function(type, listener, opt_this)
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.renderer.canvas.VectorLayer.prototype.once = function(type, listener, opt_this) { };
+ol.renderer.canvas.TileLayer.prototype.once = function(type, listener, opt_this) {};
 
 
 /**
@@ -14804,24 +14776,24 @@ ol.renderer.canvas.VectorLayer.prototype.once = function(type, listener, opt_thi
  * @param {Function} listener
  * @param {Object=} opt_this
  */
-ol.renderer.canvas.VectorLayer.prototype.un = function(type, listener, opt_this) { };
+ol.renderer.canvas.TileLayer.prototype.un = function(type, listener, opt_this) {};
 
 
 /**
  */
-ol.renderer.canvas.VectorTileLayer.prototype.changed = function() { };
+ol.renderer.canvas.VectorLayer.prototype.changed = function() {};
 
 
 /**
  * @param {Object|ol.events.Event|string} event
  */
-ol.renderer.canvas.VectorTileLayer.prototype.dispatchEvent = function(event) { };
+ol.renderer.canvas.VectorLayer.prototype.dispatchEvent = function(event) {};
 
 
 /**
  * @return {number}
  */
-ol.renderer.canvas.VectorTileLayer.prototype.getRevision = function() { };
+ol.renderer.canvas.VectorLayer.prototype.getRevision = function() {};
 
 
 /**
@@ -14830,7 +14802,7 @@ ol.renderer.canvas.VectorTileLayer.prototype.getRevision = function() { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.renderer.canvas.VectorTileLayer.prototype.on = function(type, listener, opt_this) { };
+ol.renderer.canvas.VectorLayer.prototype.on = function(type, listener, opt_this) {};
 
 
 /**
@@ -14839,7 +14811,7 @@ ol.renderer.canvas.VectorTileLayer.prototype.on = function(type, listener, opt_t
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.renderer.canvas.VectorTileLayer.prototype.once = function(type, listener, opt_this) { };
+ol.renderer.canvas.VectorLayer.prototype.once = function(type, listener, opt_this) {};
 
 
 /**
@@ -14847,24 +14819,24 @@ ol.renderer.canvas.VectorTileLayer.prototype.once = function(type, listener, opt
  * @param {Function} listener
  * @param {Object=} opt_this
  */
-ol.renderer.canvas.VectorTileLayer.prototype.un = function(type, listener, opt_this) { };
+ol.renderer.canvas.VectorLayer.prototype.un = function(type, listener, opt_this) {};
 
 
 /**
  */
-ol.renderer.webgl.Layer.prototype.changed = function() { };
+ol.renderer.canvas.VectorTileLayer.prototype.changed = function() {};
 
 
 /**
  * @param {Object|ol.events.Event|string} event
  */
-ol.renderer.webgl.Layer.prototype.dispatchEvent = function(event) { };
+ol.renderer.canvas.VectorTileLayer.prototype.dispatchEvent = function(event) {};
 
 
 /**
  * @return {number}
  */
-ol.renderer.webgl.Layer.prototype.getRevision = function() { };
+ol.renderer.canvas.VectorTileLayer.prototype.getRevision = function() {};
 
 
 /**
@@ -14873,7 +14845,7 @@ ol.renderer.webgl.Layer.prototype.getRevision = function() { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.renderer.webgl.Layer.prototype.on = function(type, listener, opt_this) { };
+ol.renderer.canvas.VectorTileLayer.prototype.on = function(type, listener, opt_this) {};
 
 
 /**
@@ -14882,7 +14854,7 @@ ol.renderer.webgl.Layer.prototype.on = function(type, listener, opt_this) { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.renderer.webgl.Layer.prototype.once = function(type, listener, opt_this) { };
+ol.renderer.canvas.VectorTileLayer.prototype.once = function(type, listener, opt_this) {};
 
 
 /**
@@ -14890,24 +14862,24 @@ ol.renderer.webgl.Layer.prototype.once = function(type, listener, opt_this) { };
  * @param {Function} listener
  * @param {Object=} opt_this
  */
-ol.renderer.webgl.Layer.prototype.un = function(type, listener, opt_this) { };
+ol.renderer.canvas.VectorTileLayer.prototype.un = function(type, listener, opt_this) {};
 
 
 /**
  */
-ol.renderer.webgl.ImageLayer.prototype.changed = function() { };
+ol.renderer.webgl.Layer.prototype.changed = function() {};
 
 
 /**
  * @param {Object|ol.events.Event|string} event
  */
-ol.renderer.webgl.ImageLayer.prototype.dispatchEvent = function(event) { };
+ol.renderer.webgl.Layer.prototype.dispatchEvent = function(event) {};
 
 
 /**
  * @return {number}
  */
-ol.renderer.webgl.ImageLayer.prototype.getRevision = function() { };
+ol.renderer.webgl.Layer.prototype.getRevision = function() {};
 
 
 /**
@@ -14916,7 +14888,7 @@ ol.renderer.webgl.ImageLayer.prototype.getRevision = function() { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.renderer.webgl.ImageLayer.prototype.on = function(type, listener, opt_this) { };
+ol.renderer.webgl.Layer.prototype.on = function(type, listener, opt_this) {};
 
 
 /**
@@ -14925,7 +14897,7 @@ ol.renderer.webgl.ImageLayer.prototype.on = function(type, listener, opt_this) {
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.renderer.webgl.ImageLayer.prototype.once = function(type, listener, opt_this) { };
+ol.renderer.webgl.Layer.prototype.once = function(type, listener, opt_this) {};
 
 
 /**
@@ -14933,24 +14905,24 @@ ol.renderer.webgl.ImageLayer.prototype.once = function(type, listener, opt_this)
  * @param {Function} listener
  * @param {Object=} opt_this
  */
-ol.renderer.webgl.ImageLayer.prototype.un = function(type, listener, opt_this) { };
+ol.renderer.webgl.Layer.prototype.un = function(type, listener, opt_this) {};
 
 
 /**
  */
-ol.renderer.webgl.TileLayer.prototype.changed = function() { };
+ol.renderer.webgl.ImageLayer.prototype.changed = function() {};
 
 
 /**
  * @param {Object|ol.events.Event|string} event
  */
-ol.renderer.webgl.TileLayer.prototype.dispatchEvent = function(event) { };
+ol.renderer.webgl.ImageLayer.prototype.dispatchEvent = function(event) {};
 
 
 /**
  * @return {number}
  */
-ol.renderer.webgl.TileLayer.prototype.getRevision = function() { };
+ol.renderer.webgl.ImageLayer.prototype.getRevision = function() {};
 
 
 /**
@@ -14959,7 +14931,7 @@ ol.renderer.webgl.TileLayer.prototype.getRevision = function() { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.renderer.webgl.TileLayer.prototype.on = function(type, listener, opt_this) { };
+ol.renderer.webgl.ImageLayer.prototype.on = function(type, listener, opt_this) {};
 
 
 /**
@@ -14968,7 +14940,7 @@ ol.renderer.webgl.TileLayer.prototype.on = function(type, listener, opt_this) { 
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.renderer.webgl.TileLayer.prototype.once = function(type, listener, opt_this) { };
+ol.renderer.webgl.ImageLayer.prototype.once = function(type, listener, opt_this) {};
 
 
 /**
@@ -14976,24 +14948,24 @@ ol.renderer.webgl.TileLayer.prototype.once = function(type, listener, opt_this) 
  * @param {Function} listener
  * @param {Object=} opt_this
  */
-ol.renderer.webgl.TileLayer.prototype.un = function(type, listener, opt_this) { };
+ol.renderer.webgl.ImageLayer.prototype.un = function(type, listener, opt_this) {};
 
 
 /**
  */
-ol.renderer.webgl.VectorLayer.prototype.changed = function() { };
+ol.renderer.webgl.TileLayer.prototype.changed = function() {};
 
 
 /**
  * @param {Object|ol.events.Event|string} event
  */
-ol.renderer.webgl.VectorLayer.prototype.dispatchEvent = function(event) { };
+ol.renderer.webgl.TileLayer.prototype.dispatchEvent = function(event) {};
 
 
 /**
  * @return {number}
  */
-ol.renderer.webgl.VectorLayer.prototype.getRevision = function() { };
+ol.renderer.webgl.TileLayer.prototype.getRevision = function() {};
 
 
 /**
@@ -15002,7 +14974,7 @@ ol.renderer.webgl.VectorLayer.prototype.getRevision = function() { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.renderer.webgl.VectorLayer.prototype.on = function(type, listener, opt_this) { };
+ol.renderer.webgl.TileLayer.prototype.on = function(type, listener, opt_this) {};
 
 
 /**
@@ -15011,7 +14983,7 @@ ol.renderer.webgl.VectorLayer.prototype.on = function(type, listener, opt_this) 
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.renderer.webgl.VectorLayer.prototype.once = function(type, listener, opt_this) { };
+ol.renderer.webgl.TileLayer.prototype.once = function(type, listener, opt_this) {};
 
 
 /**
@@ -15019,7 +14991,50 @@ ol.renderer.webgl.VectorLayer.prototype.once = function(type, listener, opt_this
  * @param {Function} listener
  * @param {Object=} opt_this
  */
-ol.renderer.webgl.VectorLayer.prototype.un = function(type, listener, opt_this) { };
+ol.renderer.webgl.TileLayer.prototype.un = function(type, listener, opt_this) {};
+
+
+/**
+ */
+ol.renderer.webgl.VectorLayer.prototype.changed = function() {};
+
+
+/**
+ * @param {Object|ol.events.Event|string} event
+ */
+ol.renderer.webgl.VectorLayer.prototype.dispatchEvent = function(event) {};
+
+
+/**
+ * @return {number}
+ */
+ol.renderer.webgl.VectorLayer.prototype.getRevision = function() {};
+
+
+/**
+ * @param {string|Array.<string>} type
+ * @param {Function} listener
+ * @param {Object=} opt_this
+ * @return {ol.EventsKey|Array.<ol.EventsKey>}
+ */
+ol.renderer.webgl.VectorLayer.prototype.on = function(type, listener, opt_this) {};
+
+
+/**
+ * @param {string|Array.<string>} type
+ * @param {Function} listener
+ * @param {Object=} opt_this
+ * @return {ol.EventsKey|Array.<ol.EventsKey>}
+ */
+ol.renderer.webgl.VectorLayer.prototype.once = function(type, listener, opt_this) {};
+
+
+/**
+ * @param {string|Array.<string>} type
+ * @param {Function} listener
+ * @param {Object=} opt_this
+ */
+ol.renderer.webgl.VectorLayer.prototype.un = function(type, listener, opt_this) {};
 
 
 /**
@@ -15031,37 +15046,37 @@ ol.reproj;
 /**
  * @constructor
  */
-ol.reproj.Tile = function() { };
+ol.reproj.Tile = function() {};
 
 
 /**
  * @return {ol.TileCoord}
  */
-ol.reproj.Tile.prototype.getTileCoord = function() { };
+ol.reproj.Tile.prototype.getTileCoord = function() {};
 
 
 /**
  */
-ol.reproj.Tile.prototype.load = function() { };
+ol.reproj.Tile.prototype.load = function() {};
 
 
 /**
  * @param {string} key
  * @return {*}
  */
-ol.source.Source.prototype.get = function(key) { };
+ol.source.Source.prototype.get = function(key) {};
 
 
 /**
  * @return {Array.<string>}
  */
-ol.source.Source.prototype.getKeys = function() { };
+ol.source.Source.prototype.getKeys = function() {};
 
 
 /**
  * @return {Object.<string, *>}
  */
-ol.source.Source.prototype.getProperties = function() { };
+ol.source.Source.prototype.getProperties = function() {};
 
 
 /**
@@ -15069,38 +15084,38 @@ ol.source.Source.prototype.getProperties = function() { };
  * @param {*} value
  * @param {boolean=} opt_silent
  */
-ol.source.Source.prototype.set = function(key, value, opt_silent) { };
+ol.source.Source.prototype.set = function(key, value, opt_silent) {};
 
 
 /**
  * @param {Object.<string, *>} values
  * @param {boolean=} opt_silent
  */
-ol.source.Source.prototype.setProperties = function(values, opt_silent) { };
+ol.source.Source.prototype.setProperties = function(values, opt_silent) {};
 
 
 /**
  * @param {string} key
  * @param {boolean=} opt_silent
  */
-ol.source.Source.prototype.unset = function(key, opt_silent) { };
+ol.source.Source.prototype.unset = function(key, opt_silent) {};
 
 
 /**
  */
-ol.source.Source.prototype.changed = function() { };
+ol.source.Source.prototype.changed = function() {};
 
 
 /**
  * @param {Object|ol.events.Event|string} event
  */
-ol.source.Source.prototype.dispatchEvent = function(event) { };
+ol.source.Source.prototype.dispatchEvent = function(event) {};
 
 
 /**
  * @return {number}
  */
-ol.source.Source.prototype.getRevision = function() { };
+ol.source.Source.prototype.getRevision = function() {};
 
 
 /**
@@ -15109,7 +15124,7 @@ ol.source.Source.prototype.getRevision = function() { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.source.Source.prototype.on = function(type, listener, opt_this) { };
+ol.source.Source.prototype.on = function(type, listener, opt_this) {};
 
 
 /**
@@ -15118,7 +15133,7 @@ ol.source.Source.prototype.on = function(type, listener, opt_this) { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.source.Source.prototype.once = function(type, listener, opt_this) { };
+ol.source.Source.prototype.once = function(type, listener, opt_this) {};
 
 
 /**
@@ -15126,61 +15141,61 @@ ol.source.Source.prototype.once = function(type, listener, opt_this) { };
  * @param {Function} listener
  * @param {Object=} opt_this
  */
-ol.source.Source.prototype.un = function(type, listener, opt_this) { };
+ol.source.Source.prototype.un = function(type, listener, opt_this) {};
 
 
 /**
  * @return {Array.<ol.Attribution>}
  */
-ol.source.Tile.prototype.getAttributions = function() { };
+ol.source.Tile.prototype.getAttributions = function() {};
 
 
 /**
  * @return {string|olx.LogoOptions|undefined}
  */
-ol.source.Tile.prototype.getLogo = function() { };
+ol.source.Tile.prototype.getLogo = function() {};
 
 
 /**
  * @return {ol.proj.Projection}
  */
-ol.source.Tile.prototype.getProjection = function() { };
+ol.source.Tile.prototype.getProjection = function() {};
 
 
 /**
  * @return {ol.source.State}
  */
-ol.source.Tile.prototype.getState = function() { };
+ol.source.Tile.prototype.getState = function() {};
 
 
 /**
  */
-ol.source.Tile.prototype.refresh = function() { };
+ol.source.Tile.prototype.refresh = function() {};
 
 
 /**
  * @param {ol.AttributionLike|undefined} attributions
  */
-ol.source.Tile.prototype.setAttributions = function(attributions) { };
+ol.source.Tile.prototype.setAttributions = function(attributions) {};
 
 
 /**
  * @param {string} key
  * @return {*}
  */
-ol.source.Tile.prototype.get = function(key) { };
+ol.source.Tile.prototype.get = function(key) {};
 
 
 /**
  * @return {Array.<string>}
  */
-ol.source.Tile.prototype.getKeys = function() { };
+ol.source.Tile.prototype.getKeys = function() {};
 
 
 /**
  * @return {Object.<string, *>}
  */
-ol.source.Tile.prototype.getProperties = function() { };
+ol.source.Tile.prototype.getProperties = function() {};
 
 
 /**
@@ -15188,38 +15203,38 @@ ol.source.Tile.prototype.getProperties = function() { };
  * @param {*} value
  * @param {boolean=} opt_silent
  */
-ol.source.Tile.prototype.set = function(key, value, opt_silent) { };
+ol.source.Tile.prototype.set = function(key, value, opt_silent) {};
 
 
 /**
  * @param {Object.<string, *>} values
  * @param {boolean=} opt_silent
  */
-ol.source.Tile.prototype.setProperties = function(values, opt_silent) { };
+ol.source.Tile.prototype.setProperties = function(values, opt_silent) {};
 
 
 /**
  * @param {string} key
  * @param {boolean=} opt_silent
  */
-ol.source.Tile.prototype.unset = function(key, opt_silent) { };
+ol.source.Tile.prototype.unset = function(key, opt_silent) {};
 
 
 /**
  */
-ol.source.Tile.prototype.changed = function() { };
+ol.source.Tile.prototype.changed = function() {};
 
 
 /**
  * @param {Object|ol.events.Event|string} event
  */
-ol.source.Tile.prototype.dispatchEvent = function(event) { };
+ol.source.Tile.prototype.dispatchEvent = function(event) {};
 
 
 /**
  * @return {number}
  */
-ol.source.Tile.prototype.getRevision = function() { };
+ol.source.Tile.prototype.getRevision = function() {};
 
 
 /**
@@ -15228,7 +15243,7 @@ ol.source.Tile.prototype.getRevision = function() { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.source.Tile.prototype.on = function(type, listener, opt_this) { };
+ol.source.Tile.prototype.on = function(type, listener, opt_this) {};
 
 
 /**
@@ -15237,7 +15252,7 @@ ol.source.Tile.prototype.on = function(type, listener, opt_this) { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.source.Tile.prototype.once = function(type, listener, opt_this) { };
+ol.source.Tile.prototype.once = function(type, listener, opt_this) {};
 
 
 /**
@@ -15245,67 +15260,67 @@ ol.source.Tile.prototype.once = function(type, listener, opt_this) { };
  * @param {Function} listener
  * @param {Object=} opt_this
  */
-ol.source.Tile.prototype.un = function(type, listener, opt_this) { };
+ol.source.Tile.prototype.un = function(type, listener, opt_this) {};
 
 
 /**
  * @return {ol.tilegrid.TileGrid}
  */
-ol.source.UrlTile.prototype.getTileGrid = function() { };
+ol.source.UrlTile.prototype.getTileGrid = function() {};
 
 
 /**
  */
-ol.source.UrlTile.prototype.refresh = function() { };
+ol.source.UrlTile.prototype.refresh = function() {};
 
 
 /**
  * @return {Array.<ol.Attribution>}
  */
-ol.source.UrlTile.prototype.getAttributions = function() { };
+ol.source.UrlTile.prototype.getAttributions = function() {};
 
 
 /**
  * @return {string|olx.LogoOptions|undefined}
  */
-ol.source.UrlTile.prototype.getLogo = function() { };
+ol.source.UrlTile.prototype.getLogo = function() {};
 
 
 /**
  * @return {ol.proj.Projection}
  */
-ol.source.UrlTile.prototype.getProjection = function() { };
+ol.source.UrlTile.prototype.getProjection = function() {};
 
 
 /**
  * @return {ol.source.State}
  */
-ol.source.UrlTile.prototype.getState = function() { };
+ol.source.UrlTile.prototype.getState = function() {};
 
 
 /**
  * @param {ol.AttributionLike|undefined} attributions
  */
-ol.source.UrlTile.prototype.setAttributions = function(attributions) { };
+ol.source.UrlTile.prototype.setAttributions = function(attributions) {};
 
 
 /**
  * @param {string} key
  * @return {*}
  */
-ol.source.UrlTile.prototype.get = function(key) { };
+ol.source.UrlTile.prototype.get = function(key) {};
 
 
 /**
  * @return {Array.<string>}
  */
-ol.source.UrlTile.prototype.getKeys = function() { };
+ol.source.UrlTile.prototype.getKeys = function() {};
 
 
 /**
  * @return {Object.<string, *>}
  */
-ol.source.UrlTile.prototype.getProperties = function() { };
+ol.source.UrlTile.prototype.getProperties = function() {};
 
 
 /**
@@ -15313,38 +15328,38 @@ ol.source.UrlTile.prototype.getProperties = function() { };
  * @param {*} value
  * @param {boolean=} opt_silent
  */
-ol.source.UrlTile.prototype.set = function(key, value, opt_silent) { };
+ol.source.UrlTile.prototype.set = function(key, value, opt_silent) {};
 
 
 /**
  * @param {Object.<string, *>} values
  * @param {boolean=} opt_silent
  */
-ol.source.UrlTile.prototype.setProperties = function(values, opt_silent) { };
+ol.source.UrlTile.prototype.setProperties = function(values, opt_silent) {};
 
 
 /**
  * @param {string} key
  * @param {boolean=} opt_silent
  */
-ol.source.UrlTile.prototype.unset = function(key, opt_silent) { };
+ol.source.UrlTile.prototype.unset = function(key, opt_silent) {};
 
 
 /**
  */
-ol.source.UrlTile.prototype.changed = function() { };
+ol.source.UrlTile.prototype.changed = function() {};
 
 
 /**
  * @param {Object|ol.events.Event|string} event
  */
-ol.source.UrlTile.prototype.dispatchEvent = function(event) { };
+ol.source.UrlTile.prototype.dispatchEvent = function(event) {};
 
 
 /**
  * @return {number}
  */
-ol.source.UrlTile.prototype.getRevision = function() { };
+ol.source.UrlTile.prototype.getRevision = function() {};
 
 
 /**
@@ -15353,7 +15368,7 @@ ol.source.UrlTile.prototype.getRevision = function() { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.source.UrlTile.prototype.on = function(type, listener, opt_this) { };
+ol.source.UrlTile.prototype.on = function(type, listener, opt_this) {};
 
 
 /**
@@ -15362,7 +15377,7 @@ ol.source.UrlTile.prototype.on = function(type, listener, opt_this) { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.source.UrlTile.prototype.once = function(type, listener, opt_this) { };
+ol.source.UrlTile.prototype.once = function(type, listener, opt_this) {};
 
 
 /**
@@ -15370,110 +15385,110 @@ ol.source.UrlTile.prototype.once = function(type, listener, opt_this) { };
  * @param {Function} listener
  * @param {Object=} opt_this
  */
-ol.source.UrlTile.prototype.un = function(type, listener, opt_this) { };
+ol.source.UrlTile.prototype.un = function(type, listener, opt_this) {};
 
 
 /**
  * @return {ol.TileLoadFunctionType}
  */
-ol.source.TileImage.prototype.getTileLoadFunction = function() { };
+ol.source.TileImage.prototype.getTileLoadFunction = function() {};
 
 
 /**
  * @return {ol.TileUrlFunctionType}
  */
-ol.source.TileImage.prototype.getTileUrlFunction = function() { };
+ol.source.TileImage.prototype.getTileUrlFunction = function() {};
 
 
 /**
  * @return {!Array.<string>|null}
  */
-ol.source.TileImage.prototype.getUrls = function() { };
+ol.source.TileImage.prototype.getUrls = function() {};
 
 
 /**
  * @param {ol.TileLoadFunctionType} tileLoadFunction
  */
-ol.source.TileImage.prototype.setTileLoadFunction = function(tileLoadFunction) { };
+ol.source.TileImage.prototype.setTileLoadFunction = function(tileLoadFunction) {};
 
 
 /**
  * @param {ol.TileUrlFunctionType} tileUrlFunction
  * @param {string=} opt_key
  */
-ol.source.TileImage.prototype.setTileUrlFunction = function(tileUrlFunction, opt_key) { };
+ol.source.TileImage.prototype.setTileUrlFunction = function(tileUrlFunction, opt_key) {};
 
 
 /**
  * @param {string} url
  */
-ol.source.TileImage.prototype.setUrl = function(url) { };
+ol.source.TileImage.prototype.setUrl = function(url) {};
 
 
 /**
  * @param {Array.<string>} urls
  */
-ol.source.TileImage.prototype.setUrls = function(urls) { };
+ol.source.TileImage.prototype.setUrls = function(urls) {};
 
 
 /**
  * @return {ol.tilegrid.TileGrid}
  */
-ol.source.TileImage.prototype.getTileGrid = function() { };
+ol.source.TileImage.prototype.getTileGrid = function() {};
 
 
 /**
  */
-ol.source.TileImage.prototype.refresh = function() { };
+ol.source.TileImage.prototype.refresh = function() {};
 
 
 /**
  * @return {Array.<ol.Attribution>}
  */
-ol.source.TileImage.prototype.getAttributions = function() { };
+ol.source.TileImage.prototype.getAttributions = function() {};
 
 
 /**
  * @return {string|olx.LogoOptions|undefined}
  */
-ol.source.TileImage.prototype.getLogo = function() { };
+ol.source.TileImage.prototype.getLogo = function() {};
 
 
 /**
  * @return {ol.proj.Projection}
  */
-ol.source.TileImage.prototype.getProjection = function() { };
+ol.source.TileImage.prototype.getProjection = function() {};
 
 
 /**
  * @return {ol.source.State}
  */
-ol.source.TileImage.prototype.getState = function() { };
+ol.source.TileImage.prototype.getState = function() {};
 
 
 /**
  * @param {ol.AttributionLike|undefined} attributions
  */
-ol.source.TileImage.prototype.setAttributions = function(attributions) { };
+ol.source.TileImage.prototype.setAttributions = function(attributions) {};
 
 
 /**
  * @param {string} key
  * @return {*}
  */
-ol.source.TileImage.prototype.get = function(key) { };
+ol.source.TileImage.prototype.get = function(key) {};
 
 
 /**
  * @return {Array.<string>}
  */
-ol.source.TileImage.prototype.getKeys = function() { };
+ol.source.TileImage.prototype.getKeys = function() {};
 
 
 /**
  * @return {Object.<string, *>}
  */
-ol.source.TileImage.prototype.getProperties = function() { };
+ol.source.TileImage.prototype.getProperties = function() {};
 
 
 /**
@@ -15481,38 +15496,38 @@ ol.source.TileImage.prototype.getProperties = function() { };
  * @param {*} value
  * @param {boolean=} opt_silent
  */
-ol.source.TileImage.prototype.set = function(key, value, opt_silent) { };
+ol.source.TileImage.prototype.set = function(key, value, opt_silent) {};
 
 
 /**
  * @param {Object.<string, *>} values
  * @param {boolean=} opt_silent
  */
-ol.source.TileImage.prototype.setProperties = function(values, opt_silent) { };
+ol.source.TileImage.prototype.setProperties = function(values, opt_silent) {};
 
 
 /**
  * @param {string} key
  * @param {boolean=} opt_silent
  */
-ol.source.TileImage.prototype.unset = function(key, opt_silent) { };
+ol.source.TileImage.prototype.unset = function(key, opt_silent) {};
 
 
 /**
  */
-ol.source.TileImage.prototype.changed = function() { };
+ol.source.TileImage.prototype.changed = function() {};
 
 
 /**
  * @param {Object|ol.events.Event|string} event
  */
-ol.source.TileImage.prototype.dispatchEvent = function(event) { };
+ol.source.TileImage.prototype.dispatchEvent = function(event) {};
 
 
 /**
  * @return {number}
  */
-ol.source.TileImage.prototype.getRevision = function() { };
+ol.source.TileImage.prototype.getRevision = function() {};
 
 
 /**
@@ -15521,7 +15536,7 @@ ol.source.TileImage.prototype.getRevision = function() { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.source.TileImage.prototype.on = function(type, listener, opt_this) { };
+ol.source.TileImage.prototype.on = function(type, listener, opt_this) {};
 
 
 /**
@@ -15530,7 +15545,7 @@ ol.source.TileImage.prototype.on = function(type, listener, opt_this) { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.source.TileImage.prototype.once = function(type, listener, opt_this) { };
+ol.source.TileImage.prototype.once = function(type, listener, opt_this) {};
 
 
 /**
@@ -15538,123 +15553,123 @@ ol.source.TileImage.prototype.once = function(type, listener, opt_this) { };
  * @param {Function} listener
  * @param {Object=} opt_this
  */
-ol.source.TileImage.prototype.un = function(type, listener, opt_this) { };
+ol.source.TileImage.prototype.un = function(type, listener, opt_this) {};
 
 
 /**
  * @param {boolean} render
  */
-ol.source.BingMaps.prototype.setRenderReprojectionEdges = function(render) { };
+ol.source.BingMaps.prototype.setRenderReprojectionEdges = function(render) {};
 
 
 /**
  * @param {ol.ProjectionLike} projection
  * @param {ol.tilegrid.TileGrid} tilegrid
  */
-ol.source.BingMaps.prototype.setTileGridForProjection = function(projection, tilegrid) { };
+ol.source.BingMaps.prototype.setTileGridForProjection = function(projection, tilegrid) {};
 
 
 /**
  * @return {ol.TileLoadFunctionType}
  */
-ol.source.BingMaps.prototype.getTileLoadFunction = function() { };
+ol.source.BingMaps.prototype.getTileLoadFunction = function() {};
 
 
 /**
  * @return {ol.TileUrlFunctionType}
  */
-ol.source.BingMaps.prototype.getTileUrlFunction = function() { };
+ol.source.BingMaps.prototype.getTileUrlFunction = function() {};
 
 
 /**
  * @return {!Array.<string>|null}
  */
-ol.source.BingMaps.prototype.getUrls = function() { };
+ol.source.BingMaps.prototype.getUrls = function() {};
 
 
 /**
  * @param {ol.TileLoadFunctionType} tileLoadFunction
  */
-ol.source.BingMaps.prototype.setTileLoadFunction = function(tileLoadFunction) { };
+ol.source.BingMaps.prototype.setTileLoadFunction = function(tileLoadFunction) {};
 
 
 /**
  * @param {ol.TileUrlFunctionType} tileUrlFunction
  * @param {string=} opt_key
  */
-ol.source.BingMaps.prototype.setTileUrlFunction = function(tileUrlFunction, opt_key) { };
+ol.source.BingMaps.prototype.setTileUrlFunction = function(tileUrlFunction, opt_key) {};
 
 
 /**
  * @param {string} url
  */
-ol.source.BingMaps.prototype.setUrl = function(url) { };
+ol.source.BingMaps.prototype.setUrl = function(url) {};
 
 
 /**
  * @param {Array.<string>} urls
  */
-ol.source.BingMaps.prototype.setUrls = function(urls) { };
+ol.source.BingMaps.prototype.setUrls = function(urls) {};
 
 
 /**
  * @return {ol.tilegrid.TileGrid}
  */
-ol.source.BingMaps.prototype.getTileGrid = function() { };
+ol.source.BingMaps.prototype.getTileGrid = function() {};
 
 
 /**
  */
-ol.source.BingMaps.prototype.refresh = function() { };
+ol.source.BingMaps.prototype.refresh = function() {};
 
 
 /**
  * @return {Array.<ol.Attribution>}
  */
-ol.source.BingMaps.prototype.getAttributions = function() { };
+ol.source.BingMaps.prototype.getAttributions = function() {};
 
 
 /**
  * @return {string|olx.LogoOptions|undefined}
  */
-ol.source.BingMaps.prototype.getLogo = function() { };
+ol.source.BingMaps.prototype.getLogo = function() {};
 
 
 /**
  * @return {ol.proj.Projection}
  */
-ol.source.BingMaps.prototype.getProjection = function() { };
+ol.source.BingMaps.prototype.getProjection = function() {};
 
 
 /**
  * @return {ol.source.State}
  */
-ol.source.BingMaps.prototype.getState = function() { };
+ol.source.BingMaps.prototype.getState = function() {};
 
 
 /**
  * @param {ol.AttributionLike|undefined} attributions
  */
-ol.source.BingMaps.prototype.setAttributions = function(attributions) { };
+ol.source.BingMaps.prototype.setAttributions = function(attributions) {};
 
 
 /**
  * @param {string} key
  * @return {*}
  */
-ol.source.BingMaps.prototype.get = function(key) { };
+ol.source.BingMaps.prototype.get = function(key) {};
 
 
 /**
  * @return {Array.<string>}
  */
-ol.source.BingMaps.prototype.getKeys = function() { };
+ol.source.BingMaps.prototype.getKeys = function() {};
 
 
 /**
  * @return {Object.<string, *>}
  */
-ol.source.BingMaps.prototype.getProperties = function() { };
+ol.source.BingMaps.prototype.getProperties = function() {};
 
 
 /**
@@ -15662,38 +15677,38 @@ ol.source.BingMaps.prototype.getProperties = function() { };
  * @param {*} value
  * @param {boolean=} opt_silent
  */
-ol.source.BingMaps.prototype.set = function(key, value, opt_silent) { };
+ol.source.BingMaps.prototype.set = function(key, value, opt_silent) {};
 
 
 /**
  * @param {Object.<string, *>} values
  * @param {boolean=} opt_silent
  */
-ol.source.BingMaps.prototype.setProperties = function(values, opt_silent) { };
+ol.source.BingMaps.prototype.setProperties = function(values, opt_silent) {};
 
 
 /**
  * @param {string} key
  * @param {boolean=} opt_silent
  */
-ol.source.BingMaps.prototype.unset = function(key, opt_silent) { };
+ol.source.BingMaps.prototype.unset = function(key, opt_silent) {};
 
 
 /**
  */
-ol.source.BingMaps.prototype.changed = function() { };
+ol.source.BingMaps.prototype.changed = function() {};
 
 
 /**
  * @param {Object|ol.events.Event|string} event
  */
-ol.source.BingMaps.prototype.dispatchEvent = function(event) { };
+ol.source.BingMaps.prototype.dispatchEvent = function(event) {};
 
 
 /**
  * @return {number}
  */
-ol.source.BingMaps.prototype.getRevision = function() { };
+ol.source.BingMaps.prototype.getRevision = function() {};
 
 
 /**
@@ -15702,7 +15717,7 @@ ol.source.BingMaps.prototype.getRevision = function() { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.source.BingMaps.prototype.on = function(type, listener, opt_this) { };
+ol.source.BingMaps.prototype.on = function(type, listener, opt_this) {};
 
 
 /**
@@ -15711,7 +15726,7 @@ ol.source.BingMaps.prototype.on = function(type, listener, opt_this) { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.source.BingMaps.prototype.once = function(type, listener, opt_this) { };
+ol.source.BingMaps.prototype.once = function(type, listener, opt_this) {};
 
 
 /**
@@ -15719,123 +15734,123 @@ ol.source.BingMaps.prototype.once = function(type, listener, opt_this) { };
  * @param {Function} listener
  * @param {Object=} opt_this
  */
-ol.source.BingMaps.prototype.un = function(type, listener, opt_this) { };
+ol.source.BingMaps.prototype.un = function(type, listener, opt_this) {};
 
 
 /**
  * @param {boolean} render
  */
-ol.source.XYZ.prototype.setRenderReprojectionEdges = function(render) { };
+ol.source.XYZ.prototype.setRenderReprojectionEdges = function(render) {};
 
 
 /**
  * @param {ol.ProjectionLike} projection
  * @param {ol.tilegrid.TileGrid} tilegrid
  */
-ol.source.XYZ.prototype.setTileGridForProjection = function(projection, tilegrid) { };
+ol.source.XYZ.prototype.setTileGridForProjection = function(projection, tilegrid) {};
 
 
 /**
  * @return {ol.TileLoadFunctionType}
  */
-ol.source.XYZ.prototype.getTileLoadFunction = function() { };
+ol.source.XYZ.prototype.getTileLoadFunction = function() {};
 
 
 /**
  * @return {ol.TileUrlFunctionType}
  */
-ol.source.XYZ.prototype.getTileUrlFunction = function() { };
+ol.source.XYZ.prototype.getTileUrlFunction = function() {};
 
 
 /**
  * @return {!Array.<string>|null}
  */
-ol.source.XYZ.prototype.getUrls = function() { };
+ol.source.XYZ.prototype.getUrls = function() {};
 
 
 /**
  * @param {ol.TileLoadFunctionType} tileLoadFunction
  */
-ol.source.XYZ.prototype.setTileLoadFunction = function(tileLoadFunction) { };
+ol.source.XYZ.prototype.setTileLoadFunction = function(tileLoadFunction) {};
 
 
 /**
  * @param {ol.TileUrlFunctionType} tileUrlFunction
  * @param {string=} opt_key
  */
-ol.source.XYZ.prototype.setTileUrlFunction = function(tileUrlFunction, opt_key) { };
+ol.source.XYZ.prototype.setTileUrlFunction = function(tileUrlFunction, opt_key) {};
 
 
 /**
  * @param {string} url
  */
-ol.source.XYZ.prototype.setUrl = function(url) { };
+ol.source.XYZ.prototype.setUrl = function(url) {};
 
 
 /**
  * @param {Array.<string>} urls
  */
-ol.source.XYZ.prototype.setUrls = function(urls) { };
+ol.source.XYZ.prototype.setUrls = function(urls) {};
 
 
 /**
  * @return {ol.tilegrid.TileGrid}
  */
-ol.source.XYZ.prototype.getTileGrid = function() { };
+ol.source.XYZ.prototype.getTileGrid = function() {};
 
 
 /**
  */
-ol.source.XYZ.prototype.refresh = function() { };
+ol.source.XYZ.prototype.refresh = function() {};
 
 
 /**
  * @return {Array.<ol.Attribution>}
  */
-ol.source.XYZ.prototype.getAttributions = function() { };
+ol.source.XYZ.prototype.getAttributions = function() {};
 
 
 /**
  * @return {string|olx.LogoOptions|undefined}
  */
-ol.source.XYZ.prototype.getLogo = function() { };
+ol.source.XYZ.prototype.getLogo = function() {};
 
 
 /**
  * @return {ol.proj.Projection}
  */
-ol.source.XYZ.prototype.getProjection = function() { };
+ol.source.XYZ.prototype.getProjection = function() {};
 
 
 /**
  * @return {ol.source.State}
  */
-ol.source.XYZ.prototype.getState = function() { };
+ol.source.XYZ.prototype.getState = function() {};
 
 
 /**
  * @param {ol.AttributionLike|undefined} attributions
  */
-ol.source.XYZ.prototype.setAttributions = function(attributions) { };
+ol.source.XYZ.prototype.setAttributions = function(attributions) {};
 
 
 /**
  * @param {string} key
  * @return {*}
  */
-ol.source.XYZ.prototype.get = function(key) { };
+ol.source.XYZ.prototype.get = function(key) {};
 
 
 /**
  * @return {Array.<string>}
  */
-ol.source.XYZ.prototype.getKeys = function() { };
+ol.source.XYZ.prototype.getKeys = function() {};
 
 
 /**
  * @return {Object.<string, *>}
  */
-ol.source.XYZ.prototype.getProperties = function() { };
+ol.source.XYZ.prototype.getProperties = function() {};
 
 
 /**
@@ -15843,38 +15858,38 @@ ol.source.XYZ.prototype.getProperties = function() { };
  * @param {*} value
  * @param {boolean=} opt_silent
  */
-ol.source.XYZ.prototype.set = function(key, value, opt_silent) { };
+ol.source.XYZ.prototype.set = function(key, value, opt_silent) {};
 
 
 /**
  * @param {Object.<string, *>} values
  * @param {boolean=} opt_silent
  */
-ol.source.XYZ.prototype.setProperties = function(values, opt_silent) { };
+ol.source.XYZ.prototype.setProperties = function(values, opt_silent) {};
 
 
 /**
  * @param {string} key
  * @param {boolean=} opt_silent
  */
-ol.source.XYZ.prototype.unset = function(key, opt_silent) { };
+ol.source.XYZ.prototype.unset = function(key, opt_silent) {};
 
 
 /**
  */
-ol.source.XYZ.prototype.changed = function() { };
+ol.source.XYZ.prototype.changed = function() {};
 
 
 /**
  * @param {Object|ol.events.Event|string} event
  */
-ol.source.XYZ.prototype.dispatchEvent = function(event) { };
+ol.source.XYZ.prototype.dispatchEvent = function(event) {};
 
 
 /**
  * @return {number}
  */
-ol.source.XYZ.prototype.getRevision = function() { };
+ol.source.XYZ.prototype.getRevision = function() {};
 
 
 /**
@@ -15883,7 +15898,7 @@ ol.source.XYZ.prototype.getRevision = function() { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.source.XYZ.prototype.on = function(type, listener, opt_this) { };
+ol.source.XYZ.prototype.on = function(type, listener, opt_this) {};
 
 
 /**
@@ -15892,7 +15907,7 @@ ol.source.XYZ.prototype.on = function(type, listener, opt_this) { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.source.XYZ.prototype.once = function(type, listener, opt_this) { };
+ol.source.XYZ.prototype.once = function(type, listener, opt_this) {};
 
 
 /**
@@ -15900,123 +15915,123 @@ ol.source.XYZ.prototype.once = function(type, listener, opt_this) { };
  * @param {Function} listener
  * @param {Object=} opt_this
  */
-ol.source.XYZ.prototype.un = function(type, listener, opt_this) { };
+ol.source.XYZ.prototype.un = function(type, listener, opt_this) {};
 
 
 /**
  * @param {boolean} render
  */
-ol.source.CartoDB.prototype.setRenderReprojectionEdges = function(render) { };
+ol.source.CartoDB.prototype.setRenderReprojectionEdges = function(render) {};
 
 
 /**
  * @param {ol.ProjectionLike} projection
  * @param {ol.tilegrid.TileGrid} tilegrid
  */
-ol.source.CartoDB.prototype.setTileGridForProjection = function(projection, tilegrid) { };
+ol.source.CartoDB.prototype.setTileGridForProjection = function(projection, tilegrid) {};
 
 
 /**
  * @return {ol.TileLoadFunctionType}
  */
-ol.source.CartoDB.prototype.getTileLoadFunction = function() { };
+ol.source.CartoDB.prototype.getTileLoadFunction = function() {};
 
 
 /**
  * @return {ol.TileUrlFunctionType}
  */
-ol.source.CartoDB.prototype.getTileUrlFunction = function() { };
+ol.source.CartoDB.prototype.getTileUrlFunction = function() {};
 
 
 /**
  * @return {!Array.<string>|null}
  */
-ol.source.CartoDB.prototype.getUrls = function() { };
+ol.source.CartoDB.prototype.getUrls = function() {};
 
 
 /**
  * @param {ol.TileLoadFunctionType} tileLoadFunction
  */
-ol.source.CartoDB.prototype.setTileLoadFunction = function(tileLoadFunction) { };
+ol.source.CartoDB.prototype.setTileLoadFunction = function(tileLoadFunction) {};
 
 
 /**
  * @param {ol.TileUrlFunctionType} tileUrlFunction
  * @param {string=} opt_key
  */
-ol.source.CartoDB.prototype.setTileUrlFunction = function(tileUrlFunction, opt_key) { };
+ol.source.CartoDB.prototype.setTileUrlFunction = function(tileUrlFunction, opt_key) {};
 
 
 /**
  * @param {string} url
  */
-ol.source.CartoDB.prototype.setUrl = function(url) { };
+ol.source.CartoDB.prototype.setUrl = function(url) {};
 
 
 /**
  * @param {Array.<string>} urls
  */
-ol.source.CartoDB.prototype.setUrls = function(urls) { };
+ol.source.CartoDB.prototype.setUrls = function(urls) {};
 
 
 /**
  * @return {ol.tilegrid.TileGrid}
  */
-ol.source.CartoDB.prototype.getTileGrid = function() { };
+ol.source.CartoDB.prototype.getTileGrid = function() {};
 
 
 /**
  */
-ol.source.CartoDB.prototype.refresh = function() { };
+ol.source.CartoDB.prototype.refresh = function() {};
 
 
 /**
  * @return {Array.<ol.Attribution>}
  */
-ol.source.CartoDB.prototype.getAttributions = function() { };
+ol.source.CartoDB.prototype.getAttributions = function() {};
 
 
 /**
  * @return {string|olx.LogoOptions|undefined}
  */
-ol.source.CartoDB.prototype.getLogo = function() { };
+ol.source.CartoDB.prototype.getLogo = function() {};
 
 
 /**
  * @return {ol.proj.Projection}
  */
-ol.source.CartoDB.prototype.getProjection = function() { };
+ol.source.CartoDB.prototype.getProjection = function() {};
 
 
 /**
  * @return {ol.source.State}
  */
-ol.source.CartoDB.prototype.getState = function() { };
+ol.source.CartoDB.prototype.getState = function() {};
 
 
 /**
  * @param {ol.AttributionLike|undefined} attributions
  */
-ol.source.CartoDB.prototype.setAttributions = function(attributions) { };
+ol.source.CartoDB.prototype.setAttributions = function(attributions) {};
 
 
 /**
  * @param {string} key
  * @return {*}
  */
-ol.source.CartoDB.prototype.get = function(key) { };
+ol.source.CartoDB.prototype.get = function(key) {};
 
 
 /**
  * @return {Array.<string>}
  */
-ol.source.CartoDB.prototype.getKeys = function() { };
+ol.source.CartoDB.prototype.getKeys = function() {};
 
 
 /**
  * @return {Object.<string, *>}
  */
-ol.source.CartoDB.prototype.getProperties = function() { };
+ol.source.CartoDB.prototype.getProperties = function() {};
 
 
 /**
@@ -16024,38 +16039,38 @@ ol.source.CartoDB.prototype.getProperties = function() { };
  * @param {*} value
  * @param {boolean=} opt_silent
  */
-ol.source.CartoDB.prototype.set = function(key, value, opt_silent) { };
+ol.source.CartoDB.prototype.set = function(key, value, opt_silent) {};
 
 
 /**
  * @param {Object.<string, *>} values
  * @param {boolean=} opt_silent
  */
-ol.source.CartoDB.prototype.setProperties = function(values, opt_silent) { };
+ol.source.CartoDB.prototype.setProperties = function(values, opt_silent) {};
 
 
 /**
  * @param {string} key
  * @param {boolean=} opt_silent
  */
-ol.source.CartoDB.prototype.unset = function(key, opt_silent) { };
+ol.source.CartoDB.prototype.unset = function(key, opt_silent) {};
 
 
 /**
  */
-ol.source.CartoDB.prototype.changed = function() { };
+ol.source.CartoDB.prototype.changed = function() {};
 
 
 /**
  * @param {Object|ol.events.Event|string} event
  */
-ol.source.CartoDB.prototype.dispatchEvent = function(event) { };
+ol.source.CartoDB.prototype.dispatchEvent = function(event) {};
 
 
 /**
  * @return {number}
  */
-ol.source.CartoDB.prototype.getRevision = function() { };
+ol.source.CartoDB.prototype.getRevision = function() {};
 
 
 /**
@@ -16064,7 +16079,7 @@ ol.source.CartoDB.prototype.getRevision = function() { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.source.CartoDB.prototype.on = function(type, listener, opt_this) { };
+ol.source.CartoDB.prototype.on = function(type, listener, opt_this) {};
 
 
 /**
@@ -16073,7 +16088,7 @@ ol.source.CartoDB.prototype.on = function(type, listener, opt_this) { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.source.CartoDB.prototype.once = function(type, listener, opt_this) { };
+ol.source.CartoDB.prototype.once = function(type, listener, opt_this) {};
 
 
 /**
@@ -16081,61 +16096,61 @@ ol.source.CartoDB.prototype.once = function(type, listener, opt_this) { };
  * @param {Function} listener
  * @param {Object=} opt_this
  */
-ol.source.CartoDB.prototype.un = function(type, listener, opt_this) { };
+ol.source.CartoDB.prototype.un = function(type, listener, opt_this) {};
 
 
 /**
  * @return {Array.<ol.Attribution>}
  */
-ol.source.Vector.prototype.getAttributions = function() { };
+ol.source.Vector.prototype.getAttributions = function() {};
 
 
 /**
  * @return {string|olx.LogoOptions|undefined}
  */
-ol.source.Vector.prototype.getLogo = function() { };
+ol.source.Vector.prototype.getLogo = function() {};
 
 
 /**
  * @return {ol.proj.Projection}
  */
-ol.source.Vector.prototype.getProjection = function() { };
+ol.source.Vector.prototype.getProjection = function() {};
 
 
 /**
  * @return {ol.source.State}
  */
-ol.source.Vector.prototype.getState = function() { };
+ol.source.Vector.prototype.getState = function() {};
 
 
 /**
  */
-ol.source.Vector.prototype.refresh = function() { };
+ol.source.Vector.prototype.refresh = function() {};
 
 
 /**
  * @param {ol.AttributionLike|undefined} attributions
  */
-ol.source.Vector.prototype.setAttributions = function(attributions) { };
+ol.source.Vector.prototype.setAttributions = function(attributions) {};
 
 
 /**
  * @param {string} key
  * @return {*}
  */
-ol.source.Vector.prototype.get = function(key) { };
+ol.source.Vector.prototype.get = function(key) {};
 
 
 /**
  * @return {Array.<string>}
  */
-ol.source.Vector.prototype.getKeys = function() { };
+ol.source.Vector.prototype.getKeys = function() {};
 
 
 /**
  * @return {Object.<string, *>}
  */
-ol.source.Vector.prototype.getProperties = function() { };
+ol.source.Vector.prototype.getProperties = function() {};
 
 
 /**
@@ -16143,38 +16158,38 @@ ol.source.Vector.prototype.getProperties = function() { };
  * @param {*} value
  * @param {boolean=} opt_silent
  */
-ol.source.Vector.prototype.set = function(key, value, opt_silent) { };
+ol.source.Vector.prototype.set = function(key, value, opt_silent) {};
 
 
 /**
  * @param {Object.<string, *>} values
  * @param {boolean=} opt_silent
  */
-ol.source.Vector.prototype.setProperties = function(values, opt_silent) { };
+ol.source.Vector.prototype.setProperties = function(values, opt_silent) {};
 
 
 /**
  * @param {string} key
  * @param {boolean=} opt_silent
  */
-ol.source.Vector.prototype.unset = function(key, opt_silent) { };
+ol.source.Vector.prototype.unset = function(key, opt_silent) {};
 
 
 /**
  */
-ol.source.Vector.prototype.changed = function() { };
+ol.source.Vector.prototype.changed = function() {};
 
 
 /**
  * @param {Object|ol.events.Event|string} event
  */
-ol.source.Vector.prototype.dispatchEvent = function(event) { };
+ol.source.Vector.prototype.dispatchEvent = function(event) {};
 
 
 /**
  * @return {number}
  */
-ol.source.Vector.prototype.getRevision = function() { };
+ol.source.Vector.prototype.getRevision = function() {};
 
 
 /**
@@ -16183,7 +16198,7 @@ ol.source.Vector.prototype.getRevision = function() { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.source.Vector.prototype.on = function(type, listener, opt_this) { };
+ol.source.Vector.prototype.on = function(type, listener, opt_this) {};
 
 
 /**
@@ -16192,7 +16207,7 @@ ol.source.Vector.prototype.on = function(type, listener, opt_this) { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.source.Vector.prototype.once = function(type, listener, opt_this) { };
+ol.source.Vector.prototype.once = function(type, listener, opt_this) {};
 
 
 /**
@@ -16200,25 +16215,25 @@ ol.source.Vector.prototype.once = function(type, listener, opt_this) { };
  * @param {Function} listener
  * @param {Object=} opt_this
  */
-ol.source.Vector.prototype.un = function(type, listener, opt_this) { };
+ol.source.Vector.prototype.un = function(type, listener, opt_this) {};
 
 
 /**
  * @param {ol.Feature} feature
  */
-ol.source.Cluster.prototype.addFeature = function(feature) { };
+ol.source.Cluster.prototype.addFeature = function(feature) {};
 
 
 /**
  * @param {Array.<ol.Feature>} features
  */
-ol.source.Cluster.prototype.addFeatures = function(features) { };
+ol.source.Cluster.prototype.addFeatures = function(features) {};
 
 
 /**
  * @param {boolean=} opt_fast
  */
-ol.source.Cluster.prototype.clear = function(opt_fast) { };
+ol.source.Cluster.prototype.clear = function(opt_fast) {};
 
 
 /**
@@ -16227,17 +16242,7 @@ ol.source.Cluster.prototype.clear = function(opt_fast) { };
  * @return {S|undefined}
  * @template T,S
  */
-ol.source.Cluster.prototype.forEachFeature = function(callback, opt_this) { };
-
-
-/**
- * @param {ol.Extent} extent
- * @param {Function} callback
- * @param {T=} opt_this
- * @return {S|undefined}
- * @template T,S
- */
-ol.source.Cluster.prototype.forEachFeatureInExtent = function(extent, callback, opt_this) { };
+ol.source.Cluster.prototype.forEachFeature = function(callback, opt_this) {};
 
 
 /**
@@ -16247,33 +16252,43 @@ ol.source.Cluster.prototype.forEachFeatureInExtent = function(extent, callback, 
  * @return {S|undefined}
  * @template T,S
  */
-ol.source.Cluster.prototype.forEachFeatureIntersectingExtent = function(extent, callback, opt_this) { };
+ol.source.Cluster.prototype.forEachFeatureInExtent = function(extent, callback, opt_this) {};
+
+
+/**
+ * @param {ol.Extent} extent
+ * @param {Function} callback
+ * @param {T=} opt_this
+ * @return {S|undefined}
+ * @template T,S
+ */
+ol.source.Cluster.prototype.forEachFeatureIntersectingExtent = function(extent, callback, opt_this) {};
 
 
 /**
  * @return {ol.Collection.<ol.Feature>}
  */
-ol.source.Cluster.prototype.getFeaturesCollection = function() { };
+ol.source.Cluster.prototype.getFeaturesCollection = function() {};
 
 
 /**
  * @return {Array.<ol.Feature>}
  */
-ol.source.Cluster.prototype.getFeatures = function() { };
+ol.source.Cluster.prototype.getFeatures = function() {};
 
 
 /**
  * @param {ol.Coordinate} coordinate
  * @return {Array.<ol.Feature>}
  */
-ol.source.Cluster.prototype.getFeaturesAtCoordinate = function(coordinate) { };
+ol.source.Cluster.prototype.getFeaturesAtCoordinate = function(coordinate) {};
 
 
 /**
  * @param {ol.Extent} extent
  * @return {Array.<ol.Feature>}
  */
-ol.source.Cluster.prototype.getFeaturesInExtent = function(extent) { };
+ol.source.Cluster.prototype.getFeaturesInExtent = function(extent) {};
 
 
 /**
@@ -16281,105 +16296,105 @@ ol.source.Cluster.prototype.getFeaturesInExtent = function(extent) { };
  * @param {Function} opt_filter
  * @return {ol.Feature}
  */
-ol.source.Cluster.prototype.getClosestFeatureToCoordinate = function(coordinate, opt_filter) { };
+ol.source.Cluster.prototype.getClosestFeatureToCoordinate = function(coordinate, opt_filter) {};
 
 
 /**
  * @param {ol.Extent=} opt_extent
  * @return {ol.Extent}
  */
-ol.source.Cluster.prototype.getExtent = function(opt_extent) { };
+ol.source.Cluster.prototype.getExtent = function(opt_extent) {};
 
 
 /**
  * @param {string|number} id
  * @return {ol.Feature}
  */
-ol.source.Cluster.prototype.getFeatureById = function(id) { };
+ol.source.Cluster.prototype.getFeatureById = function(id) {};
 
 
 /**
  * @return {ol.format.Feature|undefined}
  */
-ol.source.Cluster.prototype.getFormat = function() { };
+ol.source.Cluster.prototype.getFormat = function() {};
 
 
 /**
  * @return {string|ol.FeatureUrlFunction|undefined}
  */
-ol.source.Cluster.prototype.getUrl = function() { };
+ol.source.Cluster.prototype.getUrl = function() {};
 
 
 /**
  * @param {ol.Extent} extent
  */
-ol.source.Cluster.prototype.removeLoadedExtent = function(extent) { };
+ol.source.Cluster.prototype.removeLoadedExtent = function(extent) {};
 
 
 /**
  * @param {ol.Feature} feature
  */
-ol.source.Cluster.prototype.removeFeature = function(feature) { };
+ol.source.Cluster.prototype.removeFeature = function(feature) {};
 
 
 /**
  * @param {ol.FeatureLoader} loader
  */
-ol.source.Cluster.prototype.setLoader = function(loader) { };
+ol.source.Cluster.prototype.setLoader = function(loader) {};
 
 
 /**
  * @return {Array.<ol.Attribution>}
  */
-ol.source.Cluster.prototype.getAttributions = function() { };
+ol.source.Cluster.prototype.getAttributions = function() {};
 
 
 /**
  * @return {string|olx.LogoOptions|undefined}
  */
-ol.source.Cluster.prototype.getLogo = function() { };
+ol.source.Cluster.prototype.getLogo = function() {};
 
 
 /**
  * @return {ol.proj.Projection}
  */
-ol.source.Cluster.prototype.getProjection = function() { };
+ol.source.Cluster.prototype.getProjection = function() {};
 
 
 /**
  * @return {ol.source.State}
  */
-ol.source.Cluster.prototype.getState = function() { };
+ol.source.Cluster.prototype.getState = function() {};
 
 
 /**
  */
-ol.source.Cluster.prototype.refresh = function() { };
+ol.source.Cluster.prototype.refresh = function() {};
 
 
 /**
  * @param {ol.AttributionLike|undefined} attributions
  */
-ol.source.Cluster.prototype.setAttributions = function(attributions) { };
+ol.source.Cluster.prototype.setAttributions = function(attributions) {};
 
 
 /**
  * @param {string} key
  * @return {*}
  */
-ol.source.Cluster.prototype.get = function(key) { };
+ol.source.Cluster.prototype.get = function(key) {};
 
 
 /**
  * @return {Array.<string>}
  */
-ol.source.Cluster.prototype.getKeys = function() { };
+ol.source.Cluster.prototype.getKeys = function() {};
 
 
 /**
  * @return {Object.<string, *>}
  */
-ol.source.Cluster.prototype.getProperties = function() { };
+ol.source.Cluster.prototype.getProperties = function() {};
 
 
 /**
@@ -16387,38 +16402,38 @@ ol.source.Cluster.prototype.getProperties = function() { };
  * @param {*} value
  * @param {boolean=} opt_silent
  */
-ol.source.Cluster.prototype.set = function(key, value, opt_silent) { };
+ol.source.Cluster.prototype.set = function(key, value, opt_silent) {};
 
 
 /**
  * @param {Object.<string, *>} values
  * @param {boolean=} opt_silent
  */
-ol.source.Cluster.prototype.setProperties = function(values, opt_silent) { };
+ol.source.Cluster.prototype.setProperties = function(values, opt_silent) {};
 
 
 /**
  * @param {string} key
  * @param {boolean=} opt_silent
  */
-ol.source.Cluster.prototype.unset = function(key, opt_silent) { };
+ol.source.Cluster.prototype.unset = function(key, opt_silent) {};
 
 
 /**
  */
-ol.source.Cluster.prototype.changed = function() { };
+ol.source.Cluster.prototype.changed = function() {};
 
 
 /**
  * @param {Object|ol.events.Event|string} event
  */
-ol.source.Cluster.prototype.dispatchEvent = function(event) { };
+ol.source.Cluster.prototype.dispatchEvent = function(event) {};
 
 
 /**
  * @return {number}
  */
-ol.source.Cluster.prototype.getRevision = function() { };
+ol.source.Cluster.prototype.getRevision = function() {};
 
 
 /**
@@ -16427,7 +16442,7 @@ ol.source.Cluster.prototype.getRevision = function() { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.source.Cluster.prototype.on = function(type, listener, opt_this) { };
+ol.source.Cluster.prototype.on = function(type, listener, opt_this) {};
 
 
 /**
@@ -16436,7 +16451,7 @@ ol.source.Cluster.prototype.on = function(type, listener, opt_this) { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.source.Cluster.prototype.once = function(type, listener, opt_this) { };
+ol.source.Cluster.prototype.once = function(type, listener, opt_this) {};
 
 
 /**
@@ -16444,61 +16459,61 @@ ol.source.Cluster.prototype.once = function(type, listener, opt_this) { };
  * @param {Function} listener
  * @param {Object=} opt_this
  */
-ol.source.Cluster.prototype.un = function(type, listener, opt_this) { };
+ol.source.Cluster.prototype.un = function(type, listener, opt_this) {};
 
 
 /**
  * @return {Array.<ol.Attribution>}
  */
-ol.source.Image.prototype.getAttributions = function() { };
+ol.source.Image.prototype.getAttributions = function() {};
 
 
 /**
  * @return {string|olx.LogoOptions|undefined}
  */
-ol.source.Image.prototype.getLogo = function() { };
+ol.source.Image.prototype.getLogo = function() {};
 
 
 /**
  * @return {ol.proj.Projection}
  */
-ol.source.Image.prototype.getProjection = function() { };
+ol.source.Image.prototype.getProjection = function() {};
 
 
 /**
  * @return {ol.source.State}
  */
-ol.source.Image.prototype.getState = function() { };
+ol.source.Image.prototype.getState = function() {};
 
 
 /**
  */
-ol.source.Image.prototype.refresh = function() { };
+ol.source.Image.prototype.refresh = function() {};
 
 
 /**
  * @param {ol.AttributionLike|undefined} attributions
  */
-ol.source.Image.prototype.setAttributions = function(attributions) { };
+ol.source.Image.prototype.setAttributions = function(attributions) {};
 
 
 /**
  * @param {string} key
  * @return {*}
  */
-ol.source.Image.prototype.get = function(key) { };
+ol.source.Image.prototype.get = function(key) {};
 
 
 /**
  * @return {Array.<string>}
  */
-ol.source.Image.prototype.getKeys = function() { };
+ol.source.Image.prototype.getKeys = function() {};
 
 
 /**
  * @return {Object.<string, *>}
  */
-ol.source.Image.prototype.getProperties = function() { };
+ol.source.Image.prototype.getProperties = function() {};
 
 
 /**
@@ -16506,38 +16521,38 @@ ol.source.Image.prototype.getProperties = function() { };
  * @param {*} value
  * @param {boolean=} opt_silent
  */
-ol.source.Image.prototype.set = function(key, value, opt_silent) { };
+ol.source.Image.prototype.set = function(key, value, opt_silent) {};
 
 
 /**
  * @param {Object.<string, *>} values
  * @param {boolean=} opt_silent
  */
-ol.source.Image.prototype.setProperties = function(values, opt_silent) { };
+ol.source.Image.prototype.setProperties = function(values, opt_silent) {};
 
 
 /**
  * @param {string} key
  * @param {boolean=} opt_silent
  */
-ol.source.Image.prototype.unset = function(key, opt_silent) { };
+ol.source.Image.prototype.unset = function(key, opt_silent) {};
 
 
 /**
  */
-ol.source.Image.prototype.changed = function() { };
+ol.source.Image.prototype.changed = function() {};
 
 
 /**
  * @param {Object|ol.events.Event|string} event
  */
-ol.source.Image.prototype.dispatchEvent = function(event) { };
+ol.source.Image.prototype.dispatchEvent = function(event) {};
 
 
 /**
  * @return {number}
  */
-ol.source.Image.prototype.getRevision = function() { };
+ol.source.Image.prototype.getRevision = function() {};
 
 
 /**
@@ -16546,7 +16561,7 @@ ol.source.Image.prototype.getRevision = function() { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.source.Image.prototype.on = function(type, listener, opt_this) { };
+ol.source.Image.prototype.on = function(type, listener, opt_this) {};
 
 
 /**
@@ -16555,7 +16570,7 @@ ol.source.Image.prototype.on = function(type, listener, opt_this) { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.source.Image.prototype.once = function(type, listener, opt_this) { };
+ol.source.Image.prototype.once = function(type, listener, opt_this) {};
 
 
 /**
@@ -16563,7 +16578,7 @@ ol.source.Image.prototype.once = function(type, listener, opt_this) { };
  * @param {Function} listener
  * @param {Object=} opt_this
  */
-ol.source.Image.prototype.un = function(type, listener, opt_this) { };
+ol.source.Image.prototype.un = function(type, listener, opt_this) {};
 
 
 /**
@@ -16580,66 +16595,66 @@ ol.source.Image.Event.prototype.target;
 
 /**
  */
-ol.source.Image.Event.prototype.preventDefault = function() { };
+ol.source.Image.Event.prototype.preventDefault = function() {};
 
 
 /**
  */
-ol.source.Image.Event.prototype.stopPropagation = function() { };
+ol.source.Image.Event.prototype.stopPropagation = function() {};
 
 
 /**
  * @return {Array.<ol.Attribution>}
  */
-ol.source.ImageArcGISRest.prototype.getAttributions = function() { };
+ol.source.ImageArcGISRest.prototype.getAttributions = function() {};
 
 
 /**
  * @return {string|olx.LogoOptions|undefined}
  */
-ol.source.ImageArcGISRest.prototype.getLogo = function() { };
+ol.source.ImageArcGISRest.prototype.getLogo = function() {};
 
 
 /**
  * @return {ol.proj.Projection}
  */
-ol.source.ImageArcGISRest.prototype.getProjection = function() { };
+ol.source.ImageArcGISRest.prototype.getProjection = function() {};
 
 
 /**
  * @return {ol.source.State}
  */
-ol.source.ImageArcGISRest.prototype.getState = function() { };
+ol.source.ImageArcGISRest.prototype.getState = function() {};
 
 
 /**
  */
-ol.source.ImageArcGISRest.prototype.refresh = function() { };
+ol.source.ImageArcGISRest.prototype.refresh = function() {};
 
 
 /**
  * @param {ol.AttributionLike|undefined} attributions
  */
-ol.source.ImageArcGISRest.prototype.setAttributions = function(attributions) { };
+ol.source.ImageArcGISRest.prototype.setAttributions = function(attributions) {};
 
 
 /**
  * @param {string} key
  * @return {*}
  */
-ol.source.ImageArcGISRest.prototype.get = function(key) { };
+ol.source.ImageArcGISRest.prototype.get = function(key) {};
 
 
 /**
  * @return {Array.<string>}
  */
-ol.source.ImageArcGISRest.prototype.getKeys = function() { };
+ol.source.ImageArcGISRest.prototype.getKeys = function() {};
 
 
 /**
  * @return {Object.<string, *>}
  */
-ol.source.ImageArcGISRest.prototype.getProperties = function() { };
+ol.source.ImageArcGISRest.prototype.getProperties = function() {};
 
 
 /**
@@ -16647,38 +16662,38 @@ ol.source.ImageArcGISRest.prototype.getProperties = function() { };
  * @param {*} value
  * @param {boolean=} opt_silent
  */
-ol.source.ImageArcGISRest.prototype.set = function(key, value, opt_silent) { };
+ol.source.ImageArcGISRest.prototype.set = function(key, value, opt_silent) {};
 
 
 /**
  * @param {Object.<string, *>} values
  * @param {boolean=} opt_silent
  */
-ol.source.ImageArcGISRest.prototype.setProperties = function(values, opt_silent) { };
+ol.source.ImageArcGISRest.prototype.setProperties = function(values, opt_silent) {};
 
 
 /**
  * @param {string} key
  * @param {boolean=} opt_silent
  */
-ol.source.ImageArcGISRest.prototype.unset = function(key, opt_silent) { };
+ol.source.ImageArcGISRest.prototype.unset = function(key, opt_silent) {};
 
 
 /**
  */
-ol.source.ImageArcGISRest.prototype.changed = function() { };
+ol.source.ImageArcGISRest.prototype.changed = function() {};
 
 
 /**
  * @param {Object|ol.events.Event|string} event
  */
-ol.source.ImageArcGISRest.prototype.dispatchEvent = function(event) { };
+ol.source.ImageArcGISRest.prototype.dispatchEvent = function(event) {};
 
 
 /**
  * @return {number}
  */
-ol.source.ImageArcGISRest.prototype.getRevision = function() { };
+ol.source.ImageArcGISRest.prototype.getRevision = function() {};
 
 
 /**
@@ -16687,7 +16702,7 @@ ol.source.ImageArcGISRest.prototype.getRevision = function() { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.source.ImageArcGISRest.prototype.on = function(type, listener, opt_this) { };
+ol.source.ImageArcGISRest.prototype.on = function(type, listener, opt_this) {};
 
 
 /**
@@ -16696,7 +16711,7 @@ ol.source.ImageArcGISRest.prototype.on = function(type, listener, opt_this) { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.source.ImageArcGISRest.prototype.once = function(type, listener, opt_this) { };
+ol.source.ImageArcGISRest.prototype.once = function(type, listener, opt_this) {};
 
 
 /**
@@ -16704,61 +16719,61 @@ ol.source.ImageArcGISRest.prototype.once = function(type, listener, opt_this) { 
  * @param {Function} listener
  * @param {Object=} opt_this
  */
-ol.source.ImageArcGISRest.prototype.un = function(type, listener, opt_this) { };
+ol.source.ImageArcGISRest.prototype.un = function(type, listener, opt_this) {};
 
 
 /**
  * @return {Array.<ol.Attribution>}
  */
-ol.source.ImageCanvas.prototype.getAttributions = function() { };
+ol.source.ImageCanvas.prototype.getAttributions = function() {};
 
 
 /**
  * @return {string|olx.LogoOptions|undefined}
  */
-ol.source.ImageCanvas.prototype.getLogo = function() { };
+ol.source.ImageCanvas.prototype.getLogo = function() {};
 
 
 /**
  * @return {ol.proj.Projection}
  */
-ol.source.ImageCanvas.prototype.getProjection = function() { };
+ol.source.ImageCanvas.prototype.getProjection = function() {};
 
 
 /**
  * @return {ol.source.State}
  */
-ol.source.ImageCanvas.prototype.getState = function() { };
+ol.source.ImageCanvas.prototype.getState = function() {};
 
 
 /**
  */
-ol.source.ImageCanvas.prototype.refresh = function() { };
+ol.source.ImageCanvas.prototype.refresh = function() {};
 
 
 /**
  * @param {ol.AttributionLike|undefined} attributions
  */
-ol.source.ImageCanvas.prototype.setAttributions = function(attributions) { };
+ol.source.ImageCanvas.prototype.setAttributions = function(attributions) {};
 
 
 /**
  * @param {string} key
  * @return {*}
  */
-ol.source.ImageCanvas.prototype.get = function(key) { };
+ol.source.ImageCanvas.prototype.get = function(key) {};
 
 
 /**
  * @return {Array.<string>}
  */
-ol.source.ImageCanvas.prototype.getKeys = function() { };
+ol.source.ImageCanvas.prototype.getKeys = function() {};
 
 
 /**
  * @return {Object.<string, *>}
  */
-ol.source.ImageCanvas.prototype.getProperties = function() { };
+ol.source.ImageCanvas.prototype.getProperties = function() {};
 
 
 /**
@@ -16766,38 +16781,38 @@ ol.source.ImageCanvas.prototype.getProperties = function() { };
  * @param {*} value
  * @param {boolean=} opt_silent
  */
-ol.source.ImageCanvas.prototype.set = function(key, value, opt_silent) { };
+ol.source.ImageCanvas.prototype.set = function(key, value, opt_silent) {};
 
 
 /**
  * @param {Object.<string, *>} values
  * @param {boolean=} opt_silent
  */
-ol.source.ImageCanvas.prototype.setProperties = function(values, opt_silent) { };
+ol.source.ImageCanvas.prototype.setProperties = function(values, opt_silent) {};
 
 
 /**
  * @param {string} key
  * @param {boolean=} opt_silent
  */
-ol.source.ImageCanvas.prototype.unset = function(key, opt_silent) { };
+ol.source.ImageCanvas.prototype.unset = function(key, opt_silent) {};
 
 
 /**
  */
-ol.source.ImageCanvas.prototype.changed = function() { };
+ol.source.ImageCanvas.prototype.changed = function() {};
 
 
 /**
  * @param {Object|ol.events.Event|string} event
  */
-ol.source.ImageCanvas.prototype.dispatchEvent = function(event) { };
+ol.source.ImageCanvas.prototype.dispatchEvent = function(event) {};
 
 
 /**
  * @return {number}
  */
-ol.source.ImageCanvas.prototype.getRevision = function() { };
+ol.source.ImageCanvas.prototype.getRevision = function() {};
 
 
 /**
@@ -16806,7 +16821,7 @@ ol.source.ImageCanvas.prototype.getRevision = function() { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.source.ImageCanvas.prototype.on = function(type, listener, opt_this) { };
+ol.source.ImageCanvas.prototype.on = function(type, listener, opt_this) {};
 
 
 /**
@@ -16815,7 +16830,7 @@ ol.source.ImageCanvas.prototype.on = function(type, listener, opt_this) { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.source.ImageCanvas.prototype.once = function(type, listener, opt_this) { };
+ol.source.ImageCanvas.prototype.once = function(type, listener, opt_this) {};
 
 
 /**
@@ -16823,61 +16838,61 @@ ol.source.ImageCanvas.prototype.once = function(type, listener, opt_this) { };
  * @param {Function} listener
  * @param {Object=} opt_this
  */
-ol.source.ImageCanvas.prototype.un = function(type, listener, opt_this) { };
+ol.source.ImageCanvas.prototype.un = function(type, listener, opt_this) {};
 
 
 /**
  * @return {Array.<ol.Attribution>}
  */
-ol.source.ImageMapGuide.prototype.getAttributions = function() { };
+ol.source.ImageMapGuide.prototype.getAttributions = function() {};
 
 
 /**
  * @return {string|olx.LogoOptions|undefined}
  */
-ol.source.ImageMapGuide.prototype.getLogo = function() { };
+ol.source.ImageMapGuide.prototype.getLogo = function() {};
 
 
 /**
  * @return {ol.proj.Projection}
  */
-ol.source.ImageMapGuide.prototype.getProjection = function() { };
+ol.source.ImageMapGuide.prototype.getProjection = function() {};
 
 
 /**
  * @return {ol.source.State}
  */
-ol.source.ImageMapGuide.prototype.getState = function() { };
+ol.source.ImageMapGuide.prototype.getState = function() {};
 
 
 /**
  */
-ol.source.ImageMapGuide.prototype.refresh = function() { };
+ol.source.ImageMapGuide.prototype.refresh = function() {};
 
 
 /**
  * @param {ol.AttributionLike|undefined} attributions
  */
-ol.source.ImageMapGuide.prototype.setAttributions = function(attributions) { };
+ol.source.ImageMapGuide.prototype.setAttributions = function(attributions) {};
 
 
 /**
  * @param {string} key
  * @return {*}
  */
-ol.source.ImageMapGuide.prototype.get = function(key) { };
+ol.source.ImageMapGuide.prototype.get = function(key) {};
 
 
 /**
  * @return {Array.<string>}
  */
-ol.source.ImageMapGuide.prototype.getKeys = function() { };
+ol.source.ImageMapGuide.prototype.getKeys = function() {};
 
 
 /**
  * @return {Object.<string, *>}
  */
-ol.source.ImageMapGuide.prototype.getProperties = function() { };
+ol.source.ImageMapGuide.prototype.getProperties = function() {};
 
 
 /**
@@ -16885,38 +16900,38 @@ ol.source.ImageMapGuide.prototype.getProperties = function() { };
  * @param {*} value
  * @param {boolean=} opt_silent
  */
-ol.source.ImageMapGuide.prototype.set = function(key, value, opt_silent) { };
+ol.source.ImageMapGuide.prototype.set = function(key, value, opt_silent) {};
 
 
 /**
  * @param {Object.<string, *>} values
  * @param {boolean=} opt_silent
  */
-ol.source.ImageMapGuide.prototype.setProperties = function(values, opt_silent) { };
+ol.source.ImageMapGuide.prototype.setProperties = function(values, opt_silent) {};
 
 
 /**
  * @param {string} key
  * @param {boolean=} opt_silent
  */
-ol.source.ImageMapGuide.prototype.unset = function(key, opt_silent) { };
+ol.source.ImageMapGuide.prototype.unset = function(key, opt_silent) {};
 
 
 /**
  */
-ol.source.ImageMapGuide.prototype.changed = function() { };
+ol.source.ImageMapGuide.prototype.changed = function() {};
 
 
 /**
  * @param {Object|ol.events.Event|string} event
  */
-ol.source.ImageMapGuide.prototype.dispatchEvent = function(event) { };
+ol.source.ImageMapGuide.prototype.dispatchEvent = function(event) {};
 
 
 /**
  * @return {number}
  */
-ol.source.ImageMapGuide.prototype.getRevision = function() { };
+ol.source.ImageMapGuide.prototype.getRevision = function() {};
 
 
 /**
@@ -16925,7 +16940,7 @@ ol.source.ImageMapGuide.prototype.getRevision = function() { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.source.ImageMapGuide.prototype.on = function(type, listener, opt_this) { };
+ol.source.ImageMapGuide.prototype.on = function(type, listener, opt_this) {};
 
 
 /**
@@ -16934,7 +16949,7 @@ ol.source.ImageMapGuide.prototype.on = function(type, listener, opt_this) { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.source.ImageMapGuide.prototype.once = function(type, listener, opt_this) { };
+ol.source.ImageMapGuide.prototype.once = function(type, listener, opt_this) {};
 
 
 /**
@@ -16942,61 +16957,61 @@ ol.source.ImageMapGuide.prototype.once = function(type, listener, opt_this) { };
  * @param {Function} listener
  * @param {Object=} opt_this
  */
-ol.source.ImageMapGuide.prototype.un = function(type, listener, opt_this) { };
+ol.source.ImageMapGuide.prototype.un = function(type, listener, opt_this) {};
 
 
 /**
  * @return {Array.<ol.Attribution>}
  */
-ol.source.ImageStatic.prototype.getAttributions = function() { };
+ol.source.ImageStatic.prototype.getAttributions = function() {};
 
 
 /**
  * @return {string|olx.LogoOptions|undefined}
  */
-ol.source.ImageStatic.prototype.getLogo = function() { };
+ol.source.ImageStatic.prototype.getLogo = function() {};
 
 
 /**
  * @return {ol.proj.Projection}
  */
-ol.source.ImageStatic.prototype.getProjection = function() { };
+ol.source.ImageStatic.prototype.getProjection = function() {};
 
 
 /**
  * @return {ol.source.State}
  */
-ol.source.ImageStatic.prototype.getState = function() { };
+ol.source.ImageStatic.prototype.getState = function() {};
 
 
 /**
  */
-ol.source.ImageStatic.prototype.refresh = function() { };
+ol.source.ImageStatic.prototype.refresh = function() {};
 
 
 /**
  * @param {ol.AttributionLike|undefined} attributions
  */
-ol.source.ImageStatic.prototype.setAttributions = function(attributions) { };
+ol.source.ImageStatic.prototype.setAttributions = function(attributions) {};
 
 
 /**
  * @param {string} key
  * @return {*}
  */
-ol.source.ImageStatic.prototype.get = function(key) { };
+ol.source.ImageStatic.prototype.get = function(key) {};
 
 
 /**
  * @return {Array.<string>}
  */
-ol.source.ImageStatic.prototype.getKeys = function() { };
+ol.source.ImageStatic.prototype.getKeys = function() {};
 
 
 /**
  * @return {Object.<string, *>}
  */
-ol.source.ImageStatic.prototype.getProperties = function() { };
+ol.source.ImageStatic.prototype.getProperties = function() {};
 
 
 /**
@@ -17004,38 +17019,38 @@ ol.source.ImageStatic.prototype.getProperties = function() { };
  * @param {*} value
  * @param {boolean=} opt_silent
  */
-ol.source.ImageStatic.prototype.set = function(key, value, opt_silent) { };
+ol.source.ImageStatic.prototype.set = function(key, value, opt_silent) {};
 
 
 /**
  * @param {Object.<string, *>} values
  * @param {boolean=} opt_silent
  */
-ol.source.ImageStatic.prototype.setProperties = function(values, opt_silent) { };
+ol.source.ImageStatic.prototype.setProperties = function(values, opt_silent) {};
 
 
 /**
  * @param {string} key
  * @param {boolean=} opt_silent
  */
-ol.source.ImageStatic.prototype.unset = function(key, opt_silent) { };
+ol.source.ImageStatic.prototype.unset = function(key, opt_silent) {};
 
 
 /**
  */
-ol.source.ImageStatic.prototype.changed = function() { };
+ol.source.ImageStatic.prototype.changed = function() {};
 
 
 /**
  * @param {Object|ol.events.Event|string} event
  */
-ol.source.ImageStatic.prototype.dispatchEvent = function(event) { };
+ol.source.ImageStatic.prototype.dispatchEvent = function(event) {};
 
 
 /**
  * @return {number}
  */
-ol.source.ImageStatic.prototype.getRevision = function() { };
+ol.source.ImageStatic.prototype.getRevision = function() {};
 
 
 /**
@@ -17044,7 +17059,7 @@ ol.source.ImageStatic.prototype.getRevision = function() { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.source.ImageStatic.prototype.on = function(type, listener, opt_this) { };
+ol.source.ImageStatic.prototype.on = function(type, listener, opt_this) {};
 
 
 /**
@@ -17053,7 +17068,7 @@ ol.source.ImageStatic.prototype.on = function(type, listener, opt_this) { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.source.ImageStatic.prototype.once = function(type, listener, opt_this) { };
+ol.source.ImageStatic.prototype.once = function(type, listener, opt_this) {};
 
 
 /**
@@ -17061,61 +17076,61 @@ ol.source.ImageStatic.prototype.once = function(type, listener, opt_this) { };
  * @param {Function} listener
  * @param {Object=} opt_this
  */
-ol.source.ImageStatic.prototype.un = function(type, listener, opt_this) { };
+ol.source.ImageStatic.prototype.un = function(type, listener, opt_this) {};
 
 
 /**
  * @return {Array.<ol.Attribution>}
  */
-ol.source.ImageVector.prototype.getAttributions = function() { };
+ol.source.ImageVector.prototype.getAttributions = function() {};
 
 
 /**
  * @return {string|olx.LogoOptions|undefined}
  */
-ol.source.ImageVector.prototype.getLogo = function() { };
+ol.source.ImageVector.prototype.getLogo = function() {};
 
 
 /**
  * @return {ol.proj.Projection}
  */
-ol.source.ImageVector.prototype.getProjection = function() { };
+ol.source.ImageVector.prototype.getProjection = function() {};
 
 
 /**
  * @return {ol.source.State}
  */
-ol.source.ImageVector.prototype.getState = function() { };
+ol.source.ImageVector.prototype.getState = function() {};
 
 
 /**
  */
-ol.source.ImageVector.prototype.refresh = function() { };
+ol.source.ImageVector.prototype.refresh = function() {};
 
 
 /**
  * @param {ol.AttributionLike|undefined} attributions
  */
-ol.source.ImageVector.prototype.setAttributions = function(attributions) { };
+ol.source.ImageVector.prototype.setAttributions = function(attributions) {};
 
 
 /**
  * @param {string} key
  * @return {*}
  */
-ol.source.ImageVector.prototype.get = function(key) { };
+ol.source.ImageVector.prototype.get = function(key) {};
 
 
 /**
  * @return {Array.<string>}
  */
-ol.source.ImageVector.prototype.getKeys = function() { };
+ol.source.ImageVector.prototype.getKeys = function() {};
 
 
 /**
  * @return {Object.<string, *>}
  */
-ol.source.ImageVector.prototype.getProperties = function() { };
+ol.source.ImageVector.prototype.getProperties = function() {};
 
 
 /**
@@ -17123,38 +17138,38 @@ ol.source.ImageVector.prototype.getProperties = function() { };
  * @param {*} value
  * @param {boolean=} opt_silent
  */
-ol.source.ImageVector.prototype.set = function(key, value, opt_silent) { };
+ol.source.ImageVector.prototype.set = function(key, value, opt_silent) {};
 
 
 /**
  * @param {Object.<string, *>} values
  * @param {boolean=} opt_silent
  */
-ol.source.ImageVector.prototype.setProperties = function(values, opt_silent) { };
+ol.source.ImageVector.prototype.setProperties = function(values, opt_silent) {};
 
 
 /**
  * @param {string} key
  * @param {boolean=} opt_silent
  */
-ol.source.ImageVector.prototype.unset = function(key, opt_silent) { };
+ol.source.ImageVector.prototype.unset = function(key, opt_silent) {};
 
 
 /**
  */
-ol.source.ImageVector.prototype.changed = function() { };
+ol.source.ImageVector.prototype.changed = function() {};
 
 
 /**
  * @param {Object|ol.events.Event|string} event
  */
-ol.source.ImageVector.prototype.dispatchEvent = function(event) { };
+ol.source.ImageVector.prototype.dispatchEvent = function(event) {};
 
 
 /**
  * @return {number}
  */
-ol.source.ImageVector.prototype.getRevision = function() { };
+ol.source.ImageVector.prototype.getRevision = function() {};
 
 
 /**
@@ -17163,7 +17178,7 @@ ol.source.ImageVector.prototype.getRevision = function() { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.source.ImageVector.prototype.on = function(type, listener, opt_this) { };
+ol.source.ImageVector.prototype.on = function(type, listener, opt_this) {};
 
 
 /**
@@ -17172,7 +17187,7 @@ ol.source.ImageVector.prototype.on = function(type, listener, opt_this) { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.source.ImageVector.prototype.once = function(type, listener, opt_this) { };
+ol.source.ImageVector.prototype.once = function(type, listener, opt_this) {};
 
 
 /**
@@ -17180,61 +17195,61 @@ ol.source.ImageVector.prototype.once = function(type, listener, opt_this) { };
  * @param {Function} listener
  * @param {Object=} opt_this
  */
-ol.source.ImageVector.prototype.un = function(type, listener, opt_this) { };
+ol.source.ImageVector.prototype.un = function(type, listener, opt_this) {};
 
 
 /**
  * @return {Array.<ol.Attribution>}
  */
-ol.source.ImageWMS.prototype.getAttributions = function() { };
+ol.source.ImageWMS.prototype.getAttributions = function() {};
 
 
 /**
  * @return {string|olx.LogoOptions|undefined}
  */
-ol.source.ImageWMS.prototype.getLogo = function() { };
+ol.source.ImageWMS.prototype.getLogo = function() {};
 
 
 /**
  * @return {ol.proj.Projection}
  */
-ol.source.ImageWMS.prototype.getProjection = function() { };
+ol.source.ImageWMS.prototype.getProjection = function() {};
 
 
 /**
  * @return {ol.source.State}
  */
-ol.source.ImageWMS.prototype.getState = function() { };
+ol.source.ImageWMS.prototype.getState = function() {};
 
 
 /**
  */
-ol.source.ImageWMS.prototype.refresh = function() { };
+ol.source.ImageWMS.prototype.refresh = function() {};
 
 
 /**
  * @param {ol.AttributionLike|undefined} attributions
  */
-ol.source.ImageWMS.prototype.setAttributions = function(attributions) { };
+ol.source.ImageWMS.prototype.setAttributions = function(attributions) {};
 
 
 /**
  * @param {string} key
  * @return {*}
  */
-ol.source.ImageWMS.prototype.get = function(key) { };
+ol.source.ImageWMS.prototype.get = function(key) {};
 
 
 /**
  * @return {Array.<string>}
  */
-ol.source.ImageWMS.prototype.getKeys = function() { };
+ol.source.ImageWMS.prototype.getKeys = function() {};
 
 
 /**
  * @return {Object.<string, *>}
  */
-ol.source.ImageWMS.prototype.getProperties = function() { };
+ol.source.ImageWMS.prototype.getProperties = function() {};
 
 
 /**
@@ -17242,38 +17257,38 @@ ol.source.ImageWMS.prototype.getProperties = function() { };
  * @param {*} value
  * @param {boolean=} opt_silent
  */
-ol.source.ImageWMS.prototype.set = function(key, value, opt_silent) { };
+ol.source.ImageWMS.prototype.set = function(key, value, opt_silent) {};
 
 
 /**
  * @param {Object.<string, *>} values
  * @param {boolean=} opt_silent
  */
-ol.source.ImageWMS.prototype.setProperties = function(values, opt_silent) { };
+ol.source.ImageWMS.prototype.setProperties = function(values, opt_silent) {};
 
 
 /**
  * @param {string} key
  * @param {boolean=} opt_silent
  */
-ol.source.ImageWMS.prototype.unset = function(key, opt_silent) { };
+ol.source.ImageWMS.prototype.unset = function(key, opt_silent) {};
 
 
 /**
  */
-ol.source.ImageWMS.prototype.changed = function() { };
+ol.source.ImageWMS.prototype.changed = function() {};
 
 
 /**
  * @param {Object|ol.events.Event|string} event
  */
-ol.source.ImageWMS.prototype.dispatchEvent = function(event) { };
+ol.source.ImageWMS.prototype.dispatchEvent = function(event) {};
 
 
 /**
  * @return {number}
  */
-ol.source.ImageWMS.prototype.getRevision = function() { };
+ol.source.ImageWMS.prototype.getRevision = function() {};
 
 
 /**
@@ -17282,7 +17297,7 @@ ol.source.ImageWMS.prototype.getRevision = function() { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.source.ImageWMS.prototype.on = function(type, listener, opt_this) { };
+ol.source.ImageWMS.prototype.on = function(type, listener, opt_this) {};
 
 
 /**
@@ -17291,7 +17306,7 @@ ol.source.ImageWMS.prototype.on = function(type, listener, opt_this) { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.source.ImageWMS.prototype.once = function(type, listener, opt_this) { };
+ol.source.ImageWMS.prototype.once = function(type, listener, opt_this) {};
 
 
 /**
@@ -17299,123 +17314,123 @@ ol.source.ImageWMS.prototype.once = function(type, listener, opt_this) { };
  * @param {Function} listener
  * @param {Object=} opt_this
  */
-ol.source.ImageWMS.prototype.un = function(type, listener, opt_this) { };
+ol.source.ImageWMS.prototype.un = function(type, listener, opt_this) {};
 
 
 /**
  * @param {boolean} render
  */
-ol.source.OSM.prototype.setRenderReprojectionEdges = function(render) { };
+ol.source.OSM.prototype.setRenderReprojectionEdges = function(render) {};
 
 
 /**
  * @param {ol.ProjectionLike} projection
  * @param {ol.tilegrid.TileGrid} tilegrid
  */
-ol.source.OSM.prototype.setTileGridForProjection = function(projection, tilegrid) { };
+ol.source.OSM.prototype.setTileGridForProjection = function(projection, tilegrid) {};
 
 
 /**
  * @return {ol.TileLoadFunctionType}
  */
-ol.source.OSM.prototype.getTileLoadFunction = function() { };
+ol.source.OSM.prototype.getTileLoadFunction = function() {};
 
 
 /**
  * @return {ol.TileUrlFunctionType}
  */
-ol.source.OSM.prototype.getTileUrlFunction = function() { };
+ol.source.OSM.prototype.getTileUrlFunction = function() {};
 
 
 /**
  * @return {!Array.<string>|null}
  */
-ol.source.OSM.prototype.getUrls = function() { };
+ol.source.OSM.prototype.getUrls = function() {};
 
 
 /**
  * @param {ol.TileLoadFunctionType} tileLoadFunction
  */
-ol.source.OSM.prototype.setTileLoadFunction = function(tileLoadFunction) { };
+ol.source.OSM.prototype.setTileLoadFunction = function(tileLoadFunction) {};
 
 
 /**
  * @param {ol.TileUrlFunctionType} tileUrlFunction
  * @param {string=} opt_key
  */
-ol.source.OSM.prototype.setTileUrlFunction = function(tileUrlFunction, opt_key) { };
+ol.source.OSM.prototype.setTileUrlFunction = function(tileUrlFunction, opt_key) {};
 
 
 /**
  * @param {string} url
  */
-ol.source.OSM.prototype.setUrl = function(url) { };
+ol.source.OSM.prototype.setUrl = function(url) {};
 
 
 /**
  * @param {Array.<string>} urls
  */
-ol.source.OSM.prototype.setUrls = function(urls) { };
+ol.source.OSM.prototype.setUrls = function(urls) {};
 
 
 /**
  * @return {ol.tilegrid.TileGrid}
  */
-ol.source.OSM.prototype.getTileGrid = function() { };
+ol.source.OSM.prototype.getTileGrid = function() {};
 
 
 /**
  */
-ol.source.OSM.prototype.refresh = function() { };
+ol.source.OSM.prototype.refresh = function() {};
 
 
 /**
  * @return {Array.<ol.Attribution>}
  */
-ol.source.OSM.prototype.getAttributions = function() { };
+ol.source.OSM.prototype.getAttributions = function() {};
 
 
 /**
  * @return {string|olx.LogoOptions|undefined}
  */
-ol.source.OSM.prototype.getLogo = function() { };
+ol.source.OSM.prototype.getLogo = function() {};
 
 
 /**
  * @return {ol.proj.Projection}
  */
-ol.source.OSM.prototype.getProjection = function() { };
+ol.source.OSM.prototype.getProjection = function() {};
 
 
 /**
  * @return {ol.source.State}
  */
-ol.source.OSM.prototype.getState = function() { };
+ol.source.OSM.prototype.getState = function() {};
 
 
 /**
  * @param {ol.AttributionLike|undefined} attributions
  */
-ol.source.OSM.prototype.setAttributions = function(attributions) { };
+ol.source.OSM.prototype.setAttributions = function(attributions) {};
 
 
 /**
  * @param {string} key
  * @return {*}
  */
-ol.source.OSM.prototype.get = function(key) { };
+ol.source.OSM.prototype.get = function(key) {};
 
 
 /**
  * @return {Array.<string>}
  */
-ol.source.OSM.prototype.getKeys = function() { };
+ol.source.OSM.prototype.getKeys = function() {};
 
 
 /**
  * @return {Object.<string, *>}
  */
-ol.source.OSM.prototype.getProperties = function() { };
+ol.source.OSM.prototype.getProperties = function() {};
 
 
 /**
@@ -17423,38 +17438,38 @@ ol.source.OSM.prototype.getProperties = function() { };
  * @param {*} value
  * @param {boolean=} opt_silent
  */
-ol.source.OSM.prototype.set = function(key, value, opt_silent) { };
+ol.source.OSM.prototype.set = function(key, value, opt_silent) {};
 
 
 /**
  * @param {Object.<string, *>} values
  * @param {boolean=} opt_silent
  */
-ol.source.OSM.prototype.setProperties = function(values, opt_silent) { };
+ol.source.OSM.prototype.setProperties = function(values, opt_silent) {};
 
 
 /**
  * @param {string} key
  * @param {boolean=} opt_silent
  */
-ol.source.OSM.prototype.unset = function(key, opt_silent) { };
+ol.source.OSM.prototype.unset = function(key, opt_silent) {};
 
 
 /**
  */
-ol.source.OSM.prototype.changed = function() { };
+ol.source.OSM.prototype.changed = function() {};
 
 
 /**
  * @param {Object|ol.events.Event|string} event
  */
-ol.source.OSM.prototype.dispatchEvent = function(event) { };
+ol.source.OSM.prototype.dispatchEvent = function(event) {};
 
 
 /**
  * @return {number}
  */
-ol.source.OSM.prototype.getRevision = function() { };
+ol.source.OSM.prototype.getRevision = function() {};
 
 
 /**
@@ -17463,7 +17478,7 @@ ol.source.OSM.prototype.getRevision = function() { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.source.OSM.prototype.on = function(type, listener, opt_this) { };
+ol.source.OSM.prototype.on = function(type, listener, opt_this) {};
 
 
 /**
@@ -17472,7 +17487,7 @@ ol.source.OSM.prototype.on = function(type, listener, opt_this) { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.source.OSM.prototype.once = function(type, listener, opt_this) { };
+ol.source.OSM.prototype.once = function(type, listener, opt_this) {};
 
 
 /**
@@ -17480,61 +17495,61 @@ ol.source.OSM.prototype.once = function(type, listener, opt_this) { };
  * @param {Function} listener
  * @param {Object=} opt_this
  */
-ol.source.OSM.prototype.un = function(type, listener, opt_this) { };
+ol.source.OSM.prototype.un = function(type, listener, opt_this) {};
 
 
 /**
  * @return {Array.<ol.Attribution>}
  */
-ol.source.Raster.prototype.getAttributions = function() { };
+ol.source.Raster.prototype.getAttributions = function() {};
 
 
 /**
  * @return {string|olx.LogoOptions|undefined}
  */
-ol.source.Raster.prototype.getLogo = function() { };
+ol.source.Raster.prototype.getLogo = function() {};
 
 
 /**
  * @return {ol.proj.Projection}
  */
-ol.source.Raster.prototype.getProjection = function() { };
+ol.source.Raster.prototype.getProjection = function() {};
 
 
 /**
  * @return {ol.source.State}
  */
-ol.source.Raster.prototype.getState = function() { };
+ol.source.Raster.prototype.getState = function() {};
 
 
 /**
  */
-ol.source.Raster.prototype.refresh = function() { };
+ol.source.Raster.prototype.refresh = function() {};
 
 
 /**
  * @param {ol.AttributionLike|undefined} attributions
  */
-ol.source.Raster.prototype.setAttributions = function(attributions) { };
+ol.source.Raster.prototype.setAttributions = function(attributions) {};
 
 
 /**
  * @param {string} key
  * @return {*}
  */
-ol.source.Raster.prototype.get = function(key) { };
+ol.source.Raster.prototype.get = function(key) {};
 
 
 /**
  * @return {Array.<string>}
  */
-ol.source.Raster.prototype.getKeys = function() { };
+ol.source.Raster.prototype.getKeys = function() {};
 
 
 /**
  * @return {Object.<string, *>}
  */
-ol.source.Raster.prototype.getProperties = function() { };
+ol.source.Raster.prototype.getProperties = function() {};
 
 
 /**
@@ -17542,38 +17557,38 @@ ol.source.Raster.prototype.getProperties = function() { };
  * @param {*} value
  * @param {boolean=} opt_silent
  */
-ol.source.Raster.prototype.set = function(key, value, opt_silent) { };
+ol.source.Raster.prototype.set = function(key, value, opt_silent) {};
 
 
 /**
  * @param {Object.<string, *>} values
  * @param {boolean=} opt_silent
  */
-ol.source.Raster.prototype.setProperties = function(values, opt_silent) { };
+ol.source.Raster.prototype.setProperties = function(values, opt_silent) {};
 
 
 /**
  * @param {string} key
  * @param {boolean=} opt_silent
  */
-ol.source.Raster.prototype.unset = function(key, opt_silent) { };
+ol.source.Raster.prototype.unset = function(key, opt_silent) {};
 
 
 /**
  */
-ol.source.Raster.prototype.changed = function() { };
+ol.source.Raster.prototype.changed = function() {};
 
 
 /**
  * @param {Object|ol.events.Event|string} event
  */
-ol.source.Raster.prototype.dispatchEvent = function(event) { };
+ol.source.Raster.prototype.dispatchEvent = function(event) {};
 
 
 /**
  * @return {number}
  */
-ol.source.Raster.prototype.getRevision = function() { };
+ol.source.Raster.prototype.getRevision = function() {};
 
 
 /**
@@ -17582,7 +17597,7 @@ ol.source.Raster.prototype.getRevision = function() { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.source.Raster.prototype.on = function(type, listener, opt_this) { };
+ol.source.Raster.prototype.on = function(type, listener, opt_this) {};
 
 
 /**
@@ -17591,7 +17606,7 @@ ol.source.Raster.prototype.on = function(type, listener, opt_this) { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.source.Raster.prototype.once = function(type, listener, opt_this) { };
+ol.source.Raster.prototype.once = function(type, listener, opt_this) {};
 
 
 /**
@@ -17599,7 +17614,7 @@ ol.source.Raster.prototype.once = function(type, listener, opt_this) { };
  * @param {Function} listener
  * @param {Object=} opt_this
  */
-ol.source.Raster.prototype.un = function(type, listener, opt_this) { };
+ol.source.Raster.prototype.un = function(type, listener, opt_this) {};
 
 
 /**
@@ -17616,128 +17631,128 @@ ol.source.Raster.Event.prototype.target;
 
 /**
  */
-ol.source.Raster.Event.prototype.preventDefault = function() { };
+ol.source.Raster.Event.prototype.preventDefault = function() {};
 
 
 /**
  */
-ol.source.Raster.Event.prototype.stopPropagation = function() { };
+ol.source.Raster.Event.prototype.stopPropagation = function() {};
 
 
 /**
  * @param {boolean} render
  */
-ol.source.Stamen.prototype.setRenderReprojectionEdges = function(render) { };
+ol.source.Stamen.prototype.setRenderReprojectionEdges = function(render) {};
 
 
 /**
  * @param {ol.ProjectionLike} projection
  * @param {ol.tilegrid.TileGrid} tilegrid
  */
-ol.source.Stamen.prototype.setTileGridForProjection = function(projection, tilegrid) { };
+ol.source.Stamen.prototype.setTileGridForProjection = function(projection, tilegrid) {};
 
 
 /**
  * @return {ol.TileLoadFunctionType}
  */
-ol.source.Stamen.prototype.getTileLoadFunction = function() { };
+ol.source.Stamen.prototype.getTileLoadFunction = function() {};
 
 
 /**
  * @return {ol.TileUrlFunctionType}
  */
-ol.source.Stamen.prototype.getTileUrlFunction = function() { };
+ol.source.Stamen.prototype.getTileUrlFunction = function() {};
 
 
 /**
  * @return {!Array.<string>|null}
  */
-ol.source.Stamen.prototype.getUrls = function() { };
+ol.source.Stamen.prototype.getUrls = function() {};
 
 
 /**
  * @param {ol.TileLoadFunctionType} tileLoadFunction
  */
-ol.source.Stamen.prototype.setTileLoadFunction = function(tileLoadFunction) { };
+ol.source.Stamen.prototype.setTileLoadFunction = function(tileLoadFunction) {};
 
 
 /**
  * @param {ol.TileUrlFunctionType} tileUrlFunction
  * @param {string=} opt_key
  */
-ol.source.Stamen.prototype.setTileUrlFunction = function(tileUrlFunction, opt_key) { };
+ol.source.Stamen.prototype.setTileUrlFunction = function(tileUrlFunction, opt_key) {};
 
 
 /**
  * @param {string} url
  */
-ol.source.Stamen.prototype.setUrl = function(url) { };
+ol.source.Stamen.prototype.setUrl = function(url) {};
 
 
 /**
  * @param {Array.<string>} urls
  */
-ol.source.Stamen.prototype.setUrls = function(urls) { };
+ol.source.Stamen.prototype.setUrls = function(urls) {};
 
 
 /**
  * @return {ol.tilegrid.TileGrid}
  */
-ol.source.Stamen.prototype.getTileGrid = function() { };
+ol.source.Stamen.prototype.getTileGrid = function() {};
 
 
 /**
  */
-ol.source.Stamen.prototype.refresh = function() { };
+ol.source.Stamen.prototype.refresh = function() {};
 
 
 /**
  * @return {Array.<ol.Attribution>}
  */
-ol.source.Stamen.prototype.getAttributions = function() { };
+ol.source.Stamen.prototype.getAttributions = function() {};
 
 
 /**
  * @return {string|olx.LogoOptions|undefined}
  */
-ol.source.Stamen.prototype.getLogo = function() { };
+ol.source.Stamen.prototype.getLogo = function() {};
 
 
 /**
  * @return {ol.proj.Projection}
  */
-ol.source.Stamen.prototype.getProjection = function() { };
+ol.source.Stamen.prototype.getProjection = function() {};
 
 
 /**
  * @return {ol.source.State}
  */
-ol.source.Stamen.prototype.getState = function() { };
+ol.source.Stamen.prototype.getState = function() {};
 
 
 /**
  * @param {ol.AttributionLike|undefined} attributions
  */
-ol.source.Stamen.prototype.setAttributions = function(attributions) { };
+ol.source.Stamen.prototype.setAttributions = function(attributions) {};
 
 
 /**
  * @param {string} key
  * @return {*}
  */
-ol.source.Stamen.prototype.get = function(key) { };
+ol.source.Stamen.prototype.get = function(key) {};
 
 
 /**
  * @return {Array.<string>}
  */
-ol.source.Stamen.prototype.getKeys = function() { };
+ol.source.Stamen.prototype.getKeys = function() {};
 
 
 /**
  * @return {Object.<string, *>}
  */
-ol.source.Stamen.prototype.getProperties = function() { };
+ol.source.Stamen.prototype.getProperties = function() {};
 
 
 /**
@@ -17745,38 +17760,38 @@ ol.source.Stamen.prototype.getProperties = function() { };
  * @param {*} value
  * @param {boolean=} opt_silent
  */
-ol.source.Stamen.prototype.set = function(key, value, opt_silent) { };
+ol.source.Stamen.prototype.set = function(key, value, opt_silent) {};
 
 
 /**
  * @param {Object.<string, *>} values
  * @param {boolean=} opt_silent
  */
-ol.source.Stamen.prototype.setProperties = function(values, opt_silent) { };
+ol.source.Stamen.prototype.setProperties = function(values, opt_silent) {};
 
 
 /**
  * @param {string} key
  * @param {boolean=} opt_silent
  */
-ol.source.Stamen.prototype.unset = function(key, opt_silent) { };
+ol.source.Stamen.prototype.unset = function(key, opt_silent) {};
 
 
 /**
  */
-ol.source.Stamen.prototype.changed = function() { };
+ol.source.Stamen.prototype.changed = function() {};
 
 
 /**
  * @param {Object|ol.events.Event|string} event
  */
-ol.source.Stamen.prototype.dispatchEvent = function(event) { };
+ol.source.Stamen.prototype.dispatchEvent = function(event) {};
 
 
 /**
  * @return {number}
  */
-ol.source.Stamen.prototype.getRevision = function() { };
+ol.source.Stamen.prototype.getRevision = function() {};
 
 
 /**
@@ -17785,7 +17800,7 @@ ol.source.Stamen.prototype.getRevision = function() { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.source.Stamen.prototype.on = function(type, listener, opt_this) { };
+ol.source.Stamen.prototype.on = function(type, listener, opt_this) {};
 
 
 /**
@@ -17794,7 +17809,7 @@ ol.source.Stamen.prototype.on = function(type, listener, opt_this) { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.source.Stamen.prototype.once = function(type, listener, opt_this) { };
+ol.source.Stamen.prototype.once = function(type, listener, opt_this) {};
 
 
 /**
@@ -17802,7 +17817,7 @@ ol.source.Stamen.prototype.once = function(type, listener, opt_this) { };
  * @param {Function} listener
  * @param {Object=} opt_this
  */
-ol.source.Stamen.prototype.un = function(type, listener, opt_this) { };
+ol.source.Stamen.prototype.un = function(type, listener, opt_this) {};
 
 
 /**
@@ -17819,128 +17834,128 @@ ol.source.Tile.Event.prototype.target;
 
 /**
  */
-ol.source.Tile.Event.prototype.preventDefault = function() { };
+ol.source.Tile.Event.prototype.preventDefault = function() {};
 
 
 /**
  */
-ol.source.Tile.Event.prototype.stopPropagation = function() { };
+ol.source.Tile.Event.prototype.stopPropagation = function() {};
 
 
 /**
  * @param {boolean} render
  */
-ol.source.TileArcGISRest.prototype.setRenderReprojectionEdges = function(render) { };
+ol.source.TileArcGISRest.prototype.setRenderReprojectionEdges = function(render) {};
 
 
 /**
  * @param {ol.ProjectionLike} projection
  * @param {ol.tilegrid.TileGrid} tilegrid
  */
-ol.source.TileArcGISRest.prototype.setTileGridForProjection = function(projection, tilegrid) { };
+ol.source.TileArcGISRest.prototype.setTileGridForProjection = function(projection, tilegrid) {};
 
 
 /**
  * @return {ol.TileLoadFunctionType}
  */
-ol.source.TileArcGISRest.prototype.getTileLoadFunction = function() { };
+ol.source.TileArcGISRest.prototype.getTileLoadFunction = function() {};
 
 
 /**
  * @return {ol.TileUrlFunctionType}
  */
-ol.source.TileArcGISRest.prototype.getTileUrlFunction = function() { };
+ol.source.TileArcGISRest.prototype.getTileUrlFunction = function() {};
 
 
 /**
  * @return {!Array.<string>|null}
  */
-ol.source.TileArcGISRest.prototype.getUrls = function() { };
+ol.source.TileArcGISRest.prototype.getUrls = function() {};
 
 
 /**
  * @param {ol.TileLoadFunctionType} tileLoadFunction
  */
-ol.source.TileArcGISRest.prototype.setTileLoadFunction = function(tileLoadFunction) { };
+ol.source.TileArcGISRest.prototype.setTileLoadFunction = function(tileLoadFunction) {};
 
 
 /**
  * @param {ol.TileUrlFunctionType} tileUrlFunction
  * @param {string=} opt_key
  */
-ol.source.TileArcGISRest.prototype.setTileUrlFunction = function(tileUrlFunction, opt_key) { };
+ol.source.TileArcGISRest.prototype.setTileUrlFunction = function(tileUrlFunction, opt_key) {};
 
 
 /**
  * @param {string} url
  */
-ol.source.TileArcGISRest.prototype.setUrl = function(url) { };
+ol.source.TileArcGISRest.prototype.setUrl = function(url) {};
 
 
 /**
  * @param {Array.<string>} urls
  */
-ol.source.TileArcGISRest.prototype.setUrls = function(urls) { };
+ol.source.TileArcGISRest.prototype.setUrls = function(urls) {};
 
 
 /**
  * @return {ol.tilegrid.TileGrid}
  */
-ol.source.TileArcGISRest.prototype.getTileGrid = function() { };
+ol.source.TileArcGISRest.prototype.getTileGrid = function() {};
 
 
 /**
  */
-ol.source.TileArcGISRest.prototype.refresh = function() { };
+ol.source.TileArcGISRest.prototype.refresh = function() {};
 
 
 /**
  * @return {Array.<ol.Attribution>}
  */
-ol.source.TileArcGISRest.prototype.getAttributions = function() { };
+ol.source.TileArcGISRest.prototype.getAttributions = function() {};
 
 
 /**
  * @return {string|olx.LogoOptions|undefined}
  */
-ol.source.TileArcGISRest.prototype.getLogo = function() { };
+ol.source.TileArcGISRest.prototype.getLogo = function() {};
 
 
 /**
  * @return {ol.proj.Projection}
  */
-ol.source.TileArcGISRest.prototype.getProjection = function() { };
+ol.source.TileArcGISRest.prototype.getProjection = function() {};
 
 
 /**
  * @return {ol.source.State}
  */
-ol.source.TileArcGISRest.prototype.getState = function() { };
+ol.source.TileArcGISRest.prototype.getState = function() {};
 
 
 /**
  * @param {ol.AttributionLike|undefined} attributions
  */
-ol.source.TileArcGISRest.prototype.setAttributions = function(attributions) { };
+ol.source.TileArcGISRest.prototype.setAttributions = function(attributions) {};
 
 
 /**
  * @param {string} key
  * @return {*}
  */
-ol.source.TileArcGISRest.prototype.get = function(key) { };
+ol.source.TileArcGISRest.prototype.get = function(key) {};
 
 
 /**
  * @return {Array.<string>}
  */
-ol.source.TileArcGISRest.prototype.getKeys = function() { };
+ol.source.TileArcGISRest.prototype.getKeys = function() {};
 
 
 /**
  * @return {Object.<string, *>}
  */
-ol.source.TileArcGISRest.prototype.getProperties = function() { };
+ol.source.TileArcGISRest.prototype.getProperties = function() {};
 
 
 /**
@@ -17948,38 +17963,38 @@ ol.source.TileArcGISRest.prototype.getProperties = function() { };
  * @param {*} value
  * @param {boolean=} opt_silent
  */
-ol.source.TileArcGISRest.prototype.set = function(key, value, opt_silent) { };
+ol.source.TileArcGISRest.prototype.set = function(key, value, opt_silent) {};
 
 
 /**
  * @param {Object.<string, *>} values
  * @param {boolean=} opt_silent
  */
-ol.source.TileArcGISRest.prototype.setProperties = function(values, opt_silent) { };
+ol.source.TileArcGISRest.prototype.setProperties = function(values, opt_silent) {};
 
 
 /**
  * @param {string} key
  * @param {boolean=} opt_silent
  */
-ol.source.TileArcGISRest.prototype.unset = function(key, opt_silent) { };
+ol.source.TileArcGISRest.prototype.unset = function(key, opt_silent) {};
 
 
 /**
  */
-ol.source.TileArcGISRest.prototype.changed = function() { };
+ol.source.TileArcGISRest.prototype.changed = function() {};
 
 
 /**
  * @param {Object|ol.events.Event|string} event
  */
-ol.source.TileArcGISRest.prototype.dispatchEvent = function(event) { };
+ol.source.TileArcGISRest.prototype.dispatchEvent = function(event) {};
 
 
 /**
  * @return {number}
  */
-ol.source.TileArcGISRest.prototype.getRevision = function() { };
+ol.source.TileArcGISRest.prototype.getRevision = function() {};
 
 
 /**
@@ -17988,7 +18003,7 @@ ol.source.TileArcGISRest.prototype.getRevision = function() { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.source.TileArcGISRest.prototype.on = function(type, listener, opt_this) { };
+ol.source.TileArcGISRest.prototype.on = function(type, listener, opt_this) {};
 
 
 /**
@@ -17997,7 +18012,7 @@ ol.source.TileArcGISRest.prototype.on = function(type, listener, opt_this) { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.source.TileArcGISRest.prototype.once = function(type, listener, opt_this) { };
+ol.source.TileArcGISRest.prototype.once = function(type, listener, opt_this) {};
 
 
 /**
@@ -18005,67 +18020,67 @@ ol.source.TileArcGISRest.prototype.once = function(type, listener, opt_this) { }
  * @param {Function} listener
  * @param {Object=} opt_this
  */
-ol.source.TileArcGISRest.prototype.un = function(type, listener, opt_this) { };
+ol.source.TileArcGISRest.prototype.un = function(type, listener, opt_this) {};
 
 
 /**
  * @return {ol.tilegrid.TileGrid}
  */
-ol.source.TileDebug.prototype.getTileGrid = function() { };
+ol.source.TileDebug.prototype.getTileGrid = function() {};
 
 
 /**
  */
-ol.source.TileDebug.prototype.refresh = function() { };
+ol.source.TileDebug.prototype.refresh = function() {};
 
 
 /**
  * @return {Array.<ol.Attribution>}
  */
-ol.source.TileDebug.prototype.getAttributions = function() { };
+ol.source.TileDebug.prototype.getAttributions = function() {};
 
 
 /**
  * @return {string|olx.LogoOptions|undefined}
  */
-ol.source.TileDebug.prototype.getLogo = function() { };
+ol.source.TileDebug.prototype.getLogo = function() {};
 
 
 /**
  * @return {ol.proj.Projection}
  */
-ol.source.TileDebug.prototype.getProjection = function() { };
+ol.source.TileDebug.prototype.getProjection = function() {};
 
 
 /**
  * @return {ol.source.State}
  */
-ol.source.TileDebug.prototype.getState = function() { };
+ol.source.TileDebug.prototype.getState = function() {};
 
 
 /**
  * @param {ol.AttributionLike|undefined} attributions
  */
-ol.source.TileDebug.prototype.setAttributions = function(attributions) { };
+ol.source.TileDebug.prototype.setAttributions = function(attributions) {};
 
 
 /**
  * @param {string} key
  * @return {*}
  */
-ol.source.TileDebug.prototype.get = function(key) { };
+ol.source.TileDebug.prototype.get = function(key) {};
 
 
 /**
  * @return {Array.<string>}
  */
-ol.source.TileDebug.prototype.getKeys = function() { };
+ol.source.TileDebug.prototype.getKeys = function() {};
 
 
 /**
  * @return {Object.<string, *>}
  */
-ol.source.TileDebug.prototype.getProperties = function() { };
+ol.source.TileDebug.prototype.getProperties = function() {};
 
 
 /**
@@ -18073,38 +18088,38 @@ ol.source.TileDebug.prototype.getProperties = function() { };
  * @param {*} value
  * @param {boolean=} opt_silent
  */
-ol.source.TileDebug.prototype.set = function(key, value, opt_silent) { };
+ol.source.TileDebug.prototype.set = function(key, value, opt_silent) {};
 
 
 /**
  * @param {Object.<string, *>} values
  * @param {boolean=} opt_silent
  */
-ol.source.TileDebug.prototype.setProperties = function(values, opt_silent) { };
+ol.source.TileDebug.prototype.setProperties = function(values, opt_silent) {};
 
 
 /**
  * @param {string} key
  * @param {boolean=} opt_silent
  */
-ol.source.TileDebug.prototype.unset = function(key, opt_silent) { };
+ol.source.TileDebug.prototype.unset = function(key, opt_silent) {};
 
 
 /**
  */
-ol.source.TileDebug.prototype.changed = function() { };
+ol.source.TileDebug.prototype.changed = function() {};
 
 
 /**
  * @param {Object|ol.events.Event|string} event
  */
-ol.source.TileDebug.prototype.dispatchEvent = function(event) { };
+ol.source.TileDebug.prototype.dispatchEvent = function(event) {};
 
 
 /**
  * @return {number}
  */
-ol.source.TileDebug.prototype.getRevision = function() { };
+ol.source.TileDebug.prototype.getRevision = function() {};
 
 
 /**
@@ -18113,7 +18128,7 @@ ol.source.TileDebug.prototype.getRevision = function() { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.source.TileDebug.prototype.on = function(type, listener, opt_this) { };
+ol.source.TileDebug.prototype.on = function(type, listener, opt_this) {};
 
 
 /**
@@ -18122,7 +18137,7 @@ ol.source.TileDebug.prototype.on = function(type, listener, opt_this) { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.source.TileDebug.prototype.once = function(type, listener, opt_this) { };
+ol.source.TileDebug.prototype.once = function(type, listener, opt_this) {};
 
 
 /**
@@ -18130,123 +18145,123 @@ ol.source.TileDebug.prototype.once = function(type, listener, opt_this) { };
  * @param {Function} listener
  * @param {Object=} opt_this
  */
-ol.source.TileDebug.prototype.un = function(type, listener, opt_this) { };
+ol.source.TileDebug.prototype.un = function(type, listener, opt_this) {};
 
 
 /**
  * @param {boolean} render
  */
-ol.source.TileJSON.prototype.setRenderReprojectionEdges = function(render) { };
+ol.source.TileJSON.prototype.setRenderReprojectionEdges = function(render) {};
 
 
 /**
  * @param {ol.ProjectionLike} projection
  * @param {ol.tilegrid.TileGrid} tilegrid
  */
-ol.source.TileJSON.prototype.setTileGridForProjection = function(projection, tilegrid) { };
+ol.source.TileJSON.prototype.setTileGridForProjection = function(projection, tilegrid) {};
 
 
 /**
  * @return {ol.TileLoadFunctionType}
  */
-ol.source.TileJSON.prototype.getTileLoadFunction = function() { };
+ol.source.TileJSON.prototype.getTileLoadFunction = function() {};
 
 
 /**
  * @return {ol.TileUrlFunctionType}
  */
-ol.source.TileJSON.prototype.getTileUrlFunction = function() { };
+ol.source.TileJSON.prototype.getTileUrlFunction = function() {};
 
 
 /**
  * @return {!Array.<string>|null}
  */
-ol.source.TileJSON.prototype.getUrls = function() { };
+ol.source.TileJSON.prototype.getUrls = function() {};
 
 
 /**
  * @param {ol.TileLoadFunctionType} tileLoadFunction
  */
-ol.source.TileJSON.prototype.setTileLoadFunction = function(tileLoadFunction) { };
+ol.source.TileJSON.prototype.setTileLoadFunction = function(tileLoadFunction) {};
 
 
 /**
  * @param {ol.TileUrlFunctionType} tileUrlFunction
  * @param {string=} opt_key
  */
-ol.source.TileJSON.prototype.setTileUrlFunction = function(tileUrlFunction, opt_key) { };
+ol.source.TileJSON.prototype.setTileUrlFunction = function(tileUrlFunction, opt_key) {};
 
 
 /**
  * @param {string} url
  */
-ol.source.TileJSON.prototype.setUrl = function(url) { };
+ol.source.TileJSON.prototype.setUrl = function(url) {};
 
 
 /**
  * @param {Array.<string>} urls
  */
-ol.source.TileJSON.prototype.setUrls = function(urls) { };
+ol.source.TileJSON.prototype.setUrls = function(urls) {};
 
 
 /**
  * @return {ol.tilegrid.TileGrid}
  */
-ol.source.TileJSON.prototype.getTileGrid = function() { };
+ol.source.TileJSON.prototype.getTileGrid = function() {};
 
 
 /**
  */
-ol.source.TileJSON.prototype.refresh = function() { };
+ol.source.TileJSON.prototype.refresh = function() {};
 
 
 /**
  * @return {Array.<ol.Attribution>}
  */
-ol.source.TileJSON.prototype.getAttributions = function() { };
+ol.source.TileJSON.prototype.getAttributions = function() {};
 
 
 /**
  * @return {string|olx.LogoOptions|undefined}
  */
-ol.source.TileJSON.prototype.getLogo = function() { };
+ol.source.TileJSON.prototype.getLogo = function() {};
 
 
 /**
  * @return {ol.proj.Projection}
  */
-ol.source.TileJSON.prototype.getProjection = function() { };
+ol.source.TileJSON.prototype.getProjection = function() {};
 
 
 /**
  * @return {ol.source.State}
  */
-ol.source.TileJSON.prototype.getState = function() { };
+ol.source.TileJSON.prototype.getState = function() {};
 
 
 /**
  * @param {ol.AttributionLike|undefined} attributions
  */
-ol.source.TileJSON.prototype.setAttributions = function(attributions) { };
+ol.source.TileJSON.prototype.setAttributions = function(attributions) {};
 
 
 /**
  * @param {string} key
  * @return {*}
  */
-ol.source.TileJSON.prototype.get = function(key) { };
+ol.source.TileJSON.prototype.get = function(key) {};
 
 
 /**
  * @return {Array.<string>}
  */
-ol.source.TileJSON.prototype.getKeys = function() { };
+ol.source.TileJSON.prototype.getKeys = function() {};
 
 
 /**
  * @return {Object.<string, *>}
  */
-ol.source.TileJSON.prototype.getProperties = function() { };
+ol.source.TileJSON.prototype.getProperties = function() {};
 
 
 /**
@@ -18254,38 +18269,38 @@ ol.source.TileJSON.prototype.getProperties = function() { };
  * @param {*} value
  * @param {boolean=} opt_silent
  */
-ol.source.TileJSON.prototype.set = function(key, value, opt_silent) { };
+ol.source.TileJSON.prototype.set = function(key, value, opt_silent) {};
 
 
 /**
  * @param {Object.<string, *>} values
  * @param {boolean=} opt_silent
  */
-ol.source.TileJSON.prototype.setProperties = function(values, opt_silent) { };
+ol.source.TileJSON.prototype.setProperties = function(values, opt_silent) {};
 
 
 /**
  * @param {string} key
  * @param {boolean=} opt_silent
  */
-ol.source.TileJSON.prototype.unset = function(key, opt_silent) { };
+ol.source.TileJSON.prototype.unset = function(key, opt_silent) {};
 
 
 /**
  */
-ol.source.TileJSON.prototype.changed = function() { };
+ol.source.TileJSON.prototype.changed = function() {};
 
 
 /**
  * @param {Object|ol.events.Event|string} event
  */
-ol.source.TileJSON.prototype.dispatchEvent = function(event) { };
+ol.source.TileJSON.prototype.dispatchEvent = function(event) {};
 
 
 /**
  * @return {number}
  */
-ol.source.TileJSON.prototype.getRevision = function() { };
+ol.source.TileJSON.prototype.getRevision = function() {};
 
 
 /**
@@ -18294,7 +18309,7 @@ ol.source.TileJSON.prototype.getRevision = function() { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.source.TileJSON.prototype.on = function(type, listener, opt_this) { };
+ol.source.TileJSON.prototype.on = function(type, listener, opt_this) {};
 
 
 /**
@@ -18303,7 +18318,7 @@ ol.source.TileJSON.prototype.on = function(type, listener, opt_this) { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.source.TileJSON.prototype.once = function(type, listener, opt_this) { };
+ol.source.TileJSON.prototype.once = function(type, listener, opt_this) {};
 
 
 /**
@@ -18311,67 +18326,67 @@ ol.source.TileJSON.prototype.once = function(type, listener, opt_this) { };
  * @param {Function} listener
  * @param {Object=} opt_this
  */
-ol.source.TileJSON.prototype.un = function(type, listener, opt_this) { };
+ol.source.TileJSON.prototype.un = function(type, listener, opt_this) {};
 
 
 /**
  * @return {ol.tilegrid.TileGrid}
  */
-ol.source.TileUTFGrid.prototype.getTileGrid = function() { };
+ol.source.TileUTFGrid.prototype.getTileGrid = function() {};
 
 
 /**
  */
-ol.source.TileUTFGrid.prototype.refresh = function() { };
+ol.source.TileUTFGrid.prototype.refresh = function() {};
 
 
 /**
  * @return {Array.<ol.Attribution>}
  */
-ol.source.TileUTFGrid.prototype.getAttributions = function() { };
+ol.source.TileUTFGrid.prototype.getAttributions = function() {};
 
 
 /**
  * @return {string|olx.LogoOptions|undefined}
  */
-ol.source.TileUTFGrid.prototype.getLogo = function() { };
+ol.source.TileUTFGrid.prototype.getLogo = function() {};
 
 
 /**
  * @return {ol.proj.Projection}
  */
-ol.source.TileUTFGrid.prototype.getProjection = function() { };
+ol.source.TileUTFGrid.prototype.getProjection = function() {};
 
 
 /**
  * @return {ol.source.State}
  */
-ol.source.TileUTFGrid.prototype.getState = function() { };
+ol.source.TileUTFGrid.prototype.getState = function() {};
 
 
 /**
  * @param {ol.AttributionLike|undefined} attributions
  */
-ol.source.TileUTFGrid.prototype.setAttributions = function(attributions) { };
+ol.source.TileUTFGrid.prototype.setAttributions = function(attributions) {};
 
 
 /**
  * @param {string} key
  * @return {*}
  */
-ol.source.TileUTFGrid.prototype.get = function(key) { };
+ol.source.TileUTFGrid.prototype.get = function(key) {};
 
 
 /**
  * @return {Array.<string>}
  */
-ol.source.TileUTFGrid.prototype.getKeys = function() { };
+ol.source.TileUTFGrid.prototype.getKeys = function() {};
 
 
 /**
  * @return {Object.<string, *>}
  */
-ol.source.TileUTFGrid.prototype.getProperties = function() { };
+ol.source.TileUTFGrid.prototype.getProperties = function() {};
 
 
 /**
@@ -18379,38 +18394,38 @@ ol.source.TileUTFGrid.prototype.getProperties = function() { };
  * @param {*} value
  * @param {boolean=} opt_silent
  */
-ol.source.TileUTFGrid.prototype.set = function(key, value, opt_silent) { };
+ol.source.TileUTFGrid.prototype.set = function(key, value, opt_silent) {};
 
 
 /**
  * @param {Object.<string, *>} values
  * @param {boolean=} opt_silent
  */
-ol.source.TileUTFGrid.prototype.setProperties = function(values, opt_silent) { };
+ol.source.TileUTFGrid.prototype.setProperties = function(values, opt_silent) {};
 
 
 /**
  * @param {string} key
  * @param {boolean=} opt_silent
  */
-ol.source.TileUTFGrid.prototype.unset = function(key, opt_silent) { };
+ol.source.TileUTFGrid.prototype.unset = function(key, opt_silent) {};
 
 
 /**
  */
-ol.source.TileUTFGrid.prototype.changed = function() { };
+ol.source.TileUTFGrid.prototype.changed = function() {};
 
 
 /**
  * @param {Object|ol.events.Event|string} event
  */
-ol.source.TileUTFGrid.prototype.dispatchEvent = function(event) { };
+ol.source.TileUTFGrid.prototype.dispatchEvent = function(event) {};
 
 
 /**
  * @return {number}
  */
-ol.source.TileUTFGrid.prototype.getRevision = function() { };
+ol.source.TileUTFGrid.prototype.getRevision = function() {};
 
 
 /**
@@ -18419,7 +18434,7 @@ ol.source.TileUTFGrid.prototype.getRevision = function() { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.source.TileUTFGrid.prototype.on = function(type, listener, opt_this) { };
+ol.source.TileUTFGrid.prototype.on = function(type, listener, opt_this) {};
 
 
 /**
@@ -18428,7 +18443,7 @@ ol.source.TileUTFGrid.prototype.on = function(type, listener, opt_this) { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.source.TileUTFGrid.prototype.once = function(type, listener, opt_this) { };
+ol.source.TileUTFGrid.prototype.once = function(type, listener, opt_this) {};
 
 
 /**
@@ -18436,123 +18451,123 @@ ol.source.TileUTFGrid.prototype.once = function(type, listener, opt_this) { };
  * @param {Function} listener
  * @param {Object=} opt_this
  */
-ol.source.TileUTFGrid.prototype.un = function(type, listener, opt_this) { };
+ol.source.TileUTFGrid.prototype.un = function(type, listener, opt_this) {};
 
 
 /**
  * @param {boolean} render
  */
-ol.source.TileWMS.prototype.setRenderReprojectionEdges = function(render) { };
+ol.source.TileWMS.prototype.setRenderReprojectionEdges = function(render) {};
 
 
 /**
  * @param {ol.ProjectionLike} projection
  * @param {ol.tilegrid.TileGrid} tilegrid
  */
-ol.source.TileWMS.prototype.setTileGridForProjection = function(projection, tilegrid) { };
+ol.source.TileWMS.prototype.setTileGridForProjection = function(projection, tilegrid) {};
 
 
 /**
  * @return {ol.TileLoadFunctionType}
  */
-ol.source.TileWMS.prototype.getTileLoadFunction = function() { };
+ol.source.TileWMS.prototype.getTileLoadFunction = function() {};
 
 
 /**
  * @return {ol.TileUrlFunctionType}
  */
-ol.source.TileWMS.prototype.getTileUrlFunction = function() { };
+ol.source.TileWMS.prototype.getTileUrlFunction = function() {};
 
 
 /**
  * @return {!Array.<string>|null}
  */
-ol.source.TileWMS.prototype.getUrls = function() { };
+ol.source.TileWMS.prototype.getUrls = function() {};
 
 
 /**
  * @param {ol.TileLoadFunctionType} tileLoadFunction
  */
-ol.source.TileWMS.prototype.setTileLoadFunction = function(tileLoadFunction) { };
+ol.source.TileWMS.prototype.setTileLoadFunction = function(tileLoadFunction) {};
 
 
 /**
  * @param {ol.TileUrlFunctionType} tileUrlFunction
  * @param {string=} opt_key
  */
-ol.source.TileWMS.prototype.setTileUrlFunction = function(tileUrlFunction, opt_key) { };
+ol.source.TileWMS.prototype.setTileUrlFunction = function(tileUrlFunction, opt_key) {};
 
 
 /**
  * @param {string} url
  */
-ol.source.TileWMS.prototype.setUrl = function(url) { };
+ol.source.TileWMS.prototype.setUrl = function(url) {};
 
 
 /**
  * @param {Array.<string>} urls
  */
-ol.source.TileWMS.prototype.setUrls = function(urls) { };
+ol.source.TileWMS.prototype.setUrls = function(urls) {};
 
 
 /**
  * @return {ol.tilegrid.TileGrid}
  */
-ol.source.TileWMS.prototype.getTileGrid = function() { };
+ol.source.TileWMS.prototype.getTileGrid = function() {};
 
 
 /**
  */
-ol.source.TileWMS.prototype.refresh = function() { };
+ol.source.TileWMS.prototype.refresh = function() {};
 
 
 /**
  * @return {Array.<ol.Attribution>}
  */
-ol.source.TileWMS.prototype.getAttributions = function() { };
+ol.source.TileWMS.prototype.getAttributions = function() {};
 
 
 /**
  * @return {string|olx.LogoOptions|undefined}
  */
-ol.source.TileWMS.prototype.getLogo = function() { };
+ol.source.TileWMS.prototype.getLogo = function() {};
 
 
 /**
  * @return {ol.proj.Projection}
  */
-ol.source.TileWMS.prototype.getProjection = function() { };
+ol.source.TileWMS.prototype.getProjection = function() {};
 
 
 /**
  * @return {ol.source.State}
  */
-ol.source.TileWMS.prototype.getState = function() { };
+ol.source.TileWMS.prototype.getState = function() {};
 
 
 /**
  * @param {ol.AttributionLike|undefined} attributions
  */
-ol.source.TileWMS.prototype.setAttributions = function(attributions) { };
+ol.source.TileWMS.prototype.setAttributions = function(attributions) {};
 
 
 /**
  * @param {string} key
  * @return {*}
  */
-ol.source.TileWMS.prototype.get = function(key) { };
+ol.source.TileWMS.prototype.get = function(key) {};
 
 
 /**
  * @return {Array.<string>}
  */
-ol.source.TileWMS.prototype.getKeys = function() { };
+ol.source.TileWMS.prototype.getKeys = function() {};
 
 
 /**
  * @return {Object.<string, *>}
  */
-ol.source.TileWMS.prototype.getProperties = function() { };
+ol.source.TileWMS.prototype.getProperties = function() {};
 
 
 /**
@@ -18560,38 +18575,38 @@ ol.source.TileWMS.prototype.getProperties = function() { };
  * @param {*} value
  * @param {boolean=} opt_silent
  */
-ol.source.TileWMS.prototype.set = function(key, value, opt_silent) { };
+ol.source.TileWMS.prototype.set = function(key, value, opt_silent) {};
 
 
 /**
  * @param {Object.<string, *>} values
  * @param {boolean=} opt_silent
  */
-ol.source.TileWMS.prototype.setProperties = function(values, opt_silent) { };
+ol.source.TileWMS.prototype.setProperties = function(values, opt_silent) {};
 
 
 /**
  * @param {string} key
  * @param {boolean=} opt_silent
  */
-ol.source.TileWMS.prototype.unset = function(key, opt_silent) { };
+ol.source.TileWMS.prototype.unset = function(key, opt_silent) {};
 
 
 /**
  */
-ol.source.TileWMS.prototype.changed = function() { };
+ol.source.TileWMS.prototype.changed = function() {};
 
 
 /**
  * @param {Object|ol.events.Event|string} event
  */
-ol.source.TileWMS.prototype.dispatchEvent = function(event) { };
+ol.source.TileWMS.prototype.dispatchEvent = function(event) {};
 
 
 /**
  * @return {number}
  */
-ol.source.TileWMS.prototype.getRevision = function() { };
+ol.source.TileWMS.prototype.getRevision = function() {};
 
 
 /**
@@ -18600,7 +18615,7 @@ ol.source.TileWMS.prototype.getRevision = function() { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.source.TileWMS.prototype.on = function(type, listener, opt_this) { };
+ol.source.TileWMS.prototype.on = function(type, listener, opt_this) {};
 
 
 /**
@@ -18609,7 +18624,7 @@ ol.source.TileWMS.prototype.on = function(type, listener, opt_this) { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.source.TileWMS.prototype.once = function(type, listener, opt_this) { };
+ol.source.TileWMS.prototype.once = function(type, listener, opt_this) {};
 
 
 /**
@@ -18617,7 +18632,7 @@ ol.source.TileWMS.prototype.once = function(type, listener, opt_this) { };
  * @param {Function} listener
  * @param {Object=} opt_this
  */
-ol.source.TileWMS.prototype.un = function(type, listener, opt_this) { };
+ol.source.TileWMS.prototype.un = function(type, listener, opt_this) {};
 
 
 /**
@@ -18634,115 +18649,115 @@ ol.source.Vector.Event.prototype.target;
 
 /**
  */
-ol.source.Vector.Event.prototype.preventDefault = function() { };
+ol.source.Vector.Event.prototype.preventDefault = function() {};
 
 
 /**
  */
-ol.source.Vector.Event.prototype.stopPropagation = function() { };
+ol.source.Vector.Event.prototype.stopPropagation = function() {};
 
 
 /**
  * @return {ol.TileLoadFunctionType}
  */
-ol.source.VectorTile.prototype.getTileLoadFunction = function() { };
+ol.source.VectorTile.prototype.getTileLoadFunction = function() {};
 
 
 /**
  * @return {ol.TileUrlFunctionType}
  */
-ol.source.VectorTile.prototype.getTileUrlFunction = function() { };
+ol.source.VectorTile.prototype.getTileUrlFunction = function() {};
 
 
 /**
  * @return {!Array.<string>|null}
  */
-ol.source.VectorTile.prototype.getUrls = function() { };
+ol.source.VectorTile.prototype.getUrls = function() {};
 
 
 /**
  * @param {ol.TileLoadFunctionType} tileLoadFunction
  */
-ol.source.VectorTile.prototype.setTileLoadFunction = function(tileLoadFunction) { };
+ol.source.VectorTile.prototype.setTileLoadFunction = function(tileLoadFunction) {};
 
 
 /**
  * @param {ol.TileUrlFunctionType} tileUrlFunction
  * @param {string=} opt_key
  */
-ol.source.VectorTile.prototype.setTileUrlFunction = function(tileUrlFunction, opt_key) { };
+ol.source.VectorTile.prototype.setTileUrlFunction = function(tileUrlFunction, opt_key) {};
 
 
 /**
  * @param {string} url
  */
-ol.source.VectorTile.prototype.setUrl = function(url) { };
+ol.source.VectorTile.prototype.setUrl = function(url) {};
 
 
 /**
  * @param {Array.<string>} urls
  */
-ol.source.VectorTile.prototype.setUrls = function(urls) { };
+ol.source.VectorTile.prototype.setUrls = function(urls) {};
 
 
 /**
  * @return {ol.tilegrid.TileGrid}
  */
-ol.source.VectorTile.prototype.getTileGrid = function() { };
+ol.source.VectorTile.prototype.getTileGrid = function() {};
 
 
 /**
  */
-ol.source.VectorTile.prototype.refresh = function() { };
+ol.source.VectorTile.prototype.refresh = function() {};
 
 
 /**
  * @return {Array.<ol.Attribution>}
  */
-ol.source.VectorTile.prototype.getAttributions = function() { };
+ol.source.VectorTile.prototype.getAttributions = function() {};
 
 
 /**
  * @return {string|olx.LogoOptions|undefined}
  */
-ol.source.VectorTile.prototype.getLogo = function() { };
+ol.source.VectorTile.prototype.getLogo = function() {};
 
 
 /**
  * @return {ol.proj.Projection}
  */
-ol.source.VectorTile.prototype.getProjection = function() { };
+ol.source.VectorTile.prototype.getProjection = function() {};
 
 
 /**
  * @return {ol.source.State}
  */
-ol.source.VectorTile.prototype.getState = function() { };
+ol.source.VectorTile.prototype.getState = function() {};
 
 
 /**
  * @param {ol.AttributionLike|undefined} attributions
  */
-ol.source.VectorTile.prototype.setAttributions = function(attributions) { };
+ol.source.VectorTile.prototype.setAttributions = function(attributions) {};
 
 
 /**
  * @param {string} key
  * @return {*}
  */
-ol.source.VectorTile.prototype.get = function(key) { };
+ol.source.VectorTile.prototype.get = function(key) {};
 
 
 /**
  * @return {Array.<string>}
  */
-ol.source.VectorTile.prototype.getKeys = function() { };
+ol.source.VectorTile.prototype.getKeys = function() {};
 
 
 /**
  * @return {Object.<string, *>}
  */
-ol.source.VectorTile.prototype.getProperties = function() { };
+ol.source.VectorTile.prototype.getProperties = function() {};
 
 
 /**
@@ -18750,38 +18765,38 @@ ol.source.VectorTile.prototype.getProperties = function() { };
  * @param {*} value
  * @param {boolean=} opt_silent
  */
-ol.source.VectorTile.prototype.set = function(key, value, opt_silent) { };
+ol.source.VectorTile.prototype.set = function(key, value, opt_silent) {};
 
 
 /**
  * @param {Object.<string, *>} values
  * @param {boolean=} opt_silent
  */
-ol.source.VectorTile.prototype.setProperties = function(values, opt_silent) { };
+ol.source.VectorTile.prototype.setProperties = function(values, opt_silent) {};
 
 
 /**
  * @param {string} key
  * @param {boolean=} opt_silent
  */
-ol.source.VectorTile.prototype.unset = function(key, opt_silent) { };
+ol.source.VectorTile.prototype.unset = function(key, opt_silent) {};
 
 
 /**
  */
-ol.source.VectorTile.prototype.changed = function() { };
+ol.source.VectorTile.prototype.changed = function() {};
 
 
 /**
  * @param {Object|ol.events.Event|string} event
  */
-ol.source.VectorTile.prototype.dispatchEvent = function(event) { };
+ol.source.VectorTile.prototype.dispatchEvent = function(event) {};
 
 
 /**
  * @return {number}
  */
-ol.source.VectorTile.prototype.getRevision = function() { };
+ol.source.VectorTile.prototype.getRevision = function() {};
 
 
 /**
@@ -18790,7 +18805,7 @@ ol.source.VectorTile.prototype.getRevision = function() { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.source.VectorTile.prototype.on = function(type, listener, opt_this) { };
+ol.source.VectorTile.prototype.on = function(type, listener, opt_this) {};
 
 
 /**
@@ -18799,7 +18814,7 @@ ol.source.VectorTile.prototype.on = function(type, listener, opt_this) { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.source.VectorTile.prototype.once = function(type, listener, opt_this) { };
+ol.source.VectorTile.prototype.once = function(type, listener, opt_this) {};
 
 
 /**
@@ -18807,123 +18822,123 @@ ol.source.VectorTile.prototype.once = function(type, listener, opt_this) { };
  * @param {Function} listener
  * @param {Object=} opt_this
  */
-ol.source.VectorTile.prototype.un = function(type, listener, opt_this) { };
+ol.source.VectorTile.prototype.un = function(type, listener, opt_this) {};
 
 
 /**
  * @param {boolean} render
  */
-ol.source.WMTS.prototype.setRenderReprojectionEdges = function(render) { };
+ol.source.WMTS.prototype.setRenderReprojectionEdges = function(render) {};
 
 
 /**
  * @param {ol.ProjectionLike} projection
  * @param {ol.tilegrid.TileGrid} tilegrid
  */
-ol.source.WMTS.prototype.setTileGridForProjection = function(projection, tilegrid) { };
+ol.source.WMTS.prototype.setTileGridForProjection = function(projection, tilegrid) {};
 
 
 /**
  * @return {ol.TileLoadFunctionType}
  */
-ol.source.WMTS.prototype.getTileLoadFunction = function() { };
+ol.source.WMTS.prototype.getTileLoadFunction = function() {};
 
 
 /**
  * @return {ol.TileUrlFunctionType}
  */
-ol.source.WMTS.prototype.getTileUrlFunction = function() { };
+ol.source.WMTS.prototype.getTileUrlFunction = function() {};
 
 
 /**
  * @return {!Array.<string>|null}
  */
-ol.source.WMTS.prototype.getUrls = function() { };
+ol.source.WMTS.prototype.getUrls = function() {};
 
 
 /**
  * @param {ol.TileLoadFunctionType} tileLoadFunction
  */
-ol.source.WMTS.prototype.setTileLoadFunction = function(tileLoadFunction) { };
+ol.source.WMTS.prototype.setTileLoadFunction = function(tileLoadFunction) {};
 
 
 /**
  * @param {ol.TileUrlFunctionType} tileUrlFunction
  * @param {string=} opt_key
  */
-ol.source.WMTS.prototype.setTileUrlFunction = function(tileUrlFunction, opt_key) { };
+ol.source.WMTS.prototype.setTileUrlFunction = function(tileUrlFunction, opt_key) {};
 
 
 /**
  * @param {string} url
  */
-ol.source.WMTS.prototype.setUrl = function(url) { };
+ol.source.WMTS.prototype.setUrl = function(url) {};
 
 
 /**
  * @param {Array.<string>} urls
  */
-ol.source.WMTS.prototype.setUrls = function(urls) { };
+ol.source.WMTS.prototype.setUrls = function(urls) {};
 
 
 /**
  * @return {ol.tilegrid.TileGrid}
  */
-ol.source.WMTS.prototype.getTileGrid = function() { };
+ol.source.WMTS.prototype.getTileGrid = function() {};
 
 
 /**
  */
-ol.source.WMTS.prototype.refresh = function() { };
+ol.source.WMTS.prototype.refresh = function() {};
 
 
 /**
  * @return {Array.<ol.Attribution>}
  */
-ol.source.WMTS.prototype.getAttributions = function() { };
+ol.source.WMTS.prototype.getAttributions = function() {};
 
 
 /**
  * @return {string|olx.LogoOptions|undefined}
  */
-ol.source.WMTS.prototype.getLogo = function() { };
+ol.source.WMTS.prototype.getLogo = function() {};
 
 
 /**
  * @return {ol.proj.Projection}
  */
-ol.source.WMTS.prototype.getProjection = function() { };
+ol.source.WMTS.prototype.getProjection = function() {};
 
 
 /**
  * @return {ol.source.State}
  */
-ol.source.WMTS.prototype.getState = function() { };
+ol.source.WMTS.prototype.getState = function() {};
 
 
 /**
  * @param {ol.AttributionLike|undefined} attributions
  */
-ol.source.WMTS.prototype.setAttributions = function(attributions) { };
+ol.source.WMTS.prototype.setAttributions = function(attributions) {};
 
 
 /**
  * @param {string} key
  * @return {*}
  */
-ol.source.WMTS.prototype.get = function(key) { };
+ol.source.WMTS.prototype.get = function(key) {};
 
 
 /**
  * @return {Array.<string>}
  */
-ol.source.WMTS.prototype.getKeys = function() { };
+ol.source.WMTS.prototype.getKeys = function() {};
 
 
 /**
  * @return {Object.<string, *>}
  */
-ol.source.WMTS.prototype.getProperties = function() { };
+ol.source.WMTS.prototype.getProperties = function() {};
 
 
 /**
@@ -18931,38 +18946,38 @@ ol.source.WMTS.prototype.getProperties = function() { };
  * @param {*} value
  * @param {boolean=} opt_silent
  */
-ol.source.WMTS.prototype.set = function(key, value, opt_silent) { };
+ol.source.WMTS.prototype.set = function(key, value, opt_silent) {};
 
 
 /**
  * @param {Object.<string, *>} values
  * @param {boolean=} opt_silent
  */
-ol.source.WMTS.prototype.setProperties = function(values, opt_silent) { };
+ol.source.WMTS.prototype.setProperties = function(values, opt_silent) {};
 
 
 /**
  * @param {string} key
  * @param {boolean=} opt_silent
  */
-ol.source.WMTS.prototype.unset = function(key, opt_silent) { };
+ol.source.WMTS.prototype.unset = function(key, opt_silent) {};
 
 
 /**
  */
-ol.source.WMTS.prototype.changed = function() { };
+ol.source.WMTS.prototype.changed = function() {};
 
 
 /**
  * @param {Object|ol.events.Event|string} event
  */
-ol.source.WMTS.prototype.dispatchEvent = function(event) { };
+ol.source.WMTS.prototype.dispatchEvent = function(event) {};
 
 
 /**
  * @return {number}
  */
-ol.source.WMTS.prototype.getRevision = function() { };
+ol.source.WMTS.prototype.getRevision = function() {};
 
 
 /**
@@ -18971,7 +18986,7 @@ ol.source.WMTS.prototype.getRevision = function() { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.source.WMTS.prototype.on = function(type, listener, opt_this) { };
+ol.source.WMTS.prototype.on = function(type, listener, opt_this) {};
 
 
 /**
@@ -18980,7 +18995,7 @@ ol.source.WMTS.prototype.on = function(type, listener, opt_this) { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.source.WMTS.prototype.once = function(type, listener, opt_this) { };
+ol.source.WMTS.prototype.once = function(type, listener, opt_this) {};
 
 
 /**
@@ -18988,123 +19003,123 @@ ol.source.WMTS.prototype.once = function(type, listener, opt_this) { };
  * @param {Function} listener
  * @param {Object=} opt_this
  */
-ol.source.WMTS.prototype.un = function(type, listener, opt_this) { };
+ol.source.WMTS.prototype.un = function(type, listener, opt_this) {};
 
 
 /**
  * @param {boolean} render
  */
-ol.source.Zoomify.prototype.setRenderReprojectionEdges = function(render) { };
+ol.source.Zoomify.prototype.setRenderReprojectionEdges = function(render) {};
 
 
 /**
  * @param {ol.ProjectionLike} projection
  * @param {ol.tilegrid.TileGrid} tilegrid
  */
-ol.source.Zoomify.prototype.setTileGridForProjection = function(projection, tilegrid) { };
+ol.source.Zoomify.prototype.setTileGridForProjection = function(projection, tilegrid) {};
 
 
 /**
  * @return {ol.TileLoadFunctionType}
  */
-ol.source.Zoomify.prototype.getTileLoadFunction = function() { };
+ol.source.Zoomify.prototype.getTileLoadFunction = function() {};
 
 
 /**
  * @return {ol.TileUrlFunctionType}
  */
-ol.source.Zoomify.prototype.getTileUrlFunction = function() { };
+ol.source.Zoomify.prototype.getTileUrlFunction = function() {};
 
 
 /**
  * @return {!Array.<string>|null}
  */
-ol.source.Zoomify.prototype.getUrls = function() { };
+ol.source.Zoomify.prototype.getUrls = function() {};
 
 
 /**
  * @param {ol.TileLoadFunctionType} tileLoadFunction
  */
-ol.source.Zoomify.prototype.setTileLoadFunction = function(tileLoadFunction) { };
+ol.source.Zoomify.prototype.setTileLoadFunction = function(tileLoadFunction) {};
 
 
 /**
  * @param {ol.TileUrlFunctionType} tileUrlFunction
  * @param {string=} opt_key
  */
-ol.source.Zoomify.prototype.setTileUrlFunction = function(tileUrlFunction, opt_key) { };
+ol.source.Zoomify.prototype.setTileUrlFunction = function(tileUrlFunction, opt_key) {};
 
 
 /**
  * @param {string} url
  */
-ol.source.Zoomify.prototype.setUrl = function(url) { };
+ol.source.Zoomify.prototype.setUrl = function(url) {};
 
 
 /**
  * @param {Array.<string>} urls
  */
-ol.source.Zoomify.prototype.setUrls = function(urls) { };
+ol.source.Zoomify.prototype.setUrls = function(urls) {};
 
 
 /**
  * @return {ol.tilegrid.TileGrid}
  */
-ol.source.Zoomify.prototype.getTileGrid = function() { };
+ol.source.Zoomify.prototype.getTileGrid = function() {};
 
 
 /**
  */
-ol.source.Zoomify.prototype.refresh = function() { };
+ol.source.Zoomify.prototype.refresh = function() {};
 
 
 /**
  * @return {Array.<ol.Attribution>}
  */
-ol.source.Zoomify.prototype.getAttributions = function() { };
+ol.source.Zoomify.prototype.getAttributions = function() {};
 
 
 /**
  * @return {string|olx.LogoOptions|undefined}
  */
-ol.source.Zoomify.prototype.getLogo = function() { };
+ol.source.Zoomify.prototype.getLogo = function() {};
 
 
 /**
  * @return {ol.proj.Projection}
  */
-ol.source.Zoomify.prototype.getProjection = function() { };
+ol.source.Zoomify.prototype.getProjection = function() {};
 
 
 /**
  * @return {ol.source.State}
  */
-ol.source.Zoomify.prototype.getState = function() { };
+ol.source.Zoomify.prototype.getState = function() {};
 
 
 /**
  * @param {ol.AttributionLike|undefined} attributions
  */
-ol.source.Zoomify.prototype.setAttributions = function(attributions) { };
+ol.source.Zoomify.prototype.setAttributions = function(attributions) {};
 
 
 /**
  * @param {string} key
  * @return {*}
  */
-ol.source.Zoomify.prototype.get = function(key) { };
+ol.source.Zoomify.prototype.get = function(key) {};
 
 
 /**
  * @return {Array.<string>}
  */
-ol.source.Zoomify.prototype.getKeys = function() { };
+ol.source.Zoomify.prototype.getKeys = function() {};
 
 
 /**
  * @return {Object.<string, *>}
  */
-ol.source.Zoomify.prototype.getProperties = function() { };
+ol.source.Zoomify.prototype.getProperties = function() {};
 
 
 /**
@@ -19112,38 +19127,38 @@ ol.source.Zoomify.prototype.getProperties = function() { };
  * @param {*} value
  * @param {boolean=} opt_silent
  */
-ol.source.Zoomify.prototype.set = function(key, value, opt_silent) { };
+ol.source.Zoomify.prototype.set = function(key, value, opt_silent) {};
 
 
 /**
  * @param {Object.<string, *>} values
  * @param {boolean=} opt_silent
  */
-ol.source.Zoomify.prototype.setProperties = function(values, opt_silent) { };
+ol.source.Zoomify.prototype.setProperties = function(values, opt_silent) {};
 
 
 /**
  * @param {string} key
  * @param {boolean=} opt_silent
  */
-ol.source.Zoomify.prototype.unset = function(key, opt_silent) { };
+ol.source.Zoomify.prototype.unset = function(key, opt_silent) {};
 
 
 /**
  */
-ol.source.Zoomify.prototype.changed = function() { };
+ol.source.Zoomify.prototype.changed = function() {};
 
 
 /**
  * @param {Object|ol.events.Event|string} event
  */
-ol.source.Zoomify.prototype.dispatchEvent = function(event) { };
+ol.source.Zoomify.prototype.dispatchEvent = function(event) {};
 
 
 /**
  * @return {number}
  */
-ol.source.Zoomify.prototype.getRevision = function() { };
+ol.source.Zoomify.prototype.getRevision = function() {};
 
 
 /**
@@ -19152,7 +19167,7 @@ ol.source.Zoomify.prototype.getRevision = function() { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.source.Zoomify.prototype.on = function(type, listener, opt_this) { };
+ol.source.Zoomify.prototype.on = function(type, listener, opt_this) {};
 
 
 /**
@@ -19161,7 +19176,7 @@ ol.source.Zoomify.prototype.on = function(type, listener, opt_this) { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.source.Zoomify.prototype.once = function(type, listener, opt_this) { };
+ol.source.Zoomify.prototype.once = function(type, listener, opt_this) {};
 
 
 /**
@@ -19169,193 +19184,193 @@ ol.source.Zoomify.prototype.once = function(type, listener, opt_this) { };
  * @param {Function} listener
  * @param {Object=} opt_this
  */
-ol.source.Zoomify.prototype.un = function(type, listener, opt_this) { };
+ol.source.Zoomify.prototype.un = function(type, listener, opt_this) {};
 
 
 /**
  * @return {number}
  */
-ol.style.RegularShape.prototype.getOpacity = function() { };
+ol.style.RegularShape.prototype.getOpacity = function() {};
 
 
 /**
  * @return {boolean}
  */
-ol.style.RegularShape.prototype.getRotateWithView = function() { };
+ol.style.RegularShape.prototype.getRotateWithView = function() {};
 
 
 /**
  * @return {number}
  */
-ol.style.RegularShape.prototype.getRotation = function() { };
+ol.style.RegularShape.prototype.getRotation = function() {};
 
 
 /**
  * @return {number}
  */
-ol.style.RegularShape.prototype.getScale = function() { };
+ol.style.RegularShape.prototype.getScale = function() {};
 
 
 /**
  * @return {boolean}
  */
-ol.style.RegularShape.prototype.getSnapToPixel = function() { };
+ol.style.RegularShape.prototype.getSnapToPixel = function() {};
 
 
 /**
  * @param {number} opacity
  */
-ol.style.RegularShape.prototype.setOpacity = function(opacity) { };
+ol.style.RegularShape.prototype.setOpacity = function(opacity) {};
 
 
 /**
  * @param {number} rotation
  */
-ol.style.RegularShape.prototype.setRotation = function(rotation) { };
+ol.style.RegularShape.prototype.setRotation = function(rotation) {};
 
 
 /**
  * @param {number} scale
  */
-ol.style.RegularShape.prototype.setScale = function(scale) { };
+ol.style.RegularShape.prototype.setScale = function(scale) {};
 
 
 /**
  * @return {ol.style.RegularShape}
  */
-ol.style.Circle.prototype.clone = function() { };
+ol.style.Circle.prototype.clone = function() {};
 
 
 /**
  * @return {number}
  */
-ol.style.Circle.prototype.getAngle = function() { };
+ol.style.Circle.prototype.getAngle = function() {};
 
 
 /**
  * @return {ol.style.Fill}
  */
-ol.style.Circle.prototype.getFill = function() { };
+ol.style.Circle.prototype.getFill = function() {};
 
 
 /**
  * @return {number}
  */
-ol.style.Circle.prototype.getPoints = function() { };
+ol.style.Circle.prototype.getPoints = function() {};
 
 
 /**
  * @return {number}
  */
-ol.style.Circle.prototype.getRadius = function() { };
+ol.style.Circle.prototype.getRadius = function() {};
 
 
 /**
  * @return {number|undefined}
  */
-ol.style.Circle.prototype.getRadius2 = function() { };
+ol.style.Circle.prototype.getRadius2 = function() {};
 
 
 /**
  * @return {ol.style.Stroke}
  */
-ol.style.Circle.prototype.getStroke = function() { };
+ol.style.Circle.prototype.getStroke = function() {};
 
 
 /**
  * @return {number}
  */
-ol.style.Circle.prototype.getOpacity = function() { };
+ol.style.Circle.prototype.getOpacity = function() {};
 
 
 /**
  * @return {boolean}
  */
-ol.style.Circle.prototype.getRotateWithView = function() { };
+ol.style.Circle.prototype.getRotateWithView = function() {};
 
 
 /**
  * @return {number}
  */
-ol.style.Circle.prototype.getRotation = function() { };
+ol.style.Circle.prototype.getRotation = function() {};
 
 
 /**
  * @return {number}
  */
-ol.style.Circle.prototype.getScale = function() { };
+ol.style.Circle.prototype.getScale = function() {};
 
 
 /**
  * @return {boolean}
  */
-ol.style.Circle.prototype.getSnapToPixel = function() { };
+ol.style.Circle.prototype.getSnapToPixel = function() {};
 
 
 /**
  * @param {number} opacity
  */
-ol.style.Circle.prototype.setOpacity = function(opacity) { };
+ol.style.Circle.prototype.setOpacity = function(opacity) {};
 
 
 /**
  * @param {number} rotation
  */
-ol.style.Circle.prototype.setRotation = function(rotation) { };
+ol.style.Circle.prototype.setRotation = function(rotation) {};
 
 
 /**
  * @param {number} scale
  */
-ol.style.Circle.prototype.setScale = function(scale) { };
+ol.style.Circle.prototype.setScale = function(scale) {};
 
 
 /**
  * @return {number}
  */
-ol.style.Icon.prototype.getOpacity = function() { };
+ol.style.Icon.prototype.getOpacity = function() {};
 
 
 /**
  * @return {boolean}
  */
-ol.style.Icon.prototype.getRotateWithView = function() { };
+ol.style.Icon.prototype.getRotateWithView = function() {};
 
 
 /**
  * @return {number}
  */
-ol.style.Icon.prototype.getRotation = function() { };
+ol.style.Icon.prototype.getRotation = function() {};
 
 
 /**
  * @return {number}
  */
-ol.style.Icon.prototype.getScale = function() { };
+ol.style.Icon.prototype.getScale = function() {};
 
 
 /**
  * @return {boolean}
  */
-ol.style.Icon.prototype.getSnapToPixel = function() { };
+ol.style.Icon.prototype.getSnapToPixel = function() {};
 
 
 /**
  * @param {number} opacity
  */
-ol.style.Icon.prototype.setOpacity = function(opacity) { };
+ol.style.Icon.prototype.setOpacity = function(opacity) {};
 
 
 /**
  * @param {number} rotation
  */
-ol.style.Icon.prototype.setRotation = function(rotation) { };
+ol.style.Icon.prototype.setRotation = function(rotation) {};
 
 
 /**
  * @param {number} scale
  */
-ol.style.Icon.prototype.setScale = function(scale) { };
+ol.style.Icon.prototype.setScale = function(scale) {};
 
 
 /**
@@ -19363,39 +19378,39 @@ ol.style.Icon.prototype.setScale = function(scale) { };
  * @param {number} zoom
  * @param {Function} callback
  */
-ol.tilegrid.WMTS.prototype.forEachTileCoord = function(extent, zoom, callback) { };
+ol.tilegrid.WMTS.prototype.forEachTileCoord = function(extent, zoom, callback) {};
 
 
 /**
  * @return {number}
  */
-ol.tilegrid.WMTS.prototype.getMaxZoom = function() { };
+ol.tilegrid.WMTS.prototype.getMaxZoom = function() {};
 
 
 /**
  * @return {number}
  */
-ol.tilegrid.WMTS.prototype.getMinZoom = function() { };
+ol.tilegrid.WMTS.prototype.getMinZoom = function() {};
 
 
 /**
  * @param {number} z
  * @return {ol.Coordinate}
  */
-ol.tilegrid.WMTS.prototype.getOrigin = function(z) { };
+ol.tilegrid.WMTS.prototype.getOrigin = function(z) {};
 
 
 /**
  * @param {number} z
  * @return {number}
  */
-ol.tilegrid.WMTS.prototype.getResolution = function(z) { };
+ol.tilegrid.WMTS.prototype.getResolution = function(z) {};
 
 
 /**
  * @return {Array.<number>}
  */
-ol.tilegrid.WMTS.prototype.getResolutions = function() { };
+ol.tilegrid.WMTS.prototype.getResolutions = function() {};
 
 
 /**
@@ -19403,7 +19418,7 @@ ol.tilegrid.WMTS.prototype.getResolutions = function() { };
  * @param {ol.Extent=} opt_extent
  * @return {ol.Extent}
  */
-ol.tilegrid.WMTS.prototype.getTileCoordExtent = function(tileCoord, opt_extent) { };
+ol.tilegrid.WMTS.prototype.getTileCoordExtent = function(tileCoord, opt_extent) {};
 
 
 /**
@@ -19412,7 +19427,7 @@ ol.tilegrid.WMTS.prototype.getTileCoordExtent = function(tileCoord, opt_extent) 
  * @param {ol.TileCoord=} opt_tileCoord
  * @return {ol.TileCoord}
  */
-ol.tilegrid.WMTS.prototype.getTileCoordForCoordAndResolution = function(coordinate, resolution, opt_tileCoord) { };
+ol.tilegrid.WMTS.prototype.getTileCoordForCoordAndResolution = function(coordinate, resolution, opt_tileCoord) {};
 
 
 /**
@@ -19421,14 +19436,14 @@ ol.tilegrid.WMTS.prototype.getTileCoordForCoordAndResolution = function(coordina
  * @param {ol.TileCoord=} opt_tileCoord
  * @return {ol.TileCoord}
  */
-ol.tilegrid.WMTS.prototype.getTileCoordForCoordAndZ = function(coordinate, z, opt_tileCoord) { };
+ol.tilegrid.WMTS.prototype.getTileCoordForCoordAndZ = function(coordinate, z, opt_tileCoord) {};
 
 
 /**
  * @param {number} z
  * @return {number|ol.Size}
  */
-ol.tilegrid.WMTS.prototype.getTileSize = function(z) { };
+ol.tilegrid.WMTS.prototype.getTileSize = function(z) {};
 
 
 /**
@@ -19436,54 +19451,54 @@ ol.tilegrid.WMTS.prototype.getTileSize = function(z) { };
  * @param {number=} opt_direction
  * @return {number}
  */
-ol.tilegrid.WMTS.prototype.getZForResolution = function(resolution, opt_direction) { };
+ol.tilegrid.WMTS.prototype.getZForResolution = function(resolution, opt_direction) {};
 
 
 /**
  * @constructor
  */
-ol.VectorImageTile = function() { };
+ol.VectorImageTile = function() {};
 
 
 /**
  * @return {ol.TileCoord}
  */
-ol.VectorImageTile.prototype.getTileCoord = function() { };
+ol.VectorImageTile.prototype.getTileCoord = function() {};
 
 
 /**
  */
-ol.VectorImageTile.prototype.load = function() { };
+ol.VectorImageTile.prototype.load = function() {};
 
 
 /**
  * @return {ol.TileCoord}
  */
-ol.VectorTile.prototype.getTileCoord = function() { };
+ol.VectorTile.prototype.getTileCoord = function() {};
 
 
 /**
  */
-ol.VectorTile.prototype.load = function() { };
+ol.VectorTile.prototype.load = function() {};
 
 
 /**
  * @param {string} key
  * @return {*}
  */
-ol.View.prototype.get = function(key) { };
+ol.View.prototype.get = function(key) {};
 
 
 /**
  * @return {Array.<string>}
  */
-ol.View.prototype.getKeys = function() { };
+ol.View.prototype.getKeys = function() {};
 
 
 /**
  * @return {Object.<string, *>}
  */
-ol.View.prototype.getProperties = function() { };
+ol.View.prototype.getProperties = function() {};
 
 
 /**
@@ -19491,38 +19506,38 @@ ol.View.prototype.getProperties = function() { };
  * @param {*} value
  * @param {boolean=} opt_silent
  */
-ol.View.prototype.set = function(key, value, opt_silent) { };
+ol.View.prototype.set = function(key, value, opt_silent) {};
 
 
 /**
  * @param {Object.<string, *>} values
  * @param {boolean=} opt_silent
  */
-ol.View.prototype.setProperties = function(values, opt_silent) { };
+ol.View.prototype.setProperties = function(values, opt_silent) {};
 
 
 /**
  * @param {string} key
  * @param {boolean=} opt_silent
  */
-ol.View.prototype.unset = function(key, opt_silent) { };
+ol.View.prototype.unset = function(key, opt_silent) {};
 
 
 /**
  */
-ol.View.prototype.changed = function() { };
+ol.View.prototype.changed = function() {};
 
 
 /**
  * @param {Object|ol.events.Event|string} event
  */
-ol.View.prototype.dispatchEvent = function(event) { };
+ol.View.prototype.dispatchEvent = function(event) {};
 
 
 /**
  * @return {number}
  */
-ol.View.prototype.getRevision = function() { };
+ol.View.prototype.getRevision = function() {};
 
 
 /**
@@ -19531,7 +19546,7 @@ ol.View.prototype.getRevision = function() { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.View.prototype.on = function(type, listener, opt_this) { };
+ol.View.prototype.on = function(type, listener, opt_this) {};
 
 
 /**
@@ -19540,7 +19555,7 @@ ol.View.prototype.on = function(type, listener, opt_this) { };
  * @param {Object=} opt_this
  * @return {ol.EventsKey|Array.<ol.EventsKey>}
  */
-ol.View.prototype.once = function(type, listener, opt_this) { };
+ol.View.prototype.once = function(type, listener, opt_this) {};
 
 
 /**
@@ -19548,7 +19563,25 @@ ol.View.prototype.once = function(type, listener, opt_this) { };
  * @param {Function} listener
  * @param {Object=} opt_this
  */
-ol.View.prototype.un = function(type, listener, opt_this) { };
+ol.View.prototype.un = function(type, listener, opt_this) {};
+
+
+/**
+ * @typedef {string}
+ */
+ol.control.ScaleLineUnits;
+
+
+/**
+ * @typedef {string}
+ */
+ol.format.IGCZ;
+
+
+/**
+ * @typedef {number}
+ */
+ol.ImageState;
 
 
 /**
@@ -19564,9 +19597,57 @@ ol.layer.VectorTileRenderType;
 
 
 /**
+ * @typedef {string}
+ */
+ol.OverlayPositioning;
+
+
+/**
+ * @typedef {string}
+ */
+ol.proj.Units;
+
+
+/**
  * @typedef {Function}
  */
 ol.source.Cluster.CompareFunction;
+
+
+/**
+ * @typedef {string}
+ */
+ol.source.RasterOperationType;
+
+
+/**
+ * @typedef {string}
+ */
+ol.source.WMTSRequestEncoding;
+
+
+/**
+ * @typedef {string}
+ */
+ol.style.IconAnchorUnits;
+
+
+/**
+ * @typedef {string}
+ */
+ol.style.IconOrigin;
+
+
+/**
+ * @typedef {string}
+ */
+ol.style.TextPlacement;
+
+
+/**
+ * @typedef {number}
+ */
+ol.TileState;
 
 
 /**
