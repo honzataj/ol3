@@ -127,6 +127,7 @@ ol.geom.Geometry.prototype.computeExtent = function(extent) {};
  * @param {number} x X.
  * @param {number} y Y.
  * @return {boolean} Contains (x, y).
+ * @api
  */
 ol.geom.Geometry.prototype.containsXY = ol.functions.FALSE;
 
