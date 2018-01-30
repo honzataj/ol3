@@ -1,6 +1,6 @@
 // OpenLayers. See https://openlayers.org/
 // License: https://raw.githubusercontent.com/openlayers/openlayers/master/LICENSE.md
-// Version: v4.6.4-4-gf549dc3
+// Version: v4.6.4-7-gc21b685
 ;(function (root, factory) {
   if (typeof exports === "object") {
     module.exports = factory();
@@ -5117,6 +5117,7 @@ goog.provide('ol.proj.Units');
  * Projection units: `'degrees'`, `'ft'`, `'m'`, `'pixels'`, `'tile-pixels'` or
  * `'us-ft'`.
  * @enum {string}
+ * @api
  */
 ol.proj.Units = {
   DEGREES: 'degrees',
@@ -7634,6 +7635,7 @@ goog.require('ol.events.Event');
  *
  * @constructor
  * @extends {ol.Disposable}
+ * @api
  */
 ol.events.EventTarget = function() {
 
@@ -11332,6 +11334,7 @@ goog.provide('ol.TileState');
 
 /**
  * @enum {number}
+ * @api
  */
 ol.TileState = {
   IDLE: 0,
@@ -22887,6 +22890,7 @@ goog.provide('ol.ImageState');
 
 /**
  * @enum {number}
+ * @api
  */
 ol.ImageState = {
   IDLE: 0,
@@ -29287,6 +29291,7 @@ goog.provide('ol.style.TextPlacement');
  * {@link ol.geom.Polygon}, {@link ol.geom.MultiLineString} or
  * {@link ol.geom.MultiPolygon}.
  * @enum {string}
+ * @api
  */
 ol.style.TextPlacement = {
   POINT: 'point',
@@ -32294,6 +32299,7 @@ goog.provide('ol.OverlayPositioning');
  * `'center-left'`, `'center-center'`, `'center-right'`, `'top-left'`,
  * `'top-center'`, `'top-right'`
  * @enum {string}
+ * @api
  */
 ol.OverlayPositioning = {
   BOTTOM_LEFT: 'bottom-left',
@@ -33424,6 +33430,7 @@ goog.provide('ol.control.ScaleLineUnits');
  * Units for the scale line. Supported values are `'degrees'`, `'imperial'`,
  * `'nautical'`, `'metric'`, `'us'`.
  * @enum {string}
+ * @api
  */
 ol.control.ScaleLineUnits = {
   DEGREES: 'degrees',
@@ -45386,6 +45393,7 @@ goog.provide('ol.format.IGCZ');
 /**
  * IGC altitude/z. One of 'barometric', 'gps', 'none'.
  * @enum {string}
+ * @api
  */
 ol.format.IGCZ = {
   BAROMETRIC: 'barometric',
@@ -45806,6 +45814,7 @@ goog.provide('ol.style.IconAnchorUnits');
 /**
  * Icon anchor units. One of 'fraction', 'pixels'.
  * @enum {string}
+ * @api
  */
 ol.style.IconAnchorUnits = {
   FRACTION: 'fraction',
@@ -46094,6 +46103,7 @@ goog.provide('ol.style.IconOrigin');
 /**
  * Icon origin. One of 'bottom-left', 'bottom-right', 'top-left', 'top-right'.
  * @enum {string}
+ * @api
  */
 ol.style.IconOrigin = {
   BOTTOM_LEFT: 'bottom-left',
@@ -65945,6 +65955,7 @@ goog.require('ol.webgl');
  * @param {Array.<number>=} opt_arr Array.
  * @param {number=} opt_usage Usage.
  * @struct
+ * @api
  */
 ol.webgl.Buffer = function(opt_arr, opt_usage) {
 
@@ -78427,6 +78438,7 @@ goog.provide('ol.source.RasterOperationType');
 /**
  * Raster operation type. Supported values are `'pixel'` and `'image'`.
  * @enum {string}
+ * @api
  */
 ol.source.RasterOperationType = {
   PIXEL: 'pixel',
@@ -81064,6 +81076,7 @@ goog.provide('ol.source.WMTSRequestEncoding');
 /**
  * Request encoding. One of 'KVP', 'REST'.
  * @enum {string}
+ * @api
  */
 ol.source.WMTSRequestEncoding = {
   KVP: 'KVP',  // see spec §8
@@ -82009,6 +82022,7 @@ goog.require('ol.control.ZoomToExtent');
 goog.require('ol.coordinate');
 goog.require('ol.easing');
 goog.require('ol.events.Event');
+goog.require('ol.events.EventTarget');
 goog.require('ol.events.condition');
 goog.require('ol.extent');
 goog.require('ol.featureloader');
@@ -82156,6 +82170,7 @@ goog.require('ol.style.Text');
 goog.require('ol.tilegrid');
 goog.require('ol.tilegrid.TileGrid');
 goog.require('ol.tilegrid.WMTS');
+goog.require('ol.webgl.Buffer');
 goog.require('ol.webgl.Context');
 goog.require('ol.xml');
 
@@ -82620,6 +82635,11 @@ goog.exportProperty(
     ol.events.Event.prototype,
     'stopPropagation',
     ol.events.Event.prototype.stopPropagation);
+
+goog.exportSymbol(
+    'ol.events.EventTarget',
+    ol.events.EventTarget,
+    OPENLAYERS);
 
 goog.exportSymbol(
     'ol.extent.boundingExtent',
@@ -86745,6 +86765,11 @@ goog.exportProperty(
     ol.View.prototype,
     'setZoom',
     ol.View.prototype.setZoom);
+
+goog.exportSymbol(
+    'ol.webgl.Buffer',
+    ol.webgl.Buffer,
+    OPENLAYERS);
 
 goog.exportProperty(
     ol.webgl.Context.prototype,
@@ -96140,7 +96165,7 @@ goog.exportProperty(
     ol.View.prototype,
     'un',
     ol.View.prototype.un);
-ol.VERSION = 'v4.6.4-4-gf549dc3';
+ol.VERSION = 'v4.6.4-7-gc21b685';
 OPENLAYERS.ol = ol;
 
   return OPENLAYERS.ol;
