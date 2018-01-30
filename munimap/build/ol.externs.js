@@ -2566,10 +2566,8 @@ ol.geom.Circle.prototype.getType = function() {};
 
 
 /**
- * @param {ol.Extent} extent Extent.
- * @return {boolean} `true` if the geometry and the extent intersect.
  * */
-ol.geom.Circle.prototype.intersectsExtent = function() {extent};
+ol.geom.Circle.prototype.intersectsExtent = function() {};
 
 
 /**
@@ -2693,10 +2691,8 @@ ol.geom.GeometryCollection.prototype.getType = function() {};
 
 
 /**
- * @param {ol.Extent} extent Extent.
- * @return {boolean} `true` if the geometry and the extent intersect.
  * */
-ol.geom.GeometryCollection.prototype.intersectsExtent = function() {extent};
+ol.geom.GeometryCollection.prototype.intersectsExtent = function() {};
 
 
 /**
@@ -2820,10 +2816,8 @@ ol.geom.LineString.prototype.getType = function() {};
 
 
 /**
- * @param {ol.Extent} extent Extent.
- * @return {boolean} `true` if the geometry and the extent intersect.
  * */
-ol.geom.LineString.prototype.intersectsExtent = function() {extent};
+ol.geom.LineString.prototype.intersectsExtent = function() {};
 
 
 /**
@@ -2888,10 +2882,8 @@ ol.geom.MultiLineString.prototype.getType = function() {};
 
 
 /**
- * @param {ol.Extent} extent Extent.
- * @return {boolean} `true` if the geometry and the extent intersect.
  * */
-ol.geom.MultiLineString.prototype.intersectsExtent = function() {extent};
+ol.geom.MultiLineString.prototype.intersectsExtent = function() {};
 
 
 /**
@@ -2947,10 +2939,8 @@ ol.geom.MultiPoint.prototype.getType = function() {};
 
 
 /**
- * @param {ol.Extent} extent Extent.
- * @return {boolean} `true` if the geometry and the extent intersect.
  * */
-ol.geom.MultiPoint.prototype.intersectsExtent = function() {extent};
+ol.geom.MultiPoint.prototype.intersectsExtent = function() {};
 
 
 /**
@@ -3019,10 +3009,8 @@ ol.geom.MultiPolygon.prototype.getType = function() {};
 
 
 /**
- * @param {ol.Extent} extent Extent.
- * @return {boolean} `true` if the geometry and the extent intersect.
  * */
-ol.geom.MultiPolygon.prototype.intersectsExtent = function() {extent};
+ol.geom.MultiPolygon.prototype.intersectsExtent = function() {};
 
 
 /**
@@ -3059,10 +3047,8 @@ ol.geom.Point.prototype.getType = function() {};
 
 
 /**
- * @param {ol.Extent} extent Extent.
- * @return {boolean} `true` if the geometry and the extent intersect.
  * */
-ol.geom.Point.prototype.intersectsExtent = function() {extent};
+ol.geom.Point.prototype.intersectsExtent = function() {};
 
 
 /**
@@ -3135,10 +3121,8 @@ ol.geom.Polygon.prototype.getType = function() {};
 
 
 /**
- * @param {ol.Extent} extent Extent.
- * @return {boolean} `true` if the geometry and the extent intersect.
  * */
-ol.geom.Polygon.prototype.intersectsExtent = function() {extent};
+ol.geom.Polygon.prototype.intersectsExtent = function() {};
 
 
 /**
