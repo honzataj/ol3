@@ -5,6 +5,7 @@ goog.provide('ol.OverlayPositioning');
  * `'center-left'`, `'center-center'`, `'center-right'`, `'top-left'`,
  * `'top-center'`, `'top-right'`
  * @enum {string}
+ * @api
  */
 ol.OverlayPositioning = {
   BOTTOM_LEFT: 'bottom-left',

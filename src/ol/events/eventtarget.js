@@ -23,6 +23,7 @@ goog.require('ol.events.Event');
  *
  * @constructor
  * @extends {ol.Disposable}
+ * @api
  */
 ol.events.EventTarget = function() {
 

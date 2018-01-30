@@ -7,6 +7,7 @@ goog.provide('ol.style.TextPlacement');
  * {@link ol.geom.Polygon}, {@link ol.geom.MultiLineString} or
  * {@link ol.geom.MultiPolygon}.
  * @enum {string}
+ * @api
  */
 ol.style.TextPlacement = {
   POINT: 'point',

@@ -8,6 +8,7 @@ goog.require('ol.webgl');
  * @param {Array.<number>=} opt_arr Array.
  * @param {number=} opt_usage Usage.
  * @struct
+ * @api
  */
 ol.webgl.Buffer = function(opt_arr, opt_usage) {
 

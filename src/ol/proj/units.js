@@ -5,6 +5,7 @@ goog.provide('ol.proj.Units');
  * Projection units: `'degrees'`, `'ft'`, `'m'`, `'pixels'`, `'tile-pixels'` or
  * `'us-ft'`.
  * @enum {string}
+ * @api
  */
 ol.proj.Units = {
   DEGREES: 'degrees',

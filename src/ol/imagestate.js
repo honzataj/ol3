@@ -2,6 +2,7 @@ goog.provide('ol.ImageState');
 
 /**
  * @enum {number}
+ * @api
  */
 ol.ImageState = {
   IDLE: 0,

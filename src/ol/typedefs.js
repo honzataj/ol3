@@ -1,4 +1,5 @@
 /* eslint-disable openlayers-internal/no-missing-requires */
+goog.provide('oltypedefs');
 
 /**
  * File for all typedefs used by the compiler, and referenced by JSDoc.

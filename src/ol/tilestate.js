@@ -2,6 +2,7 @@ goog.provide('ol.TileState');
 
 /**
  * @enum {number}
+ * @api
  */
 ol.TileState = {
   IDLE: 0,
