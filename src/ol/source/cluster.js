@@ -46,6 +46,12 @@ ol.source.Cluster = function(options) {
   this.distance = options.distance !== undefined ? options.distance : 20;
 
   /**
+   * @type {ol.source.Cluster.CompareFunction|undefined}
+   * @protected
+   */
+  this.compareFn = options.compareFn;
+
+  /**
    * @type {Array.<ol.Feature>}
    * @protected
    */
@@ -74,6 +80,11 @@ ol.source.Cluster = function(options) {
 };
 ol.inherits(ol.source.Cluster, ol.source.Vector);
 
+/**
+ * @typedef {function(ol.Feature, ol.Feature): number}
+ * @api
+ */
+ol.source.Cluster.CompareFunction;
 
 /**
  * Get the distance in pixels between clusters.
@@ -144,6 +155,9 @@ ol.source.Cluster.prototype.cluster = function() {
   var extent = ol.extent.createEmpty();
   var mapDistance = this.distance * this.resolution;
   var features = this.source.getFeatures();
+  if (this.compareFn) {
+    features.sort(this.compareFn);
+  }
 
   /**
    * @type {!Object.<string, boolean>}
