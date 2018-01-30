@@ -15,7 +15,12 @@
       "externs/topojson.js"
     ],
     "define": [
-      "ol.DEBUG_WEBGL=false"
+      "ol.DEBUG=false",
+      "ol.ENABLE_IMAGE=false",
+      "ol.ENABLE_PROJ4JS=false",
+      "ol.ENABLE_RASTER_REPROJECTION=false",
+      "ol.ENABLE_VECTOR_TILE=false",
+      "ol.ENABLE_WEBGL=false"
     ],
     "jscomp_error": [
       "*"
