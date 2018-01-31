@@ -35,6 +35,12 @@ var GeoJSONCRS = function() {};
 
 
 /**
+ * @typedef {string}
+ */
+ol.proj.Units;
+
+
+/**
  * @type {string}
  */
 GeoJSONCRS.prototype.type;
@@ -3047,8 +3053,9 @@ ol.geom.Point.prototype.getType = function() {};
 
 
 /**
+ * @param {ol.Extent} extent
  * */
-ol.geom.Point.prototype.intersectsExtent = function() {};
+ol.geom.Point.prototype.intersectsExtent = function(extent) {};
 
 
 /**
@@ -4100,12 +4107,6 @@ ol.layer.VectorTile.prototype.setUseInterimTilesOnError = function(useInterimTil
 
 
 /**
- * @return {ol.source.VectorTile}
- */
-ol.layer.VectorTile.prototype.getSource = function() {};
-
-
-/**
  * @type {Object}
  */
 ol.loadingstrategy;
@@ -4708,12 +4709,6 @@ ol.proj.Projection.prototype.setWorldExtent = function(worldExtent) {};
  * @param {Function} func
  */
 ol.proj.Projection.prototype.setGetPointResolution = function(func) {};
-
-
-/**
- * @type {Object}
- */
-ol.proj.Units;
 
 
 /**
@@ -19584,12 +19579,6 @@ ol.layer.VectorTileRenderType;
  * @typedef {string}
  */
 ol.OverlayPositioning;
-
-
-/**
- * @typedef {string}
- */
-ol.proj.Units;
 
 
 /**
