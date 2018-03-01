@@ -339,6 +339,7 @@ ol.View.prototype.getResolutions = function() {
  * @param {ol.Size} size Box pixel size.
  * @return {number} The resolution at which the provided extent will render at
  *     the given size.
+ * @api    
  */
 ol.View.prototype.getResolutionForExtent = function(extent, size) {
   var xResolution = ol.extent.getWidth(extent) / size[0];
@@ -574,6 +575,7 @@ ol.View.prototype.centerOn = function(coordinate, size, position) {
 
 /**
  * @return {boolean} Is defined.
+ * @api
  */
 ol.View.prototype.isDef = function() {
   return !!this.getCenter() && this.getResolution() !== undefined;

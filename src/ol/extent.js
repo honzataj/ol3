@@ -431,6 +431,7 @@ ol.extent.extendXY = function(extent, x, y) {
  * @param {T=} opt_this Value to use as `this` when executing `callback`.
  * @return {S|boolean} Value.
  * @template S, T
+ * @api
  */
 ol.extent.forEachCorner = function(extent, callback, opt_this) {
   var val;

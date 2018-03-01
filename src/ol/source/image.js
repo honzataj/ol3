@@ -173,6 +173,7 @@ ol.source.Image.prototype.handleImageChange = function(event) {
  * instances.
  * @param {ol.Image} image Image.
  * @param {string} src Source.
+ * @api
  */
 ol.source.Image.defaultImageLoadFunction = function(image, src) {
   image.getImage().src = src;

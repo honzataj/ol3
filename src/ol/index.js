@@ -49,6 +49,7 @@ ol.DEFAULT_TILE_SIZE = 256;
 
 /**
  * @define {string} Default WMS version.
+ * @api
  */
 ol.DEFAULT_WMS_VERSION = '1.3.0';
 

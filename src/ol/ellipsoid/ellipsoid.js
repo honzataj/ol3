@@ -9,6 +9,7 @@ goog.require('ol.Coordinate');
  * @constructor
  * @param {number} a Major radius.
  * @param {number} flattening Flattening.
+ * @api
  */
 ol.Ellipsoid = function(a, flattening) {
 
@@ -52,6 +53,7 @@ ol.Ellipsoid = function(a, flattening) {
  * @param {number=} opt_maxIterations Maximum iterations.
  * @return {{distance: number, initialBearing: number, finalBearing: number}}
  *     Vincenty.
+ * @api    
  */
 ol.Ellipsoid.prototype.vincenty =
     function(c1, c2, opt_minDeltaLambda, opt_maxIterations) {
@@ -145,6 +147,7 @@ ol.Ellipsoid.prototype.vincenty =
  * @param {number=} opt_minDeltaLambda Minimum delta lambda for convergence.
  * @param {number=} opt_maxIterations Maximum iterations.
  * @return {number} Vincenty distance.
+ * @api
  */
 ol.Ellipsoid.prototype.vincentyDistance =
     function(c1, c2, opt_minDeltaLambda, opt_maxIterations) {
@@ -161,6 +164,7 @@ ol.Ellipsoid.prototype.vincentyDistance =
  * @param {number=} opt_minDeltaLambda Minimum delta lambda for convergence.
  * @param {number=} opt_maxIterations Maximum iterations.
  * @return {number} Initial bearing.
+ * @api
  */
 ol.Ellipsoid.prototype.vincentyFinalBearing =
     function(c1, c2, opt_minDeltaLambda, opt_maxIterations) {
@@ -177,6 +181,7 @@ ol.Ellipsoid.prototype.vincentyFinalBearing =
  * @param {number=} opt_minDeltaLambda Minimum delta lambda for convergence.
  * @param {number=} opt_maxIterations Maximum iterations.
  * @return {number} Initial bearing.
+ * @api
  */
 ol.Ellipsoid.prototype.vincentyInitialBearing =
     function(c1, c2, opt_minDeltaLambda, opt_maxIterations) {
