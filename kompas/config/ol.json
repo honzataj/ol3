@@ -2,7 +2,7 @@
   "exports": ["*"],
   "umd": true,
   "compile": {
-    "externs": [
+    "externs": [      
       "externs/bingmaps.js",
       "externs/cartodb.js",
       "externs/closure-compiler.js",
@@ -31,7 +31,7 @@
     "warning_level": "VERBOSE",
     "use_types_for_optimization": true,
     "manage_closure_dependencies": true,
-    "create_source_map": "munimap/build/ol.js.map",
+    "create_source_map": "kompas/build/ol.js.map",
     "source_map_format": "V3"
-  }
+  }  
 }

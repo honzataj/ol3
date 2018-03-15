@@ -109,8 +109,9 @@ function generateExterns(typedefs, symbols, externs, base) {
         args.push(param.name);
         lines.push(' * @param {' +
             (param.variable ? '...' : '') +
+            (param.nullable ? '?' : '') +
             param.types.join('|') +
-            (param.optional ? '=' : '') + (param.nullable ? '!' : '') +
+            (param.optional ? '=' : '') + 
             '} ' + param.name);
       });
     }
