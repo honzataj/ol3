@@ -5,7 +5,26 @@
 * Run `npm install` to install NodeJS deps. Errors related to node-gyp and slimmerjs are not crucial.
 
 ## Change API
-* Manually tag non-API methods/classes you want to use with @api
+* Manually tag non-API methods/classes you want to use with @api:
+   * ol.view.getResolutionForExtent
+   * ol.View.prototype.isDef
+   * ol.extent.forEachCorner
+   * ol.Image
+   * ol.ImageBase.prototype.getState
+   * ol.source.Image.defaultImageLoadFunction
+   * ol.source.Image.prototype.findNearestResolution
+   * ol.source.Image.prototype.getImage
+   * ol.DEFAULT_WMS_VERSION
+   * ol.Ellipsoid - all to @api
+   * ol.ellipsoid.WGS84
+   * ol.geom.SimpleGeometry.prototype.getFlatCoordinates
+   * ol.geom.SimpleGeometry.prototype.getStride
+* Manually create methods for returning private properties and tag with @api:
+   * ol.Ellipsoid.prototype.getA 
+   * ol.View.prototype.getMinZoom
+   * ol.interaction.Draw.prototype.getSketchFeature
+   * ol.Map.prototype.getPixelRatio
+   * ol.Image.prototype.getSrc 
 * Change default values of @define variables in `kompas/config/ol.json`:
    * ol.DEBUG=false
 * Manually tag non-API types referred from `src/ol/typedefs.js` with @api

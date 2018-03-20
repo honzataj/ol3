@@ -693,6 +693,15 @@ ol.Map.prototype.getEventPixel = function(event) {
 
 
 /**
+ * @return {number}
+ * @api
+ */
+ol.Map.prototype.getPixelRatio = function() {
+  return this.pixelRatio_;
+};
+
+
+/**
  * Get the target in which this map is rendered.
  * Note that this returns what is entered as an option or in setTarget:
  * if that was an element, it returns an element; if a string, it returns that.

@@ -1,7 +1,6 @@
 goog.provide('ol.Ellipsoid');
 
 goog.require('goog.math');
-goog.require('ol.Coordinate');
 
 
 
@@ -45,6 +44,14 @@ ol.Ellipsoid = function(a, flattening) {
 
 };
 
+
+/**
+ * @return {number}
+ * @api
+ */
+ol.Ellipsoid.prototype.getA = function() {
+  return this.a;
+};
 
 /**
  * @param {ol.Coordinate} c1 Coordinate 1.

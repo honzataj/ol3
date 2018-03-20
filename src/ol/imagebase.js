@@ -104,6 +104,7 @@ ol.ImageBase.prototype.getResolution = function() {
 
 /**
  * @return {ol.Image.State} State.
+ * @api
  */
 ol.ImageBase.prototype.getState = function() {
   return this.state;

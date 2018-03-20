@@ -70,9 +70,9 @@ ol.source.Image.prototype.getResolutions = function() {
 
 
 /**
- * @protected
  * @param {number} resolution Resolution.
  * @return {number} Resolution.
+ * @api
  */
 ol.source.Image.prototype.findNearestResolution = function(resolution) {
   if (this.resolutions_) {
@@ -89,6 +89,7 @@ ol.source.Image.prototype.findNearestResolution = function(resolution) {
  * @param {number} pixelRatio Pixel ratio.
  * @param {ol.proj.Projection} projection Projection.
  * @return {ol.ImageBase} Single image.
+ * @api
  */
 ol.source.Image.prototype.getImage = function(extent, resolution, pixelRatio, projection) {
   var sourceProjection = this.getProjection();

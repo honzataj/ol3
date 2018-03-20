@@ -95,6 +95,15 @@ ol.Image.prototype.getImage = function(opt_context) {
 
 
 /**
+ * @return {string}
+ * @api
+ */
+ol.Image.prototype.getSrc = function() {
+  return this.src_;
+};
+
+
+/**
  * Tracks loading or read errors.
  *
  * @private

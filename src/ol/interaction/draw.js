@@ -284,6 +284,14 @@ ol.interaction.Draw.getDefaultStyleFunction = function() {
 
 
 /**
+ * @return {ol.Feature}
+ */
+ol.interaction.Draw.prototype.getSketchFeature = function() {
+  return this.sketchFeature_;
+};
+
+
+/**
  * @inheritDoc
  */
 ol.interaction.Draw.prototype.setMap = function(map) {

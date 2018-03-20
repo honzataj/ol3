@@ -301,6 +301,15 @@ ol.View.prototype.getMinResolution = function() {
 
 
 /**
+ * @return {number}
+ * @api
+ */
+ol.View.prototype.getMinZoom = function() {
+  return this.minZoom_;
+};
+
+
+/**
  * Get the view projection.
  * @return {ol.proj.Projection} The projection of the view.
  * @api stable
