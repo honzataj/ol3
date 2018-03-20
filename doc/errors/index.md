@@ -43,7 +43,7 @@ Unknown `serverType` configured.
 
 ### 10
 
-The default `geometryFunction` can only handle `ol.geom.Point` geometries.
+The default `geometryFunction` can only handle `ol/geom/Point` geometries.
 
 ### 11
 
@@ -165,14 +165,6 @@ Expected an `ol.style.Style` or an array of `ol.style.Style`.
 
 Expected `layers` to be an array or an `ol.Collection`.
 
-### 44
-
-`logo.href` should be a string.
-
-### 45
-
-`logo.src` should be a string.
-
 ### 46
 
 Incorrect format for `renderer` option.
@@ -216,3 +208,15 @@ The `{-y}` placeholder requires a tile grid with extent.
 ### 56
 
 `mapBrowserEvent` must originate from a pointer event.
+
+### 57
+
+At least 2 conditions are required.
+
+### 58
+
+Duplicate item added to a unique collection.  For example, it may be that you tried to add the same layer to a map twice.  Check for calls to `map.addLayer()` or other places where the map's layer collection is modified.
+
+### 59
+
+Invalid command found in the PBF.  This indicates that the loaded vector tile may be corrupt.

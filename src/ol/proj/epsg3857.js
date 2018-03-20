@@ -1,10 +1,43 @@
-goog.provide('ol.proj.EPSG3857');
+/**
+ * @module ol/proj/epsg3857
+ */
+import {inherits} from '../index.js';
+import {cosh} from '../math.js';
+import Projection from '../proj/Projection.js';
+import Units from '../proj/Units.js';
 
-goog.require('ol');
-goog.require('ol.math');
-goog.require('ol.proj');
-goog.require('ol.proj.Projection');
-goog.require('ol.proj.Units');
+
+/**
+ * Radius of WGS84 sphere
+ *
+ * @const
+ * @type {number}
+ */
+export const RADIUS = 6378137;
+
+
+/**
+ * @const
+ * @type {number}
+ */
+export const HALF_SIZE = Math.PI * RADIUS;
+
+
+/**
+ * @const
+ * @type {module:ol/extent~Extent}
+ */
+export const EXTENT = [
+  -HALF_SIZE, -HALF_SIZE,
+  HALF_SIZE, HALF_SIZE
+];
+
+
+/**
+ * @const
+ * @type {module:ol/extent~Extent}
+ */
+export const WORLD_EXTENT = [-180, -85, 180, 85];
 
 
 /**
@@ -12,86 +45,39 @@ goog.require('ol.proj.Units');
  * Projection object for web/spherical Mercator (EPSG:3857).
  *
  * @constructor
- * @extends {ol.proj.Projection}
+ * @extends {module:ol/proj/Projection~Projection}
  * @param {string} code Code.
- * @private
  */
-ol.proj.EPSG3857_ = function(code) {
-  ol.proj.Projection.call(this, {
+function EPSG3857Projection(code) {
+  Projection.call(this, {
     code: code,
-    units: ol.proj.Units.METERS,
-    extent: ol.proj.EPSG3857.EXTENT,
+    units: Units.METERS,
+    extent: EXTENT,
     global: true,
-    worldExtent: ol.proj.EPSG3857.WORLD_EXTENT
+    worldExtent: WORLD_EXTENT,
+    getPointResolution: function(resolution, point) {
+      return resolution / cosh(point[1] / RADIUS);
+    }
   });
-};
-ol.inherits(ol.proj.EPSG3857_, ol.proj.Projection);
-
-
-/**
- * @inheritDoc
- */
-ol.proj.EPSG3857_.prototype.getPointResolution = function(resolution, point) {
-  return resolution / ol.math.cosh(point[1] / ol.proj.EPSG3857.RADIUS);
-};
-
-
-/**
- * @const
- * @type {number}
- */
-ol.proj.EPSG3857.RADIUS = 6378137;
-
-
-/**
- * @const
- * @type {number}
- */
-ol.proj.EPSG3857.HALF_SIZE = Math.PI * ol.proj.EPSG3857.RADIUS;
-
-
-/**
- * @const
- * @type {ol.Extent}
- */
-ol.proj.EPSG3857.EXTENT = [
-  -ol.proj.EPSG3857.HALF_SIZE, -ol.proj.EPSG3857.HALF_SIZE,
-  ol.proj.EPSG3857.HALF_SIZE, ol.proj.EPSG3857.HALF_SIZE
-];
-
-
-/**
- * @const
- * @type {ol.Extent}
- */
-ol.proj.EPSG3857.WORLD_EXTENT = [-180, -85, 180, 85];
-
-
-/**
- * Lists several projection codes with the same meaning as EPSG:3857.
- *
- * @type {Array.<string>}
- */
-ol.proj.EPSG3857.CODES = [
-  'EPSG:3857',
-  'EPSG:102100',
-  'EPSG:102113',
-  'EPSG:900913',
-  'urn:ogc:def:crs:EPSG:6.18:3:3857',
-  'urn:ogc:def:crs:EPSG::3857',
-  'http://www.opengis.net/gml/srs/epsg.xml#3857'
-];
+}
+inherits(EPSG3857Projection, Projection);
 
 
 /**
  * Projections equal to EPSG:3857.
  *
  * @const
- * @type {Array.<ol.proj.Projection>}
+ * @type {Array.<module:ol/proj/Projection~Projection>}
  */
-ol.proj.EPSG3857.PROJECTIONS = ol.proj.EPSG3857.CODES.map(function(code) {
-  return new ol.proj.EPSG3857_(code);
-});
+export const PROJECTIONS = [
+  new EPSG3857Projection('EPSG:3857'),
+  new EPSG3857Projection('EPSG:102100'),
+  new EPSG3857Projection('EPSG:102113'),
+  new EPSG3857Projection('EPSG:900913'),
+  new EPSG3857Projection('urn:ogc:def:crs:EPSG:6.18:3:3857'),
+  new EPSG3857Projection('urn:ogc:def:crs:EPSG::3857'),
+  new EPSG3857Projection('http://www.opengis.net/gml/srs/epsg.xml#3857')
+];
 
 
 /**
@@ -102,10 +88,10 @@ ol.proj.EPSG3857.PROJECTIONS = ol.proj.EPSG3857.CODES.map(function(code) {
  * @param {number=} opt_dimension Dimension (default is `2`).
  * @return {Array.<number>} Output array of coordinate values.
  */
-ol.proj.EPSG3857.fromEPSG4326 = function(input, opt_output, opt_dimension) {
-  var length = input.length,
-      dimension = opt_dimension > 1 ? opt_dimension : 2,
-      output = opt_output;
+export function fromEPSG4326(input, opt_output, opt_dimension) {
+  const length = input.length;
+  const dimension = opt_dimension > 1 ? opt_dimension : 2;
+  let output = opt_output;
   if (output === undefined) {
     if (dimension > 2) {
       // preserve values beyond second dimension
@@ -114,12 +100,10 @@ ol.proj.EPSG3857.fromEPSG4326 = function(input, opt_output, opt_dimension) {
       output = new Array(length);
     }
   }
-  ol.DEBUG && console.assert(output.length % dimension === 0,
-      'modulus of output.length with dimension should be 0');
-  var halfSize = ol.proj.EPSG3857.HALF_SIZE;
-  for (var i = 0; i < length; i += dimension) {
+  const halfSize = HALF_SIZE;
+  for (let i = 0; i < length; i += dimension) {
     output[i] = halfSize * input[i] / 180;
-    var y = ol.proj.EPSG3857.RADIUS *
+    let y = RADIUS *
         Math.log(Math.tan(Math.PI * (input[i + 1] + 90) / 360));
     if (y > halfSize) {
       y = halfSize;
@@ -129,7 +113,7 @@ ol.proj.EPSG3857.fromEPSG4326 = function(input, opt_output, opt_dimension) {
     output[i + 1] = y;
   }
   return output;
-};
+}
 
 
 /**
@@ -140,10 +124,10 @@ ol.proj.EPSG3857.fromEPSG4326 = function(input, opt_output, opt_dimension) {
  * @param {number=} opt_dimension Dimension (default is `2`).
  * @return {Array.<number>} Output array of coordinate values.
  */
-ol.proj.EPSG3857.toEPSG4326 = function(input, opt_output, opt_dimension) {
-  var length = input.length,
-      dimension = opt_dimension > 1 ? opt_dimension : 2,
-      output = opt_output;
+export function toEPSG4326(input, opt_output, opt_dimension) {
+  const length = input.length;
+  const dimension = opt_dimension > 1 ? opt_dimension : 2;
+  let output = opt_output;
   if (output === undefined) {
     if (dimension > 2) {
       // preserve values beyond second dimension
@@ -152,12 +136,10 @@ ol.proj.EPSG3857.toEPSG4326 = function(input, opt_output, opt_dimension) {
       output = new Array(length);
     }
   }
-  ol.DEBUG && console.assert(output.length % dimension === 0,
-      'modulus of output.length with dimension should be 0');
-  for (var i = 0; i < length; i += dimension) {
-    output[i] = 180 * input[i] / ol.proj.EPSG3857.HALF_SIZE;
+  for (let i = 0; i < length; i += dimension) {
+    output[i] = 180 * input[i] / HALF_SIZE;
     output[i + 1] = 360 * Math.atan(
-        Math.exp(input[i + 1] / ol.proj.EPSG3857.RADIUS)) / Math.PI - 90;
+      Math.exp(input[i + 1] / RADIUS)) / Math.PI - 90;
   }
   return output;
-};
+}

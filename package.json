@@ -1,127 +1,87 @@
 {
   "name": "openlayers",
-  "version": "3.19.1",
+  "version": "4.6.5",
   "description": "Build tools and sources for developing OpenLayers based mapping applications",
   "keywords": [
     "map",
     "mapping",
-    "ol3"
+    "ol"
   ],
   "homepage": "https://openlayers.org/",
   "scripts": {
-    "install": "node tasks/install.js",
-    "postinstall": "closure-util update",
-    "start": "node tasks/serve.js",
-    "pretest": "eslint tasks test test_rendering src examples",
-    "test": "node tasks/test.js",
-    "debug-server": "node tasks/serve-lib.js"
+    "lint": "eslint tasks test src/ol examples",
+    "pretest": "npm run lint",
+    "posttest": "npm run typecheck",
+    "test": "npm run karma -- --single-run",
+    "karma": "karma start test/karma.config.js",
+    "serve-examples": "mkdir -p build/examples && webpack --config examples/webpack/config.js --watch & serve build/examples",
+    "build-examples": "webpack --config examples/webpack/config.js --env=prod",
+    "build-index": "node tasks/generate-index.js",
+    "prebuild": "npm run build-index",
+    "build": "webpack --config config/webpack.js",
+    "presrc-closure": "npm run prebuild",
+    "src-closure": "babel -q --out-dir build/src-closure src/",
+    "pretypecheck": "npm run src-closure",
+    "typecheck": "node tasks/typecheck"
   },
-  "main": "dist/ol.js",
+  "main": "src/ol/index.js",
   "repository": {
     "type": "git",
-    "url": "git://github.com/openlayers/ol3.git"
+    "url": "git://github.com/openlayers/openlayers.git"
   },
   "license": "BSD-2-Clause",
   "bugs": {
-    "url": "https://github.com/openlayers/ol3/issues"
+    "url": "https://github.com/openlayers/openlayers/issues"
   },
   "browser": "dist/ol.js",
   "style": [
     "css/ol.css"
   ],
   "dependencies": {
-    "async": "2.1.2",
-    "browserify": "13.1.1",
-    "closure-util": "1.15.1",
-    "derequire": "2.0.3",
-    "fs-extra": "0.30.0",
-    "glob": "7.1.0",
-    "handlebars": "4.0.5",
-    "jsdoc": "3.4.2",
-    "marked": "0.3.6",
-    "metalsmith": "2.2.1",
-    "metalsmith-layouts": "1.6.5",
-    "nomnom": "1.8.1",
-    "pbf": "3.0.2",
+    "pbf": "3.1.0",
     "pixelworks": "1.1.0",
-    "rbush": "2.0.1",
-    "temp": "0.8.3",
-    "vector-tile": "1.3.0",
-    "walk": "2.3.9"
+    "rbush": "2.0.2"
   },
   "devDependencies": {
-    "clean-css": "3.4.20",
-    "coveralls": "2.11.14",
-    "debounce": "^1.0.0",
-    "eslint": "3.8.1",
-    "eslint-config-openlayers": "5.0.0",
-    "eslint-plugin-openlayers-internal": "2.2.0",
+    "async": "2.6.0",
+    "babel-cli": "6.26.0",
+    "babel-minify-webpack-plugin": "^0.3.0",
+    "babel-plugin-jsdoc-closure": "1.3.2",
+    "clean-css-cli": "4.1.11",
+    "copy-webpack-plugin": "^4.0.1",
+    "coveralls": "3.0.0",
+    "eslint": "4.19.0",
+    "eslint-config-openlayers": "^9.0.0",
     "expect.js": "0.3.1",
-    "gaze": "^1.0.0",
+    "front-matter": "^2.1.2",
+    "fs-extra": "5.0.0",
+    "google-closure-compiler": "20180101.0.0",
+    "handlebars": "4.0.11",
+    "html-webpack-plugin": "^3.0.1",
     "istanbul": "0.4.5",
-    "jquery": "3.1.1",
-    "mocha": "3.1.2",
-    "mocha-phantomjs-core": "^1.3.0",
-    "mustache": "2.2.1",
-    "phantomjs-prebuilt": "2.1.13",
-    "proj4": "2.3.15",
-    "resemblejs": "2.2.2",
-    "serve-files": "1.0.0",
-    "sinon": "1.17.6",
-    "slimerjs": "0.906.2"
+    "jquery": "3.3.1",
+    "jsdoc": "3.5.5",
+    "karma": "^2.0.0",
+    "karma-chrome-launcher": "2.2.0",
+    "karma-coverage": "^1.1.1",
+    "karma-firefox-launcher": "^1.0.1",
+    "karma-mocha": "1.3.0",
+    "karma-sauce-launcher": "1.2.0",
+    "karma-webpack": "3.0.0",
+    "marked": "0.3.17",
+    "mocha": "5.0.4",
+    "mustache": "^2.3.0",
+    "pixelmatch": "^4.0.2",
+    "proj4": "2.4.4",
+    "recast": "0.14.5",
+    "serve": "^6.5.2",
+    "sinon": "4.4.6",
+    "url-polyfill": "^1.0.11",
+    "walk": "^2.3.9",
+    "webpack": "3.11.0",
+    "webpack-merge": "4.1.2"
   },
   "eslintConfig": {
-    "extends": "openlayers",
-    "globals": {
-      "ArrayBuffer": false,
-      "Float32Array": false,
-      "Uint16Array": false,
-      "Uint32Array": false,
-      "Uint8Array": false,
-      "Uint8ClampedArray": false,
-      "ol": false,
-      "goog": false,
-      "proj4": false
-    },
-    "plugins": [
-      "openlayers-internal"
-    ],
-    "rules": {
-      "no-console": [
-        2,
-        {
-          "allow": [
-            "assert"
-          ]
-        }
-      ],
-      "no-constant-condition": 0,
-      "openlayers-internal/no-duplicate-requires": 2,
-      "openlayers-internal/no-missing-requires": 1,
-      "openlayers-internal/no-unused-requires": 2,
-      "openlayers-internal/one-provide": 1,
-      "openlayers-internal/requires-first": 2,
-      "openlayers-internal/valid-provide": 2,
-      "openlayers-internal/valid-requires": 2
-    }
-  },
-  "ext": [
-    {
-      "module": "rbush",
-      "browserify": true
-    },
-    {
-      "module": "pbf",
-      "browserify": true
-    },
-    {
-      "module": "pixelworks",
-      "browserify": true
-    },
-    {
-      "module": "vector-tile",
-      "name": "vectortile",
-      "browserify": true
-    }
-  ]
+    "extends": "openlayers"
+  }
 }
