@@ -285,6 +285,7 @@ ol.interaction.Draw.getDefaultStyleFunction = function() {
 
 /**
  * @return {ol.Feature}
+ * @api
  */
 ol.interaction.Draw.prototype.getSketchFeature = function() {
   return this.sketchFeature_;
