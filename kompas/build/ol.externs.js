@@ -3377,12 +3377,6 @@ ol.interaction.Draw = function(options) {};
 
 
 /**
- * @return {ol.geom.GeometryType}
- */
-ol.interaction.Draw.prototype.getType = function() {};
-
-
-/**
  * @return {ol.Feature}
  */
 ol.interaction.Draw.prototype.getSketchFeature = function() {};
@@ -6533,6 +6527,12 @@ ol.View.prototype.getMinResolution = function() {};
 
 
 /**
+ * @return {number}
+ */
+ol.View.prototype.getMinZoom = function() {};
+
+
+/**
  * @return {ol.proj.Projection}
  */
 ol.View.prototype.getProjection = function() {};
@@ -6584,12 +6584,6 @@ ol.View.prototype.fit = function(geometry, size, opt_options) {};
  * @param {ol.Pixel} position
  */
 ol.View.prototype.centerOn = function(coordinate, size, position) {};
-
-
-/**
- * @return {number}
- */
-ol.View.prototype.getMinZoom = function() {};
 
 
 /**
