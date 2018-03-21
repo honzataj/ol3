@@ -1,11 +1,10 @@
-goog.provide('ol.test.color');
-
 goog.require('ol.color');
+goog.require('ol');
 
 
 describe('ol.color', function() {
 
-  describe('ol.color.asArray()', function() {
+  describe('asArray()', function() {
 
     it('returns the same for an array', function() {
       var color = [1, 2, 3, 0.4];
@@ -28,9 +27,14 @@ describe('ol.color', function() {
       expect(color).to.eql([0, 204, 255, 1]);
     });
 
+    it('returns an array given a hex string with alpha', function() {
+      var color = ol.color.asArray('#00ccffb0');
+      expect(color).to.eql([0, 204, 255, 176 / 255]);
+    });
+
   });
 
-  describe('ol.color.asString()', function() {
+  describe('asString()', function() {
 
     it('returns the same for a string', function() {
       var color = 'rgba(0,1,2,0.3)';
@@ -50,14 +54,15 @@ describe('ol.color', function() {
 
   });
 
-  describe('ol.color.fromString', function() {
+  describe('fromString()', function() {
 
     before(function() {
       sinon.spy(ol.color, 'fromStringInternal_');
     });
 
     after(function() {
-      ol.color.fromStringInternal_.restore();
+      var spy = ol.color.fromStringInternal_;
+      spy.restore();
     });
 
     if (ol.ENABLE_NAMED_COLORS) {
@@ -70,29 +75,73 @@ describe('ol.color', function() {
       expect(ol.color.fromString('#087')).to.eql([0, 136, 119, 1]);
     });
 
+    it('can parse 4-digit hex colors', function() {
+      expect(ol.color.fromString('#0876')).to.eql([0, 136, 119, 102 / 255]);
+    });
+
     it('can parse 6-digit hex colors', function() {
       expect(ol.color.fromString('#56789a')).to.eql([86, 120, 154, 1]);
+    });
+
+    it('can parse 8-digit hex colors', function() {
+      expect(ol.color.fromString('#56789acc')).to.eql([86, 120, 154, 204 / 255]);
     });
 
     it('can parse rgb colors', function() {
       expect(ol.color.fromString('rgb(0, 0, 255)')).to.eql([0, 0, 255, 1]);
     });
 
+    it('ignores whitespace before, between & after numbers (rgb)', function() {
+      expect(ol.color.fromString('rgb( \t 0  ,   0 \n , 255  )')).to.eql(
+          [0, 0, 255, 1]);
+    });
+
     it('can parse rgba colors', function() {
+      // opacity 0
+      expect(ol.color.fromString('rgba(255, 255, 0, 0)')).to.eql(
+          [255, 255, 0, 0]);
+      // opacity 0.0 (simple float)
+      expect(ol.color.fromString('rgba(255, 255, 0, 0.0)')).to.eql(
+          [255, 255, 0, 0]);
+      // opacity 0.0000000000000000 (float with 16 digits)
+      expect(ol.color.fromString('rgba(255, 255, 0, 0.0000000000000000)')).to.eql(
+          [255, 255, 0, 0]);
+      // opacity 0.1 (simple float)
       expect(ol.color.fromString('rgba(255, 255, 0, 0.1)')).to.eql(
           [255, 255, 0, 0.1]);
+      // opacity 0.1111111111111111 (float with 16 digits)
+      expect(ol.color.fromString('rgba(255, 255, 0, 0.1111111111111111)')).to.eql(
+          [255, 255, 0, 0.1111111111111111]);
+      // opacity 1
+      expect(ol.color.fromString('rgba(255, 255, 0, 1)')).to.eql(
+          [255, 255, 0, 1]);
+      // opacity 1.0
+      expect(ol.color.fromString('rgba(255, 255, 0, 1.0)')).to.eql(
+          [255, 255, 0, 1]);
+      // opacity 1.0000000000000000
+      expect(ol.color.fromString('rgba(255, 255, 0, 1.0000000000000000)')).to.eql(
+          [255, 255, 0, 1]);
+      // with 30 decimal digits
+      expect(ol.color.fromString('rgba(255, 255, 0, 0.123456789012345678901234567890)')).to.eql(
+          [255, 255, 0, 0.123456789012345678901234567890]);
+    });
+
+    it('ignores whitespace before, between & after numbers (rgba)', function() {
+      expect(ol.color.fromString('rgba( \t 0  ,   0 \n ,   255  ,   0.4711   )')).to.eql(
+          [0, 0, 255, 0.4711]);
     });
 
     it('caches parsed values', function() {
-      var count = ol.color.fromStringInternal_.callCount;
+      var spy = ol.color.fromStringInternal_;
+      var count = spy.callCount;
       ol.color.fromString('aquamarine');
-      expect(ol.color.fromStringInternal_.callCount).to.be(count + 1);
+      expect(spy.callCount).to.be(count + 1);
       ol.color.fromString('aquamarine');
-      expect(ol.color.fromStringInternal_.callCount).to.be(count + 1);
+      expect(spy.callCount).to.be(count + 1);
     });
 
     it('throws an error on invalid colors', function() {
-      var invalidColors = ['tuesday', '#1234567', 'rgb(255.0,0,0)'];
+      var invalidColors = ['tuesday', '#12345', '#1234567', 'rgb(255.0,0,0)'];
       var i, ii;
       for (i = 0, ii < invalidColors.length; i < ii; ++i) {
         expect(function() {
@@ -103,7 +152,7 @@ describe('ol.color', function() {
 
   });
 
-  describe('ol.color.normalize', function() {
+  describe('normalize()', function() {
 
     it('clamps out-of-range channels', function() {
       expect(ol.color.normalize([-1, 256, 0, 2])).to.eql([0, 255, 0, 1]);
@@ -115,7 +164,7 @@ describe('ol.color', function() {
 
   });
 
-  describe('ol.color.toString', function() {
+  describe('toString()', function() {
 
     it('converts valid colors', function() {
       expect(ol.color.toString([1, 2, 3, 0.4])).to.be('rgba(1,2,3,0.4)');

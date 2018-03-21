@@ -11,6 +11,7 @@ goog.require('ol.style.Stroke');
 goog.require('ol.style.Style');
 goog.require('ol.style.Text');
 
+var openSansAdded = false;
 
 var myDom = {
   points: {
@@ -35,6 +36,9 @@ var myDom = {
     rotation: document.getElementById('lines-rotation'),
     font: document.getElementById('lines-font'),
     weight: document.getElementById('lines-weight'),
+    placement: document.getElementById('lines-placement'),
+    maxangle: document.getElementById('lines-maxangle'),
+    overflow: document.getElementById('lines-overflow'),
     size: document.getElementById('lines-size'),
     offsetX: document.getElementById('lines-offset-x'),
     offsetY: document.getElementById('lines-offset-y'),
@@ -50,6 +54,9 @@ var myDom = {
     rotation: document.getElementById('polygons-rotation'),
     font: document.getElementById('polygons-font'),
     weight: document.getElementById('polygons-weight'),
+    placement: document.getElementById('polygons-placement'),
+    maxangle: document.getElementById('polygons-maxangle'),
+    overflow: document.getElementById('polygons-overflow'),
     size: document.getElementById('polygons-size'),
     offsetX: document.getElementById('polygons-offset-x'),
     offsetY: document.getElementById('polygons-offset-y'),
@@ -71,7 +78,7 @@ var getText = function(feature, resolution, dom) {
     text = '';
   } else if (type == 'shorten') {
     text = text.trunc(12);
-  } else if (type == 'wrap') {
+  } else if (type == 'wrap' && dom.placement.value != 'line') {
     text = stringDivider(text, 16, '\n');
   }
 
@@ -86,14 +93,24 @@ var createTextStyle = function(feature, resolution, dom) {
   var offsetX = parseInt(dom.offsetX.value, 10);
   var offsetY = parseInt(dom.offsetY.value, 10);
   var weight = dom.weight.value;
+  var placement = dom.placement ? dom.placement.value : undefined;
+  var maxAngle = dom.maxangle ? parseFloat(dom.maxangle.value) : undefined;
+  var overflow = dom.overflow ? (dom.overflow.value == 'true') : undefined;
   var rotation = parseFloat(dom.rotation.value);
+  if (dom.font.value == '\'Open Sans\'' && !openSansAdded) {
+    var openSans = document.createElement('link');
+    openSans.href = 'https://fonts.googleapis.com/css?family=Open+Sans';
+    openSans.rel = 'stylesheet';
+    document.getElementsByTagName('head')[0].appendChild(openSans);
+    openSansAdded = true;
+  }
   var font = weight + ' ' + size + ' ' + dom.font.value;
   var fillColor = dom.color.value;
   var outlineColor = dom.outline.value;
   var outlineWidth = parseInt(dom.outlineWidth.value, 10);
 
   return new ol.style.Text({
-    textAlign: align,
+    textAlign: align == '' ? undefined : align,
     textBaseline: baseline,
     font: font,
     text: getText(feature, resolution, dom),
@@ -101,6 +118,9 @@ var createTextStyle = function(feature, resolution, dom) {
     stroke: new ol.style.Stroke({color: outlineColor, width: outlineWidth}),
     offsetX: offsetX,
     offsetY: offsetY,
+    placement: placement,
+    maxAngle: maxAngle,
+    overflow: overflow,
     rotation: rotation
   });
 };

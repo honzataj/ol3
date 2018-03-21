@@ -1,8 +1,8 @@
 goog.provide('ol.source.TileUTFGrid');
 
 goog.require('ol');
-goog.require('ol.Attribution');
 goog.require('ol.Tile');
+goog.require('ol.TileState');
 goog.require('ol.TileUrlFunction');
 goog.require('ol.asserts');
 goog.require('ol.events');
@@ -12,6 +12,7 @@ goog.require('ol.net');
 goog.require('ol.proj');
 goog.require('ol.source.State');
 goog.require('ol.source.Tile');
+goog.require('ol.tilecoord');
 goog.require('ol.tilegrid');
 
 
@@ -35,7 +36,7 @@ ol.source.TileUTFGrid = function(options) {
    * @type {boolean}
    */
   this.preemptive_ = options.preemptive !== undefined ?
-      options.preemptive : true;
+    options.preemptive : true;
 
   /**
    * @private
@@ -174,9 +175,6 @@ ol.source.TileUTFGrid.prototype.handleTileJSONResponse = function(tileJSON) {
     extent = ol.extent.applyTransform(tileJSON.bounds, transform);
   }
 
-  if (tileJSON.scheme !== undefined) {
-    ol.DEBUG && console.assert(tileJSON.scheme == 'xyz', 'tileJSON-scheme is "xyz"');
-  }
   var minZoom = tileJSON.minzoom || 0;
   var maxZoom = tileJSON.maxzoom || 22;
   var tileGrid = ol.tilegrid.createXYZ({
@@ -199,21 +197,14 @@ ol.source.TileUTFGrid.prototype.handleTileJSONResponse = function(tileJSON) {
 
   if (tileJSON.attribution !== undefined) {
     var attributionExtent = extent !== undefined ?
-        extent : epsg4326Projection.getExtent();
-    /** @type {Object.<string, Array.<ol.TileRange>>} */
-    var tileRanges = {};
-    var z, zKey;
-    for (z = minZoom; z <= maxZoom; ++z) {
-      zKey = z.toString();
-      tileRanges[zKey] =
-          [tileGrid.getTileRangeForExtentAndZ(attributionExtent, z)];
-    }
-    this.setAttributions([
-      new ol.Attribution({
-        html: tileJSON.attribution,
-        tileRanges: tileRanges
-      })
-    ]);
+      extent : epsg4326Projection.getExtent();
+
+    this.setAttributions(function(frameState) {
+      if (ol.extent.intersects(attributionExtent, frameState.extent)) {
+        return [tileJSON.attribution];
+      }
+      return null;
+    });
   }
 
   this.setState(ol.source.State.READY);
@@ -225,18 +216,17 @@ ol.source.TileUTFGrid.prototype.handleTileJSONResponse = function(tileJSON) {
  * @inheritDoc
  */
 ol.source.TileUTFGrid.prototype.getTile = function(z, x, y, pixelRatio, projection) {
-  var tileCoordKey = this.getKeyZXY(z, x, y);
+  var tileCoordKey = ol.tilecoord.getKeyZXY(z, x, y);
   if (this.tileCache.containsKey(tileCoordKey)) {
     return /** @type {!ol.Tile} */ (this.tileCache.get(tileCoordKey));
   } else {
-    ol.DEBUG && console.assert(projection, 'argument projection is truthy');
     var tileCoord = [z, x, y];
     var urlTileCoord =
         this.getTileCoordForTileUrlFunction(tileCoord, projection);
     var tileUrl = this.tileUrlFunction_(urlTileCoord, pixelRatio, projection);
     var tile = new ol.source.TileUTFGrid.Tile_(
         tileCoord,
-        tileUrl !== undefined ? ol.Tile.State.IDLE : ol.Tile.State.EMPTY,
+        tileUrl !== undefined ? ol.TileState.IDLE : ol.TileState.EMPTY,
         tileUrl !== undefined ? tileUrl : '',
         this.tileGrid.getTileCoordExtent(tileCoord),
         this.preemptive_,
@@ -251,7 +241,7 @@ ol.source.TileUTFGrid.prototype.getTile = function(z, x, y, pixelRatio, projecti
  * @inheritDoc
  */
 ol.source.TileUTFGrid.prototype.useTile = function(z, x, y) {
-  var tileCoordKey = this.getKeyZXY(z, x, y);
+  var tileCoordKey = ol.tilecoord.getKeyZXY(z, x, y);
   if (this.tileCache.containsKey(tileCoordKey)) {
     this.tileCache.get(tileCoordKey);
   }
@@ -262,7 +252,7 @@ ol.source.TileUTFGrid.prototype.useTile = function(z, x, y) {
  * @constructor
  * @extends {ol.Tile}
  * @param {ol.TileCoord} tileCoord Tile coordinate.
- * @param {ol.Tile.State} state State.
+ * @param {ol.TileState} state State.
  * @param {string} src Image source URI.
  * @param {ol.Extent} extent Extent of the tile.
  * @param {boolean} preemptive Load the tile when visible (before it's needed).
@@ -382,7 +372,7 @@ ol.source.TileUTFGrid.Tile_.prototype.getData = function(coordinate) {
  * @template T
  */
 ol.source.TileUTFGrid.Tile_.prototype.forDataAtCoordinate = function(coordinate, callback, opt_this, opt_request) {
-  if (this.state == ol.Tile.State.IDLE && opt_request === true) {
+  if (this.state == ol.TileState.IDLE && opt_request === true) {
     ol.events.listenOnce(this, ol.events.EventType.CHANGE, function(e) {
       callback.call(opt_this, this.getData(coordinate));
     }, this);
@@ -411,7 +401,7 @@ ol.source.TileUTFGrid.Tile_.prototype.getKey = function() {
  * @private
  */
 ol.source.TileUTFGrid.Tile_.prototype.handleError_ = function() {
-  this.state = ol.Tile.State.ERROR;
+  this.state = ol.TileState.ERROR;
   this.changed();
 };
 
@@ -425,7 +415,7 @@ ol.source.TileUTFGrid.Tile_.prototype.handleLoad_ = function(json) {
   this.keys_ = json.keys;
   this.data_ = json.data;
 
-  this.state = ol.Tile.State.EMPTY;
+  this.state = ol.TileState.EMPTY;
   this.changed();
 };
 
@@ -434,8 +424,8 @@ ol.source.TileUTFGrid.Tile_.prototype.handleLoad_ = function(json) {
  * @private
  */
 ol.source.TileUTFGrid.Tile_.prototype.loadInternal_ = function() {
-  if (this.state == ol.Tile.State.IDLE) {
-    this.state = ol.Tile.State.LOADING;
+  if (this.state == ol.TileState.IDLE) {
+    this.state = ol.TileState.LOADING;
     if (this.jsonp_) {
       ol.net.jsonp(this.src_, this.handleLoad_.bind(this),
           this.handleError_.bind(this));
@@ -482,7 +472,7 @@ ol.source.TileUTFGrid.Tile_.prototype.onXHRError_ = function(event) {
 
 
 /**
- * Load not yet loaded URI.
+ * @override
  */
 ol.source.TileUTFGrid.Tile_.prototype.load = function() {
   if (this.preemptive_) {

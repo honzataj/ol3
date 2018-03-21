@@ -7,23 +7,17 @@ goog.require('ol.events.EventType');
 
 /**
  * @constructor
+ * @abstract
  * @extends {ol.events.EventTarget}
  * @param {ol.Extent} extent Extent.
  * @param {number|undefined} resolution Resolution.
  * @param {number} pixelRatio Pixel ratio.
- * @param {ol.Image.State} state State.
- * @param {Array.<ol.Attribution>} attributions Attributions.
+ * @param {ol.ImageState} state State.
  * @api
  */
-ol.ImageBase = function(extent, resolution, pixelRatio, state, attributions) {
+ol.ImageBase = function(extent, resolution, pixelRatio, state) {
 
   ol.events.EventTarget.call(this);
-
-  /**
-   * @private
-   * @type {Array.<ol.Attribution>}
-   */
-  this.attributions_ = attributions;
 
   /**
    * @protected
@@ -45,7 +39,7 @@ ol.ImageBase = function(extent, resolution, pixelRatio, state, attributions) {
 
   /**
    * @protected
-   * @type {ol.Image.State}
+   * @type {ol.ImageState}
    */
   this.state = state;
 
@@ -62,14 +56,6 @@ ol.ImageBase.prototype.changed = function() {
 
 
 /**
- * @return {Array.<ol.Attribution>} Attributions.
- */
-ol.ImageBase.prototype.getAttributions = function() {
-  return this.attributions_;
-};
-
-
-/**
  * @return {ol.Extent} Extent.
  */
 ol.ImageBase.prototype.getExtent = function() {
@@ -79,10 +65,9 @@ ol.ImageBase.prototype.getExtent = function() {
 
 /**
  * @abstract
- * @param {Object=} opt_context Object.
  * @return {HTMLCanvasElement|Image|HTMLVideoElement} Image.
  */
-ol.ImageBase.prototype.getImage = function(opt_context) {};
+ol.ImageBase.prototype.getImage = function() {};
 
 
 /**
@@ -97,13 +82,12 @@ ol.ImageBase.prototype.getPixelRatio = function() {
  * @return {number} Resolution.
  */
 ol.ImageBase.prototype.getResolution = function() {
-  ol.DEBUG && console.assert(this.resolution !== undefined, 'resolution not yet set');
   return /** @type {number} */ (this.resolution);
 };
 
 
 /**
- * @return {ol.Image.State} State.
+ * @return {ol.ImageState} State.
  * @api
  */
 ol.ImageBase.prototype.getState = function() {

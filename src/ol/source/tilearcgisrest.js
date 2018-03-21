@@ -1,7 +1,6 @@
 goog.provide('ol.source.TileArcGISRest');
 
 goog.require('ol');
-goog.require('ol.asserts');
 goog.require('ol.extent');
 goog.require('ol.math');
 goog.require('ol.obj');
@@ -40,7 +39,8 @@ ol.source.TileArcGISRest = function(opt_options) {
     tileLoadFunction: options.tileLoadFunction,
     url: options.url,
     urls: options.urls,
-    wrapX: options.wrapX !== undefined ? options.wrapX : true
+    wrapX: options.wrapX !== undefined ? options.wrapX : true,
+    transition: options.transition
   });
 
   /**
@@ -96,7 +96,7 @@ ol.source.TileArcGISRest.prototype.getParams = function() {
  * @private
  */
 ol.source.TileArcGISRest.prototype.getRequestUrl_ = function(tileCoord, tileSize, tileExtent,
-        pixelRatio, projection, params) {
+    pixelRatio, projection, params) {
 
   var urls = this.urls;
   if (!urls) {
@@ -112,7 +112,7 @@ ol.source.TileArcGISRest.prototype.getRequestUrl_ = function(tileCoord, tileSize
   params['IMAGESR'] = srid;
   params['DPI'] = Math.round(
       params['DPI'] ? params['DPI'] * pixelRatio : 90 * pixelRatio
-      );
+  );
 
   var url;
   if (urls.length == 1) {
@@ -125,9 +125,6 @@ ol.source.TileArcGISRest.prototype.getRequestUrl_ = function(tileCoord, tileSize
   var modifiedUrl = url
       .replace(/MapServer\/?$/, 'MapServer/export')
       .replace(/ImageServer\/?$/, 'ImageServer/exportImage');
-  if (modifiedUrl == url) {
-    ol.asserts.assert(false, 50); // Cannot determine Rest Service from url
-  }
   return ol.uri.appendParams(modifiedUrl, params);
 };
 
@@ -179,7 +176,7 @@ ol.source.TileArcGISRest.prototype.fixedTileUrlFunction = function(tileCoord, pi
 /**
  * Update the user-provided params.
  * @param {Object} params Params.
- * @api stable
+ * @api
  */
 ol.source.TileArcGISRest.prototype.updateParams = function(params) {
   ol.obj.assign(this.params_, params);

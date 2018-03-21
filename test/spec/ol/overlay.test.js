@@ -1,4 +1,4 @@
-goog.provide('ol.test.Overlay');
+
 
 goog.require('ol.Map');
 goog.require('ol.Overlay');
@@ -44,6 +44,12 @@ describe('ol.Overlay', function() {
       expect(instance).to.be.an(ol.Overlay);
     });
 
+    it('can be constructed with className', function() {
+      var instance = new ol.Overlay({className: 'my-class'});
+      expect(instance).to.be.an(ol.Overlay);
+      expect(instance.element.className).to.be('my-class');
+    });
+
   });
 
   describe('#getId()', function() {
@@ -71,6 +77,30 @@ describe('ol.Overlay', function() {
       });
       map.addOverlay(overlay);
       expect(overlay.getId()).to.be('foo');
+    });
+
+  });
+
+  describe('#setVisible()', function() {
+    var overlay, target;
+
+    beforeEach(function() {
+      target = document.createElement('div');
+    });
+    afterEach(function() {
+      map.removeOverlay(overlay);
+    });
+
+    it('changes the CSS display value', function() {
+      overlay = new ol.Overlay({
+        element: target,
+        position: [0, 0]
+      });
+      map.addOverlay(overlay);
+      map.renderSync();
+      expect(overlay.element.style.display).not.to.be('none');
+      overlay.setVisible(false);
+      expect(overlay.element.style.display).to.be('none');
     });
 
   });

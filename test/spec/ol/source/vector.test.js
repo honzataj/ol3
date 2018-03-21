@@ -1,10 +1,12 @@
-goog.provide('ol.test.source.Vector');
-
 goog.require('ol.events');
 goog.require('ol.Collection');
 goog.require('ol.Feature');
+goog.require('ol.Map');
+goog.require('ol.View');
 goog.require('ol.geom.Point');
 goog.require('ol.geom.LineString');
+goog.require('ol.layer.Vector');
+goog.require('ol.loadingstrategy');
 goog.require('ol.proj');
 goog.require('ol.source.Vector');
 
@@ -417,6 +419,44 @@ describe('ol.source.Vector', function() {
 
   describe('#loadFeatures', function() {
 
+    describe('with the "bbox" strategy', function() {
+
+
+      it('requests the view extent plus render buffer', function(done) {
+        var center = [-97.6114, 38.8403];
+        var source = new ol.source.Vector({
+          strategy: ol.loadingstrategy.bbox,
+          loader: function(extent) {
+            setTimeout(function() {
+              var lonLatExtent = ol.proj.transformExtent(extent, 'EPSG:3857', 'EPSG:4326');
+              expect(lonLatExtent[0]).to.roughlyEqual(-99.261474609, 1e-9);
+              expect(lonLatExtent[2]).to.roughlyEqual(-95.965576171, 1e-9);
+              done();
+            }, 0);
+          }
+        });
+        var div = document.createElement('div');
+        div.style.width = div.style.height = '100px';
+        document.body.appendChild(div);
+        var map = new ol.Map({
+          target: div,
+          layers: [
+            new ol.layer.Vector({
+              source: source
+            })
+          ],
+          view: new ol.View({
+            center: ol.proj.fromLonLat(center),
+            zoom: 7
+          })
+        });
+        map.renderSync();
+        map.setTarget(null);
+        document.body.removeChild(div);
+      });
+
+    });
+
     describe('with no loader and the "all" strategy', function() {
 
       it('stores the infinity extent in the Rtree', function() {
@@ -427,6 +467,42 @@ describe('ol.source.Vector', function() {
         expect(loadedExtents).to.have.length(1);
         expect(loadedExtents[0].extent).to.eql(
             [-Infinity, -Infinity, Infinity, Infinity]);
+      });
+    });
+
+    describe('with setLoader', function() {
+
+      it('it will change the loader function', function() {
+        var count1 = 0;
+        var loader1 = function(bbox, resolution, projection) {
+          count1++;
+        };
+        var count2 = 0;
+        var loader2 = function(bbox, resolution, projection) {
+          count2++;
+        };
+        var source = new ol.source.Vector({loader: loader1});
+        source.loadFeatures([-10000, -10000, 10000, 10000], 1,
+            ol.proj.get('EPSG:3857'));
+        source.setLoader(loader2);
+        source.clear();
+        source.loadFeatures([-10000, -10000, 10000, 10000], 1,
+            ol.proj.get('EPSG:3857'));
+        expect(count1).to.eql(1);
+        expect(count2).to.eql(1);
+      });
+
+      it('removes extents with #removeLoadedExtent()', function(done) {
+        var source = new ol.source.Vector();
+        source.setLoader(function(bbox, resolution, projection) {
+          setTimeout(function() {
+            expect(source.loadedExtentsRtree_.getAll()).to.have.length(1);
+            source.removeLoadedExtent(bbox);
+            expect(source.loadedExtentsRtree_.getAll()).to.have.length(0);
+            done();
+          }, 0);
+        });
+        source.loadFeatures([-10000, -10000, 10000, 10000], 1, ol.proj.get('EPSG:3857'));
       });
     });
 

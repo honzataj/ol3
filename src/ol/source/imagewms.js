@@ -10,6 +10,7 @@ goog.require('ol.events.EventType');
 goog.require('ol.extent');
 goog.require('ol.obj');
 goog.require('ol.proj');
+goog.require('ol.reproj');
 goog.require('ol.source.Image');
 goog.require('ol.source.WMSServerType');
 goog.require('ol.string');
@@ -24,7 +25,7 @@ goog.require('ol.uri');
  * @fires ol.source.Image.Event
  * @extends {ol.source.Image}
  * @param {olx.source.ImageWMSOptions=} opt_options Options.
- * @api stable
+ * @api
  */
 ol.source.ImageWMS = function(opt_options) {
 
@@ -55,7 +56,7 @@ ol.source.ImageWMS = function(opt_options) {
    * @type {ol.ImageLoadFunctionType}
    */
   this.imageLoadFunction_ = options.imageLoadFunction !== undefined ?
-      options.imageLoadFunction : ol.source.Image.defaultImageLoadFunction;
+    options.imageLoadFunction : ol.source.Image.defaultImageLoadFunction;
 
   /**
    * @private
@@ -74,8 +75,7 @@ ol.source.ImageWMS = function(opt_options) {
    * @private
    * @type {ol.source.WMSServerType|undefined}
    */
-  this.serverType_ =
-      /** @type {ol.source.WMSServerType|undefined} */ (options.serverType);
+  this.serverType_ = /** @type {ol.source.WMSServerType|undefined} */ (options.serverType);
 
   /**
    * @private
@@ -131,15 +131,18 @@ ol.source.ImageWMS.GETFEATUREINFO_IMAGE_SIZE_ = [101, 101];
  *     in the `LAYERS` parameter will be used. `VERSION` should not be
  *     specified here.
  * @return {string|undefined} GetFeatureInfo URL.
- * @api stable
+ * @api
  */
 ol.source.ImageWMS.prototype.getGetFeatureInfoUrl = function(coordinate, resolution, projection, params) {
-
-  ol.DEBUG && console.assert(!('VERSION' in params),
-      'key VERSION is not allowed in params');
-
   if (this.url_ === undefined) {
     return undefined;
+  }
+  var projectionObj = ol.proj.get(projection);
+  var sourceProjectionObj = this.getProjection();
+
+  if (sourceProjectionObj && sourceProjectionObj !== projectionObj) {
+    resolution = ol.reproj.calculateSourceResolution(sourceProjectionObj, projectionObj, coordinate, resolution);
+    coordinate = ol.proj.transform(coordinate, projectionObj, sourceProjectionObj);
   }
 
   var extent = ol.extent.getForViewAndSize(
@@ -163,7 +166,7 @@ ol.source.ImageWMS.prototype.getGetFeatureInfoUrl = function(coordinate, resolut
 
   return this.getRequestUrl_(
       extent, ol.source.ImageWMS.GETFEATUREINFO_IMAGE_SIZE_,
-      1, ol.proj.get(projection), baseParams);
+      1, sourceProjectionObj || projectionObj, baseParams);
 };
 
 
@@ -171,7 +174,7 @@ ol.source.ImageWMS.prototype.getGetFeatureInfoUrl = function(coordinate, resolut
  * Get the user-provided params, i.e. those passed to the constructor through
  * the "params" option, and possibly updated using the updateParams method.
  * @return {Object} Params.
- * @api stable
+ * @api
  */
 ol.source.ImageWMS.prototype.getParams = function() {
   return this.params_;
@@ -193,30 +196,25 @@ ol.source.ImageWMS.prototype.getImageInternal = function(extent, resolution, pix
     pixelRatio = 1;
   }
 
-  extent = extent.slice();
-  var centerX = (extent[0] + extent[2]) / 2;
-  var centerY = (extent[1] + extent[3]) / 2;
-
   var imageResolution = resolution / pixelRatio;
-  var imageWidth = ol.extent.getWidth(extent) / imageResolution;
-  var imageHeight = ol.extent.getHeight(extent) / imageResolution;
+
+  var center = ol.extent.getCenter(extent);
+  var viewWidth = Math.ceil(ol.extent.getWidth(extent) / imageResolution);
+  var viewHeight = Math.ceil(ol.extent.getHeight(extent) / imageResolution);
+  var viewExtent = ol.extent.getForViewAndSize(center, imageResolution, 0,
+      [viewWidth, viewHeight]);
+  var requestWidth = Math.ceil(this.ratio_ * ol.extent.getWidth(extent) / imageResolution);
+  var requestHeight = Math.ceil(this.ratio_ * ol.extent.getHeight(extent) / imageResolution);
+  var requestExtent = ol.extent.getForViewAndSize(center, imageResolution, 0,
+      [requestWidth, requestHeight]);
 
   var image = this.image_;
   if (image &&
       this.renderedRevision_ == this.getRevision() &&
       image.getResolution() == resolution &&
       image.getPixelRatio() == pixelRatio &&
-      ol.extent.containsExtent(image.getExtent(), extent)) {
+      ol.extent.containsExtent(image.getExtent(), viewExtent)) {
     return image;
-  }
-
-  if (this.ratio_ != 1) {
-    var halfWidth = this.ratio_ * ol.extent.getWidth(extent) / 2;
-    var halfHeight = this.ratio_ * ol.extent.getHeight(extent) / 2;
-    extent[0] = centerX - halfWidth;
-    extent[1] = centerY - halfHeight;
-    extent[2] = centerX + halfWidth;
-    extent[3] = centerY + halfHeight;
   }
 
   var params = {
@@ -228,14 +226,14 @@ ol.source.ImageWMS.prototype.getImageInternal = function(extent, resolution, pix
   };
   ol.obj.assign(params, this.params_);
 
-  this.imageSize_[0] = Math.ceil(imageWidth * this.ratio_);
-  this.imageSize_[1] = Math.ceil(imageHeight * this.ratio_);
+  this.imageSize_[0] = Math.round(ol.extent.getWidth(requestExtent) / imageResolution);
+  this.imageSize_[1] = Math.round(ol.extent.getHeight(requestExtent) / imageResolution);
 
-  var url = this.getRequestUrl_(extent, this.imageSize_, pixelRatio,
+  var url = this.getRequestUrl_(requestExtent, this.imageSize_, pixelRatio,
       projection, params);
 
-  this.image_ = new ol.Image(extent, resolution, pixelRatio,
-      this.getAttributions(), url, this.crossOrigin_, this.imageLoadFunction_);
+  this.image_ = new ol.Image(requestExtent, resolution, pixelRatio,
+      url, this.crossOrigin_, this.imageLoadFunction_);
 
   this.renderedRevision_ = this.getRevision();
 
@@ -318,7 +316,7 @@ ol.source.ImageWMS.prototype.getRequestUrl_ = function(extent, size, pixelRatio,
 /**
  * Return the URL used for this WMS source.
  * @return {string|undefined} URL.
- * @api stable
+ * @api
  */
 ol.source.ImageWMS.prototype.getUrl = function() {
   return this.url_;
@@ -341,7 +339,7 @@ ol.source.ImageWMS.prototype.setImageLoadFunction = function(
 /**
  * Set the URL to use for requests.
  * @param {string|undefined} url URL.
- * @api stable
+ * @api
  */
 ol.source.ImageWMS.prototype.setUrl = function(url) {
   if (url != this.url_) {
@@ -355,7 +353,7 @@ ol.source.ImageWMS.prototype.setUrl = function(url) {
 /**
  * Update the user-provided params.
  * @param {Object} params Params.
- * @api stable
+ * @api
  */
 ol.source.ImageWMS.prototype.updateParams = function(params) {
   ol.obj.assign(this.params_, params);

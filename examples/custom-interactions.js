@@ -92,8 +92,7 @@ app.Drag.prototype.handleDragEvent = function(evt) {
   var deltaX = evt.coordinate[0] - this.coordinate_[0];
   var deltaY = evt.coordinate[1] - this.coordinate_[1];
 
-  var geometry = /** @type {ol.geom.SimpleGeometry} */
-      (this.feature_.getGeometry());
+  var geometry = this.feature_.getGeometry();
   geometry.translate(deltaX, deltaY);
 
   this.coordinate_[0] = evt.coordinate[0];
@@ -142,7 +141,7 @@ var lineFeature = new ol.Feature(
 
 var polygonFeature = new ol.Feature(
     new ol.geom.Polygon([[[-3e6, -1e6], [-3e6, 1e6],
-        [-1e6, 1e6], [-1e6, -1e6], [-3e6, -1e6]]]));
+      [-1e6, 1e6], [-1e6, -1e6], [-3e6, -1e6]]]));
 
 
 var map = new ol.Map({

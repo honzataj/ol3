@@ -1,5 +1,5 @@
 // TODO: serialize dataProjection as crs member when writing
-// see https://github.com/openlayers/ol3/issues/2078
+// see https://github.com/openlayers/openlayers/issues/2078
 
 goog.provide('ol.format.GeoJSON');
 
@@ -26,7 +26,7 @@ goog.require('ol.proj');
  * @constructor
  * @extends {ol.format.JSONFeature}
  * @param {olx.format.GeoJSONOptions=} opt_options Options.
- * @api stable
+ * @api
  */
 ol.format.GeoJSON = function(opt_options) {
 
@@ -39,7 +39,7 @@ ol.format.GeoJSON = function(opt_options) {
    */
   this.defaultDataProjection = ol.proj.get(
       options.defaultDataProjection ?
-          options.defaultDataProjection : 'EPSG:4326');
+        options.defaultDataProjection : 'EPSG:4326');
 
 
   if (options.featureProjection) {
@@ -53,16 +53,15 @@ ol.format.GeoJSON = function(opt_options) {
    */
   this.geometryName_ = options.geometryName;
 
+  /**
+   * Look for the geometry name in the feature GeoJSON
+   * @type {boolean|undefined}
+   * @private
+   */
+  this.extractGeometryName_ = options.extractGeometryName;
+
 };
 ol.inherits(ol.format.GeoJSON, ol.format.JSONFeature);
-
-
-/**
- * @const
- * @type {Array.<string>}
- * @private
- */
-ol.format.GeoJSON.EXTENSIONS_ = ['.geojson'];
 
 
 /**
@@ -77,8 +76,8 @@ ol.format.GeoJSON.readGeometry_ = function(object, opt_options) {
   }
   var geometryReader = ol.format.GeoJSON.GEOMETRY_READERS_[object.type];
   return /** @type {ol.geom.Geometry} */ (
-      ol.format.Feature.transformWithOptions(
-          geometryReader(object), false, opt_options));
+    ol.format.Feature.transformWithOptions(
+        geometryReader(object), false, opt_options));
 };
 
 
@@ -90,8 +89,6 @@ ol.format.GeoJSON.readGeometry_ = function(object, opt_options) {
  */
 ol.format.GeoJSON.readGeometryCollectionGeometry_ = function(
     object, opt_options) {
-  ol.DEBUG && console.assert(object.type == 'GeometryCollection',
-      'object.type should be GeometryCollection');
   var geometries = object.geometries.map(
       /**
        * @param {GeoJSONGeometry} geometry Geometry.
@@ -110,8 +107,6 @@ ol.format.GeoJSON.readGeometryCollectionGeometry_ = function(
  * @return {ol.geom.Point} Point.
  */
 ol.format.GeoJSON.readPointGeometry_ = function(object) {
-  ol.DEBUG && console.assert(object.type == 'Point',
-      'object.type should be Point');
   return new ol.geom.Point(object.coordinates);
 };
 
@@ -122,8 +117,6 @@ ol.format.GeoJSON.readPointGeometry_ = function(object) {
  * @return {ol.geom.LineString} LineString.
  */
 ol.format.GeoJSON.readLineStringGeometry_ = function(object) {
-  ol.DEBUG && console.assert(object.type == 'LineString',
-      'object.type should be LineString');
   return new ol.geom.LineString(object.coordinates);
 };
 
@@ -134,8 +127,6 @@ ol.format.GeoJSON.readLineStringGeometry_ = function(object) {
  * @return {ol.geom.MultiLineString} MultiLineString.
  */
 ol.format.GeoJSON.readMultiLineStringGeometry_ = function(object) {
-  ol.DEBUG && console.assert(object.type == 'MultiLineString',
-      'object.type should be MultiLineString');
   return new ol.geom.MultiLineString(object.coordinates);
 };
 
@@ -146,8 +137,6 @@ ol.format.GeoJSON.readMultiLineStringGeometry_ = function(object) {
  * @return {ol.geom.MultiPoint} MultiPoint.
  */
 ol.format.GeoJSON.readMultiPointGeometry_ = function(object) {
-  ol.DEBUG && console.assert(object.type == 'MultiPoint',
-      'object.type should be MultiPoint');
   return new ol.geom.MultiPoint(object.coordinates);
 };
 
@@ -158,8 +147,6 @@ ol.format.GeoJSON.readMultiPointGeometry_ = function(object) {
  * @return {ol.geom.MultiPolygon} MultiPolygon.
  */
 ol.format.GeoJSON.readMultiPolygonGeometry_ = function(object) {
-  ol.DEBUG && console.assert(object.type == 'MultiPolygon',
-      'object.type should be MultiPolygon');
   return new ol.geom.MultiPolygon(object.coordinates);
 };
 
@@ -170,8 +157,6 @@ ol.format.GeoJSON.readMultiPolygonGeometry_ = function(object) {
  * @return {ol.geom.Polygon} Polygon.
  */
 ol.format.GeoJSON.readPolygonGeometry_ = function(object) {
-  ol.DEBUG && console.assert(object.type == 'Polygon',
-      'object.type should be Polygon');
   return new ol.geom.Polygon(object.coordinates);
 };
 
@@ -185,8 +170,8 @@ ol.format.GeoJSON.readPolygonGeometry_ = function(object) {
 ol.format.GeoJSON.writeGeometry_ = function(geometry, opt_options) {
   var geometryWriter = ol.format.GeoJSON.GEOMETRY_WRITERS_[geometry.getType()];
   return geometryWriter(/** @type {ol.geom.Geometry} */ (
-      ol.format.Feature.transformWithOptions(geometry, true, opt_options)),
-      opt_options);
+    ol.format.Feature.transformWithOptions(geometry, true, opt_options)),
+  opt_options);
 };
 
 
@@ -349,23 +334,16 @@ ol.format.GeoJSON.GEOMETRY_WRITERS_ = {
 
 
 /**
- * @inheritDoc
- */
-ol.format.GeoJSON.prototype.getExtensions = function() {
-  return ol.format.GeoJSON.EXTENSIONS_;
-};
-
-
-/**
  * Read a feature from a GeoJSON Feature source.  Only works for Feature or
  * geometry types.  Use {@link ol.format.GeoJSON#readFeatures} to read
- * FeatureCollection source.
+ * FeatureCollection source. If feature at source has an id, it will be used
+ * as Feature id by calling {@link ol.Feature#setId} internally.
  *
  * @function
  * @param {Document|Node|Object|string} source Source.
  * @param {olx.format.ReadOptions=} opt_options Read options.
  * @return {ol.Feature} Feature.
- * @api stable
+ * @api
  */
 ol.format.GeoJSON.prototype.readFeature;
 
@@ -379,7 +357,7 @@ ol.format.GeoJSON.prototype.readFeature;
  * @param {Document|Node|Object|string} source Source.
  * @param {olx.format.ReadOptions=} opt_options Read options.
  * @return {Array.<ol.Feature>} Features.
- * @api stable
+ * @api
  */
 ol.format.GeoJSON.prototype.readFeatures;
 
@@ -389,9 +367,6 @@ ol.format.GeoJSON.prototype.readFeatures;
  */
 ol.format.GeoJSON.prototype.readFeatureFromObject = function(
     object, opt_options) {
-
-  ol.DEBUG && console.assert(object.type !== 'FeatureCollection', 'Expected a Feature or geometry');
-
   /**
    * @type {GeoJSONFeature}
    */
@@ -409,6 +384,8 @@ ol.format.GeoJSON.prototype.readFeatureFromObject = function(
   var feature = new ol.Feature();
   if (this.geometryName_) {
     feature.setGeometryName(this.geometryName_);
+  } else if (this.extractGeometryName_ && geoJSONFeature.geometry_name !== undefined) {
+    feature.setGeometryName(geoJSONFeature.geometry_name);
   }
   feature.setGeometry(geometry);
   if (geoJSONFeature.id !== undefined) {
@@ -453,7 +430,7 @@ ol.format.GeoJSON.prototype.readFeaturesFromObject = function(
  * @param {Document|Node|Object|string} source Source.
  * @param {olx.format.ReadOptions=} opt_options Read options.
  * @return {ol.geom.Geometry} Geometry.
- * @api stable
+ * @api
  */
 ol.format.GeoJSON.prototype.readGeometry;
 
@@ -474,7 +451,7 @@ ol.format.GeoJSON.prototype.readGeometryFromObject = function(
  * @function
  * @param {Document|Node|Object|string} source Source.
  * @return {ol.proj.Projection} Projection.
- * @api stable
+ * @api
  */
 ol.format.GeoJSON.prototype.readProjection;
 
@@ -489,12 +466,6 @@ ol.format.GeoJSON.prototype.readProjectionFromObject = function(object) {
   if (crs) {
     if (crs.type == 'name') {
       projection = ol.proj.get(crs.properties.name);
-    } else if (crs.type == 'EPSG') {
-      // 'EPSG' is not part of the GeoJSON specification, but is generated by
-      // GeoServer.
-      // TODO: remove this when http://jira.codehaus.org/browse/GEOS-5996
-      // is fixed and widely deployed.
-      projection = ol.proj.get('EPSG:' + crs.properties.code);
     } else {
       ol.asserts.assert(false, 36); // Unknown SRS type
     }
@@ -512,7 +483,8 @@ ol.format.GeoJSON.prototype.readProjectionFromObject = function(object) {
  * @param {ol.Feature} feature Feature.
  * @param {olx.format.WriteOptions=} opt_options Write options.
  * @return {string} GeoJSON.
- * @api stable
+ * @override
+ * @api
  */
 ol.format.GeoJSON.prototype.writeFeature;
 
@@ -523,7 +495,8 @@ ol.format.GeoJSON.prototype.writeFeature;
  * @param {ol.Feature} feature Feature.
  * @param {olx.format.WriteOptions=} opt_options Write options.
  * @return {GeoJSONFeature} Object.
- * @api stable
+ * @override
+ * @api
  */
 ol.format.GeoJSON.prototype.writeFeatureObject = function(feature, opt_options) {
   opt_options = this.adaptOptions(opt_options);
@@ -560,7 +533,7 @@ ol.format.GeoJSON.prototype.writeFeatureObject = function(feature, opt_options) 
  * @param {Array.<ol.Feature>} features Features.
  * @param {olx.format.WriteOptions=} opt_options Write options.
  * @return {string} GeoJSON.
- * @api stable
+ * @api
  */
 ol.format.GeoJSON.prototype.writeFeatures;
 
@@ -571,7 +544,8 @@ ol.format.GeoJSON.prototype.writeFeatures;
  * @param {Array.<ol.Feature>} features Features.
  * @param {olx.format.WriteOptions=} opt_options Write options.
  * @return {GeoJSONFeatureCollection} GeoJSON Object.
- * @api stable
+ * @override
+ * @api
  */
 ol.format.GeoJSON.prototype.writeFeaturesObject = function(features, opt_options) {
   opt_options = this.adaptOptions(opt_options);
@@ -594,7 +568,7 @@ ol.format.GeoJSON.prototype.writeFeaturesObject = function(features, opt_options
  * @param {ol.geom.Geometry} geometry Geometry.
  * @param {olx.format.WriteOptions=} opt_options Write options.
  * @return {string} GeoJSON.
- * @api stable
+ * @api
  */
 ol.format.GeoJSON.prototype.writeGeometry;
 
@@ -605,7 +579,8 @@ ol.format.GeoJSON.prototype.writeGeometry;
  * @param {ol.geom.Geometry} geometry Geometry.
  * @param {olx.format.WriteOptions=} opt_options Write options.
  * @return {GeoJSONGeometry|GeoJSONGeometryCollection} Object.
- * @api stable
+ * @override
+ * @api
  */
 ol.format.GeoJSON.prototype.writeGeometryObject = function(geometry,
     opt_options) {

@@ -1,4 +1,4 @@
-goog.provide('ol.test.source.ImageWMS');
+
 
 goog.require('ol.source.ImageWMS');
 goog.require('ol.proj');
@@ -6,7 +6,7 @@ goog.require('ol.proj');
 
 describe('ol.source.ImageWMS', function() {
 
-  var extent, pixelRatio, options, projection, resolution;
+  var extent, pixelRatio, options, optionsReproj, projection, resolution;
   beforeEach(function() {
     extent = [10, 20, 30, 40];
     pixelRatio = 1;
@@ -19,11 +19,56 @@ describe('ol.source.ImageWMS', function() {
       ratio: 1,
       url: 'http://example.com/wms'
     };
+    optionsReproj = {
+      params: {
+        'LAYERS': 'layer'
+      },
+      ratio: 1,
+      url: 'http://example.com/wms',
+      projection: 'EPSG:3857'
+    };
   });
 
   describe('#getImage', function() {
 
     it('returns the expected image URL', function() {
+      options.ratio = 1.5;
+      var source = new ol.source.ImageWMS(options);
+      var image = source.getImage([10, 20, 30.1, 39.9], resolution, pixelRatio, projection);
+      var uri = new URL(image.src_);
+      var queryData = uri.searchParams;
+      var extent = queryData.get('BBOX').split(',').map(Number);
+      var extentAspectRatio = (extent[3] - extent[1]) / (extent[2] - extent[0]);
+      var imageAspectRatio = Number(queryData.get('WIDTH') / Number(queryData.get('HEIGHT')));
+      expect(extentAspectRatio).to.roughlyEqual(imageAspectRatio, 1e-12);
+    });
+
+    it('uses correct WIDTH and HEIGHT for HiDPI devices', function() {
+      pixelRatio = 2;
+      options.serverType = 'geoserver';
+      var source = new ol.source.ImageWMS(options);
+      var image = source.getImage(extent, resolution, pixelRatio, projection);
+      var uri = new URL(image.src_);
+      var queryData = uri.searchParams;
+      var width = Number(queryData.get('WIDTH'));
+      var height = Number(queryData.get('HEIGHT'));
+      expect(width).to.be(400);
+      expect(height).to.be(400);
+    });
+
+    it('requests integer WIDTH and HEIGHT', function() {
+      options.ratio = 1.5;
+      var source = new ol.source.ImageWMS(options);
+      var image = source.getImage([10, 20, 30.1, 39.9], resolution, pixelRatio, projection);
+      var uri = new URL(image.src_);
+      var queryData = uri.searchParams;
+      var width = parseFloat(queryData.get('WIDTH'));
+      var height = parseFloat(queryData.get('HEIGHT'));
+      expect(width).to.be(Math.round(width));
+      expect(height).to.be(Math.round(height));
+    });
+
+    it('sets WIDTH and HEIGHT to match the aspect ratio of BBOX', function() {
       var source = new ol.source.ImageWMS(options);
       var image = source.getImage(extent, resolution, pixelRatio, projection);
       var uri = new URL(image.src_);
@@ -127,16 +172,16 @@ describe('ol.source.ImageWMS', function() {
     });
 
     it('rounds FORMAT_OPTIONS to an integer when the server is GeoServer',
-       function() {
-         options.serverType = 'geoserver';
-         var source = new ol.source.ImageWMS(options);
-         pixelRatio = 1.325;
-         var image =
+        function() {
+          options.serverType = 'geoserver';
+          var source = new ol.source.ImageWMS(options);
+          pixelRatio = 1.325;
+          var image =
              source.getImage(extent, resolution, pixelRatio, projection);
-         var uri = new URL(image.src_);
-         var queryData = uri.searchParams;
-         expect(queryData.get('FORMAT_OPTIONS')).to.be('dpi:119');
-       });
+          var uri = new URL(image.src_);
+          var queryData = uri.searchParams;
+          expect(queryData.get('FORMAT_OPTIONS')).to.be('dpi:119');
+        });
 
     it('sets DPI when the server is QGIS', function() {
       options.serverType = 'qgis';
@@ -186,7 +231,7 @@ describe('ol.source.ImageWMS', function() {
 
   });
 
-  describe('#getGetFeatureInfo', function() {
+  describe('#getGetFeatureInfoUrl', function() {
 
     it('returns the expected GetFeatureInfo URL', function() {
       var source = new ol.source.ImageWMS(options);
@@ -200,6 +245,34 @@ describe('ol.source.ImageWMS', function() {
       var queryData = uri.searchParams;
       expect(queryData.get('BBOX')).to.be('24.95,14.95,35.05,25.05');
       expect(queryData.get('CRS')).to.be('EPSG:4326');
+      expect(queryData.get('FORMAT')).to.be('image/png');
+      expect(queryData.get('HEIGHT')).to.be('101');
+      expect(queryData.get('I')).to.be('50');
+      expect(queryData.get('J')).to.be('50');
+      expect(queryData.get('LAYERS')).to.be('layer');
+      expect(queryData.get('QUERY_LAYERS')).to.be('layer');
+      expect(queryData.get('REQUEST')).to.be('GetFeatureInfo');
+      expect(queryData.get('SERVICE')).to.be('WMS');
+      expect(queryData.get('SRS')).to.be(null);
+      expect(queryData.get('STYLES')).to.be('');
+      expect(queryData.get('TRANSPARENT')).to.be('true');
+      expect(queryData.get('VERSION')).to.be('1.3.0');
+      expect(queryData.get('WIDTH')).to.be('101');
+      expect(uri.hash.replace('#', '')).to.be.empty();
+    });
+
+    it('returns the expected GetFeatureInfo URL when source\'s projection is different from the parameter', function() {
+      var source = new ol.source.ImageWMS(optionsReproj);
+      var url = source.getGetFeatureInfoUrl(
+          [20, 30], resolution, projection,
+          {INFO_FORMAT: 'text/plain'});
+      var uri = new URL(url);
+      expect(uri.protocol).to.be('http:');
+      expect(uri.hostname).to.be('example.com');
+      expect(uri.pathname).to.be('/wms');
+      var queryData = uri.searchParams;
+      expect(queryData.get('BBOX')).to.be('1577259.402312431,2854419.4299513334,2875520.229418512,4152680.2570574144');
+      expect(queryData.get('CRS')).to.be('EPSG:3857');
       expect(queryData.get('FORMAT')).to.be('image/png');
       expect(queryData.get('HEIGHT')).to.be('101');
       expect(queryData.get('I')).to.be('50');

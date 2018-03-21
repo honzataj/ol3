@@ -1,6 +1,8 @@
 goog.provide('ol.Tile');
 
 goog.require('ol');
+goog.require('ol.TileState');
+goog.require('ol.easing');
 goog.require('ol.events.EventTarget');
 goog.require('ol.events.EventType');
 
@@ -10,13 +12,16 @@ goog.require('ol.events.EventType');
  * Base class for tiles.
  *
  * @constructor
+ * @abstract
  * @extends {ol.events.EventTarget}
  * @param {ol.TileCoord} tileCoord Tile coordinate.
- * @param {ol.Tile.State} state State.
+ * @param {ol.TileState} state State.
+ * @param {olx.TileOptions=} opt_options Tile options.
  */
-ol.Tile = function(tileCoord, state) {
-
+ol.Tile = function(tileCoord, state, opt_options) {
   ol.events.EventTarget.call(this);
+
+  var options = opt_options ? opt_options : {};
 
   /**
    * @type {ol.TileCoord}
@@ -25,7 +30,7 @@ ol.Tile = function(tileCoord, state) {
 
   /**
    * @protected
-   * @type {ol.Tile.State}
+   * @type {ol.TileState}
    */
   this.state = state;
 
@@ -45,6 +50,20 @@ ol.Tile = function(tileCoord, state) {
    */
   this.key = '';
 
+  /**
+   * The duration for the opacity transition.
+   * @type {number}
+   */
+  this.transition_ = options.transition === undefined ?
+    250 : options.transition;
+
+  /**
+   * Lookup of start times for rendering transitions.  If the start time is
+   * equal to -1, the transition is complete.
+   * @type {Object.<number, number>}
+   */
+  this.transitionStarts_ = {};
+
 };
 ol.inherits(ol.Tile, ol.events.EventTarget);
 
@@ -55,14 +74,6 @@ ol.inherits(ol.Tile, ol.events.EventTarget);
 ol.Tile.prototype.changed = function() {
   this.dispatchEvent(ol.events.EventType.CHANGE);
 };
-
-
-/**
- * Get the HTML image element for this tile (may be a Canvas, Image, or Video).
- * @abstract
- * @return {HTMLCanvasElement|HTMLImageElement|HTMLVideoElement} Image.
- */
-ol.Tile.prototype.getImage = function() {};
 
 
 /**
@@ -90,7 +101,7 @@ ol.Tile.prototype.getInterimTile = function() {
   // of the list (all those tiles correspond to older requests and will be
   // cleaned up by refreshInterimChain)
   do {
-    if (tile.getState() == ol.Tile.State.LOADED) {
+    if (tile.getState() == ol.TileState.LOADED) {
       return tile;
     }
     tile = tile.interimTile;
@@ -113,17 +124,17 @@ ol.Tile.prototype.refreshInterimChain = function() {
   var prev = this;
 
   do {
-    if (tile.getState() == ol.Tile.State.LOADED) {
+    if (tile.getState() == ol.TileState.LOADED) {
       //we have a loaded tile, we can discard the rest of the list
       //we would could abort any LOADING tile request
       //older than this tile (i.e. any LOADING tile following this entry in the chain)
       tile.interimTile = null;
       break;
-    } else if (tile.getState() == ol.Tile.State.LOADING) {
+    } else if (tile.getState() == ol.TileState.LOADING) {
       //keep this LOADING tile any loaded tiles later in the chain are
       //older than this tile, so we're still interested in the request
       prev = tile;
-    } else if (tile.getState() == ol.Tile.State.IDLE) {
+    } else if (tile.getState() == ol.TileState.IDLE) {
       //the head of the list is the most current tile, we don't need
       //to start any other requests for this chain
       prev.interimTile = tile.interimTile;
@@ -145,12 +156,19 @@ ol.Tile.prototype.getTileCoord = function() {
 
 
 /**
- * @return {ol.Tile.State} State.
+ * @return {ol.TileState} State.
  */
 ol.Tile.prototype.getState = function() {
   return this.state;
 };
 
+/**
+ * @param {ol.TileState} state State.
+ */
+ol.Tile.prototype.setState = function(state) {
+  this.state = state;
+  this.changed();
+};
 
 /**
  * Load the image or retry if loading previously failed.
@@ -161,15 +179,52 @@ ol.Tile.prototype.getState = function() {
  */
 ol.Tile.prototype.load = function() {};
 
+/**
+ * Get the alpha value for rendering.
+ * @param {number} id An id for the renderer.
+ * @param {number} time The render frame time.
+ * @return {number} A number between 0 and 1.
+ */
+ol.Tile.prototype.getAlpha = function(id, time) {
+  if (!this.transition_) {
+    return 1;
+  }
+
+  var start = this.transitionStarts_[id];
+  if (!start) {
+    start = time;
+    this.transitionStarts_[id] = start;
+  } else if (start === -1) {
+    return 1;
+  }
+
+  var delta = time - start + (1000 / 60); // avoid rendering at 0
+  if (delta >= this.transition_) {
+    return 1;
+  }
+  return ol.easing.easeIn(delta / this.transition_);
+};
 
 /**
- * @enum {number}
+ * Determine if a tile is in an alpha transition.  A tile is considered in
+ * transition if tile.getAlpha() has not yet been called or has been called
+ * and returned 1.
+ * @param {number} id An id for the renderer.
+ * @return {boolean} The tile is in transition.
  */
-ol.Tile.State = {
-  IDLE: 0,
-  LOADING: 1,
-  LOADED: 2,
-  ERROR: 3,
-  EMPTY: 4,
-  ABORT: 5
+ol.Tile.prototype.inTransition = function(id) {
+  if (!this.transition_) {
+    return false;
+  }
+  return this.transitionStarts_[id] !== -1;
+};
+
+/**
+ * Mark a transition as complete.
+ * @param {number} id An id for the renderer.
+ */
+ol.Tile.prototype.endTransition = function(id) {
+  if (this.transition_) {
+    this.transitionStarts_[id] = -1;
+  }
 };

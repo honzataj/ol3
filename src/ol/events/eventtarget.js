@@ -132,8 +132,8 @@ ol.events.EventTarget.prototype.getListeners = function(type) {
  */
 ol.events.EventTarget.prototype.hasListener = function(opt_type) {
   return opt_type ?
-      opt_type in this.listeners_ :
-      Object.keys(this.listeners_).length > 0;
+    opt_type in this.listeners_ :
+    Object.keys(this.listeners_).length > 0;
 };
 
 
@@ -145,7 +145,6 @@ ol.events.EventTarget.prototype.removeEventListener = function(type, listener) {
   var listeners = this.listeners_[type];
   if (listeners) {
     var index = listeners.indexOf(listener);
-    ol.DEBUG && console.assert(index != -1, 'listener not found');
     if (type in this.pendingRemovals_) {
       // make listener a no-op, and remove later in #dispatchEvent()
       listeners[index] = ol.nullFunction;

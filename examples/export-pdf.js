@@ -30,9 +30,9 @@ var map = new ol.Map({
   layers: [raster, vector],
   target: 'map',
   controls: ol.control.defaults({
-    attributionOptions: /** @type {olx.control.AttributionOptions} */ ({
+    attributionOptions: {
       collapsible: false
-    })
+    }
   }),
   view: new ol.View({
     center: [0, 0],
@@ -89,7 +89,7 @@ exportButton.addEventListener('click', function() {
         source.un('tileloadend', tileLoadEnd, canvas);
         source.un('tileloaderror', tileLoadEnd, canvas);
         map.setSize(size);
-        map.getView().fit(extent, size);
+        map.getView().fit(extent);
         map.renderSync();
         exportButton.disabled = false;
         document.body.style.cursor = 'auto';
@@ -104,7 +104,7 @@ exportButton.addEventListener('click', function() {
   });
 
   map.setSize([width, height]);
-  map.getView().fit(extent, /** @type {ol.Size} */ (map.getSize()));
+  map.getView().fit(extent);
   map.renderSync();
 
 }, false);

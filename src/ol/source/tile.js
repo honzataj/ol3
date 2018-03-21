@@ -1,8 +1,8 @@
 goog.provide('ol.source.Tile');
 
 goog.require('ol');
-goog.require('ol.Tile');
 goog.require('ol.TileCache');
+goog.require('ol.TileState');
 goog.require('ol.events.Event');
 goog.require('ol.proj');
 goog.require('ol.size');
@@ -18,6 +18,7 @@ goog.require('ol.tilegrid');
  * Base class for sources providing images divided into a tile grid.
  *
  * @constructor
+ * @abstract
  * @extends {ol.source.Source}
  * @param {ol.SourceTileOptions} options Tile source options.
  * @api
@@ -44,7 +45,7 @@ ol.source.Tile = function(options) {
    * @type {number}
    */
   this.tilePixelRatio_ = options.tilePixelRatio !== undefined ?
-      options.tilePixelRatio : 1;
+    options.tilePixelRatio : 1;
 
   /**
    * @protected
@@ -69,6 +70,12 @@ ol.source.Tile = function(options) {
    * @type {string}
    */
   this.key_ = '';
+
+  /**
+   * @protected
+   * @type {olx.TileOptions}
+   */
+  this.tileOptions = {transition: options.transition};
 
 };
 ol.inherits(ol.source.Tile, ol.source.Source);
@@ -113,11 +120,11 @@ ol.source.Tile.prototype.forEachLoadedTile = function(projection, z, tileRange, 
   var tile, tileCoordKey, loaded;
   for (var x = tileRange.minX; x <= tileRange.maxX; ++x) {
     for (var y = tileRange.minY; y <= tileRange.maxY; ++y) {
-      tileCoordKey = this.getKeyZXY(z, x, y);
+      tileCoordKey = ol.tilecoord.getKeyZXY(z, x, y);
       loaded = false;
       if (tileCache.containsKey(tileCoordKey)) {
         tile = /** @type {!ol.Tile} */ (tileCache.get(tileCoordKey));
-        loaded = tile.getState() === ol.Tile.State.LOADED;
+        loaded = tile.getState() === ol.TileState.LOADED;
         if (loaded) {
           loaded = (callback(tile) !== false);
         }
@@ -164,16 +171,6 @@ ol.source.Tile.prototype.setKey = function(key) {
 
 
 /**
- * @param {number} z Z.
- * @param {number} x X.
- * @param {number} y Y.
- * @return {string} Key.
- * @protected
- */
-ol.source.Tile.prototype.getKeyZXY = ol.tilecoord.getKeyZXY;
-
-
-/**
  * @param {ol.proj.Projection} projection Projection.
  * @return {boolean} Opaque.
  */
@@ -205,7 +202,7 @@ ol.source.Tile.prototype.getTile = function(z, x, y, pixelRatio, projection) {};
 /**
  * Return the tile grid of the tile source.
  * @return {ol.tilegrid.TileGrid} Tile grid.
- * @api stable
+ * @api
  */
 ol.source.Tile.prototype.getTileGrid = function() {
   return this.tileGrid;
@@ -243,12 +240,11 @@ ol.source.Tile.prototype.getTileCacheForProjection = function(projection) {
 /**
  * Get the tile pixel ratio for this source. Subclasses may override this
  * method, which is meant to return a supported pixel ratio that matches the
- * provided `opt_pixelRatio` as close as possible. When no `opt_pixelRatio` is
- * provided, it is meant to return `this.tilePixelRatio_`.
- * @param {number=} opt_pixelRatio Pixel ratio.
+ * provided `pixelRatio` as close as possible.
+ * @param {number} pixelRatio Pixel ratio.
  * @return {number} Tile pixel ratio.
  */
-ol.source.Tile.prototype.getTilePixelRatio = function(opt_pixelRatio) {
+ol.source.Tile.prototype.getTilePixelRatio = function(pixelRatio) {
   return this.tilePixelRatio_;
 };
 
@@ -282,7 +278,7 @@ ol.source.Tile.prototype.getTilePixelSize = function(z, pixelRatio, projection) 
  */
 ol.source.Tile.prototype.getTileCoordForTileUrlFunction = function(tileCoord, opt_projection) {
   var projection = opt_projection !== undefined ?
-      opt_projection : this.getProjection();
+    opt_projection : this.getProjection();
   var tileGrid = this.getTileGridForProjection(projection);
   if (this.getWrapX() && projection.isGlobal()) {
     tileCoord = ol.tilegrid.wrapX(tileGrid, tileCoord, projection);
@@ -334,32 +330,3 @@ ol.source.Tile.Event = function(type, tile) {
 
 };
 ol.inherits(ol.source.Tile.Event, ol.events.Event);
-
-
-/**
- * @enum {string}
- */
-ol.source.Tile.EventType = {
-
-  /**
-   * Triggered when a tile starts loading.
-   * @event ol.source.Tile.Event#tileloadstart
-   * @api stable
-   */
-  TILELOADSTART: 'tileloadstart',
-
-  /**
-   * Triggered when a tile finishes loading.
-   * @event ol.source.Tile.Event#tileloadend
-   * @api stable
-   */
-  TILELOADEND: 'tileloadend',
-
-  /**
-   * Triggered if tile loading results in an error.
-   * @event ol.source.Tile.Event#tileloaderror
-   * @api stable
-   */
-  TILELOADERROR: 'tileloaderror'
-
-};

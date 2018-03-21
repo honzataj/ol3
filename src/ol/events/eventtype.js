@@ -12,6 +12,7 @@ ol.events.EventType = {
    */
   CHANGE: 'change',
 
+  CLEAR: 'clear',
   CLICK: 'click',
   DBLCLICK: 'dblclick',
   DRAGENTER: 'dragenter',
@@ -26,7 +27,7 @@ ol.events.EventType = {
   MOUSEOUT: 'mouseout',
   MOUSEUP: 'mouseup',
   MOUSEWHEEL: 'mousewheel',
-  MSPOINTERDOWN: 'mspointerdown',
+  MSPOINTERDOWN: 'MSPointerDown',
   RESIZE: 'resize',
   TOUCHSTART: 'touchstart',
   TOUCHMOVE: 'touchmove',

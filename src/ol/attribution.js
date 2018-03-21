@@ -22,9 +22,10 @@ goog.require('ol.tilegrid');
  *     ..
  *
  * @constructor
+ * @deprecated This class is deprecated and will removed in the next major release.
  * @param {olx.AttributionOptions} options Attribution options.
  * @struct
- * @api stable
+ * @api
  */
 ol.Attribution = function(options) {
 
@@ -46,7 +47,7 @@ ol.Attribution = function(options) {
 /**
  * Get the attribution markup.
  * @return {string} The attribution HTML.
- * @api stable
+ * @api
  */
 ol.Attribution.prototype.getHTML = function() {
   return this.html_;

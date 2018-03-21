@@ -4,7 +4,6 @@ goog.require('ol.control');
 goog.require('ol.control.MousePosition');
 goog.require('ol.coordinate');
 goog.require('ol.layer.Tile');
-goog.require('ol.proj');
 goog.require('ol.source.OSM');
 
 var mousePositionControl = new ol.control.MousePosition({
@@ -19,9 +18,9 @@ var mousePositionControl = new ol.control.MousePosition({
 
 var map = new ol.Map({
   controls: ol.control.defaults({
-    attributionOptions: /** @type {olx.control.AttributionOptions} */ ({
+    attributionOptions: {
       collapsible: false
-    })
+    }
   }).extend([mousePositionControl]),
   layers: [
     new ol.layer.Tile({
@@ -37,7 +36,7 @@ var map = new ol.Map({
 
 var projectionSelect = document.getElementById('projection');
 projectionSelect.addEventListener('change', function(event) {
-  mousePositionControl.setProjection(ol.proj.get(event.target.value));
+  mousePositionControl.setProjection(event.target.value);
 });
 
 var precisionInput = document.getElementById('precision');

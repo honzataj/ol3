@@ -1,8 +1,8 @@
 goog.provide('ol.reproj.Image');
 
 goog.require('ol');
-goog.require('ol.Image');
 goog.require('ol.ImageBase');
+goog.require('ol.ImageState');
 goog.require('ol.events');
 goog.require('ol.events.EventType');
 goog.require('ol.extent');
@@ -42,7 +42,7 @@ ol.reproj.Image = function(sourceProj, targetProj,
   var maxTargetExtent = targetProj.getExtent();
 
   var limitedTargetExtent = maxTargetExtent ?
-      ol.extent.getIntersection(targetExtent, maxTargetExtent) : targetExtent;
+    ol.extent.getIntersection(targetExtent, maxTargetExtent) : targetExtent;
 
   var targetCenter = ol.extent.getCenter(limitedTargetExtent);
   var sourceResolution = ol.reproj.calculateSourceResolution(
@@ -99,16 +99,13 @@ ol.reproj.Image = function(sourceProj, targetProj,
   this.sourceListenerKey_ = null;
 
 
-  var state = ol.Image.State.LOADED;
-  var attributions = [];
+  var state = ol.ImageState.LOADED;
 
   if (this.sourceImage_) {
-    state = ol.Image.State.IDLE;
-    attributions = this.sourceImage_.getAttributions();
+    state = ol.ImageState.IDLE;
   }
 
-  ol.ImageBase.call(this, targetExtent, targetResolution, this.sourcePixelRatio_,
-            state, attributions);
+  ol.ImageBase.call(this, targetExtent, targetResolution, this.sourcePixelRatio_, state);
 };
 ol.inherits(ol.reproj.Image, ol.ImageBase);
 
@@ -117,7 +114,7 @@ ol.inherits(ol.reproj.Image, ol.ImageBase);
  * @inheritDoc
  */
 ol.reproj.Image.prototype.disposeInternal = function() {
-  if (this.state == ol.Image.State.LOADING) {
+  if (this.state == ol.ImageState.LOADING) {
     this.unlistenSource_();
   }
   ol.ImageBase.prototype.disposeInternal.call(this);
@@ -127,7 +124,7 @@ ol.reproj.Image.prototype.disposeInternal = function() {
 /**
  * @inheritDoc
  */
-ol.reproj.Image.prototype.getImage = function(opt_context) {
+ol.reproj.Image.prototype.getImage = function() {
   return this.canvas_;
 };
 
@@ -145,7 +142,7 @@ ol.reproj.Image.prototype.getProjection = function() {
  */
 ol.reproj.Image.prototype.reproject_ = function() {
   var sourceState = this.sourceImage_.getState();
-  if (sourceState == ol.Image.State.LOADED) {
+  if (sourceState == ol.ImageState.LOADED) {
     var width = ol.extent.getWidth(this.targetExtent_) / this.targetResolution_;
     var height =
         ol.extent.getHeight(this.targetExtent_) / this.targetResolution_;
@@ -166,20 +163,20 @@ ol.reproj.Image.prototype.reproject_ = function() {
  * @inheritDoc
  */
 ol.reproj.Image.prototype.load = function() {
-  if (this.state == ol.Image.State.IDLE) {
-    this.state = ol.Image.State.LOADING;
+  if (this.state == ol.ImageState.IDLE) {
+    this.state = ol.ImageState.LOADING;
     this.changed();
 
     var sourceState = this.sourceImage_.getState();
-    if (sourceState == ol.Image.State.LOADED ||
-        sourceState == ol.Image.State.ERROR) {
+    if (sourceState == ol.ImageState.LOADED ||
+        sourceState == ol.ImageState.ERROR) {
       this.reproject_();
     } else {
       this.sourceListenerKey_ = ol.events.listen(this.sourceImage_,
           ol.events.EventType.CHANGE, function(e) {
             var sourceState = this.sourceImage_.getState();
-            if (sourceState == ol.Image.State.LOADED ||
-                sourceState == ol.Image.State.ERROR) {
+            if (sourceState == ol.ImageState.LOADED ||
+                sourceState == ol.ImageState.ERROR) {
               this.unlistenSource_();
               this.reproject_();
             }
@@ -194,8 +191,6 @@ ol.reproj.Image.prototype.load = function() {
  * @private
  */
 ol.reproj.Image.prototype.unlistenSource_ = function() {
-  ol.DEBUG && console.assert(this.sourceListenerKey_,
-      'this.sourceListenerKey_ should not be null');
   ol.events.unlistenByKey(/** @type {!ol.EventsKey} */ (this.sourceListenerKey_));
   this.sourceListenerKey_ = null;
 };

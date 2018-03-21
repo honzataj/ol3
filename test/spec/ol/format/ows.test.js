@@ -1,4 +1,4 @@
-goog.provide('ol.test.format.OWS');
+
 
 goog.require('ol.format.OWS');
 goog.require('ol.xml');
@@ -42,7 +42,7 @@ describe('ol.format.OWS 1.1', function() {
                     '</ows:ServiceContact>' +
                 '</ows:ServiceProvider>' +
             '</ows:GetCapabilities>'
-        );
+    );
 
     var obj = parser.read(doc);
     expect(obj).to.be.ok();
@@ -76,12 +76,17 @@ describe('ol.format.OWS 1.1', function() {
             '<ows:AccessConstraints>none</ows:AccessConstraints>' +
         '</ows:ServiceIdentification>' +
         '</ows:GetCapabilities>'
-        );
+    );
     var obj = parser.readFromNode(doc.firstChild);
     expect(obj).to.be.ok();
 
     var serviceIdentification = obj.ServiceIdentification;
     expect(serviceIdentification).to.be.ok();
+    expect(serviceIdentification.Abstract).to.eql(
+        'Service that contrains the map access interface to some TileMatrixSets'
+    );
+    expect(serviceIdentification.AccessConstraints).to.eql('none');
+    expect(serviceIdentification.Fees).to.eql('none');
     expect(serviceIdentification.Title).to.eql('Web Map Tile Service');
     expect(serviceIdentification.ServiceTypeVersion).to.eql('1.0.0');
     expect(serviceIdentification.ServiceType).to.eql('OGC WMTS');
@@ -129,7 +134,7 @@ describe('ol.format.OWS 1.1', function() {
             '</ows:Operation>' +
         '</ows:OperationsMetadata>' +
         '</ows:GetCapabilities>'
-        );
+    );
     var obj = parser.readFromNode(doc.firstChild);
     expect(obj).to.be.ok();
 

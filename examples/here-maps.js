@@ -3,8 +3,8 @@ goog.require('ol.View');
 goog.require('ol.layer.Tile');
 goog.require('ol.source.XYZ');
 
-var appId = 'a2qhegvZZFIuJDkkqjhQ';
-var appCode = 'lPJ3iaFLJDhD8fIAyU582A';
+var appId = 'kDm0Jq1K4Ak7Bwtn8uvk';
+var appCode = 'xnmvc4dKZrDfGlvQHXSvwQ';
 var hereLayers = [
   {
     base: 'base',
@@ -61,7 +61,7 @@ for (i = 0, ii = hereLayers.length; i < ii; ++i) {
     preload: Infinity,
     source: new ol.source.XYZ({
       url: createUrl(urlTpl, layerDesc),
-      attributions: 'Map Tiles &copy; 2016 ' +
+      attributions: 'Map Tiles &copy; ' + new Date().getFullYear() + ' ' +
         '<a href="http://developer.here.com">HERE</a>'
     })
   }));
@@ -81,11 +81,11 @@ var map = new ol.Map({
 
 function createUrl(tpl, layerDesc) {
   return tpl
-    .replace('{base}', layerDesc.base)
-    .replace('{type}', layerDesc.type)
-    .replace('{scheme}', layerDesc.scheme)
-    .replace('{app_id}', layerDesc.app_id)
-    .replace('{app_code}', layerDesc.app_code);
+      .replace('{base}', layerDesc.base)
+      .replace('{type}', layerDesc.type)
+      .replace('{scheme}', layerDesc.scheme)
+      .replace('{app_id}', layerDesc.app_id)
+      .replace('{app_code}', layerDesc.app_code);
 }
 
 var select = document.getElementById('layer-select');

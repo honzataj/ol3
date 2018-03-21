@@ -7,15 +7,17 @@ goog.require('ol.events.EventType');
 goog.require('ol.extent');
 goog.require('ol.functions');
 goog.require('ol.layer.Layer');
+goog.require('ol.plugins');
 goog.require('ol.style');
 goog.require('ol.transform');
 
 
 /**
  * @constructor
+ * @abstract
  * @extends {ol.Disposable}
  * @param {Element} container Container.
- * @param {ol.Map} map Map.
+ * @param {ol.PluggableMap} map Map.
  * @struct
  * @api
  */
@@ -26,7 +28,7 @@ ol.renderer.Map = function(container, map) {
 
   /**
    * @private
-   * @type {ol.Map}
+   * @type {ol.PluggableMap}
    */
   this.map_ = map;
 
@@ -54,8 +56,6 @@ ol.renderer.Map.prototype.calculateMatrices2D = function(frameState) {
   var viewState = frameState.viewState;
   var coordinateToPixelTransform = frameState.coordinateToPixelTransform;
   var pixelToCoordinateTransform = frameState.pixelToCoordinateTransform;
-  ol.DEBUG && console.assert(coordinateToPixelTransform,
-      'frameState has a coordinateToPixelTransform');
 
   ol.transform.compose(coordinateToPixelTransform,
       frameState.size[0] / 2, frameState.size[1] / 2,
@@ -69,26 +69,17 @@ ol.renderer.Map.prototype.calculateMatrices2D = function(frameState) {
 
 
 /**
- * @abstract
- * @param {ol.layer.Layer} layer Layer.
- * @protected
- * @return {ol.renderer.Layer} layerRenderer Layer renderer.
+ * Removes all layer renderers.
  */
-ol.renderer.Map.prototype.createLayerRenderer = function(layer) {};
-
-
-/**
- * @inheritDoc
- */
-ol.renderer.Map.prototype.disposeInternal = function() {
-  for (var id in this.layerRenderers_) {
-    this.layerRenderers_[id].dispose();
+ol.renderer.Map.prototype.removeLayerRenderers = function() {
+  for (var key in this.layerRenderers_) {
+    this.removeLayerRendererByKey_(key).dispose();
   }
 };
 
 
 /**
- * @param {ol.Map} map Map.
+ * @param {ol.PluggableMap} map Map.
  * @param {olx.FrameState} frameState Frame state.
  * @private
  */
@@ -101,6 +92,7 @@ ol.renderer.Map.expireIconCache_ = function(map, frameState) {
 /**
  * @param {ol.Coordinate} coordinate Coordinate.
  * @param {olx.FrameState} frameState FrameState.
+ * @param {number} hitTolerance Hit tolerance in pixels.
  * @param {function(this: S, (ol.Feature|ol.render.Feature),
  *     ol.layer.Layer): T} callback Feature callback.
  * @param {S} thisArg Value to use as `this` when executing `callback`.
@@ -112,8 +104,8 @@ ol.renderer.Map.expireIconCache_ = function(map, frameState) {
  * @return {T|undefined} Callback result.
  * @template S,T,U
  */
-ol.renderer.Map.prototype.forEachFeatureAtCoordinate = function(coordinate, frameState, callback, thisArg,
-        layerFilter, thisArg2) {
+ol.renderer.Map.prototype.forEachFeatureAtCoordinate = function(coordinate, frameState, hitTolerance, callback, thisArg,
+    layerFilter, thisArg2) {
   var result;
   var viewState = frameState.viewState;
   var viewResolution = viewState.resolution;
@@ -156,7 +148,7 @@ ol.renderer.Map.prototype.forEachFeatureAtCoordinate = function(coordinate, fram
       if (layer.getSource()) {
         result = layerRenderer.forEachFeatureAtCoordinate(
             layer.getSource().getWrapX() ? translatedCoordinate : coordinate,
-            frameState, forEachFeatureAtCoordinate, thisArg);
+            frameState, hitTolerance, forEachFeatureAtCoordinate, thisArg);
       }
       if (result) {
         return result;
@@ -168,6 +160,7 @@ ol.renderer.Map.prototype.forEachFeatureAtCoordinate = function(coordinate, fram
 
 
 /**
+ * @abstract
  * @param {ol.Pixel} pixel Pixel.
  * @param {olx.FrameState} frameState FrameState.
  * @param {function(this: S, ol.layer.Layer, (Uint8ClampedArray|Uint8Array)): T} callback Layer
@@ -182,34 +175,13 @@ ol.renderer.Map.prototype.forEachFeatureAtCoordinate = function(coordinate, fram
  * @template S,T,U
  */
 ol.renderer.Map.prototype.forEachLayerAtPixel = function(pixel, frameState, callback, thisArg,
-        layerFilter, thisArg2) {
-  var result;
-  var viewState = frameState.viewState;
-  var viewResolution = viewState.resolution;
-
-  var layerStates = frameState.layerStatesArray;
-  var numLayers = layerStates.length;
-  var i;
-  for (i = numLayers - 1; i >= 0; --i) {
-    var layerState = layerStates[i];
-    var layer = layerState.layer;
-    if (ol.layer.Layer.visibleAtResolution(layerState, viewResolution) &&
-        layerFilter.call(thisArg2, layer)) {
-      var layerRenderer = this.getLayerRenderer(layer);
-      result = layerRenderer.forEachLayerAtPixel(
-          pixel, frameState, callback, thisArg);
-      if (result) {
-        return result;
-      }
-    }
-  }
-  return undefined;
-};
+    layerFilter, thisArg2) {};
 
 
 /**
  * @param {ol.Coordinate} coordinate Coordinate.
  * @param {olx.FrameState} frameState FrameState.
+ * @param {number} hitTolerance Hit tolerance in pixels.
  * @param {function(this: U, ol.layer.Layer): boolean} layerFilter Layer filter
  *     function, only layers which are visible and for which this function
  *     returns `true` will be tested for features.  By default, all visible
@@ -218,9 +190,9 @@ ol.renderer.Map.prototype.forEachLayerAtPixel = function(pixel, frameState, call
  * @return {boolean} Is there a feature at the given coordinate?
  * @template U
  */
-ol.renderer.Map.prototype.hasFeatureAtCoordinate = function(coordinate, frameState, layerFilter, thisArg) {
+ol.renderer.Map.prototype.hasFeatureAtCoordinate = function(coordinate, frameState, hitTolerance, layerFilter, thisArg) {
   var hasFeature = this.forEachFeatureAtCoordinate(
-      coordinate, frameState, ol.functions.TRUE, this, layerFilter, thisArg);
+      coordinate, frameState, hitTolerance, ol.functions.TRUE, this, layerFilter, thisArg);
 
   return hasFeature !== undefined;
 };
@@ -236,12 +208,24 @@ ol.renderer.Map.prototype.getLayerRenderer = function(layer) {
   if (layerKey in this.layerRenderers_) {
     return this.layerRenderers_[layerKey];
   } else {
-    var layerRenderer = this.createLayerRenderer(layer);
-    this.layerRenderers_[layerKey] = layerRenderer;
-    this.layerRendererListeners_[layerKey] = ol.events.listen(layerRenderer,
-        ol.events.EventType.CHANGE, this.handleLayerRendererChange_, this);
-
-    return layerRenderer;
+    var layerRendererPlugins = ol.plugins.getLayerRendererPlugins();
+    var renderer;
+    var type = this.getType();
+    for (var i = 0, ii = layerRendererPlugins.length; i < ii; ++i) {
+      var plugin = layerRendererPlugins[i];
+      if (plugin['handles'](type, layer)) {
+        renderer = plugin['create'](this, layer);
+        break;
+      }
+    }
+    if (renderer) {
+      this.layerRenderers_[layerKey] = renderer;
+      this.layerRendererListeners_[layerKey] = ol.events.listen(renderer,
+          ol.events.EventType.CHANGE, this.handleLayerRendererChange_, this);
+    } else {
+      throw new Error('Unable to create renderer for layer: ' + layer.getType());
+    }
+    return renderer;
   }
 };
 
@@ -252,8 +236,6 @@ ol.renderer.Map.prototype.getLayerRenderer = function(layer) {
  * @return {ol.renderer.Layer} Layer renderer.
  */
 ol.renderer.Map.prototype.getLayerRendererByKey = function(layerKey) {
-  ol.DEBUG && console.assert(layerKey in this.layerRenderers_,
-      'given layerKey (%s) exists in layerRenderers', layerKey);
   return this.layerRenderers_[layerKey];
 };
 
@@ -268,7 +250,7 @@ ol.renderer.Map.prototype.getLayerRenderers = function() {
 
 
 /**
- * @return {ol.Map} Map.
+ * @return {ol.PluggableMap} Map.
  */
 ol.renderer.Map.prototype.getMap = function() {
   return this.map_;
@@ -277,7 +259,7 @@ ol.renderer.Map.prototype.getMap = function() {
 
 /**
  * @abstract
- * @return {string} Type
+ * @return {ol.renderer.Type} Type
  */
 ol.renderer.Map.prototype.getType = function() {};
 
@@ -297,13 +279,9 @@ ol.renderer.Map.prototype.handleLayerRendererChange_ = function() {
  * @private
  */
 ol.renderer.Map.prototype.removeLayerRendererByKey_ = function(layerKey) {
-  ol.DEBUG && console.assert(layerKey in this.layerRenderers_,
-      'given layerKey (%s) exists in layerRenderers', layerKey);
   var layerRenderer = this.layerRenderers_[layerKey];
   delete this.layerRenderers_[layerKey];
 
-  ol.DEBUG && console.assert(layerKey in this.layerRendererListeners_,
-      'given layerKey (%s) exists in layerRendererListeners', layerKey);
   ol.events.unlistenByKey(this.layerRendererListeners_[layerKey]);
   delete this.layerRendererListeners_[layerKey];
 
@@ -319,7 +297,7 @@ ol.renderer.Map.prototype.renderFrame = ol.nullFunction;
 
 
 /**
- * @param {ol.Map} map Map.
+ * @param {ol.PluggableMap} map Map.
  * @param {olx.FrameState} frameState Frame state.
  * @private
  */
@@ -339,7 +317,7 @@ ol.renderer.Map.prototype.removeUnusedLayerRenderers_ = function(map, frameState
  */
 ol.renderer.Map.prototype.scheduleExpireIconCache = function(frameState) {
   frameState.postRenderFunctions.push(
-    /** @type {ol.PostRenderFunction} */ (ol.renderer.Map.expireIconCache_)
+      /** @type {ol.PostRenderFunction} */ (ol.renderer.Map.expireIconCache_)
   );
 };
 
@@ -353,7 +331,7 @@ ol.renderer.Map.prototype.scheduleRemoveUnusedLayerRenderers = function(frameSta
   for (layerKey in this.layerRenderers_) {
     if (!(layerKey in frameState.layerStates)) {
       frameState.postRenderFunctions.push(
-        /** @type {ol.PostRenderFunction} */ (this.removeUnusedLayerRenderers_.bind(this))
+          /** @type {ol.PostRenderFunction} */ (this.removeUnusedLayerRenderers_.bind(this))
       );
       return;
     }

@@ -1,8 +1,9 @@
-goog.require('ol.DeviceOrientation');
+// NOCOMPILE
 goog.require('ol.Map');
 goog.require('ol.View');
 goog.require('ol.control');
 goog.require('ol.layer.Tile');
+goog.require('ol.math');
 goog.require('ol.proj');
 goog.require('ol.source.OSM');
 
@@ -21,39 +22,35 @@ var map = new ol.Map({
   ],
   target: 'map',
   controls: ol.control.defaults({
-    attributionOptions: /** @type {olx.control.AttributionOptions} */ ({
+    attributionOptions: {
       collapsible: false
-    })
+    }
   }),
   view: view
 });
-
-var deviceOrientation = new ol.DeviceOrientation();
 
 function el(id) {
   return document.getElementById(id);
 }
 
-el('track').addEventListener('change', function() {
-  deviceOrientation.setTracking(this.checked);
-});
 
-deviceOrientation.on('change', function() {
-  el('alpha').innerText = deviceOrientation.getAlpha() + ' [rad]';
-  el('beta').innerText = deviceOrientation.getBeta() + ' [rad]';
-  el('gamma').innerText = deviceOrientation.getGamma() + ' [rad]';
-  el('heading').innerText = deviceOrientation.getHeading() + ' [rad]';
-});
+var gn = new GyroNorm();
 
-// tilt the map
-deviceOrientation.on(['change:beta', 'change:gamma'], function(event) {
-  var center = view.getCenter();
-  var resolution = view.getResolution();
-  var beta = event.target.getBeta() || 0;
-  var gamma = event.target.getGamma() || 0;
+gn.init().then(function() {
+  gn.start(function(event) {
+    var center = view.getCenter();
+    var resolution = view.getResolution();
+    var alpha = ol.math.toRadians(event.do.beta);
+    var beta = ol.math.toRadians(event.do.beta);
+    var gamma = ol.math.toRadians(event.do.gamma);
 
-  center[0] -= resolution * gamma * 25;
-  center[1] += resolution * beta * 25;
+    el('alpha').innerText = alpha + ' [rad]';
+    el('beta').innerText = beta + ' [rad]';
+    el('gamma').innerText = gamma + ' [rad]';
 
-  view.setCenter(view.constrainCenter(center));
+    center[0] -= resolution * gamma * 25;
+    center[1] += resolution * beta * 25;
+
+    view.setCenter(view.constrainCenter(center));
+  });
 });

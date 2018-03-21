@@ -24,9 +24,9 @@ var map = new ol.Map({
     })
   ],
   controls: ol.control.defaults({
-    attributionOptions: /** @type {olx.control.AttributionOptions} */ ({
+    attributionOptions: {
       collapsible: false
-    })
+    }
   }),
   target: 'map',
   view: new ol.View({
@@ -84,7 +84,7 @@ function flash(feature) {
       ol.Observable.unByKey(listenerKey);
       return;
     }
-    // tell OL3 to continue postcompose animation
+    // tell OpenLayers to continue postcompose animation
     map.render();
   }
   listenerKey = map.on('postcompose', animate);

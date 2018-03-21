@@ -64,16 +64,29 @@ ol.format.WMSGetFeatureInfo.layerIdentifier_ = '_layer';
 
 
 /**
+ * @return {Array.<string>} layers
+ */
+ol.format.WMSGetFeatureInfo.prototype.getLayers = function() {
+  return this.layers_;
+};
+
+
+/**
+ * @param {Array.<string>} layers Layers to parse.
+ */
+ol.format.WMSGetFeatureInfo.prototype.setLayers = function(layers) {
+  this.layers_ = layers;
+};
+
+
+/**
  * @param {Node} node Node.
  * @param {Array.<*>} objectStack Object stack.
  * @return {Array.<ol.Feature>} Features.
  * @private
  */
 ol.format.WMSGetFeatureInfo.prototype.readFeatures_ = function(node, objectStack) {
-
   node.setAttribute('namespaceURI', this.featureNS_);
-  ol.DEBUG && console.assert(node.nodeType == Node.ELEMENT_NODE,
-      'node.nodeType should be ELEMENT');
   var localName = node.localName;
   /** @type {Array.<ol.Feature>} */
   var features = [];
@@ -87,10 +100,6 @@ ol.format.WMSGetFeatureInfo.prototype.readFeatures_ = function(node, objectStack
         continue;
       }
       var context = objectStack[0];
-
-      ol.DEBUG && console.assert(layer.localName.indexOf(
-          ol.format.WMSGetFeatureInfo.layerIdentifier_) >= 0,
-          'localName of layer node should match layerIdentifier');
 
       var toRemove = ol.format.WMSGetFeatureInfo.layerIdentifier_;
       var layerName = layer.localName.replace(toRemove, '');
@@ -137,7 +146,7 @@ ol.format.WMSGetFeatureInfo.prototype.readFeatures_ = function(node, objectStack
  * @param {Document|Node|Object|string} source Source.
  * @param {olx.format.ReadOptions=} opt_options Options.
  * @return {Array.<ol.Feature>} Features.
- * @api stable
+ * @api
  */
 ol.format.WMSGetFeatureInfo.prototype.readFeatures;
 
@@ -152,3 +161,24 @@ ol.format.WMSGetFeatureInfo.prototype.readFeaturesFromNode = function(node, opt_
   }
   return this.readFeatures_(node, [options]);
 };
+
+
+/**
+ * Not implemented.
+ * @inheritDoc
+ */
+ol.format.WMSGetFeatureInfo.prototype.writeFeatureNode = function(feature, opt_options) {};
+
+
+/**
+ * Not implemented.
+ * @inheritDoc
+ */
+ol.format.WMSGetFeatureInfo.prototype.writeFeaturesNode = function(features, opt_options) {};
+
+
+/**
+ * Not implemented.
+ * @inheritDoc
+ */
+ol.format.WMSGetFeatureInfo.prototype.writeGeometryNode = function(geometry, opt_options) {};

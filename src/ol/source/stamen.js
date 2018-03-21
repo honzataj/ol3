@@ -1,7 +1,6 @@
 goog.provide('ol.source.Stamen');
 
 goog.require('ol');
-goog.require('ol.Attribution');
 goog.require('ol.source.OSM');
 goog.require('ol.source.XYZ');
 
@@ -13,22 +12,17 @@ goog.require('ol.source.XYZ');
  * @constructor
  * @extends {ol.source.XYZ}
  * @param {olx.source.StamenOptions} options Stamen options.
- * @api stable
+ * @api
  */
 ol.source.Stamen = function(options) {
-
   var i = options.layer.indexOf('-');
   var provider = i == -1 ? options.layer : options.layer.slice(0, i);
-  ol.DEBUG && console.assert(provider in ol.source.Stamen.ProviderConfig,
-      'known provider configured');
   var providerConfig = ol.source.Stamen.ProviderConfig[provider];
 
-  ol.DEBUG && console.assert(options.layer in ol.source.Stamen.LayerConfig,
-      'known layer configured');
   var layerConfig = ol.source.Stamen.LayerConfig[options.layer];
 
   var url = options.url !== undefined ? options.url :
-      'https://stamen-tiles-{a-d}.a.ssl.fastly.net/' + options.layer +
+    'https://stamen-tiles-{a-d}.a.ssl.fastly.net/' + options.layer +
       '/{z}/{x}/{y}.' + layerConfig.extension;
 
   ol.source.XYZ.call(this, {
@@ -40,23 +34,21 @@ ol.source.Stamen = function(options) {
     opaque: layerConfig.opaque,
     reprojectionErrorThreshold: options.reprojectionErrorThreshold,
     tileLoadFunction: options.tileLoadFunction,
-    url: url
+    url: url,
+    wrapX: options.wrapX
   });
-
 };
 ol.inherits(ol.source.Stamen, ol.source.XYZ);
 
 
 /**
  * @const
- * @type {Array.<ol.Attribution>}
+ * @type {Array.<string>}
  */
 ol.source.Stamen.ATTRIBUTIONS = [
-  new ol.Attribution({
-    html: 'Map tiles by <a href="http://stamen.com/">Stamen Design</a>, ' +
-        'under <a href="http://creativecommons.org/licenses/by/3.0/">CC BY' +
-        ' 3.0</a>.'
-  }),
+  'Map tiles by <a href="https://stamen.com/">Stamen Design</a>, ' +
+        'under <a href="https://creativecommons.org/licenses/by/3.0/">CC BY' +
+        ' 3.0</a>.',
   ol.source.OSM.ATTRIBUTION
 ];
 

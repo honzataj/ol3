@@ -81,18 +81,24 @@ var Draw = {
     this.LineString.setActive(false);
     map.addInteraction(this.Polygon);
     this.Polygon.setActive(false);
+    map.addInteraction(this.Circle);
+    this.Circle.setActive(false);
   },
   Point: new ol.interaction.Draw({
     source: vector.getSource(),
-    type: /** @type {ol.geom.GeometryType} */ ('Point')
+    type: 'Point'
   }),
   LineString: new ol.interaction.Draw({
     source: vector.getSource(),
-    type: /** @type {ol.geom.GeometryType} */ ('LineString')
+    type: 'LineString'
   }),
   Polygon: new ol.interaction.Draw({
     source: vector.getSource(),
-    type: /** @type {ol.geom.GeometryType} */ ('Polygon')
+    type: 'Polygon'
+  }),
+  Circle: new ol.interaction.Draw({
+    source: vector.getSource(),
+    type: 'Circle'
   }),
   getActive: function() {
     return this.activeType ? this[this.activeType].getActive() : false;

@@ -2,7 +2,7 @@ goog.provide('ol.interaction.Extent');
 
 goog.require('ol');
 goog.require('ol.Feature');
-goog.require('ol.MapBrowserEvent.EventType');
+goog.require('ol.MapBrowserEventType');
 goog.require('ol.MapBrowserPointerEvent');
 goog.require('ol.coordinate');
 goog.require('ol.events.Event');
@@ -10,6 +10,7 @@ goog.require('ol.extent');
 goog.require('ol.geom.GeometryType');
 goog.require('ol.geom.Point');
 goog.require('ol.geom.Polygon');
+goog.require('ol.interaction.ExtentEventType');
 goog.require('ol.interaction.Pointer');
 goog.require('ol.layer.Vector');
 goog.require('ol.source.Vector');
@@ -30,6 +31,8 @@ goog.require('ol.style.Style');
  */
 ol.interaction.Extent = function(opt_options) {
 
+  var options = opt_options || {};
+
   /**
    * Extent of the drawn box
    * @type {ol.Extent}
@@ -49,7 +52,8 @@ ol.interaction.Extent = function(opt_options) {
    * @type {number}
    * @private
    */
-  this.pixelTolerance_ = 10;
+  this.pixelTolerance_ = options.pixelTolerance !== undefined ?
+    options.pixelTolerance : 10;
 
   /**
    * Is the pointer snapped to an extent vertex
@@ -74,10 +78,6 @@ ol.interaction.Extent = function(opt_options) {
 
   if (!opt_options) {
     opt_options = {};
-  }
-
-  if (opt_options.extent) {
-    this.setExtent(opt_options.extent);
   }
 
   /* Inherit ol.interaction.Pointer */
@@ -117,6 +117,10 @@ ol.interaction.Extent = function(opt_options) {
     updateWhileAnimating: true,
     updateWhileInteracting: true
   });
+
+  if (opt_options.extent) {
+    this.setExtent(opt_options.extent);
+  }
 };
 
 ol.inherits(ol.interaction.Extent, ol.interaction.Pointer);
@@ -132,7 +136,7 @@ ol.interaction.Extent.handleEvent_ = function(mapBrowserEvent) {
     return true;
   }
   //display pointer (if not dragging)
-  if (mapBrowserEvent.type == ol.MapBrowserEvent.EventType.POINTERMOVE && !this.handlingDownUpSequence) {
+  if (mapBrowserEvent.type == ol.MapBrowserEventType.POINTERMOVE && !this.handlingDownUpSequence) {
     this.handlePointerMove_(mapBrowserEvent);
   }
   //call pointer to determine up/down/drag
@@ -183,13 +187,13 @@ ol.interaction.Extent.handleDownEvent_ = function(mapBrowserEvent) {
     //snap to edge
     } else if (x !== null) {
       this.pointerHandler_ = ol.interaction.Extent.getEdgeHandler_(
-        getOpposingPoint([x, extent[1]]),
-        getOpposingPoint([x, extent[3]])
+          getOpposingPoint([x, extent[1]]),
+          getOpposingPoint([x, extent[3]])
       );
     } else if (y !== null) {
       this.pointerHandler_ = ol.interaction.Extent.getEdgeHandler_(
-        getOpposingPoint([extent[0], y]),
-        getOpposingPoint([extent[2], y])
+          getOpposingPoint([extent[0], y]),
+          getOpposingPoint([extent[2], y])
       );
     }
   //no snap - new bbox
@@ -305,7 +309,7 @@ ol.interaction.Extent.getSegments_ = function(extent) {
 
 /**
  * @param {ol.Pixel} pixel cursor location
- * @param {ol.Map} map map
+ * @param {ol.PluggableMap} map map
  * @returns {ol.Coordinate|null} snapped vertex on extent
  * @private
  */
@@ -327,9 +331,7 @@ ol.interaction.Extent.prototype.snapToVertex_ = function(pixel, map) {
     var vertexPixel = map.getPixelFromCoordinate(vertex);
 
     //if the distance is within tolerance, snap to the segment
-    if (Math.sqrt(ol.coordinate.squaredDistance(pixel, vertexPixel)) <=
-        this.pixelTolerance_) {
-
+    if (ol.coordinate.distance(pixel, vertexPixel) <= this.pixelTolerance_) {
       //test if we should further snap to a vertex
       var pixel1 = map.getPixelFromCoordinate(closestSegment[0]);
       var pixel2 = map.getPixelFromCoordinate(closestSegment[1]);
@@ -339,7 +341,7 @@ ol.interaction.Extent.prototype.snapToVertex_ = function(pixel, map) {
       this.snappedToVertex_ = dist <= this.pixelTolerance_;
       if (this.snappedToVertex_) {
         vertex = squaredDist1 > squaredDist2 ?
-            closestSegment[1] : closestSegment[0];
+          closestSegment[1] : closestSegment[0];
       }
       return vertex;
     }
@@ -447,30 +449,19 @@ ol.interaction.Extent.prototype.setExtent = function(extent) {
  * this type.
  *
  * @constructor
+ * @implements {oli.ExtentEvent}
  * @param {ol.Extent} extent the new extent
  * @extends {ol.events.Event}
  */
 ol.interaction.Extent.Event = function(extent) {
-  ol.events.Event.call(this, ol.interaction.Extent.EventType.EXTENTCHANGED);
+  ol.events.Event.call(this, ol.interaction.ExtentEventType.EXTENTCHANGED);
 
   /**
    * The current extent.
    * @type {ol.Extent}
    * @api
    */
-  this.extent_ = extent;
+  this.extent = extent;
+
 };
 ol.inherits(ol.interaction.Extent.Event, ol.events.Event);
-
-
-/**
- * @enum {string}
- */
-ol.interaction.Extent.EventType = {
-  /**
-   * Triggered after the extent is changed
-   * @event ol.interaction.Extent.Event
-   * @api
-   */
-  EXTENTCHANGED: 'extentchanged'
-};

@@ -1,6 +1,6 @@
-goog.provide('ol.test.source.Zoomify');
 
-goog.require('ol.dom');
+
+goog.require('ol');
 goog.require('ol.events');
 goog.require('ol.proj.Projection');
 goog.require('ol.source.Zoomify');
@@ -11,7 +11,8 @@ describe('ol.source.Zoomify', function() {
   var w = 1024;
   var h = 512;
   var size = [w, h];
-  var url = 'zoomify-url/';
+  var zoomifyUrl = 'spec/ol/source/images/zoomify/{TileGroup}/{z}-{x}-{y}.jpg';
+  var iipUrl = 'spec/ol/source/images/zoomify?JTL={z},{tileIndex}';
   var proj = new ol.proj.Projection({
     code: 'ZOOMIFY',
     units: 'pixels',
@@ -19,8 +20,28 @@ describe('ol.source.Zoomify', function() {
   });
   function getZoomifySource() {
     return new ol.source.Zoomify({
-      url: url,
+      url: zoomifyUrl,
       size: size
+    });
+  }
+  function getZoomifySourceWithExtentInFirstQuadrant() {
+    return new ol.source.Zoomify({
+      url: zoomifyUrl,
+      size: size,
+      extent: [0, 0, size[0], size[1]]
+    });
+  }
+  function getIIPSource() {
+    return new ol.source.Zoomify({
+      url: iipUrl,
+      size: size
+    });
+  }
+  function getZoomifySourceWith1024pxTiles() {
+    return new ol.source.Zoomify({
+      url: zoomifyUrl,
+      size: size,
+      tileSize: 1024
     });
   }
 
@@ -55,9 +76,12 @@ describe('ol.source.Zoomify', function() {
       // we got a source
       expect(source).to.be.a(ol.source.Zoomify);
 
-      // also test our helper method from above
+      // also test our helper methods from above
       expect(function() {
         source = getZoomifySource();
+      }).to.not.throwException();
+      expect(function() {
+        source = getIIPSource();
       }).to.not.throwException();
       // we got a source
       expect(source).to.be.a(ol.source.Zoomify);
@@ -99,10 +123,12 @@ describe('ol.source.Zoomify', function() {
       }).to.throwException();
     });
 
-    it('creates a tileGrid', function() {
-      var source = getZoomifySource();
-      var tileGrid = source.getTileGrid();
-      expect(tileGrid).to.be.a(ol.tilegrid.TileGrid);
+    it('creates a tileGrid for both protocols', function() {
+      var sources = [getZoomifySource(), getIIPSource()];
+      for (var i = 0; i < sources.length; i++) {
+        var tileGrid = sources[i].getTileGrid();
+        expect(tileGrid).to.be.a(ol.tilegrid.TileGrid);
+      }
     });
 
   });
@@ -110,24 +136,63 @@ describe('ol.source.Zoomify', function() {
   describe('generated tileGrid', function() {
 
     it('has expected extent', function() {
-      var source = getZoomifySource();
-      var tileGrid = source.getTileGrid();
-      var expectedExtent = [0, -h, w, 0];
-      expect(tileGrid.getExtent()).to.eql(expectedExtent);
+      var sources = [getZoomifySource(), getIIPSource()];
+      for (var i = 0; i < sources.length; i++) {
+        var tileGrid = sources[i].getTileGrid();
+        var expectedExtent = [0, -h, w, 0];
+        expect(tileGrid.getExtent()).to.eql(expectedExtent);
+      }
     });
 
     it('has expected origin', function() {
-      var source = getZoomifySource();
-      var tileGrid = source.getTileGrid();
-      var expectedOrigin = [0, 0];
-      expect(tileGrid.getOrigin()).to.eql(expectedOrigin);
+      var sources = [getZoomifySource(), getIIPSource()];
+      for (var i = 0; i < sources.length; i++) {
+        var tileGrid = sources[i].getTileGrid();
+        var expectedOrigin = [0, 0];
+        expect(tileGrid.getOrigin()).to.eql(expectedOrigin);
+      }
     });
 
     it('has expected resolutions', function() {
-      var source = getZoomifySource();
-      var tileGrid = source.getTileGrid();
-      var expectedResolutions = [4, 2, 1];
-      expect(tileGrid.getResolutions()).to.eql(expectedResolutions);
+      var sources = [getZoomifySource(), getIIPSource()];
+      for (var i = 0; i < sources.length; i++) {
+        var tileGrid = sources[i].getTileGrid();
+        var expectedResolutions = [4, 2, 1];
+        expect(tileGrid.getResolutions()).to.eql(expectedResolutions);
+      }
+    });
+
+    it('has expected tileSize', function() {
+      var sources = [getZoomifySource(), getZoomifySourceWith1024pxTiles()];
+      var expectedTileSizes = [ol.DEFAULT_TILE_SIZE, 1024];
+      for (var i = 0; i < sources.length; i++) {
+        var tileGrid = sources[i].getTileGrid();
+        expect(tileGrid.getTileSize()).to.eql(expectedTileSizes[i]);
+      }
+    });
+
+    it('has expected extent', function() {
+      var sources = [getZoomifySource(), getZoomifySourceWithExtentInFirstQuadrant()];
+      var expectedExtents = [
+        [0, -size[1], size[0], 0],
+        [0, 0, size[0], size[1]]
+      ];
+      for (var i = 0; i < sources.length; i++) {
+        var tileGrid = sources[i].getTileGrid();
+        expect(tileGrid.getExtent()).to.eql(expectedExtents[i]);
+      }
+    });
+
+    it('has expected origin', function() {
+      var sources = [getZoomifySource(), getZoomifySourceWithExtentInFirstQuadrant()];
+      var expectedOrigins = [
+        [0, 0],
+        [0, size[1]]
+      ];
+      for (var i = 0; i < sources.length; i++) {
+        var tileGrid = sources[i].getTileGrid();
+        expect(tileGrid.getOrigin()).to.eql(expectedOrigins[i]);
+      }
     });
 
   });
@@ -137,14 +202,14 @@ describe('ol.source.Zoomify', function() {
     it('influences resolutions', function() {
       // not configured at all
       var source = new ol.source.Zoomify({
-        url: url,
+        url: zoomifyUrl,
         size: [513, 256]
       });
       var tileGrid = source.getTileGrid();
 
       // explicitly set as 'default'
       var sourceDefault = new ol.source.Zoomify({
-        url: url,
+        url: zoomifyUrl,
         size: [513, 256],
         tierSizeCalculation: 'default'
       });
@@ -152,7 +217,7 @@ describe('ol.source.Zoomify', function() {
 
       // explicitly set to 'truncated'
       var sourceTruncated = new ol.source.Zoomify({
-        url: url,
+        url: zoomifyUrl,
         size: [513, 256],
         tierSizeCalculation: 'truncated'
       });
@@ -165,20 +230,45 @@ describe('ol.source.Zoomify', function() {
 
   });
 
-  describe('generated tileUrlFunction', function() {
+  describe('generated tileUrlFunction for zoomify protocol', function() {
 
-    it('creates an expected tileUrlFunction', function() {
+    it('creates an expected tileUrlFunction with zoomify template', function() {
       var source = getZoomifySource();
       var tileUrlFunction = source.getTileUrlFunction();
       // zoomlevel 0
-      expect(tileUrlFunction([0, 0, -1])).to.eql('zoomify-url/TileGroup0/0-0-0.jpg');
+      expect(tileUrlFunction([0, 0, -1])).to.eql('spec/ol/source/images/zoomify/TileGroup0/0-0-0.jpg');
       // zoomlevel 1
-      expect(tileUrlFunction([1, 0, -1])).to.eql('zoomify-url/TileGroup0/1-0-0.jpg');
-      expect(tileUrlFunction([1, 1, -1])).to.eql('zoomify-url/TileGroup0/1-1-0.jpg');
-      expect(tileUrlFunction([1, 0, -2])).to.eql('zoomify-url/TileGroup0/1-0-1.jpg');
-      expect(tileUrlFunction([1, 1, -2])).to.eql('zoomify-url/TileGroup0/1-1-1.jpg');
+      expect(tileUrlFunction([1, 0, -1])).to.eql('spec/ol/source/images/zoomify/TileGroup0/1-0-0.jpg');
+      expect(tileUrlFunction([1, 1, -1])).to.eql('spec/ol/source/images/zoomify/TileGroup0/1-1-0.jpg');
+      expect(tileUrlFunction([1, 0, -2])).to.eql('spec/ol/source/images/zoomify/TileGroup0/1-0-1.jpg');
+      expect(tileUrlFunction([1, 1, -2])).to.eql('spec/ol/source/images/zoomify/TileGroup0/1-1-1.jpg');
+    });
+    it('creates an expected tileUrlFunction with IIP template', function() {
+      var source = getIIPSource();
+      var tileUrlFunction = source.getTileUrlFunction();
+      // zoomlevel 0
+      expect(tileUrlFunction([0, 0, -1])).to.eql('spec/ol/source/images/zoomify?JTL=0,0');
+      // zoomlevel 1
+      expect(tileUrlFunction([1, 0, -1])).to.eql('spec/ol/source/images/zoomify?JTL=1,0');
+      expect(tileUrlFunction([1, 1, -1])).to.eql('spec/ol/source/images/zoomify?JTL=1,1');
+      expect(tileUrlFunction([1, 0, -2])).to.eql('spec/ol/source/images/zoomify?JTL=1,2');
+      expect(tileUrlFunction([1, 1, -2])).to.eql('spec/ol/source/images/zoomify?JTL=1,3');
     });
 
+    it('creates an expected tileUrlFunction without template', function() {
+      var source = new ol.source.Zoomify({
+        url: 'spec/ol/source/images/zoomify/',
+        size: size
+      });
+      var tileUrlFunction = source.getTileUrlFunction();
+      // zoomlevel 0
+      expect(tileUrlFunction([0, 0, -1])).to.eql('spec/ol/source/images/zoomify/TileGroup0/0-0-0.jpg');
+      // zoomlevel 1
+      expect(tileUrlFunction([1, 0, -1])).to.eql('spec/ol/source/images/zoomify/TileGroup0/1-0-0.jpg');
+      expect(tileUrlFunction([1, 1, -1])).to.eql('spec/ol/source/images/zoomify/TileGroup0/1-1-0.jpg');
+      expect(tileUrlFunction([1, 0, -2])).to.eql('spec/ol/source/images/zoomify/TileGroup0/1-0-1.jpg');
+      expect(tileUrlFunction([1, 1, -2])).to.eql('spec/ol/source/images/zoomify/TileGroup0/1-1-1.jpg');
+    });
     it('returns undefined if no tileCoord passed', function() {
       var source = getZoomifySource();
       var tileUrlFunction = source.getTileUrlFunction();
@@ -189,11 +279,6 @@ describe('ol.source.Zoomify', function() {
 
   describe('uses a custom tileClass', function() {
 
-    it('uses "ol.source.Zoomify.Tile_" as tileClass', function() {
-      var source = getZoomifySource();
-      expect(source.tileClass).to.be(ol.source.Zoomify.Tile_);
-    });
-
     it('returns expected tileClass instances via "getTile"', function() {
       var source = getZoomifySource();
       var tile = source.getTile(0, 0, -1, 1, proj);
@@ -201,15 +286,13 @@ describe('ol.source.Zoomify', function() {
     });
 
     it('"tile.getImage" returns and caches an unloaded image', function() {
-      // It'll only cache if the same context is passed, see below
-      var context = ol.dom.createCanvasContext2D(256, 256);
       var source = getZoomifySource();
 
       var tile = source.getTile(0, 0, -1, 1, proj);
-      var img = tile.getImage(context);
+      var img = tile.getImage();
 
       var tile2 = source.getTile(0, 0, -1, 1, proj);
-      var img2 = tile2.getImage(context);
+      var img2 = tile2.getImage();
 
       expect(img).to.be.a(HTMLImageElement);
       expect(img).to.be(img2);

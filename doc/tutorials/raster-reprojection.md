@@ -5,7 +5,7 @@ layout: doc.hbs
 
 # Raster Reprojection
 
-OpenLayers 3 has an ability to display raster data from WMS, WMTS, static images and many other sources in a different coordinate system than delivered from the server.
+OpenLayers has an ability to display raster data from WMS, WMTS, static images and many other sources in a different coordinate system than delivered from the server.
 Transformation of the map projections of the image happens directly in a web browser.
 The view in any Proj4js supported coordinate reference system is possible and previously incompatible layers can now be combined and overlaid.
 
@@ -45,7 +45,7 @@ The easiest way to use a custom projection is to add the [Proj4js](http://proj4j
 Following example shows definition of a [British National Grid](https://epsg.io/27700):
 
 ``` html
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.3.14/proj4.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.4.4/proj4.js"></script>
 ```
 
 ``` javascript
