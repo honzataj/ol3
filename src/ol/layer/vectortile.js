@@ -102,10 +102,10 @@ ol.layer.VectorTile.prototype.setUseInterimTilesOnError = function(useInterimTil
 };
 
 
-/**
- * Return the associated {@link ol.source.VectorTile vectortilesource} of the layer.
- * @function
- * @return {ol.source.VectorTile} Source.
- * @api
- */
-ol.layer.VectorTile.prototype.getSource;
+///**
+// * Return the associated {@link ol.source.VectorTile vectortilesource} of the layer.
+// * @function
+// * @return {ol.source.VectorTile} Source.
+// * @api
+// */
+//ol.layer.VectorTile.prototype.getSource;

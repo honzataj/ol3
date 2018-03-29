@@ -677,6 +677,15 @@ ol.PluggableMap.prototype.getOverlayById = function(id) {
 
 
 /**
+ * @return {number}
+ * @api
+ */
+ol.PluggableMap.prototype.getPixelRatio = function() {
+  return this.pixelRatio_;
+};
+
+
+/**
  * Get the map interactions. Modifying this collection changes the interactions
  * associated with the map.
  *

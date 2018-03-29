@@ -20,7 +20,6 @@ ol.proj.Units = {
  * Meters per unit lookup table.
  * @const
  * @type {Object.<ol.proj.Units, number>}
- * @api
  */
 ol.proj.Units.METERS_PER_UNIT = {};
 // use the radius of the Normal sphere

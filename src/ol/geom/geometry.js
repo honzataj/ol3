@@ -224,6 +224,7 @@ ol.geom.Geometry.prototype.applyTransform = function(transformFn) {};
  * @abstract
  * @param {ol.Extent} extent Extent.
  * @return {boolean} `true` if the geometry and the extent intersect.
+ * @api
  */
 ol.geom.Geometry.prototype.intersectsExtent = function(extent) {};
 

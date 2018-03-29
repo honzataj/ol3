@@ -162,10 +162,6 @@ ol.source.Cluster.prototype.cluster = function() {
    */
   var clustered = {};
 
-  /**
-   * @type {Array<ol.Feature>}
-   */
-  var noGeometry = [];
 
   for (var i = 0, ii = features.length; i < ii; i++) {
     var feature = features[i];

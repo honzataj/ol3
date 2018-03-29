@@ -217,6 +217,7 @@ ol.geom.SimpleGeometry.prototype.setFlatCoordinatesInternal = function(layout, f
  * @abstract
  * @param {Array} coordinates Coordinates.
  * @param {ol.geom.GeometryLayout=} opt_layout Layout.
+ * @api
  */
 ol.geom.SimpleGeometry.prototype.setCoordinates = function(coordinates, opt_layout) {};
 
