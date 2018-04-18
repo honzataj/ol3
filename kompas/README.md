@@ -11,6 +11,7 @@
    * ol.geom.Point.prototype.intersectExtent
    * ol.geom.SimpleGeometry.prototype.setCoordinates
    * ol.geom.Point.prototype.setCoordinates
+   * ol.source.Image.Event
 * Manually create `src/ol/ellipsoid` with `ellipsoid.js` and `wgs84ellipsoid.js`.
 * Manually create methods for returning private properties and tag with @api:
    * ol.Ellipsoid.prototype.getA 
@@ -39,7 +40,8 @@
    * ol.source.WMTSRequestEncoding
    * ol.style.TextPlacement
    * ol.format.IGCZ
-   * ol.source.rasterOperationType 
+   * ol.source.rasterOperationType
+   * ol.source.Image.EventType_  
  
 
 ## Generate single JS file
