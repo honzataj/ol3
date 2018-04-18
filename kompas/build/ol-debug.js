@@ -80874,7 +80874,7 @@ ol.source.Cluster.prototype.cluster = function() {
    */
   var clustered = {};
 
-  
+
   for (var i = 0, ii = features.length; i < ii; i++) {
     var feature = features[i];
     if (!(ol.getUid(feature).toString() in clustered)) {
@@ -81110,6 +81110,7 @@ ol.source.Image.defaultImageLoadFunction = function(image, src) {
  * @implements {oli.source.ImageEvent}
  * @param {string} type Type.
  * @param {ol.Image} image The image.
+ * @api
  */
 ol.source.Image.Event = function(type, image) {
 
@@ -81247,7 +81248,6 @@ ol.source.ImageArcGISRest = function(opt_options) {
   this.imageLoadFunction_ = options.imageLoadFunction !== undefined ?
     options.imageLoadFunction : ol.source.Image.defaultImageLoadFunction;
 
-
   /**
    * @private
    * @type {!Object}
@@ -81351,7 +81351,7 @@ ol.source.ImageArcGISRest.prototype.getImageInternal = function(extent, resoluti
 
   var url = this.getRequestUrl_(extent, this.imageSize_, pixelRatio,
       projection, params);
-
+  
   this.image_ = new ol.Image(extent, resolution, pixelRatio,
       url, this.crossOrigin_, this.imageLoadFunction_);
 
@@ -89899,6 +89899,11 @@ goog.exportProperty(
 goog.exportSymbol(
     'ol.source.Image.defaultImageLoadFunction',
     ol.source.Image.defaultImageLoadFunction,
+    OPENLAYERS);
+
+goog.exportSymbol(
+    'ol.source.Image.Event',
+    ol.source.Image.Event,
     OPENLAYERS);
 
 goog.exportProperty(

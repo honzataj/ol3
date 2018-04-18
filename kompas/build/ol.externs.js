@@ -233,6 +233,19 @@ ol.Disposable = function() {};
 /**
  * @type {Object}
  */
+ol.events;
+
+
+/**
+ * @constructor
+ * @param {string} type
+ */
+ol.events.Event = function(type) {};
+
+
+/**
+ * @type {Object}
+ */
 ol.format;
 
 
@@ -1009,12 +1022,6 @@ ol.ellipsoid.WGS84;
 /**
  * @type {Object}
  */
-ol.events;
-
-
-/**
- * @type {Object}
- */
 ol.events.condition;
 
 
@@ -1114,12 +1121,6 @@ ol.events.condition.mouseOnly = function(mapBrowserEvent) {};
  * @return {boolean}
  */
 ol.events.condition.primaryAction = function(mapBrowserEvent) {};
-
-
-/**
- * @constructor
- */
-ol.events.Event = function() {};
 
 
 /**
@@ -5205,8 +5206,11 @@ ol.source.Image.defaultImageLoadFunction = function(image, src) {};
 
 /**
  * @constructor
+ * @extends {ol.events.Event}
+ * @param {string} type
+ * @param {ol.Image} image
  */
-ol.source.Image.Event = function() {};
+ol.source.Image.Event = function(type, image) {};
 
 
 /**

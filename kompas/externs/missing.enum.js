@@ -315,3 +315,29 @@ ol.source.RasterOperationType = {
   PIXEL: 'pixel',
   IMAGE: 'image'
 };
+
+
+/**
+ * @enum {string}
+ */
+ol.source.Image.EventType_ = {
+
+  /**
+   * Triggered when an image starts loading.
+   * @event ol.source.Image.Event#imageloadstart
+   */
+  IMAGELOADSTART: 'imageloadstart',
+
+  /**
+   * Triggered when an image finishes loading.
+   * @event ol.source.Image.Event#imageloadend
+   */
+  IMAGELOADEND: 'imageloadend',
+
+  /**
+   * Triggered if image loading results in an error.
+   * @event ol.source.Image.Event#imageloaderror
+   */
+  IMAGELOADERROR: 'imageloaderror'
+
+};

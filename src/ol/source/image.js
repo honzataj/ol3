@@ -185,6 +185,7 @@ ol.source.Image.defaultImageLoadFunction = function(image, src) {
  * @implements {oli.source.ImageEvent}
  * @param {string} type Type.
  * @param {ol.Image} image The image.
+ * @api
  */
 ol.source.Image.Event = function(type, image) {
 
