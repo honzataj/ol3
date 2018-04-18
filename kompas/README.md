@@ -15,7 +15,8 @@
 * Manually create methods for returning private properties and tag with @api:
    * ol.Ellipsoid.prototype.getA 
    * ol.PluggableMap.prototype.getPixelRatio
-* Manually remove/comment ol.layer.VectorTile.prototype.getSource 
+* Manually remove/comment 
+   * ol.layer.VectorTile.prototype.getSource
 * Manually remove @api:
    * ol.proj.units.METERS_PER_UNIT 
 * Change default values of @define variables in `kompas/config/ol.json`:
