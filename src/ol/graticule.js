@@ -1,15 +1,17 @@
 goog.provide('ol.Graticule');
 
-goog.require('goog.asserts');
-goog.require('goog.math');
+goog.require('ol.coordinate');
 goog.require('ol.extent');
 goog.require('ol.geom.GeometryLayout');
 goog.require('ol.geom.LineString');
+goog.require('ol.geom.Point');
 goog.require('ol.geom.flat.geodesic');
+goog.require('ol.math');
 goog.require('ol.proj');
 goog.require('ol.render.EventType');
+goog.require('ol.style.Fill');
 goog.require('ol.style.Stroke');
-
+goog.require('ol.style.Text');
 
 
 /**
@@ -19,11 +21,10 @@ goog.require('ol.style.Stroke');
  * @api
  */
 ol.Graticule = function(opt_options) {
-
-  var options = goog.isDef(opt_options) ? opt_options : {};
+  var options = opt_options || {};
 
   /**
-   * @type {ol.Map}
+   * @type {ol.PluggableMap}
    * @private
    */
   this.map_ = null;
@@ -62,16 +63,38 @@ ol.Graticule = function(opt_options) {
    * @type {number}
    * @private
    */
-  this.targetSize_ = goog.isDef(options.targetSize) ?
-      options.targetSize : 100;
+  this.maxLatP_ = Infinity;
 
   /**
    * @type {number}
    * @private
    */
-  this.maxLines_ = goog.isDef(options.maxLines) ? options.maxLines : 100;
-  goog.asserts.assert(this.maxLines_ > 0,
-      'this.maxLines_ should be more than 0');
+  this.maxLonP_ = Infinity;
+
+  /**
+   * @type {number}
+   * @private
+   */
+  this.minLatP_ = -Infinity;
+
+  /**
+   * @type {number}
+   * @private
+   */
+  this.minLonP_ = -Infinity;
+
+  /**
+   * @type {number}
+   * @private
+   */
+  this.targetSize_ = options.targetSize !== undefined ?
+    options.targetSize : 100;
+
+  /**
+   * @type {number}
+   * @private
+   */
+  this.maxLines_ = options.maxLines !== undefined ? options.maxLines : 100;
 
   /**
    * @type {Array.<ol.geom.LineString>}
@@ -89,8 +112,8 @@ ol.Graticule = function(opt_options) {
    * @type {ol.style.Stroke}
    * @private
    */
-  this.strokeStyle_ = goog.isDef(options.strokeStyle) ?
-      options.strokeStyle : ol.Graticule.DEFAULT_STROKE_STYLE_;
+  this.strokeStyle_ = options.strokeStyle !== undefined ?
+    options.strokeStyle : ol.Graticule.DEFAULT_STROKE_STYLE_;
 
   /**
    * @type {ol.TransformFunction|undefined}
@@ -110,7 +133,92 @@ ol.Graticule = function(opt_options) {
    */
   this.projectionCenterLonLat_ = null;
 
-  this.setMap(goog.isDef(options.map) ? options.map : null);
+  /**
+   * @type {Array.<ol.GraticuleLabelDataType>}
+   * @private
+   */
+  this.meridiansLabels_ = null;
+
+  /**
+   * @type {Array.<ol.GraticuleLabelDataType>}
+   * @private
+   */
+  this.parallelsLabels_ = null;
+
+  if (options.showLabels == true) {
+    var degreesToString = ol.coordinate.degreesToStringHDMS;
+
+    /**
+     * @type {null|function(number):string}
+     * @private
+     */
+    this.lonLabelFormatter_ = options.lonLabelFormatter == undefined ?
+      degreesToString.bind(this, 'EW') : options.lonLabelFormatter;
+
+    /**
+     * @type {function(number):string}
+     * @private
+     */
+    this.latLabelFormatter_ = options.latLabelFormatter == undefined ?
+      degreesToString.bind(this, 'NS') : options.latLabelFormatter;
+
+    /**
+     * Longitude label position in fractions (0..1) of view extent. 0 means
+     * bottom, 1 means top.
+     * @type {number}
+     * @private
+     */
+    this.lonLabelPosition_ = options.lonLabelPosition == undefined ? 0 :
+      options.lonLabelPosition;
+
+    /**
+     * Latitude Label position in fractions (0..1) of view extent. 0 means left, 1
+     * means right.
+     * @type {number}
+     * @private
+     */
+    this.latLabelPosition_ = options.latLabelPosition == undefined ? 1 :
+      options.latLabelPosition;
+
+    /**
+     * @type {ol.style.Text}
+     * @private
+     */
+    this.lonLabelStyle_ = options.lonLabelStyle !== undefined ? options.lonLabelStyle :
+      new ol.style.Text({
+        font: '12px Calibri,sans-serif',
+        textBaseline: 'bottom',
+        fill: new ol.style.Fill({
+          color: 'rgba(0,0,0,1)'
+        }),
+        stroke: new ol.style.Stroke({
+          color: 'rgba(255,255,255,1)',
+          width: 3
+        })
+      });
+
+    /**
+     * @type {ol.style.Text}
+     * @private
+     */
+    this.latLabelStyle_ = options.latLabelStyle !== undefined ? options.latLabelStyle :
+      new ol.style.Text({
+        font: '12px Calibri,sans-serif',
+        textAlign: 'end',
+        fill: new ol.style.Fill({
+          color: 'rgba(0,0,0,1)'
+        }),
+        stroke: new ol.style.Stroke({
+          color: 'rgba(255,255,255,1)',
+          width: 3
+        })
+      });
+
+    this.meridiansLabels_ = [];
+    this.parallelsLabels_ = [];
+  }
+
+  this.setMap(options.map !== undefined ? options.map : null);
 };
 
 
@@ -135,37 +243,98 @@ ol.Graticule.intervals_ = [90, 45, 30, 20, 10, 5, 2, 1, 0.5, 0.2, 0.1, 0.05,
 
 /**
  * @param {number} lon Longitude.
+ * @param {number} minLat Minimal latitude.
+ * @param {number} maxLat Maximal latitude.
  * @param {number} squaredTolerance Squared tolerance.
  * @param {ol.Extent} extent Extent.
  * @param {number} index Index.
  * @return {number} Index.
  * @private
  */
-ol.Graticule.prototype.addMeridian_ =
-    function(lon, squaredTolerance, extent, index) {
-  var lineString = this.getMeridian_(lon, squaredTolerance, index);
+ol.Graticule.prototype.addMeridian_ = function(lon, minLat, maxLat, squaredTolerance, extent, index) {
+  var lineString = this.getMeridian_(lon, minLat, maxLat,
+      squaredTolerance, index);
   if (ol.extent.intersects(lineString.getExtent(), extent)) {
+    if (this.meridiansLabels_) {
+      var textPoint = this.getMeridianPoint_(lineString, extent, index);
+      this.meridiansLabels_[index] = {
+        geom: textPoint,
+        text: this.lonLabelFormatter_(lon)
+      };
+    }
     this.meridians_[index++] = lineString;
+  }
+  return index;
+};
+
+/**
+ * @param {ol.geom.LineString} lineString Meridian
+ * @param {ol.Extent} extent Extent.
+ * @param {number} index Index.
+ * @return {ol.geom.Point} Meridian point.
+ * @private
+ */
+ol.Graticule.prototype.getMeridianPoint_ = function(lineString, extent, index) {
+  var flatCoordinates = lineString.getFlatCoordinates();
+  var clampedBottom = Math.max(extent[1], flatCoordinates[1]);
+  var clampedTop = Math.min(extent[3], flatCoordinates[flatCoordinates.length - 1]);
+  var lat = ol.math.clamp(
+      extent[1] + Math.abs(extent[1] - extent[3]) * this.lonLabelPosition_,
+      clampedBottom, clampedTop);
+  var coordinate = [flatCoordinates[0], lat];
+  var point = this.meridiansLabels_[index] !== undefined ?
+    this.meridiansLabels_[index].geom : new ol.geom.Point(null);
+  point.setCoordinates(coordinate);
+  return point;
+};
+
+
+/**
+ * @param {number} lat Latitude.
+ * @param {number} minLon Minimal longitude.
+ * @param {number} maxLon Maximal longitude.
+ * @param {number} squaredTolerance Squared tolerance.
+ * @param {ol.Extent} extent Extent.
+ * @param {number} index Index.
+ * @return {number} Index.
+ * @private
+ */
+ol.Graticule.prototype.addParallel_ = function(lat, minLon, maxLon, squaredTolerance, extent, index) {
+  var lineString = this.getParallel_(lat, minLon, maxLon, squaredTolerance,
+      index);
+  if (ol.extent.intersects(lineString.getExtent(), extent)) {
+    if (this.parallelsLabels_) {
+      var textPoint = this.getParallelPoint_(lineString, extent, index);
+      this.parallelsLabels_[index] = {
+        geom: textPoint,
+        text: this.latLabelFormatter_(lat)
+      };
+    }
+    this.parallels_[index++] = lineString;
   }
   return index;
 };
 
 
 /**
- * @param {number} lat Latitude.
- * @param {number} squaredTolerance Squared tolerance.
+ * @param {ol.geom.LineString} lineString Parallels.
  * @param {ol.Extent} extent Extent.
  * @param {number} index Index.
- * @return {number} Index.
+ * @return {ol.geom.Point} Parallel point.
  * @private
  */
-ol.Graticule.prototype.addParallel_ =
-    function(lat, squaredTolerance, extent, index) {
-  var lineString = this.getParallel_(lat, squaredTolerance, index);
-  if (ol.extent.intersects(lineString.getExtent(), extent)) {
-    this.parallels_[index++] = lineString;
-  }
-  return index;
+ol.Graticule.prototype.getParallelPoint_ = function(lineString, extent, index) {
+  var flatCoordinates = lineString.getFlatCoordinates();
+  var clampedLeft = Math.max(extent[0], flatCoordinates[0]);
+  var clampedRight = Math.min(extent[2], flatCoordinates[flatCoordinates.length - 2]);
+  var lon = ol.math.clamp(
+      extent[0] + Math.abs(extent[0] - extent[2]) * this.latLabelPosition_,
+      clampedLeft, clampedRight);
+  var coordinate = [lon, flatCoordinates[1]];
+  var point = this.parallelsLabels_[index] !== undefined ?
+    this.parallelsLabels_[index].geom : new ol.geom.Point(null);
+  point.setCoordinates(coordinate);
+  return point;
 };
 
 
@@ -176,12 +345,17 @@ ol.Graticule.prototype.addParallel_ =
  * @param {number} squaredTolerance Squared tolerance.
  * @private
  */
-ol.Graticule.prototype.createGraticule_ =
-    function(extent, center, resolution, squaredTolerance) {
+ol.Graticule.prototype.createGraticule_ = function(extent, center, resolution, squaredTolerance) {
 
   var interval = this.getInterval_(resolution);
   if (interval == -1) {
     this.meridians_.length = this.parallels_.length = 0;
+    if (this.meridiansLabels_) {
+      this.meridiansLabels_.length = 0;
+    }
+    if (this.parallelsLabels_) {
+      this.parallelsLabels_.length = 0;
+    }
     return;
   }
 
@@ -191,51 +365,71 @@ ol.Graticule.prototype.createGraticule_ =
   var maxLines = this.maxLines_;
   var cnt, idx, lat, lon;
 
+  var validExtent = [
+    Math.max(extent[0], this.minLonP_),
+    Math.max(extent[1], this.minLatP_),
+    Math.min(extent[2], this.maxLonP_),
+    Math.min(extent[3], this.maxLatP_)
+  ];
+
+  validExtent = ol.proj.transformExtent(validExtent, this.projection_,
+      'EPSG:4326');
+  var maxLat = validExtent[3];
+  var maxLon = validExtent[2];
+  var minLat = validExtent[1];
+  var minLon = validExtent[0];
+
   // Create meridians
 
   centerLon = Math.floor(centerLon / interval) * interval;
-  lon = goog.math.clamp(centerLon, this.minLon_, this.maxLon_);
+  lon = ol.math.clamp(centerLon, this.minLon_, this.maxLon_);
 
-  idx = this.addMeridian_(lon, squaredTolerance, extent, 0);
+  idx = this.addMeridian_(lon, minLat, maxLat, squaredTolerance, extent, 0);
 
   cnt = 0;
   while (lon != this.minLon_ && cnt++ < maxLines) {
     lon = Math.max(lon - interval, this.minLon_);
-    idx = this.addMeridian_(lon, squaredTolerance, extent, idx);
+    idx = this.addMeridian_(lon, minLat, maxLat, squaredTolerance, extent, idx);
   }
 
-  lon = goog.math.clamp(centerLon, this.minLon_, this.maxLon_);
+  lon = ol.math.clamp(centerLon, this.minLon_, this.maxLon_);
 
   cnt = 0;
   while (lon != this.maxLon_ && cnt++ < maxLines) {
     lon = Math.min(lon + interval, this.maxLon_);
-    idx = this.addMeridian_(lon, squaredTolerance, extent, idx);
+    idx = this.addMeridian_(lon, minLat, maxLat, squaredTolerance, extent, idx);
   }
 
   this.meridians_.length = idx;
+  if (this.meridiansLabels_) {
+    this.meridiansLabels_.length = idx;
+  }
 
   // Create parallels
 
   centerLat = Math.floor(centerLat / interval) * interval;
-  lat = goog.math.clamp(centerLat, this.minLat_, this.maxLat_);
+  lat = ol.math.clamp(centerLat, this.minLat_, this.maxLat_);
 
-  idx = this.addParallel_(lat, squaredTolerance, extent, 0);
+  idx = this.addParallel_(lat, minLon, maxLon, squaredTolerance, extent, 0);
 
   cnt = 0;
   while (lat != this.minLat_ && cnt++ < maxLines) {
     lat = Math.max(lat - interval, this.minLat_);
-    idx = this.addParallel_(lat, squaredTolerance, extent, idx);
+    idx = this.addParallel_(lat, minLon, maxLon, squaredTolerance, extent, idx);
   }
 
-  lat = goog.math.clamp(centerLat, this.minLat_, this.maxLat_);
+  lat = ol.math.clamp(centerLat, this.minLat_, this.maxLat_);
 
   cnt = 0;
   while (lat != this.maxLat_ && cnt++ < maxLines) {
     lat = Math.min(lat + interval, this.maxLat_);
-    idx = this.addParallel_(lat, squaredTolerance, extent, idx);
+    idx = this.addParallel_(lat, minLon, maxLon, squaredTolerance, extent, idx);
   }
 
   this.parallels_.length = idx;
+  if (this.parallelsLabels_) {
+    this.parallelsLabels_.length = idx;
+  }
 
 };
 
@@ -275,7 +469,7 @@ ol.Graticule.prototype.getInterval_ = function(resolution) {
 
 /**
  * Get the map associated with this graticule.
- * @return {ol.Map} The map.
+ * @return {ol.PluggableMap} The map.
  * @api
  */
 ol.Graticule.prototype.getMap = function() {
@@ -285,22 +479,19 @@ ol.Graticule.prototype.getMap = function() {
 
 /**
  * @param {number} lon Longitude.
+ * @param {number} minLat Minimal latitude.
+ * @param {number} maxLat Maximal latitude.
  * @param {number} squaredTolerance Squared tolerance.
  * @return {ol.geom.LineString} The meridian line string.
  * @param {number} index Index.
  * @private
  */
-ol.Graticule.prototype.getMeridian_ = function(lon, squaredTolerance, index) {
-  goog.asserts.assert(lon >= this.minLon_,
-      'lon should be larger than or equal to this.minLon_');
-  goog.asserts.assert(lon <= this.maxLon_,
-      'lon should be smaller than or equal to this.maxLon_');
+ol.Graticule.prototype.getMeridian_ = function(lon, minLat, maxLat,
+    squaredTolerance, index) {
   var flatCoordinates = ol.geom.flat.geodesic.meridian(lon,
-      this.minLat_, this.maxLat_, this.projection_, squaredTolerance);
-  goog.asserts.assert(flatCoordinates.length > 0,
-      'flatCoordinates cannot be empty');
-  var lineString = goog.isDef(this.meridians_[index]) ?
-      this.meridians_[index] : new ol.geom.LineString(null);
+      minLat, maxLat, this.projection_, squaredTolerance);
+  var lineString = this.meridians_[index] !== undefined ?
+    this.meridians_[index] : new ol.geom.LineString(null);
   lineString.setFlatCoordinates(ol.geom.GeometryLayout.XY, flatCoordinates);
   return lineString;
 };
@@ -318,29 +509,26 @@ ol.Graticule.prototype.getMeridians = function() {
 
 /**
  * @param {number} lat Latitude.
+ * @param {number} minLon Minimal longitude.
+ * @param {number} maxLon Maximal longitude.
  * @param {number} squaredTolerance Squared tolerance.
  * @return {ol.geom.LineString} The parallel line string.
  * @param {number} index Index.
  * @private
  */
-ol.Graticule.prototype.getParallel_ = function(lat, squaredTolerance, index) {
-  goog.asserts.assert(lat >= this.minLat_,
-      'lat should be larger than or equal to this.minLat_');
-  goog.asserts.assert(lat <= this.maxLat_,
-      'lat should be smaller than or equal to this.maxLat_');
+ol.Graticule.prototype.getParallel_ = function(lat, minLon, maxLon,
+    squaredTolerance, index) {
   var flatCoordinates = ol.geom.flat.geodesic.parallel(lat,
-      this.minLon_, this.maxLon_, this.projection_, squaredTolerance);
-  goog.asserts.assert(flatCoordinates.length > 0,
-      'flatCoordinates cannot be empty');
-  var lineString = goog.isDef(this.parallels_[index]) ?
-      this.parallels_[index] : new ol.geom.LineString(null);
+      minLon, maxLon, this.projection_, squaredTolerance);
+  var lineString = this.parallels_[index] !== undefined ?
+    this.parallels_[index] : new ol.geom.LineString(null);
   lineString.setFlatCoordinates(ol.geom.GeometryLayout.XY, flatCoordinates);
   return lineString;
 };
 
 
 /**
- * Get the list of parallels.  Pallels are lines of equal latitude.
+ * Get the list of parallels.  Parallels are lines of equal latitude.
  * @return {Array.<ol.geom.LineString>} The parallels.
  * @api
  */
@@ -365,7 +553,7 @@ ol.Graticule.prototype.handlePostCompose_ = function(e) {
   var squaredTolerance =
       resolution * resolution / (4 * pixelRatio * pixelRatio);
 
-  var updateProjectionInfo = goog.isNull(this.projection_) ||
+  var updateProjectionInfo = !this.projection_ ||
       !ol.proj.equivalent(this.projection_, projection);
 
   if (updateProjectionInfo) {
@@ -379,11 +567,28 @@ ol.Graticule.prototype.handlePostCompose_ = function(e) {
   var i, l, line;
   for (i = 0, l = this.meridians_.length; i < l; ++i) {
     line = this.meridians_[i];
-    vectorContext.drawLineStringGeometry(line, null);
+    vectorContext.drawGeometry(line);
   }
   for (i = 0, l = this.parallels_.length; i < l; ++i) {
     line = this.parallels_[i];
-    vectorContext.drawLineStringGeometry(line, null);
+    vectorContext.drawGeometry(line);
+  }
+  var labelData;
+  if (this.meridiansLabels_) {
+    for (i = 0, l = this.meridiansLabels_.length; i < l; ++i) {
+      labelData = this.meridiansLabels_[i];
+      this.lonLabelStyle_.setText(labelData.text);
+      vectorContext.setTextStyle(this.lonLabelStyle_);
+      vectorContext.drawGeometry(labelData.geom);
+    }
+  }
+  if (this.parallelsLabels_) {
+    for (i = 0, l = this.parallelsLabels_.length; i < l; ++i) {
+      labelData = this.parallelsLabels_[i];
+      this.latLabelStyle_.setText(labelData.text);
+      vectorContext.setTextStyle(this.latLabelStyle_);
+      vectorContext.drawGeometry(labelData.geom);
+    }
   }
 };
 
@@ -393,27 +598,33 @@ ol.Graticule.prototype.handlePostCompose_ = function(e) {
  * @private
  */
 ol.Graticule.prototype.updateProjectionInfo_ = function(projection) {
-  goog.asserts.assert(!goog.isNull(projection), 'projection cannot be null');
+  var epsg4326Projection = ol.proj.get('EPSG:4326');
 
   var extent = projection.getExtent();
   var worldExtent = projection.getWorldExtent();
+  var worldExtentP = ol.proj.transformExtent(worldExtent,
+      epsg4326Projection, projection);
+
   var maxLat = worldExtent[3];
   var maxLon = worldExtent[2];
   var minLat = worldExtent[1];
   var minLon = worldExtent[0];
 
-  goog.asserts.assert(!goog.isNull(extent), 'extent cannot be null');
-  goog.asserts.assert(goog.isDef(maxLat), 'maxLat should be defined');
-  goog.asserts.assert(goog.isDef(maxLon), 'maxLon should be defined');
-  goog.asserts.assert(goog.isDef(minLat), 'minLat should be defined');
-  goog.asserts.assert(goog.isDef(minLon), 'minLon should be defined');
+  var maxLatP = worldExtentP[3];
+  var maxLonP = worldExtentP[2];
+  var minLatP = worldExtentP[1];
+  var minLonP = worldExtentP[0];
 
   this.maxLat_ = maxLat;
   this.maxLon_ = maxLon;
   this.minLat_ = minLat;
   this.minLon_ = minLon;
 
-  var epsg4326Projection = ol.proj.get('EPSG:4326');
+  this.maxLatP_ = maxLatP;
+  this.maxLonP_ = maxLonP;
+  this.minLatP_ = minLatP;
+  this.minLonP_ = minLonP;
+
 
   this.fromLonLatTransform_ = ol.proj.getTransform(
       epsg4326Projection, projection);
@@ -431,16 +642,16 @@ ol.Graticule.prototype.updateProjectionInfo_ = function(projection) {
 /**
  * Set the map for this graticule.  The graticule will be rendered on the
  * provided map.
- * @param {ol.Map} map Map.
+ * @param {ol.PluggableMap} map Map.
  * @api
  */
 ol.Graticule.prototype.setMap = function(map) {
-  if (!goog.isNull(this.map_)) {
+  if (this.map_) {
     this.map_.un(ol.render.EventType.POSTCOMPOSE,
         this.handlePostCompose_, this);
     this.map_.render();
   }
-  if (!goog.isNull(map)) {
+  if (map) {
     map.on(ol.render.EventType.POSTCOMPOSE,
         this.handlePostCompose_, this);
     map.render();

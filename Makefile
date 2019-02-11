@@ -2,12 +2,10 @@ OS := $(shell uname)
 BRANCH := $(shell git rev-parse --abbrev-ref HEAD)
 
 SRC_GLSL := $(shell find src -type f -name '*.glsl')
-SRC_SHADER_JS := $(patsubst %.glsl,%shader.js,$(SRC_GLSL))
-SRC_JS := $(filter-out $(SRC_SHADER_JS),$(shell find src -name '*.js'))
+SRC_SHADER_JS := $(patsubst %shader.glsl,%shader.js,$(SRC_GLSL))
+SRC_SHADERLOCATIONS_JS := $(patsubst %shader.glsl,%shader/locations.js,$(SRC_GLSL))
+SRC_JS := $(filter-out $(SRC_SHADER_JS) $(SRC_SHADERLOCATIONS_JS),$(shell find src -name '*.js'))
 SRC_JSDOC = $(shell find src -type f -name '*.jsdoc')
-
-SPEC_JS := $(shell find test/spec -type f -name '*.js')
-SPEC_RENDERING_JS := $(shell find test_rendering/spec -name '*.js')
 
 EXAMPLES := $(shell find examples -type f)
 EXAMPLES_HTML := $(filter-out examples/index.html,$(shell find examples -maxdepth 1 -type f -name '*.html'))
@@ -19,7 +17,8 @@ BUILD_HOSTED := build/hosted/$(BRANCH)
 BUILD_HOSTED_EXAMPLES := $(addprefix $(BUILD_HOSTED)/,$(EXAMPLES))
 BUILD_HOSTED_EXAMPLES_JS := $(addprefix $(BUILD_HOSTED)/,$(EXAMPLES_JS))
 
-CHECK_EXAMPLE_TIMESTAMPS = $(patsubst examples/%.html,build/timestamps/check-%-timestamp,$(EXAMPLES_HTML))
+UNPHANTOMABLE_EXAMPLES = examples/shaded-relief.html examples/raster.html examples/region-growing.html examples/color-manipulation.html
+CHECK_EXAMPLE_TIMESTAMPS = $(patsubst examples/%.html,build/timestamps/check-%-timestamp,$(filter-out $(UNPHANTOMABLE_EXAMPLES),$(EXAMPLES_HTML)))
 
 TASKS_JS := $(shell find tasks -name '*.js')
 
@@ -55,7 +54,6 @@ help:
 	@echo "Other less frequently used targets are:"
 	@echo
 	@echo "- build                   Build ol.js, ol-debug.js, ol.js.map and ol.css"
-	@echo "- lint                    Check the code with the linter"
 	@echo "- ci                      Run the full continuous integration process"
 	@echo "- apidoc                  Build the API documentation using JSDoc"
 	@echo "- cleanall                Remove all the build artefacts"
@@ -69,7 +67,7 @@ apidoc: build/timestamps/jsdoc-$(BRANCH)-timestamp
 build: build/ol.css build/ol.js build/ol-debug.js build/ol.js.map
 
 .PHONY: check
-check: lint build/ol.js test
+check: build/ol.js test
 
 .PHONY: check-examples
 check-examples: $(CHECK_EXAMPLE_TIMESTAMPS)
@@ -85,24 +83,21 @@ check-deps:
 	done ;\
 
 .PHONY: ci
-ci: lint build test test-rendering compile-examples check-examples apidoc
+ci: build test package compile-examples check-examples apidoc
 
 .PHONY: compile-examples
 compile-examples: build/compiled-examples/all.combined.js
 
 .PHONY: clean
 clean:
-	rm -f build/timestamps/gjslint-timestamp
-	rm -f build/timestamps/jshint-timestamp
 	rm -f build/timestamps/check-*-timestamp
 	rm -f build/ol.css
 	rm -f build/ol.js
 	rm -f build/ol.js.map
 	rm -f build/ol-debug.js
-	rm -f build/test_requires.js
-	rm -f build/test_rendering_requires.js
 	rm -rf build/examples
 	rm -rf build/compiled-examples
+	rm -rf build/package
 	rm -rf $(BUILD_HOSTED)
 
 .PHONY: cleanall
@@ -118,36 +113,19 @@ examples: $(BUILD_EXAMPLES)
 .PHONY: install
 install: build/timestamps/node-modules-timestamp
 
-.PHONY: lint
-lint: build/timestamps/gjslint-timestamp build/timestamps/jshint-timestamp \
-      build/timestamps/check-requires-timestamp \
-      build/timestamps/check-whitespace-timestamp
-
 .PHONY: npm-install
 npm-install: build/timestamps/node-modules-timestamp
 
 .PHONY: shaders
-shaders: $(SRC_SHADER_JS)
+shaders: $(SRC_SHADER_JS $(SRC_SHADERLOCATIONS_JS)
 
 .PHONY: serve
-serve: build/test_requires.js build/test_rendering_requires.js
+serve:
 	node tasks/serve.js
 
 .PHONY: test
-test: build/timestamps/node-modules-timestamp build/test_requires.js
-	node tasks/test.js
-
-.PHONY: test-coverage
-test-coverage: build/timestamps/node-modules-timestamp
-	node tasks/test-coverage.js
-
-.PHONY: test-rendering
-test-rendering: build/timestamps/node-modules-timestamp \
-                build/test_rendering_requires.js
-	@rm -rf build/slimerjs-profile
-	@mkdir -p build/slimerjs-profile
-	@cp -r test_rendering/slimerjs-profile/* build/slimerjs-profile/
-	node tasks/test-rendering.js
+test: build/timestamps/node-modules-timestamp
+	npm test
 
 .PHONY: host-examples
 host-examples: $(BUILD_HOSTED_EXAMPLES) \
@@ -170,7 +148,7 @@ host-libraries: build/timestamps/node-modules-timestamp
 	@mkdir -p $(BUILD_HOSTED)/ol.ext
 	@cp -r build/ol.ext/* $(BUILD_HOSTED)/ol.ext/
 
-$(BUILD_EXAMPLES): $(EXAMPLES)
+$(BUILD_EXAMPLES): $(EXAMPLES) package.json
 	@mkdir -p $(@D)
 	@node tasks/build-examples.js
 
@@ -182,21 +160,7 @@ build/timestamps/check-%-timestamp: $(BUILD_HOSTED)/examples/%.html \
                                     $(BUILD_HOSTED)/build/ol.js \
                                     $(BUILD_HOSTED)/css/ol.css
 	@mkdir -p $(@D)
-	./node_modules/.bin/phantomjs --ssl-protocol=any --ignore-ssl-errors=true bin/check-example.js $(addsuffix ?mode=advanced, $<)
-	@touch $@
-
-build/timestamps/check-requires-timestamp: $(SRC_JS) $(EXAMPLES_JS) \
-                                           $(SRC_SHADER_JS) $(SPEC_JS) \
-                                           $(SPEC_RENDERING JS)
-	@mkdir -p $(@D)
-	@python bin/check-requires.py $(CLOSURE_LIB) $^
-	@touch $@
-
-build/timestamps/check-whitespace-timestamp: $(SRC_JS) $(EXAMPLES_JS) \
-                                             $(SPEC_JS) $(SPEC_RENDERING JS) \
-                                             $(SRC_JSDOC)
-	@mkdir -p $(@D)
-	@python bin/check-whitespace.py $^
+	node tasks/check-example.js $<
 	@touch $@
 
 build/compiled-examples/all.js: $(EXAMPLES_JS)
@@ -204,7 +168,7 @@ build/compiled-examples/all.js: $(EXAMPLES_JS)
 	@python bin/combine-examples.py $^ > $@
 
 build/compiled-examples/all.combined.js: config/examples-all.json build/compiled-examples/all.js \
-                                         $(SRC_JS) $(SRC_SHADER_JS) \
+                                         $(SRC_JS) $(SRC_SHADER_JS) $(SRC_SHADERLOCATIONS_JS) \
                                          build/timestamps/node-modules-timestamp
 	@mkdir -p $(@D)
 	node tasks/build.js $< $@
@@ -215,26 +179,19 @@ build/compiled-examples/%.json: config/example.json build/examples/%.js \
 	@sed -e 's|{{id}}|$*|' $< > $@
 
 build/compiled-examples/%.combined.js: build/compiled-examples/%.json \
-                                       $(SRC_JS) $(SRC_SHADER_JS) \
+                                       $(SRC_JS) $(SRC_SHADER_JS) $(SRC_SHADERLOCATIONS_JS)\
                                        build/timestamps/node-modules-timestamp
 	@mkdir -p $(@D)
 	node tasks/build.js $< $@
 
 build/timestamps/jsdoc-$(BRANCH)-timestamp: config/jsdoc/api/index.md \
                                             config/jsdoc/api/conf.json $(SRC_JS) \
-                                            $(SRC_SHADER_JS) \
+                                            $(SRC_SHADER_JS) $(SRC_SHADERLOCATIONS_JS) \
                                             $(shell find config/jsdoc/api/template -type f) \
                                             build/timestamps/node-modules-timestamp
 	@mkdir -p $(@D)
 	@rm -rf $(BUILD_HOSTED)/apidoc
-	./node_modules/.bin/jsdoc config/jsdoc/api/index.md -c config/jsdoc/api/conf.json -d $(BUILD_HOSTED)/apidoc
-	@touch $@
-
-build/timestamps/gjslint-timestamp: $(SRC_JS) $(SPEC_JS) $(SPEC_RENDERING_JS) \
-                                    $(EXAMPLES_JS)
-	@mkdir -p $(@D)
-	@echo "Running gjslint..."
-	@gjslint --jslint_error=all --custom_jsdoc_tags=event,fires,function,classdesc,api,observable --strict $?
+	./node_modules/.bin/jsdoc config/jsdoc/api/index.md -c config/jsdoc/api/conf.json --package package.json -d $(BUILD_HOSTED)/apidoc
 	@touch $@
 
 $(BUILD_HOSTED_EXAMPLES_JS): $(BUILD_HOSTED)/examples/%.js: build/examples/%.js
@@ -270,15 +227,6 @@ $(BUILD_HOSTED)/build/ol-deps.js: host-libraries
            --root_with_prefix "$(BUILD_HOSTED)/closure-library/third_party ../../third_party" \
            --output_file $@
 
-build/timestamps/jshint-timestamp: $(SRC_JS) $(SPEC_JS) $(SPEC_RENDERING_JS) \
-                                   $(TASKS_JS) $(EXAMPLES_JS) \
-                                   examples/resources/common.js \
-                                   build/timestamps/node-modules-timestamp
-	@mkdir -p $(@D)
-	@echo "Running jshint..."
-	@./node_modules/.bin/jshint --verbose $?
-	@touch $@
-
 build/timestamps/node-modules-timestamp: package.json
 	@mkdir -p $(@D)
 	npm install
@@ -289,7 +237,7 @@ build/ol.css: css/ol.css build/timestamps/node-modules-timestamp
 	@echo "Running cleancss..."
 	@./node_modules/.bin/cleancss $< > $@
 
-build/ol.js: config/ol.json $(SRC_JS) $(SRC_SHADER_JS) \
+build/ol.js: config/ol.json $(SRC_JS) $(SRC_SHADER_JS) $(SRC_SHADERLOCATIONS_JS) \
              build/timestamps/node-modules-timestamp
 	@mkdir -p $(@D)
 	node tasks/build.js $< $@
@@ -299,12 +247,12 @@ build/ol.js: config/ol.json $(SRC_JS) $(SRC_SHADER_JS) \
 	@$(STAT_COMPRESSED) /tmp/ol.js.gz
 	@rm /tmp/ol.js.gz
 
-build/ol.js.map: config/ol.json $(SRC_JS) $(SRC_SHADER_JS) \
+build/ol.js.map: config/ol.json $(SRC_JS) $(SRC_SHADER_JS) $(SRC_SHADERLOCATIONS_JS) \
                  build/timestamps/node-modules-timestamp
 	@mkdir -p $(@D)
 	node tasks/build.js $< $@
 
-build/ol-debug.js: config/ol-debug.json $(SRC_JS) $(SRC_SHADER_JS) \
+build/ol-debug.js: config/ol-debug.json $(SRC_JS) $(SRC_SHADER_JS) $(SRC_SHADERLOCATIONS_JS) \
                    build/timestamps/node-modules-timestamp
 	@mkdir -p $(@D)
 	node tasks/build.js $< $@
@@ -314,13 +262,19 @@ build/ol-debug.js: config/ol-debug.json $(SRC_JS) $(SRC_SHADER_JS) \
 	@$(STAT_COMPRESSED) /tmp/ol-debug.js.gz
 	@rm /tmp/ol-debug.js.gz
 
-build/test_requires.js: $(SPEC_JS) $(SRC_JS)
-	@mkdir -p $(@D)
-	@node tasks/generate-requires.js $^ > $@
+%shader.js: %shader.glsl src/ol/webgl/shader.mustache tasks/glslunit.js build/timestamps/node-modules-timestamp
+	@node tasks/glslunit.js --input $< | ./node_modules/.bin/mustache - src/ol/webgl/shader.mustache > $@
 
-build/test_rendering_requires.js: $(SPEC_RENDERING_JS)
+%shader/locations.js: %shader.glsl src/ol/webgl/shaderlocations.mustache tasks/glslunit.js build/timestamps/node-modules-timestamp
 	@mkdir -p $(@D)
-	@node tasks/generate-requires.js $^ > $@
+	@node tasks/glslunit.js --input $< | ./node_modules/.bin/mustache - src/ol/webgl/shaderlocations.mustache > $@
 
-%shader.js: %.glsl src/ol/webgl/shader.mustache bin/pyglslunit.py
-	@python bin/pyglslunit.py --input $< --template src/ol/webgl/shader.mustache --output $@
+.PHONY: package
+package:
+	@rm -rf build/package
+	@cp -r package build
+	@cd ./src && cp -r ol/* ../build/package
+	@rm build/package/typedefs.js
+	@cp css/ol.css build/package
+	./node_modules/.bin/jscodeshift --transform transforms/module.js build/package
+	npm run lint-package

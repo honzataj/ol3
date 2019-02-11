@@ -1,19 +1,6 @@
 goog.provide('ol.webgl.Buffer');
 
-goog.require('goog.array');
-goog.require('goog.webgl');
-goog.require('ol');
-
-
-/**
- * @enum {number}
- */
-ol.webgl.BufferUsage = {
-  STATIC_DRAW: goog.webgl.STATIC_DRAW,
-  STREAM_DRAW: goog.webgl.STREAM_DRAW,
-  DYNAMIC_DRAW: goog.webgl.DYNAMIC_DRAW
-};
-
+goog.require('ol.webgl');
 
 
 /**
@@ -21,6 +8,7 @@ ol.webgl.BufferUsage = {
  * @param {Array.<number>=} opt_arr Array.
  * @param {number=} opt_usage Usage.
  * @struct
+ * @api
  */
 ol.webgl.Buffer = function(opt_arr, opt_usage) {
 
@@ -28,14 +16,14 @@ ol.webgl.Buffer = function(opt_arr, opt_usage) {
    * @private
    * @type {Array.<number>}
    */
-  this.arr_ = goog.isDef(opt_arr) ? opt_arr : [];
+  this.arr_ = opt_arr !== undefined ? opt_arr : [];
 
   /**
    * @private
    * @type {number}
    */
-  this.usage_ = goog.isDef(opt_usage) ?
-      opt_usage : ol.webgl.BufferUsage.STATIC_DRAW;
+  this.usage_ = opt_usage !== undefined ?
+    opt_usage : ol.webgl.Buffer.Usage_.STATIC_DRAW;
 
 };
 
@@ -53,4 +41,15 @@ ol.webgl.Buffer.prototype.getArray = function() {
  */
 ol.webgl.Buffer.prototype.getUsage = function() {
   return this.usage_;
+};
+
+
+/**
+ * @enum {number}
+ * @private
+ */
+ol.webgl.Buffer.Usage_ = {
+  STATIC_DRAW: ol.webgl.STATIC_DRAW,
+  STREAM_DRAW: ol.webgl.STREAM_DRAW,
+  DYNAMIC_DRAW: ol.webgl.DYNAMIC_DRAW
 };

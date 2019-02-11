@@ -2,15 +2,15 @@ var path = require('path');
 
 var Metalsmith = require('metalsmith');
 var handlebars = require('handlebars');
-var templates = require('metalsmith-templates');
+var templates = require('metalsmith-layouts');
 var marked = require('marked');
 var pkg = require('../package.json');
 
 var markupRegEx = /([^\/^\.]*)\.html$/;
-var cleanupJSRegEx = /.*(goog\.require(.*);|.*renderer: common\..*,?)[\n]*/g;
+var cleanupJSRegEx = /.*(\/\/ NOCOMPILE|goog\.require\(.*\);)[\r\n]*/g;
 var requiresRegEx = /.*goog\.require\('(ol\.\S*)'\);/g;
 var isCssRegEx = /\.css$/;
-var isJsRegEx = /\.js$/;
+var isJsRegEx = /\.js(\?.*)?$/;
 
 var srcDir = path.join(__dirname, '..', 'examples');
 var destDir = path.join(__dirname, '..', 'build', 'examples');
@@ -46,7 +46,7 @@ function getLinkToApiHtml(requires) {
   var lis = requires.map(function(symb) {
     var href = '../apidoc/' + symb + '.html';
     return '<li><a href="' + href + '" title="API documentation for ' +
-        symb +'">' + symb + '</a></li>';
+        symb + '">' + symb + '</a></li>';
   });
   return '<ul class="inline">' + lis.join() + '</ul>';
 }
@@ -56,7 +56,7 @@ function getLinkToApiHtml(requires) {
  * example HTML file, this adds metadata for related js and css resources. When
  * these files are run through the example template, the extra metadata is used
  * to show the complete example source in the textarea and submit the parts to
- * jsFiddle.
+ * CodePen.
  *
  * @param {Object} files The file lookup provided by Metalsmith.  Property names
  *     are file paths relative to the source directory.  The file objects
@@ -72,8 +72,8 @@ function augmentExamples(files, metalsmith, done) {
     var file = files[filename];
     var match = filename.match(markupRegEx);
     if (match && filename !== 'index.html') {
-      if (!file.template) {
-        throw new Error(filename + ': Missing template in YAML front-matter');
+      if (!file.layout) {
+        throw new Error(filename + ': Missing "layout" in YAML front-matter');
       }
       var id = match[1];
 
@@ -82,7 +82,14 @@ function augmentExamples(files, metalsmith, done) {
       if (!(jsFilename in files)) {
         throw new Error('No .js file found for ' + filename);
       }
-      var jsSource = files[jsFilename].contents.toString();
+      var jsSource = files[jsFilename].contents.toString()
+          // Change data paths to absolute urls
+          .replace(/'data\//g, '\'https://openlayers.org/en/v' + pkg.version + '/examples/data/');
+      if (file.cloak) {
+        for (var key in file.cloak) {
+          jsSource = jsSource.replace(new RegExp(key, 'g'), file.cloak[key]);
+        }
+      }
       var requires = getRequires(jsSource);
       file.requires = requires;
       file.js = {
@@ -103,18 +110,35 @@ function augmentExamples(files, metalsmith, done) {
       // add additional resources
       if (file.resources) {
         var resources = [];
+        var remoteResources = [];
+        var codePenResources = [];
         for (var i = 0, ii = file.resources.length; i < ii; ++i) {
           var resource = file.resources[i];
+          var remoteResource = resource.indexOf('//') === -1 ?
+            'https://openlayers.org/en/v' + pkg.version + '/examples/' +
+                  resource : resource;
+          codePenResources[i] = remoteResource;
           if (isJsRegEx.test(resource)) {
             resources[i] = '<script src="' + resource + '"></script>';
+            remoteResources[i] = '<script src="' + remoteResource +
+                '"></script>';
           } else if (isCssRegEx.test(resource)) {
-            resources[i] = '<link rel="stylesheet" href="' + resource + '">';
+            if (resource.indexOf('bootstrap.min.css') === -1) {
+              resources[i] = '<link rel="stylesheet" href="' + resource + '">';
+            }
+            remoteResources[i] = '<link rel="stylesheet" href="' +
+                remoteResource + '">';
           } else {
             throw new Error('Invalid value for resource: ' +
                 resource + ' is not .js or .css: ' + filename);
           }
         }
-        file.extraHead = resources.join('\n');
+        file.extraHead = {
+          local: resources.join('\n'),
+          remote: remoteResources.join('\n')
+        };
+        file.extraResources = file.resources.length ?
+          ',' + codePenResources.join(',') : '';
       }
     }
   }
@@ -176,7 +200,7 @@ function createIndex(files, metalsmith, done) {
   var exampleInfos = [];
   for (var filename in files) {
     var example = files[filename];
-    if (markupRegEx.test(filename)) {
+    if (markupRegEx.test(filename) && filename !== 'index.html') {
       exampleInfos.push({
         link: filename,
         example: filename,
@@ -213,6 +237,16 @@ function main(callback) {
         helpers: {
           md: function(str) {
             return new handlebars.SafeString(marked(str));
+          },
+          indent: function(text, options) {
+            if (!text) {
+              return text;
+            }
+            var count = options.hash.spaces || 2;
+            var spaces = new Array(count + 1).join(' ');
+            return text.split('\n').map(function(line) {
+              return line ? spaces + line : '';
+            }).join('\n');
           }
         }
       }))

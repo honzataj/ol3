@@ -1,4 +1,6 @@
-goog.provide('ol.test.TileCoord');
+goog.require('ol.tilecoord');
+goog.require('ol.tilegrid.TileGrid');
+
 
 describe('ol.TileCoord', function() {
 
@@ -11,21 +13,28 @@ describe('ol.TileCoord', function() {
     });
   });
 
-  describe('create from string', function() {
-    it('sets x y z properties as expected', function() {
-      var str = '1/2/3';
-      var tileCoord = ol.tilecoord.createFromString(str);
-      expect(tileCoord[0]).to.eql(1);
-      expect(tileCoord[1]).to.eql(2);
-      expect(tileCoord[2]).to.eql(3);
-    });
-  });
-
   describe('call quadKey', function() {
     it('returns expected string', function() {
       var tileCoord = [3, 3, 5];
       var s = ol.tilecoord.quadKey(tileCoord);
       expect(s).to.eql('213');
+    });
+  });
+
+  describe('getKey()', function() {
+    it('returns a key for a tile coord', function() {
+      var key = ol.tilecoord.getKey([1, 2, 3]);
+      expect(key).to.eql('1/2/3');
+    });
+  });
+
+  describe('fromKey()', function() {
+    it('returns a tile coord given a key', function() {
+      var tileCoord = [1, 2, 3];
+      var key = ol.tilecoord.getKey(tileCoord);
+
+      var returned = ol.tilecoord.fromKey(key);
+      expect(returned).to.eql(tileCoord);
     });
   });
 
@@ -112,7 +121,3 @@ describe('ol.TileCoord', function() {
   });
 
 });
-
-goog.require('ol.TileCoord');
-goog.require('ol.tilecoord');
-goog.require('ol.tilegrid.TileGrid');
