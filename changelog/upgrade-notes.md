@@ -1,5 +1,225 @@
 ## Upgrade notes
 
+### Next version
+
+### v5.3.0
+
+#### The `getUid` function returns string
+
+The `getUid` function from the `ol/util` module now returns a string instead of a number.
+
+#### Attributions are not collapsible for `ol/source/OSM`
+
+When a map contains a layer from a `ol/source/OSM` source, the `ol/control/Attribution` control will be shown with the `collapsible: false` behavior.
+
+To get the previous behavior, configure the `ol/control/Attribution` control with `collapsible: true`. 
+
+### v5.2.0
+
+#### Removal of the `snapToPixel` option for `ol/style/Image` subclasses
+
+The `snapToPixel` option has been removed, and the `getSnapToPixel` and `setSnapToPixel` methods are deprecated.
+
+The renderer now snaps to integer pixels when no interaction or animation is running to get crisp rendering. During interaction or animation, it does not snap to integer pixels to avoid jitter.
+
+When rendering with the Immediate API, symbols will no longer be snapped to integer pixels. To get crisp images, set `context.imageSmoothingEnabled = false` before rendering with the Immediate API, and `context.imageSmoothingEnabled = true` afterwards.
+
+### v5.1.0
+
+#### Geometry constructor and `setCoordinates` no longer accept `null` coordinates
+
+Geometries (`ol/geom/*`) now need to be constructed with valid coordinates (center for `ol/geom/Circle`) as first constructor argument. The same applies to the `setCoordinates()` (`setCenter()` for `ol/geom/Circle`) method.
+
+### v5.0.0
+
+#### Renamed `ol/source/TileUTFGrid` to `ol/source/UTFGrid`
+
+The module name is now `ol/source/UTFGrid` (`ol.source.UTFGrid` in the full build).
+
+#### Renaming of the `defaultDataProjection` in the options and property of the `ol/format/Feature` class and its subclasses
+
+The `defaultDataProjection` option is now named `dataProjection`. The protected property available on the class is also renamed.
+
+#### `transition` option of `ol/source/VectorTile` is ignored
+
+The `transition` option to get an opacity transition to fade in tiles has been  disabled for `ol/source/VectorTile`. Vector tiles are now always rendered without an opacity transition.
+
+#### `ol/style/Fill` with `CanvasGradient` or `CanvasPattern`
+
+The origin for gradients and patterns has changed from the top-left corner of the extent of the geometry being filled to 512 css pixel increments from map coordinate `[0, 0]`. This allows repeat patterns to be aligned properly with vector tiles. For seamless repeat patterns, width and height of the pattern image must be a factor of two (2, 4, 8, ..., 512).
+
+#### Removal of the renderer option for maps
+
+The `renderer` option has been removed from the `Map` constructor.  The purpose of this change is to avoid bundling code in your application that you do not need.  Previously, code for both the Canvas and WebGL renderers was included in all applications - even though most people only use one renderer.  The `Map` constructor now gives you a Canvas (2D) based renderer.  If you want to try the WebGL renderer, you can import the constructor from `ol/WebGLMap`.
+
+Old code:
+```js
+import Map from 'ol/Map';
+
+const canvasMap = new Map({
+  renderer: ['canvas']
+  // other options...
+});
+
+const webglMap = new Map({
+  renderer: ['webgl']
+  // other options...
+});
+```
+
+New code:
+```js
+import Map from 'ol/Map';
+import WebGLMap from 'ol/WebGLMap';
+
+const canvasMap = new Map({
+  // options...
+});
+
+const webglMap = new WebGLMap({
+  // options...
+});
+```
+
+#### Removal of ol.FeatureStyleFunction
+
+The signature of the vector style function passed to the feature has changed. The function now always takes the `feature` and the `resolution` as arguments, the `feature` is no longer bound to `this`.
+
+Old code:
+```js
+feature.setStyle(function(resolution) {
+  var text = this.get('name');
+  ...
+});
+```
+
+New code:
+```js
+feature.setStyle(function(feature, resolution) {
+  var text = feature.get('name');
+  ...
+});
+```
+
+#### Changed behavior of the `Draw` interaction
+
+For better drawing experience, two changes were made to the behavior of the Draw interaction:
+
+ 1. On long press, the current vertex can be dragged to its desired position.
+ 2. On touch move (e.g. when panning the map on a mobile device), no draw cursor is shown, and the geometry being drawn is not updated. But because of 1., the draw cursor will appear on long press. Mouse moves are not affected by this change.
+
+#### Changes in proj4 integration
+
+Because relying on a globally available proj4 is not practical with ES modules, we have made a change to the way we integrate proj4:
+
+ * The `setProj4()` function from the `ol/proj` module was removed.
+ * A new `ol/proj/proj4` module with a `register()` function was added. Regardless of whether the application imports `proj4` or uses a global `proj4`, this function needs to be called with the proj4 instance as argument whenever projection definitions were added to proj4's registry with (`proj4.defs`).
+
+It is also recommended to no longer use a global `proj4`. Instead,
+
+    npm install proj4
+
+and import it:
+
+```js
+import proj4 from 'proj4';
+```
+
+Applications can be updated by importing the `register` function from the `ol/proj/proj4` module
+
+```js
+import {register} from 'ol/proj/proj4'
+```
+
+and calling it before using projections, and any time the proj4 registry was changed by `proj4.defs()` calls:
+
+```js
+register(proj4);
+```
+
+#### Removal of logos
+
+The map and sources no longer accept a `logo` option.  Instead, if you wish to append a logo to your map, add the desired markup directly in your HTML.  In addition, you can use the `attributions` property of a source to display arbitrary markup per-source with the attribution control.
+
+#### Replacement of `ol/Sphere` constructor with `ol/sphere` functions
+
+The `ol/Sphere` constructor has been removed.  If you were using the `getGeodesicArea` method, use the `getArea` function instead.  If you were using the `haversineDistance` method, use the `getDistance` function instead.
+
+Examples before:
+```js
+// using ol@4
+import Sphere from 'ol/sphere';
+
+var sphere = new Sphere(Sphere.DEFAULT_RADIUS);
+var area = sphere.getGeodesicArea(polygon);
+var distance = sphere.haversineDistance(g1, g2);
+```
+
+Examples after:
+```js
+// using ol@5
+import {circular as circularPolygon} from 'ol/geom/Polygon';
+import {getArea, getDistance} from 'ol/sphere';
+
+var area = getArea(polygon);
+var distance = getDistance(g1, g2);
+var circle = circularPolygon(center, radius);
+```
+
+#### New signature for the `circular` function for creating polygons
+
+The `circular` function exported from `ol/geom/Polygon` no longer requires a `Sphere` as the first argument.
+
+Example before:
+```js
+// using ol@4
+import Polygon from 'ol/geom/polygon';
+import Sphere from 'ol/sphere';
+
+var poly = Polygon.circular(new Sphere(Sphere.DEFAULT_RADIUS), center, radius);
+```
+
+Example after:
+```js
+// using ol@5
+import {circular as circularPolygon} from 'ol/geom/Polygon';
+
+var poly = circularPolygon(center, radius);
+```
+
+#### Removal of optional this arguments.
+
+The optional this (i.e. opt_this) arguments were removed from the following methods. Please use closures, the es6 arrow function or the bind method to achieve this effect (Bind is explained here: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind).
+
+* Collection#forEach
+* geom/LineString#forEachSegment
+* Observable#on, #once, #un
+* Map#forEachLayerAtPixel
+* source/TileUTFGrid#forDataAtCoordinateAndResolution
+* source/Vector#forEachFeature, #forEachFeatureInExtent, #forEachFeatureIntersectingExtent
+
+
+#### `Map#forEachLayerAtPixel` parameters have changed
+
+If you are using the layer filter, please note that you now have to pass in the layer filter via an `AtPixelOptions` object. If you are not using the layer filter the usage has not changed.
+
+Old syntax:
+```
+    map.forEachLayerAtPixel(pixel, callback, callbackThis, layerFilterFn, layerFilterThis);
+```
+
+New syntax:
+
+```
+    map.forEachLayerAtPixel(pixel, callback, {
+        layerFilter: layerFilterFn
+    });
+```
+
+To bind a function to a this, please use the bind method of the function (See: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind).
+
+This change is due to the introduction of the `hitTolerance` parameter which can be passed in via this `AtPixelOptions` object, too.
+
 ### v4.6.0
 
 #### Renamed `exceedLength` option of `ol.style.Text` to `overflow`

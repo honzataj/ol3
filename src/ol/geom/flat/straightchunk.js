@@ -1,25 +1,27 @@
-goog.provide('ol.geom.flat.straightchunk');
+/**
+ * @module ol/geom/flat/straightchunk
+ */
 
 
 /**
  * @param {number} maxAngle Maximum acceptable angle delta between segments.
- * @param {Array.<number>} flatCoordinates Flat coordinates.
+ * @param {Array<number>} flatCoordinates Flat coordinates.
  * @param {number} offset Offset.
  * @param {number} end End.
  * @param {number} stride Stride.
- * @return {Array.<number>} Start and end of the first suitable chunk of the
+ * @return {Array<number>} Start and end of the first suitable chunk of the
  * given `flatCoordinates`.
  */
-ol.geom.flat.straightchunk.lineString = function(maxAngle, flatCoordinates, offset, end, stride) {
-  var chunkStart = offset;
-  var chunkEnd = offset;
-  var chunkM = 0;
-  var m = 0;
-  var start = offset;
-  var acos, i, m12, m23, x1, y1, x12, y12, x23, y23;
+export function matchingChunk(maxAngle, flatCoordinates, offset, end, stride) {
+  let chunkStart = offset;
+  let chunkEnd = offset;
+  let chunkM = 0;
+  let m = 0;
+  let start = offset;
+  let acos, i, m12, m23, x1, y1, x12, y12, x23, y23;
   for (i = offset; i < end; i += stride) {
-    var x2 = flatCoordinates[i];
-    var y2 = flatCoordinates[i + 1];
+    const x2 = flatCoordinates[i];
+    const y2 = flatCoordinates[i + 1];
     if (x1 !== undefined) {
       x23 = x2 - x1;
       y23 = y2 - y1;
@@ -46,4 +48,4 @@ ol.geom.flat.straightchunk.lineString = function(maxAngle, flatCoordinates, offs
   }
   m += m23;
   return m > chunkM ? [start, i] : [chunkStart, chunkEnd];
-};
+}

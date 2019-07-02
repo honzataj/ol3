@@ -1,158 +1,243 @@
-goog.provide('ol.render.canvas');
+/**
+ * @module ol/render/canvas
+ */
+import {getFontFamilies} from '../css.js';
+import {createCanvasContext2D} from '../dom.js';
+import {clear} from '../obj.js';
+import LRUCache from '../structs/LRUCache.js';
+import {create as createTransform} from '../transform.js';
 
 
-goog.require('ol.css');
-goog.require('ol.dom');
-goog.require('ol.obj');
-goog.require('ol.structs.LRUCache');
-goog.require('ol.transform');
+/**
+ * @typedef {Object} FillState
+ * @property {import("../colorlike.js").ColorLike} fillStyle
+ */
+
+
+/**
+ * @typedef {Object} FillStrokeState
+ * @property {import("../colorlike.js").ColorLike} [currentFillStyle]
+ * @property {import("../colorlike.js").ColorLike} [currentStrokeStyle]
+ * @property {string} [currentLineCap]
+ * @property {Array<number>} currentLineDash
+ * @property {number} [currentLineDashOffset]
+ * @property {string} [currentLineJoin]
+ * @property {number} [currentLineWidth]
+ * @property {number} [currentMiterLimit]
+ * @property {number} [lastStroke]
+ * @property {import("../colorlike.js").ColorLike} [fillStyle]
+ * @property {import("../colorlike.js").ColorLike} [strokeStyle]
+ * @property {string} [lineCap]
+ * @property {Array<number>} lineDash
+ * @property {number} [lineDashOffset]
+ * @property {string} [lineJoin]
+ * @property {number} [lineWidth]
+ * @property {number} [miterLimit]
+ */
+
+
+/**
+ * @typedef {Object} StrokeState
+ * @property {string} lineCap
+ * @property {Array<number>} lineDash
+ * @property {number} lineDashOffset
+ * @property {string} lineJoin
+ * @property {number} lineWidth
+ * @property {number} miterLimit
+ * @property {import("../colorlike.js").ColorLike} strokeStyle
+ */
+
+
+/**
+ * @typedef {Object} TextState
+ * @property {string} font
+ * @property {string} [textAlign]
+ * @property {string} textBaseline
+ * @property {string} [placement]
+ * @property {number} [maxAngle]
+ * @property {boolean} [overflow]
+ * @property {import("../style/Fill.js").default} [backgroundFill]
+ * @property {import("../style/Stroke.js").default} [backgroundStroke]
+ * @property {number} [scale]
+ * @property {Array<number>} [padding]
+ */
+
+
+/**
+ * Container for decluttered replay instructions that need to be rendered or
+ * omitted together, i.e. when styles render both an image and text, or for the
+ * characters that form text along lines. The basic elements of this array are
+ * `[minX, minY, maxX, maxY, count]`, where the first four entries are the
+ * rendered extent of the group in pixel space. `count` is the number of styles
+ * in the group, i.e. 2 when an image and a text are grouped, or 1 otherwise.
+ * In addition to these four elements, declutter instruction arrays (i.e. the
+ * arguments to {@link module:ol/render/canvas~drawImage} are appended to the array.
+ * @typedef {Array<*>} DeclutterGroup
+ */
 
 
 /**
  * @const
  * @type {string}
  */
-ol.render.canvas.defaultFont = '10px sans-serif';
+export const defaultFont = '10px sans-serif';
 
 
 /**
  * @const
- * @type {ol.Color}
+ * @type {import("../color.js").Color}
  */
-ol.render.canvas.defaultFillStyle = [0, 0, 0, 1];
+export const defaultFillStyle = [0, 0, 0, 1];
 
 
 /**
  * @const
  * @type {string}
  */
-ol.render.canvas.defaultLineCap = 'round';
+export const defaultLineCap = 'round';
 
 
 /**
  * @const
- * @type {Array.<number>}
+ * @type {Array<number>}
  */
-ol.render.canvas.defaultLineDash = [];
+export const defaultLineDash = [];
 
 
 /**
  * @const
  * @type {number}
  */
-ol.render.canvas.defaultLineDashOffset = 0;
+export const defaultLineDashOffset = 0;
 
 
 /**
  * @const
  * @type {string}
  */
-ol.render.canvas.defaultLineJoin = 'round';
+export const defaultLineJoin = 'round';
 
 
 /**
  * @const
  * @type {number}
  */
-ol.render.canvas.defaultMiterLimit = 10;
+export const defaultMiterLimit = 10;
 
 
 /**
  * @const
- * @type {ol.Color}
+ * @type {import("../color.js").Color}
  */
-ol.render.canvas.defaultStrokeStyle = [0, 0, 0, 1];
-
-
-/**
- * @const
- * @type {string}
- */
-ol.render.canvas.defaultTextAlign = 'center';
+export const defaultStrokeStyle = [0, 0, 0, 1];
 
 
 /**
  * @const
  * @type {string}
  */
-ol.render.canvas.defaultTextBaseline = 'middle';
+export const defaultTextAlign = 'center';
 
 
 /**
  * @const
- * @type {Array.<number>}
+ * @type {string}
  */
-ol.render.canvas.defaultPadding = [0, 0, 0, 0];
+export const defaultTextBaseline = 'middle';
+
+
+/**
+ * @const
+ * @type {Array<number>}
+ */
+export const defaultPadding = [0, 0, 0, 0];
 
 
 /**
  * @const
  * @type {number}
  */
-ol.render.canvas.defaultLineWidth = 1;
+export const defaultLineWidth = 1;
 
 
 /**
- * @type {ol.structs.LRUCache.<HTMLCanvasElement>}
+ * The label cache for text rendering. To change the default cache size of 2048
+ * entries, use {@link module:ol/structs/LRUCache#setSize}.
+ * @type {LRUCache<HTMLCanvasElement>}
+ * @api
  */
-ol.render.canvas.labelCache = new ol.structs.LRUCache();
+export const labelCache = new LRUCache();
 
 
 /**
- * @type {!Object.<string, number>}
+ * @type {!Object<string, number>}
  */
-ol.render.canvas.checkedFonts_ = {};
+export const checkedFonts = {};
 
 
 /**
  * @type {CanvasRenderingContext2D}
  */
-ol.render.canvas.measureContext_ = null;
+let measureContext = null;
 
 
 /**
- * @type {!Object.<string, number>}
+ * @type {!Object<string, number>}
  */
-ol.render.canvas.textHeights_ = {};
+export const textHeights = {};
 
 
 /**
  * Clears the label cache when a font becomes available.
  * @param {string} fontSpec CSS font spec.
  */
-ol.render.canvas.checkFont = (function() {
-  var retries = 60;
-  var checked = ol.render.canvas.checkedFonts_;
-  var labelCache = ol.render.canvas.labelCache;
-  var font = '32px monospace';
-  var text = 'wmytzilWMYTZIL@#/&?$%10';
-  var interval, referenceWidth;
+export const checkFont = (function() {
+  const retries = 60;
+  const checked = checkedFonts;
+  const size = '32px ';
+  const referenceFonts = ['monospace', 'serif'];
+  const len = referenceFonts.length;
+  const text = 'wmytzilWMYTZIL@#/&?$%10\uF013';
+  let interval, referenceWidth;
 
-  function isAvailable(fontFamily) {
-    var context = ol.render.canvas.getMeasureContext();
-    context.font = font;
-    referenceWidth = context.measureText(text).width;
-    var available = true;
-    if (fontFamily != 'monospace') {
-      context.font = '32px ' + fontFamily + ',monospace';
-      var width = context.measureText(text).width;
-      // If width and referenceWidth are the same, then the 'monospace'
-      // fallback was used instead of the font we wanted, so the font is not
-      // available.
-      available = width != referenceWidth;
+  function isAvailable(font) {
+    const context = getMeasureContext();
+    // Check weight ranges according to
+    // https://developer.mozilla.org/en-US/docs/Web/CSS/font-weight#Fallback_weights
+    for (let weight = 100; weight <= 700; weight += 300) {
+      const fontWeight = weight + ' ';
+      let available = true;
+      for (let i = 0; i < len; ++i) {
+        const referenceFont = referenceFonts[i];
+        context.font = fontWeight + size + referenceFont;
+        referenceWidth = context.measureText(text).width;
+        if (font != referenceFont) {
+          context.font = fontWeight + size + font + ',' + referenceFont;
+          const width = context.measureText(text).width;
+          // If width and referenceWidth are the same, then the fallback was used
+          // instead of the font we wanted, so the font is not available.
+          available = available && width != referenceWidth;
+        }
+      }
+      if (available) {
+        // Consider font available when it is available in one weight range.
+        //FIXME With this we miss rare corner cases, so we should consider
+        //FIXME checking availability for each requested weight range.
+        return true;
+      }
     }
-    return available;
+    return false;
   }
 
   function check() {
-    var done = true;
-    for (var font in checked) {
+    let done = true;
+    for (const font in checked) {
       if (checked[font] < retries) {
         if (isAvailable(font)) {
           checked[font] = retries;
-          ol.obj.clear(ol.render.canvas.textHeights_);
+          clear(textHeights);
           // Make sure that loaded fonts are picked up by Safari
-          ol.render.canvas.measureContext_ = null;
+          measureContext = null;
           labelCache.clear();
         } else {
           ++checked[font];
@@ -161,24 +246,24 @@ ol.render.canvas.checkFont = (function() {
       }
     }
     if (done) {
-      window.clearInterval(interval);
+      clearInterval(interval);
       interval = undefined;
     }
   }
 
   return function(fontSpec) {
-    var fontFamilies = ol.css.getFontFamilies(fontSpec);
+    const fontFamilies = getFontFamilies(fontSpec);
     if (!fontFamilies) {
       return;
     }
-    for (var i = 0, ii = fontFamilies.length; i < ii; ++i) {
-      var fontFamily = fontFamilies[i];
+    for (let i = 0, ii = fontFamilies.length; i < ii; ++i) {
+      const fontFamily = fontFamilies[i];
       if (!(fontFamily in checked)) {
         checked[fontFamily] = retries;
         if (!isAvailable(fontFamily)) {
           checked[fontFamily] = 0;
           if (interval === undefined) {
-            interval = window.setInterval(check, 32);
+            interval = setInterval(check, 32);
           }
         }
       }
@@ -190,24 +275,23 @@ ol.render.canvas.checkFont = (function() {
 /**
  * @return {CanvasRenderingContext2D} Measure context.
  */
-ol.render.canvas.getMeasureContext = function() {
-  var context = ol.render.canvas.measureContext_;
-  if (!context) {
-    context = ol.render.canvas.measureContext_ = ol.dom.createCanvasContext2D(1, 1);
+function getMeasureContext() {
+  if (!measureContext) {
+    measureContext = createCanvasContext2D(1, 1);
   }
-  return context;
-};
+  return measureContext;
+}
 
 
 /**
  * @param {string} font Font to use for measuring.
- * @return {ol.Size} Measurement.
+ * @return {import("../size.js").Size} Measurement.
  */
-ol.render.canvas.measureTextHeight = (function() {
-  var span;
-  var heights = ol.render.canvas.textHeights_;
+export const measureTextHeight = (function() {
+  let span;
+  const heights = textHeights;
   return function(font) {
-    var height = heights[font];
+    let height = heights[font];
     if (height == undefined) {
       if (!span) {
         span = document.createElement('span');
@@ -231,13 +315,13 @@ ol.render.canvas.measureTextHeight = (function() {
  * @param {string} text Text.
  * @return {number} Width.
  */
-ol.render.canvas.measureTextWidth = function(font, text) {
-  var measureContext = ol.render.canvas.getMeasureContext();
+export function measureTextWidth(font, text) {
+  const measureContext = getMeasureContext();
   if (font != measureContext.font) {
     measureContext.font = font;
   }
   return measureContext.measureText(text).width;
-};
+}
 
 
 /**
@@ -246,21 +330,21 @@ ol.render.canvas.measureTextWidth = function(font, text) {
  * @param {number} offsetX X offset.
  * @param {number} offsetY Y offset.
  */
-ol.render.canvas.rotateAtOffset = function(context, rotation, offsetX, offsetY) {
+export function rotateAtOffset(context, rotation, offsetX, offsetY) {
   if (rotation !== 0) {
     context.translate(offsetX, offsetY);
     context.rotate(rotation);
     context.translate(-offsetX, -offsetY);
   }
-};
+}
 
 
-ol.render.canvas.resetTransform_ = ol.transform.create();
+export const resetTransform = createTransform();
 
 
 /**
  * @param {CanvasRenderingContext2D} context Context.
- * @param {ol.Transform|null} transform Transform.
+ * @param {import("../transform.js").Transform|null} transform Transform.
  * @param {number} opacity Opacity.
  * @param {HTMLImageElement|HTMLCanvasElement|HTMLVideoElement} image Image.
  * @param {number} originX Origin X.
@@ -271,9 +355,9 @@ ol.render.canvas.resetTransform_ = ol.transform.create();
  * @param {number} y Y.
  * @param {number} scale Scale.
  */
-ol.render.canvas.drawImage = function(context,
-    transform, opacity, image, originX, originY, w, h, x, y, scale) {
-  var alpha;
+export function drawImage(context,
+  transform, opacity, image, originX, originY, w, h, x, y, scale) {
+  let alpha;
   if (opacity != 1) {
     alpha = context.globalAlpha;
     context.globalAlpha = alpha * opacity;
@@ -288,6 +372,6 @@ ol.render.canvas.drawImage = function(context,
     context.globalAlpha = alpha;
   }
   if (transform) {
-    context.setTransform.apply(context, ol.render.canvas.resetTransform_);
+    context.setTransform.apply(context, resetTransform);
   }
-};
+}
