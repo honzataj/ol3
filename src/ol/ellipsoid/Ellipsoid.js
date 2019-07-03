@@ -1,5 +1,5 @@
 /**
- * @module ol/proj/Projection
+ * @module ol/ellipsoid/Ellipsoid
  */
 
 
@@ -190,3 +190,10 @@ class Ellipsoid {
 }
 
 export default Ellipsoid;
+
+
+/**
+ * @type {ol.Ellipsoid}
+ * @api
+ */
+export const EllipsoidWGS84 = new Ellipsoid(6378137, 1 / 298.257223563);
