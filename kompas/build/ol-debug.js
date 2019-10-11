@@ -26918,9 +26918,20 @@ ol.ext.rbush = function() {};
 (function() {(function (exports) {
 'use strict';
 
-var quickselect_1 = quickselect;
-var default_1 = quickselect;
-function quickselect(arr, k, left, right, compare) {
+var commonjsGlobal = typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
+
+
+
+
+
+function createCommonjsModule(fn, module) {
+	return module = { exports: {} }, fn(module, module.exports), module.exports;
+}
+
+var quickselect = createCommonjsModule(function (module, exports) {
+(function (global, factory) {
+	module.exports = factory();
+}(commonjsGlobal, (function () { function quickselect(arr, k, left, right, compare) {
     quickselectStep(arr, k, left || 0, right || (arr.length - 1), compare || defaultCompare);
 }
 function quickselectStep(arr, k, left, right, compare) {
@@ -26964,7 +26975,9 @@ function swap(arr, i, j) {
 function defaultCompare(a, b) {
     return a < b ? -1 : a > b ? 1 : 0;
 }
-quickselect_1.default = default_1;
+return quickselect;
+})));
+});
 
 var rbush_1 = rbush;
 function rbush(maxEntries, format) {
@@ -27345,7 +27358,7 @@ function multiSelect(arr, left, right, n, compare) {
         left = stack.pop();
         if (right - left <= n) continue;
         mid = left + Math.ceil((right - left) / n / 2) * n;
-        quickselect_1(arr, mid, left, right, compare);
+        quickselect(arr, mid, left, right, compare);
         stack.push(left, mid, mid, right);
     }
 }
@@ -41381,6 +41394,7 @@ goog.require('ol.xml');
  *     Function called when loading failed. Called with the vector tile or
  *     source as `this`.
  * @return {ol.FeatureLoader} The feature loader.
+ * @api
  */
 ol.featureloader.loadFeaturesXhr = function(url, format, success, failure) {
   return (
@@ -81248,6 +81262,7 @@ ol.source.ImageArcGISRest = function(opt_options) {
   this.imageLoadFunction_ = options.imageLoadFunction !== undefined ?
     options.imageLoadFunction : ol.source.Image.defaultImageLoadFunction;
 
+
   /**
    * @private
    * @type {!Object}
@@ -81351,7 +81366,7 @@ ol.source.ImageArcGISRest.prototype.getImageInternal = function(extent, resoluti
 
   var url = this.getRequestUrl_(extent, this.imageSize_, pixelRatio,
       projection, params);
-  
+
   this.image_ = new ol.Image(extent, resolution, pixelRatio,
       url, this.crossOrigin_, this.imageLoadFunction_);
 
@@ -87310,6 +87325,11 @@ goog.exportProperty(
     ol.Feature.prototype,
     'setGeometryName',
     ol.Feature.prototype.setGeometryName);
+
+goog.exportSymbol(
+    'ol.featureloader.loadFeaturesXhr',
+    ol.featureloader.loadFeaturesXhr,
+    OPENLAYERS);
 
 goog.exportSymbol(
     'ol.featureloader.xhr',

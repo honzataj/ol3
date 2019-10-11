@@ -1423,6 +1423,16 @@ ol.featureloader;
 /**
  * @param {string|ol.FeatureUrlFunction} url
  * @param {ol.format.Feature} format
+ * @param {Function|Function} success
+ * @param {Function|Function} failure
+ * @return {ol.FeatureLoader}
+ */
+ol.featureloader.loadFeaturesXhr = function(url, format, success, failure) {};
+
+
+/**
+ * @param {string|ol.FeatureUrlFunction} url
+ * @param {ol.format.Feature} format
  * @return {ol.FeatureLoader}
  */
 ol.featureloader.xhr = function(url, format) {};
