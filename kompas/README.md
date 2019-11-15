@@ -44,5 +44,6 @@
     * ol.sphere.offset
 
 ## Generate Single JS file:
-* run `rm -rf build && rm -rf build/ol && mkdir -p build && npx buble --input src/ol --output build/ol --no modules --sourcemap && cp src/ol/ol.css build/ol/ol.css && node tasks/prepare-package && cp README.md build/ol && node tasks/generate-index && npx webpack --config config/webpack-config-legacy-build.js && npx cleancss --source-map src/ol/ol.css -o build/legacy/ol.css`
-* run `rm -rf kompas/build && mkdir -p kompas/build && cp build/legacy/ol.js kompas/build/ol.js && cp build/legacy/ol.js.map kompas/build/ol.js.map && rm -rf kompas/css && mkdir -p kompas/css && cp build/legacy/ol.css kompas/css/ol.css && cp build/legacy/ol.css.map kompas/css/ol.css.map`
+* run into root folder 
+    * `rm -rf build && rm -rf build/ol && mkdir -p build && npx buble --input src/ol --output build/ol --no modules --sourcemap && cp src/ol/ol.css build/ol/ol.css && node tasks/prepare-package && cp README.md build/ol && node tasks/generate-index && npx webpack --config config/webpack-config-legacy-build.js && npx cleancss --source-map src/ol/ol.css -o build/legacy/ol.css`
+    * `rm -rf kompas/build && mkdir -p kompas/build && cp build/legacy/ol.js kompas/build/ol.js && cp build/legacy/ol.js.map kompas/build/ol.js.map && rm -rf kompas/css && mkdir -p kompas/css && cp build/legacy/ol.css kompas/css/ol.css && cp build/legacy/ol.css.map kompas/css/ol.css.map`
