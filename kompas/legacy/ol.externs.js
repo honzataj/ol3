@@ -958,13 +958,13 @@ ol.easing.upAndDown = function(t) {};
  * @param {number} a
  * @param {number} flattening
  */
-ol.Ellipsoid = function(a, flattening) {};
+ol.ellipsoid.Ellipsoid = function(a, flattening) {};
 
 
 /**
  * @return {number}
  */
-ol.Ellipsoid.prototype.getA = function() {};
+ol.ellipsoid.Ellipsoid.prototype.getA = function() {};
 
 
 /**
@@ -974,7 +974,7 @@ ol.Ellipsoid.prototype.getA = function() {};
  * @param {number=} opt_maxIterations
  * @return {Object}
  */
-ol.Ellipsoid.prototype.vincenty = function(c1, c2, opt_minDeltaLambda, opt_maxIterations) {};
+ol.ellipsoid.Ellipsoid.prototype.vincenty = function(c1, c2, opt_minDeltaLambda, opt_maxIterations) {};
 
 
 /**
@@ -984,7 +984,7 @@ ol.Ellipsoid.prototype.vincenty = function(c1, c2, opt_minDeltaLambda, opt_maxIt
  * @param {number=} opt_maxIterations
  * @return {number}
  */
-ol.Ellipsoid.prototype.vincentyDistance = function(c1, c2, opt_minDeltaLambda, opt_maxIterations) {};
+ol.ellipsoid.Ellipsoid.prototype.vincentyDistance = function(c1, c2, opt_minDeltaLambda, opt_maxIterations) {};
 
 
 /**
@@ -994,7 +994,7 @@ ol.Ellipsoid.prototype.vincentyDistance = function(c1, c2, opt_minDeltaLambda, o
  * @param {number=} opt_maxIterations
  * @return {number}
  */
-ol.Ellipsoid.prototype.vincentyFinalBearing = function(c1, c2, opt_minDeltaLambda, opt_maxIterations) {};
+ol.ellipsoid.Ellipsoid.prototype.vincentyFinalBearing = function(c1, c2, opt_minDeltaLambda, opt_maxIterations) {};
 
 
 /**
@@ -1004,7 +1004,7 @@ ol.Ellipsoid.prototype.vincentyFinalBearing = function(c1, c2, opt_minDeltaLambd
  * @param {number=} opt_maxIterations
  * @return {number}
  */
-ol.Ellipsoid.prototype.vincentyInitialBearing = function(c1, c2, opt_minDeltaLambda, opt_maxIterations) {};
+ol.ellipsoid.Ellipsoid.prototype.vincentyInitialBearing = function(c1, c2, opt_minDeltaLambda, opt_maxIterations) {};
 
 
 /**
@@ -1014,9 +1014,9 @@ ol.ellipsoid;
 
 
 /**
- * @type {ol.Ellipsoid}
+ * @type {ol.ellipsoid.Ellipsoid}
  */
-ol.ellipsoid.WGS84;
+ol.ellipsoid.Ellipsoid.EllipsoidWGS84;
 
 
 /**
@@ -1423,96 +1423,20 @@ ol.featureloader;
 /**
  * @param {string|ol.FeatureUrlFunction} url
  * @param {ol.format.Feature} format
+ * @param {Function|Function} success
+ * @param {Function|Function} failure
+ * @return {ol.FeatureLoader}
+ */
+ol.featureloader.loadFeaturesXhr = function(url, format, success, failure) {};
+
+
+/**
+ * @param {string|ol.FeatureUrlFunction} url
+ * @param {ol.format.Feature} format
  * @return {ol.FeatureLoader}
  */
 ol.featureloader.xhr = function(url, format) {};
 
-
-/**
- * @constructor
- * @extends {ol.format.Feature}
- * @param {olx.format.EsriJSONOptions=} opt_options
- */
-ol.format.EsriJSON = function(opt_options) {};
-
-
-/**
- * @param {ArrayBuffer|Document|Node|Object|string} source
- * @param {olx.format.ReadOptions=} opt_options
- * @return {ol.Feature}
- */
-ol.format.EsriJSON.prototype.readFeature = function(source, opt_options) {};
-
-
-/**
- * @param {ArrayBuffer|Document|Node|Object|string} source
- * @param {olx.format.ReadOptions=} opt_options
- * @return {Array.<ol.Feature>}
- */
-ol.format.EsriJSON.prototype.readFeatures = function(source, opt_options) {};
-
-
-/**
- * @param {ArrayBuffer|Document|Node|Object|string} source
- * @param {olx.format.ReadOptions=} opt_options
- * @return {ol.geom.Geometry}
- */
-ol.format.EsriJSON.prototype.readGeometry = function(source, opt_options) {};
-
-
-/**
- * @param {ArrayBuffer|Document|Node|Object|string} source
- * @return {ol.proj.Projection}
- */
-ol.format.EsriJSON.prototype.readProjection = function(source) {};
-
-
-/**
- * @param {ol.geom.Geometry} geometry
- * @param {olx.format.WriteOptions=} opt_options
- * @return {string}
- */
-ol.format.EsriJSON.prototype.writeGeometry = function(geometry, opt_options) {};
-
-
-/**
- * @param {ol.geom.Geometry} geometry
- * @param {olx.format.WriteOptions=} opt_options
- * @return {EsriJSONGeometry}
- */
-ol.format.EsriJSON.prototype.writeGeometryObject = function(geometry, opt_options) {};
-
-
-/**
- * @param {ol.Feature} feature
- * @param {olx.format.WriteOptions=} opt_options
- * @return {string}
- */
-ol.format.EsriJSON.prototype.writeFeature = function(feature, opt_options) {};
-
-
-/**
- * @param {ol.Feature} feature
- * @param {olx.format.WriteOptions=} opt_options
- * @return {Object}
- */
-ol.format.EsriJSON.prototype.writeFeatureObject = function(feature, opt_options) {};
-
-
-/**
- * @param {Array.<ol.Feature>} features
- * @param {olx.format.WriteOptions=} opt_options
- * @return {string}
- */
-ol.format.EsriJSON.prototype.writeFeatures = function(features, opt_options) {};
-
-
-/**
- * @param {Array.<ol.Feature>} features
- * @param {olx.format.WriteOptions=} opt_options
- * @return {Object}
- */
-ol.format.EsriJSON.prototype.writeFeaturesObject = function(features, opt_options) {};
 
 
 /**
@@ -3104,13 +3028,13 @@ ol.geom.Polygon.prototype.getType = function() {};
 
 
 /**
- * @param {ol.Sphere} sphere
  * @param {ol.Coordinate} center
  * @param {number} radius
  * @param {number=} opt_n
+ * @param {number=} opt_sphereRadius
  * @return {ol.geom.Polygon}
  */
-ol.geom.Polygon.circular = function(sphere, center, radius, opt_n) {};
+ol.geom.Polygon.circular = function(center, radius, opt_n, opt_sphereRadius) {};
 
 
 /**
@@ -3266,23 +3190,23 @@ ol.has.WEBGL;
  * @param {?string} crossOrigin
  * @param {ol.ImageLoadFunctionType} imageLoadFunction
  */
-ol.Image = function(extent, resolution, pixelRatio, src, crossOrigin, imageLoadFunction) {};
+ol.ImageWrapper = function(extent, resolution, pixelRatio, src, crossOrigin, imageLoadFunction) {};
 
 
 /**
  */
-ol.Image.prototype.getImage = function() {};
+ol.ImageWrapper.prototype.getImage = function() {};
 
 
 /**
  * @return {string}
  */
-ol.Image.prototype.getSrc = function() {};
+ol.ImageWrapper.prototype.getSrc = function() {};
 
 
 /**
  */
-ol.Image.prototype.load = function() {};
+ol.ImageWrapper.prototype.load = function() {};
 
 
 /**
@@ -3459,12 +3383,6 @@ ol.interaction.Draw = function(options) {};
 
 
 /**
- * @return {ol.Feature}
- */
-ol.interaction.Draw.prototype.getSketchFeature = function() {};
-
-
-/**
  * @param {ol.MapBrowserEvent} event
  * @return {boolean}
  */
@@ -3485,6 +3403,11 @@ ol.interaction.Draw.prototype.finishDrawing = function() {};
  * @param {ol.Feature} feature
  */
 ol.interaction.Draw.prototype.extend = function(feature) {};
+
+
+/**
+ */
+ol.interaction.Draw.prototype.getOverlay = function() {};
 
 
 /**
@@ -4747,11 +4670,6 @@ ol.proj.Projection.prototype.setGetPointResolution = function(func) {};
 ol.proj.METERS_PER_UNIT;
 
 
-/**
- * @param {Proj4} proj4
- */
-ol.proj.setProj4 = function(proj4) {};
-
 
 /**
  * @param {ol.ProjectionLike} projection
@@ -5198,7 +5116,7 @@ ol.source.Image.prototype.getImage = function(extent, resolution, pixelRatio, pr
 
 
 /**
- * @param {ol.Image} image
+ * @param {ol.ImageWrapper} image
  * @param {string} src
  */
 ol.source.Image.defaultImageLoadFunction = function(image, src) {};
@@ -5208,13 +5126,13 @@ ol.source.Image.defaultImageLoadFunction = function(image, src) {};
  * @constructor
  * @extends {ol.events.Event}
  * @param {string} type
- * @param {ol.Image} image
+ * @param {ol.ImageWrapper} image
  */
 ol.source.Image.Event = function(type, image) {};
 
 
 /**
- * @type {ol.Image}
+ * @type {ol.ImageWrapper}
  */
 ol.source.Image.Event.prototype.image;
 
@@ -5579,45 +5497,6 @@ ol.source.TileImage.prototype.setTileGridForProjection = function(projection, ti
 /**
  * @constructor
  * @extends {ol.source.TileImage}
- * @param {olx.source.TileJSONOptions} options
- */
-ol.source.TileJSON = function(options) {};
-
-
-/**
- * @return {TileJSON}
- */
-ol.source.TileJSON.prototype.getTileJSON = function() {};
-
-
-/**
- * @constructor
- * @extends {ol.source.Tile}
- * @param {olx.source.TileUTFGridOptions} options
- */
-ol.source.TileUTFGrid = function(options) {};
-
-
-/**
- * @return {string|undefined}
- */
-ol.source.TileUTFGrid.prototype.getTemplate = function() {};
-
-
-/**
- * @param {ol.Coordinate} coordinate
- * @param {number} resolution
- * @param {Function} callback
- * @param {T=} opt_this
- * @param {boolean=} opt_request
- * @template T
- */
-ol.source.TileUTFGrid.prototype.forDataAtCoordinateAndResolution = function(coordinate, resolution, callback, opt_this, opt_request) {};
-
-
-/**
- * @constructor
- * @extends {ol.source.TileImage}
  * @param {olx.source.TileWMSOptions=} opt_options
  */
 ol.source.TileWMS = function(opt_options) {};
@@ -5925,43 +5804,76 @@ ol.source.XYZ = function(opt_options) {};
  */
 ol.source.Zoomify = function(opt_options) {};
 
-
 /**
- * @constructor
- * @param {number} radius
+ * @type {Object}
  */
-ol.Sphere = function(radius) {};
-
+ol.sphere;
 
 /**
- * @param {Array.<ol.Coordinate>} coordinates
- * @return {number}
+ * @param {Array} c1 
+ * @param {Array} c2 
+ * @param {number=} opt_radius
  */
-ol.Sphere.prototype.geodesicArea = function(coordinates) {};
+ol.sphere.getDistance = function(c1, c2, opt_radius) {};
+
+/**
+ * @param {ol.geom.Geometry} geometry A geometry.
+ * @param {olx.SphereMetricOptions=} opt_options Options for the
+ */
+ol.sphere.getLength = function(geometry, opt_options) {}
+
+/**
+ * @param {ol.geom.Geometry} geometry A geometry.
+ * @param {olx.SphereMetricOptions=} opt_options Options for the
+ */
+ol.sphere.getArea = function(geometry, opt_options) {};
 
 
 /**
+ * 
  * @param {ol.Coordinate} c1
- * @param {ol.Coordinate} c2
- * @return {number}
+ * @param {number} distance
+ * @param {number} bearing
+ * @param {number=} opt_radius
  */
-ol.Sphere.prototype.haversineDistance = function(c1, c2) {};
+ol.sphere.offset = function(c1, distance, bearing, opt_radius) {};
 
-
-/**
- * @param {ol.geom.Geometry} geometry
- * @param {olx.SphereMetricOptions=} opt_options
- * @return {number}
- */
-ol.Sphere.getLength = function(geometry, opt_options) {};
-
-
-/**
- * @param {ol.geom.Geometry} geometry
- * @param {olx.SphereMetricOptions=} opt_options
- * @return {number}
- */
-ol.Sphere.getArea = function(geometry, opt_options) {};
+///**
+// * @constructor
+// * @param {number} radius
+// */
+//ol.Sphere = function(radius) {};
+//
+//
+///**
+// * @param {Array.<ol.Coordinate>} coordinates
+// * @return {number}
+// */
+//ol.Sphere.prototype.geodesicArea = function(coordinates) {};
+//
+//
+///**
+// * @param {ol.Coordinate} c1
+// * @param {ol.Coordinate} c2
+// * @return {number}
+// */
+//ol.Sphere.prototype.haversineDistance = function(c1, c2) {};
+//
+//
+///**
+// * @param {ol.geom.Geometry} geometry
+// * @param {olx.SphereMetricOptions=} opt_options
+// * @return {number}
+// */
+//ol.Sphere.getLength = function(geometry, opt_options) {};
+//
+//
+///**
+// * @param {ol.geom.Geometry} geometry
+// * @param {olx.SphereMetricOptions=} opt_options
+// * @return {number}
+// */
+//ol.Sphere.getArea = function(geometry, opt_options) {};
 
 
 /**
@@ -10778,7 +10690,7 @@ ol.geom.Polygon.prototype.un = function(type, listener, opt_this) {};
 /**
  * @return {ol.ImageState}
  */
-ol.Image.prototype.getState = function() {};
+ol.ImageWrapper.prototype.getState = function() {};
 
 
 /**
@@ -18588,311 +18500,6 @@ ol.source.TileDebug.prototype.once = function(type, listener, opt_this) {};
 ol.source.TileDebug.prototype.un = function(type, listener, opt_this) {};
 
 
-/**
- * @param {boolean} render
- */
-ol.source.TileJSON.prototype.setRenderReprojectionEdges = function(render) {};
-
-
-/**
- * @param {ol.ProjectionLike} projection
- * @param {ol.tilegrid.TileGrid} tilegrid
- */
-ol.source.TileJSON.prototype.setTileGridForProjection = function(projection, tilegrid) {};
-
-
-/**
- * @return {ol.TileLoadFunctionType}
- */
-ol.source.TileJSON.prototype.getTileLoadFunction = function() {};
-
-
-/**
- * @return {ol.TileUrlFunctionType}
- */
-ol.source.TileJSON.prototype.getTileUrlFunction = function() {};
-
-
-/**
- * @return {!Array.<string>|null}
- */
-ol.source.TileJSON.prototype.getUrls = function() {};
-
-
-/**
- * @param {ol.TileLoadFunctionType} tileLoadFunction
- */
-ol.source.TileJSON.prototype.setTileLoadFunction = function(tileLoadFunction) {};
-
-
-/**
- * @param {ol.TileUrlFunctionType} tileUrlFunction
- * @param {string=} opt_key
- */
-ol.source.TileJSON.prototype.setTileUrlFunction = function(tileUrlFunction, opt_key) {};
-
-
-/**
- * @param {string} url
- */
-ol.source.TileJSON.prototype.setUrl = function(url) {};
-
-
-/**
- * @param {Array.<string>} urls
- */
-ol.source.TileJSON.prototype.setUrls = function(urls) {};
-
-
-/**
- * @return {ol.tilegrid.TileGrid}
- */
-ol.source.TileJSON.prototype.getTileGrid = function() {};
-
-
-/**
- */
-ol.source.TileJSON.prototype.refresh = function() {};
-
-
-/**
- * @return {Array.<ol.Attribution>}
- */
-ol.source.TileJSON.prototype.getAttributions = function() {};
-
-
-/**
- * @return {string|olx.LogoOptions|undefined}
- */
-ol.source.TileJSON.prototype.getLogo = function() {};
-
-
-/**
- * @return {ol.proj.Projection}
- */
-ol.source.TileJSON.prototype.getProjection = function() {};
-
-
-/**
- * @return {ol.source.State}
- */
-ol.source.TileJSON.prototype.getState = function() {};
-
-
-/**
- * @param {ol.AttributionLike|undefined} attributions
- */
-ol.source.TileJSON.prototype.setAttributions = function(attributions) {};
-
-
-/**
- * @param {string} key
- * @return {*}
- */
-ol.source.TileJSON.prototype.get = function(key) {};
-
-
-/**
- * @return {Array.<string>}
- */
-ol.source.TileJSON.prototype.getKeys = function() {};
-
-
-/**
- * @return {Object.<string, *>}
- */
-ol.source.TileJSON.prototype.getProperties = function() {};
-
-
-/**
- * @param {string} key
- * @param {*} value
- * @param {boolean=} opt_silent
- */
-ol.source.TileJSON.prototype.set = function(key, value, opt_silent) {};
-
-
-/**
- * @param {Object.<string, *>} values
- * @param {boolean=} opt_silent
- */
-ol.source.TileJSON.prototype.setProperties = function(values, opt_silent) {};
-
-
-/**
- * @param {string} key
- * @param {boolean=} opt_silent
- */
-ol.source.TileJSON.prototype.unset = function(key, opt_silent) {};
-
-
-/**
- */
-ol.source.TileJSON.prototype.changed = function() {};
-
-
-/**
- * @param {Object|ol.events.Event|string} event
- */
-ol.source.TileJSON.prototype.dispatchEvent = function(event) {};
-
-
-/**
- * @return {number}
- */
-ol.source.TileJSON.prototype.getRevision = function() {};
-
-
-/**
- * @param {string|Array.<string>} type
- * @param {Function} listener
- * @param {Object=} opt_this
- * @return {ol.EventsKey|Array.<ol.EventsKey>}
- */
-ol.source.TileJSON.prototype.on = function(type, listener, opt_this) {};
-
-
-/**
- * @param {string|Array.<string>} type
- * @param {Function} listener
- * @param {Object=} opt_this
- * @return {ol.EventsKey|Array.<ol.EventsKey>}
- */
-ol.source.TileJSON.prototype.once = function(type, listener, opt_this) {};
-
-
-/**
- * @param {string|Array.<string>} type
- * @param {Function} listener
- * @param {Object=} opt_this
- */
-ol.source.TileJSON.prototype.un = function(type, listener, opt_this) {};
-
-
-/**
- * @return {ol.tilegrid.TileGrid}
- */
-ol.source.TileUTFGrid.prototype.getTileGrid = function() {};
-
-
-/**
- */
-ol.source.TileUTFGrid.prototype.refresh = function() {};
-
-
-/**
- * @return {Array.<ol.Attribution>}
- */
-ol.source.TileUTFGrid.prototype.getAttributions = function() {};
-
-
-/**
- * @return {string|olx.LogoOptions|undefined}
- */
-ol.source.TileUTFGrid.prototype.getLogo = function() {};
-
-
-/**
- * @return {ol.proj.Projection}
- */
-ol.source.TileUTFGrid.prototype.getProjection = function() {};
-
-
-/**
- * @return {ol.source.State}
- */
-ol.source.TileUTFGrid.prototype.getState = function() {};
-
-
-/**
- * @param {ol.AttributionLike|undefined} attributions
- */
-ol.source.TileUTFGrid.prototype.setAttributions = function(attributions) {};
-
-
-/**
- * @param {string} key
- * @return {*}
- */
-ol.source.TileUTFGrid.prototype.get = function(key) {};
-
-
-/**
- * @return {Array.<string>}
- */
-ol.source.TileUTFGrid.prototype.getKeys = function() {};
-
-
-/**
- * @return {Object.<string, *>}
- */
-ol.source.TileUTFGrid.prototype.getProperties = function() {};
-
-
-/**
- * @param {string} key
- * @param {*} value
- * @param {boolean=} opt_silent
- */
-ol.source.TileUTFGrid.prototype.set = function(key, value, opt_silent) {};
-
-
-/**
- * @param {Object.<string, *>} values
- * @param {boolean=} opt_silent
- */
-ol.source.TileUTFGrid.prototype.setProperties = function(values, opt_silent) {};
-
-
-/**
- * @param {string} key
- * @param {boolean=} opt_silent
- */
-ol.source.TileUTFGrid.prototype.unset = function(key, opt_silent) {};
-
-
-/**
- */
-ol.source.TileUTFGrid.prototype.changed = function() {};
-
-
-/**
- * @param {Object|ol.events.Event|string} event
- */
-ol.source.TileUTFGrid.prototype.dispatchEvent = function(event) {};
-
-
-/**
- * @return {number}
- */
-ol.source.TileUTFGrid.prototype.getRevision = function() {};
-
-
-/**
- * @param {string|Array.<string>} type
- * @param {Function} listener
- * @param {Object=} opt_this
- * @return {ol.EventsKey|Array.<ol.EventsKey>}
- */
-ol.source.TileUTFGrid.prototype.on = function(type, listener, opt_this) {};
-
-
-/**
- * @param {string|Array.<string>} type
- * @param {Function} listener
- * @param {Object=} opt_this
- * @return {ol.EventsKey|Array.<ol.EventsKey>}
- */
-ol.source.TileUTFGrid.prototype.once = function(type, listener, opt_this) {};
-
-
-/**
- * @param {string|Array.<string>} type
- * @param {Function} listener
- * @param {Object=} opt_this
- */
-ol.source.TileUTFGrid.prototype.un = function(type, listener, opt_this) {};
-
 
 /**
  * @param {boolean} render
@@ -20541,12 +20148,6 @@ olx.source.ClusterOptions;
 
 
 /**
- * @typedef {{jsonp: (boolean|undefined), preemptive: (boolean|undefined), tileJSON: (TileJSON|undefined), url: (string|undefined)}}
- */
-olx.source.TileUTFGridOptions;
-
-
-/**
  * @typedef {{attributions: (ol.AttributionLike|undefined), cacheSize: (number|undefined), crossOrigin: (null|string|undefined), logo: (string|olx.LogoOptions|undefined), opaque: (boolean|undefined), projection: (ol.ProjectionLike), reprojectionErrorThreshold: (number|undefined), state: (ol.source.State|undefined), tileClass: (Function|undefined), tileGrid: (ol.tilegrid.TileGrid|undefined), tileLoadFunction: (ol.TileLoadFunctionType|undefined), tilePixelRatio: (number|undefined), tileUrlFunction: (ol.TileUrlFunctionType|undefined), url: (string|undefined), urls: (Array.<string>|undefined), wrapX: (boolean|undefined), transition: (number|undefined)}}
  */
 olx.source.TileImageOptions;
@@ -20628,12 +20229,6 @@ olx.source.ImageStaticOptions;
  * @typedef {{attributions: (ol.AttributionLike|undefined), cacheSize: (number|undefined), crossOrigin: (null|string|undefined), params: (Object.<string, *>|undefined), logo: (string|olx.LogoOptions|undefined), tileGrid: (ol.tilegrid.TileGrid|undefined), projection: (ol.ProjectionLike), reprojectionErrorThreshold: (number|undefined), tileLoadFunction: (ol.TileLoadFunctionType|undefined), url: (string|undefined), wrapX: (boolean|undefined), transition: (number|undefined), urls: (Array.<string>|undefined)}}
  */
 olx.source.TileArcGISRestOptions;
-
-
-/**
- * @typedef {{attributions: (ol.AttributionLike|undefined), cacheSize: (number|undefined), crossOrigin: (null|string|undefined), jsonp: (boolean|undefined), reprojectionErrorThreshold: (number|undefined), tileJSON: (TileJSON|undefined), tileLoadFunction: (ol.TileLoadFunctionType|undefined), url: (string|undefined), wrapX: (boolean|undefined), transition: (number|undefined)}}
- */
-olx.source.TileJSONOptions;
 
 
 /**
