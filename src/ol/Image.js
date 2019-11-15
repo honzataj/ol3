@@ -83,6 +83,14 @@ class ImageWrapper extends ImageBase {
   getImage() {
     return this.image_;
   }
+  
+  /**
+   * 
+   * @api
+   */
+  getSrc() {
+    return this.src_;
+  }
 
   /**
    * Tracks loading or read errors.

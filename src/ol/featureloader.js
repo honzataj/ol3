@@ -45,6 +45,7 @@ import FormatType from './format/FormatType.js';
  *     Function called when loading failed. Called with the vector tile or
  *     source as `this`.
  * @return {FeatureLoader} The feature loader.
+ * @api
  */
 export function loadFeaturesXhr(url, format, success, failure) {
   return (
