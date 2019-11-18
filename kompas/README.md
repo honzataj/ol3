@@ -11,7 +11,8 @@
 * Manually create methods for returning private properties and tag with @api:
    * ol.ImageWrapper.getSrc
 * Manually tag with @api:
-    *ol.interaction.Draw.prototype.getOverlay
+    * ol.interaction.Draw.prototype.getOverlay
+    * ol.VectorImageTile
 * Manually change `typedefs.js`
    * ol.ImageLoadFunctionType - change typedef from ol.Image to ol.ImageWrapper
 

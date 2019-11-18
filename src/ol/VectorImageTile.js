@@ -20,7 +20,10 @@ import {VOID} from './functions.js';
  * @property {number} renderedRevision
  */
 
-
+/**
+ * 
+ * @api
+ */
 class VectorImageTile extends Tile {
 
   /**
