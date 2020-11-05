@@ -296,19 +296,6 @@ ol.AssertionError.prototype.code;
 
 /**
  * @constructor
- * @param {olx.AttributionOptions} options
- */
-ol.Attribution = function(options) {};
-
-
-/**
- * @return {string}
- */
-ol.Attribution.prototype.getHTML = function() {};
-
-
-/**
- * @constructor
  * @extends {ol.Object}
  * @param {Array.<T>=} opt_array
  * @template T
@@ -2961,13 +2948,13 @@ ol.geom.Polygon.prototype.setCoordinates = function(coordinates, opt_layout) {};
 
 
 /**
- * @param {ol.Sphere} sphere
  * @param {ol.Coordinate} center
  * @param {number} radius
  * @param {number=} opt_n
+ * @param {number=} opt_sphereRadius
  * @return {ol.geom.Polygon}
  */
-ol.geom.Polygon.circular = function(sphere, center, radius, opt_n) {};
+ol.geom.Polygon.circular = function(center, radius, opt_n, opt_sphereRadius) {};
 
 
 /**
@@ -3119,7 +3106,6 @@ ol.Image.prototype.load = function() {};
  * @param {number|undefined} resolution
  * @param {number} pixelRatio
  * @param {ol.Image.State} state
- * @param {Array.<ol.Attribution>} attributions
  */
 ol.ImageBase = function(extent, resolution, pixelRatio, state, attributions) {};
 
@@ -4534,12 +4520,6 @@ ol.proj.Projection.prototype.getPointResolution = function(resolution, point) {}
 
 
 /**
- * @param {proj4} proj4
- */
-ol.proj.setProj4 = function(proj4) {};
-
-
-/**
  * @param {Array.<ol.proj.Projection>} projections
  */
 ol.proj.addEquivalentProjections = function(projections) {};
@@ -4820,7 +4800,7 @@ ol.source.BingMaps = function(options) {};
 
 
 /**
- * @type {ol.Attribution}
+ * @type {string}
  */
 ol.source.BingMaps.TOS_ATTRIBUTION;
 
@@ -5090,7 +5070,7 @@ ol.source.OSM = function(opt_options) {};
 
 
 /**
- * @type {ol.Attribution}
+ * @type {string}
  */
 ol.source.OSM.ATTRIBUTION;
 
@@ -5140,12 +5120,6 @@ ol.source.Raster.Event.prototype.data;
  * @param {ol.SourceSourceOptions} options
  */
 ol.source.Source = function(options) {};
-
-
-/**
- * @return {Array.<ol.Attribution>}
- */
-ol.source.Source.prototype.getAttributions = function() {};
 
 
 /**
@@ -5599,25 +5573,34 @@ ol.source.Zoomify = function(opt_options) {};
 
 
 /**
- * @constructor
- * @param {number} radius
+ * @type {Object}
  */
-ol.Sphere = function(radius) {};
+ol.sphere;
 
 
 /**
- * @param {Array.<ol.Coordinate>} coordinates
+ * @param {Array} c1
+ * @param {Array} c2
+ * @param {number=} opt_radius
  * @return {number}
  */
-ol.Sphere.prototype.geodesicArea = function(coordinates) {};
+ol.sphere.getDistance = function(c1, c2, opt_radius) {};
 
 
 /**
- * @param {ol.Coordinate} c1
- * @param {ol.Coordinate} c2
+ * @param {ol.geom.Geometry} geometry
+ * @param {{projection: (ol.ProjectionLike|undefined), radius: (number|undefined)}=} opt_options
  * @return {number}
  */
-ol.Sphere.prototype.haversineDistance = function(c1, c2) {};
+ol.sphere.getLength = function(geometry, opt_options) {};
+
+
+/**
+ * @param {ol.geom.Geometry} geometry
+ * @param {{projection: (ol.ProjectionLike|undefined), radius: (number|undefined)}=} opt_options
+ * @return {number}
+ */
+ol.sphere.getArea = function(geometry, opt_options) {};
 
 
 /**
@@ -6375,10 +6358,10 @@ ol.View.prototype.getCenter = function() {};
 
 
 /**
- * @param {ol.Size} size
+ * @param {ol.Size=} opt_size
  * @return {ol.Extent}
  */
-ol.View.prototype.calculateExtent = function(size) {};
+ol.View.prototype.calculateExtent = function(opt_size) {};
 
 
 /**
@@ -6406,6 +6389,21 @@ ol.View.prototype.getResolution = function() {};
 
 
 /**
+ * @param {ol.Extent} extent
+ * @param {ol.Size=} opt_size
+ * @return {number}
+ */
+ol.View.prototype.getResolutionForExtent = function(extent, opt_size) {};
+
+
+/**
+ * @param {number} zoom
+ * @return {number}
+ */
+ol.View.prototype.getResolutionForZoom = function(zoom) {};
+
+
+/**
  * @return {Array.<number>|undefined}
  */
 ol.View.prototype.getResolutions = function() {};
@@ -6424,11 +6422,23 @@ ol.View.prototype.getZoom = function() {};
 
 
 /**
+ * @param {number} resolution
+ * @return {number|undefined}
+ */
+ol.View.prototype.getZoomForResolution = function(resolution) {};
+
+
+/**
+ * @param {...olx.view.AnimateOptions} var_args
+ */
+ol.View.prototype.animate = function(var_args) {};
+
+
+/**
  * @param {ol.geom.SimpleGeometry|ol.Extent} geometry
- * @param {ol.Size} size
  * @param {olx.view.FitOptions=} opt_options
  */
-ol.View.prototype.fit = function(geometry, size, opt_options) {};
+ol.View.prototype.fit = function(geometry, opt_options) {};
 
 
 /**
@@ -14461,12 +14471,6 @@ ol.source.Source.prototype.unByKey = function(key) {};
 
 
 /**
- * @return {Array.<ol.Attribution>}
- */
-ol.source.Tile.prototype.getAttributions = function() {};
-
-
-/**
  * @return {string|olx.LogoOptions|undefined}
  */
 ol.source.Tile.prototype.getLogo = function() {};
@@ -14594,12 +14598,6 @@ ol.source.UrlTile.prototype.getTileGrid = function() {};
 /**
  */
 ol.source.UrlTile.prototype.refresh = function() {};
-
-
-/**
- * @return {Array.<ol.Attribution>}
- */
-ol.source.UrlTile.prototype.getAttributions = function() {};
 
 
 /**
@@ -14768,12 +14766,6 @@ ol.source.TileImage.prototype.getTileGrid = function() {};
 /**
  */
 ol.source.TileImage.prototype.refresh = function() {};
-
-
-/**
- * @return {Array.<ol.Attribution>}
- */
-ol.source.TileImage.prototype.getAttributions = function() {};
 
 
 /**
@@ -14958,12 +14950,6 @@ ol.source.BingMaps.prototype.refresh = function() {};
 
 
 /**
- * @return {Array.<ol.Attribution>}
- */
-ol.source.BingMaps.prototype.getAttributions = function() {};
-
-
-/**
  * @return {string|olx.LogoOptions|undefined}
  */
 ol.source.BingMaps.prototype.getLogo = function() {};
@@ -15142,12 +15128,6 @@ ol.source.XYZ.prototype.getTileGrid = function() {};
 /**
  */
 ol.source.XYZ.prototype.refresh = function() {};
-
-
-/**
- * @return {Array.<ol.Attribution>}
- */
-ol.source.XYZ.prototype.getAttributions = function() {};
 
 
 /**
@@ -15332,12 +15312,6 @@ ol.source.CartoDB.prototype.refresh = function() {};
 
 
 /**
- * @return {Array.<ol.Attribution>}
- */
-ol.source.CartoDB.prototype.getAttributions = function() {};
-
-
-/**
  * @return {string|olx.LogoOptions|undefined}
  */
 ol.source.CartoDB.prototype.getLogo = function() {};
@@ -15450,11 +15424,6 @@ ol.source.CartoDB.prototype.un = function(type, listener, opt_this) {};
  */
 ol.source.CartoDB.prototype.unByKey = function(key) {};
 
-
-/**
- * @return {Array.<ol.Attribution>}
- */
-ol.source.Vector.prototype.getAttributions = function() {};
 
 
 /**
@@ -15688,10 +15657,6 @@ ol.source.Cluster.prototype.getUrl = function() {};
 ol.source.Cluster.prototype.removeFeature = function(feature) {};
 
 
-/**
- * @return {Array.<ol.Attribution>}
- */
-ol.source.Cluster.prototype.getAttributions = function() {};
 
 
 /**
@@ -15812,11 +15777,6 @@ ol.source.Cluster.prototype.un = function(type, listener, opt_this) {};
  */
 ol.source.Cluster.prototype.unByKey = function(key) {};
 
-
-/**
- * @return {Array.<ol.Attribution>}
- */
-ol.source.Image.prototype.getAttributions = function() {};
 
 
 /**
@@ -15960,11 +15920,6 @@ ol.source.Image.Event.prototype.preventDefault = function() {};
 ol.source.Image.Event.prototype.stopPropagation = function() {};
 
 
-/**
- * @return {Array.<ol.Attribution>}
- */
-ol.source.ImageArcGISRest.prototype.getAttributions = function() {};
-
 
 /**
  * @return {string|olx.LogoOptions|undefined}
@@ -16085,11 +16040,6 @@ ol.source.ImageArcGISRest.prototype.un = function(type, listener, opt_this) {};
 ol.source.ImageArcGISRest.prototype.unByKey = function(key) {};
 
 
-/**
- * @return {Array.<ol.Attribution>}
- */
-ol.source.ImageCanvas.prototype.getAttributions = function() {};
-
 
 /**
  * @return {string|olx.LogoOptions|undefined}
@@ -16209,11 +16159,6 @@ ol.source.ImageCanvas.prototype.un = function(type, listener, opt_this) {};
  */
 ol.source.ImageCanvas.prototype.unByKey = function(key) {};
 
-
-/**
- * @return {Array.<ol.Attribution>}
- */
-ol.source.ImageMapGuide.prototype.getAttributions = function() {};
 
 
 /**
@@ -16336,12 +16281,6 @@ ol.source.ImageMapGuide.prototype.unByKey = function(key) {};
 
 
 /**
- * @return {Array.<ol.Attribution>}
- */
-ol.source.ImageStatic.prototype.getAttributions = function() {};
-
-
-/**
  * @return {string|olx.LogoOptions|undefined}
  */
 ol.source.ImageStatic.prototype.getLogo = function() {};
@@ -16461,12 +16400,6 @@ ol.source.ImageStatic.prototype.unByKey = function(key) {};
 
 
 /**
- * @return {Array.<ol.Attribution>}
- */
-ol.source.ImageVector.prototype.getAttributions = function() {};
-
-
-/**
  * @return {string|olx.LogoOptions|undefined}
  */
 ol.source.ImageVector.prototype.getLogo = function() {};
@@ -16583,12 +16516,6 @@ ol.source.ImageVector.prototype.un = function(type, listener, opt_this) {};
  * @param {ol.EventsKey|Array.<ol.EventsKey>} key
  */
 ol.source.ImageVector.prototype.unByKey = function(key) {};
-
-
-/**
- * @return {Array.<ol.Attribution>}
- */
-ol.source.ImageWMS.prototype.getAttributions = function() {};
 
 
 /**
@@ -16777,11 +16704,6 @@ ol.source.OSM.prototype.getTileGrid = function() {};
 ol.source.OSM.prototype.refresh = function() {};
 
 
-/**
- * @return {Array.<ol.Attribution>}
- */
-ol.source.OSM.prototype.getAttributions = function() {};
-
 
 /**
  * @return {string|olx.LogoOptions|undefined}
@@ -16896,11 +16818,6 @@ ol.source.OSM.prototype.un = function(type, listener, opt_this) {};
  */
 ol.source.OSM.prototype.unByKey = function(key) {};
 
-
-/**
- * @return {Array.<ol.Attribution>}
- */
-ol.source.Raster.prototype.getAttributions = function() {};
 
 
 /**
@@ -17112,12 +17029,6 @@ ol.source.Stamen.prototype.refresh = function() {};
 
 
 /**
- * @return {Array.<ol.Attribution>}
- */
-ol.source.Stamen.prototype.getAttributions = function() {};
-
-
-/**
  * @return {string|olx.LogoOptions|undefined}
  */
 ol.source.Stamen.prototype.getLogo = function() {};
@@ -17320,11 +17231,6 @@ ol.source.TileArcGISRest.prototype.getTileGrid = function() {};
 ol.source.TileArcGISRest.prototype.refresh = function() {};
 
 
-/**
- * @return {Array.<ol.Attribution>}
- */
-ol.source.TileArcGISRest.prototype.getAttributions = function() {};
-
 
 /**
  * @return {string|olx.LogoOptions|undefined}
@@ -17449,12 +17355,6 @@ ol.source.TileDebug.prototype.getTileGrid = function() {};
 /**
  */
 ol.source.TileDebug.prototype.refresh = function() {};
-
-
-/**
- * @return {Array.<ol.Attribution>}
- */
-ol.source.TileDebug.prototype.getAttributions = function() {};
 
 
 /**
@@ -17639,12 +17539,6 @@ ol.source.TileJSON.prototype.refresh = function() {};
 
 
 /**
- * @return {Array.<ol.Attribution>}
- */
-ol.source.TileJSON.prototype.getAttributions = function() {};
-
-
-/**
  * @return {string|olx.LogoOptions|undefined}
  */
 ol.source.TileJSON.prototype.getLogo = function() {};
@@ -17767,12 +17661,6 @@ ol.source.TileUTFGrid.prototype.getTileGrid = function() {};
 /**
  */
 ol.source.TileUTFGrid.prototype.refresh = function() {};
-
-
-/**
- * @return {Array.<ol.Attribution>}
- */
-ol.source.TileUTFGrid.prototype.getAttributions = function() {};
 
 
 /**
@@ -17954,12 +17842,6 @@ ol.source.TileWMS.prototype.getTileGrid = function() {};
 /**
  */
 ol.source.TileWMS.prototype.refresh = function() {};
-
-
-/**
- * @return {Array.<ol.Attribution>}
- */
-ol.source.TileWMS.prototype.getAttributions = function() {};
 
 
 /**
@@ -18153,12 +18035,6 @@ ol.source.VectorTile.prototype.refresh = function() {};
 
 
 /**
- * @return {Array.<ol.Attribution>}
- */
-ol.source.VectorTile.prototype.getAttributions = function() {};
-
-
-/**
  * @return {string|olx.LogoOptions|undefined}
  */
 ol.source.VectorTile.prototype.getLogo = function() {};
@@ -18340,12 +18216,6 @@ ol.source.WMTS.prototype.refresh = function() {};
 
 
 /**
- * @return {Array.<ol.Attribution>}
- */
-ol.source.WMTS.prototype.getAttributions = function() {};
-
-
-/**
  * @return {string|olx.LogoOptions|undefined}
  */
 ol.source.WMTS.prototype.getLogo = function() {};
@@ -18524,12 +18394,6 @@ ol.source.Zoomify.prototype.getTileGrid = function() {};
 /**
  */
 ol.source.Zoomify.prototype.refresh = function() {};
-
-
-/**
- * @return {Array.<ol.Attribution>}
- */
-ol.source.Zoomify.prototype.getAttributions = function() {};
 
 
 /**
@@ -18983,12 +18847,6 @@ ol.layer.VectorTile.RenderType;
  * @typedef {Function}
  */
 ol.source.Cluster.CompareFunction;
-
-
-/**
- * @typedef {{html: (string)}}
- */
-olx.AttributionOptions;
 
 
 /**
@@ -19502,7 +19360,7 @@ olx.source.OSMOptions;
 
 
 /**
- * @typedef {{attributions: (Array.<ol.Attribution>|undefined), crossOrigin: (null|string|undefined), logo: (string|olx.LogoOptions|undefined), imageLoadFunction: (ol.ImageLoadFunctionType|undefined), params: (Object.<string, *>|undefined), projection: (ol.ProjectionLike), ratio: (number|undefined), resolutions: (Array.<number>|undefined), url: (string|undefined)}}
+ * @typedef {{attributions: (ol.AttributionLike|undefined), crossOrigin: (null|string|undefined), logo: (string|olx.LogoOptions|undefined), imageLoadFunction: (ol.ImageLoadFunctionType|undefined), params: (Object.<string, *>|undefined), projection: (ol.ProjectionLike), ratio: (number|undefined), resolutions: (Array.<number>|undefined), url: (string|undefined)}}
  */
 olx.source.ImageArcGISRestOptions;
 
@@ -19670,9 +19528,15 @@ olx.view;
 
 
 /**
- * @typedef {{padding: (!Array.<number>|undefined), constrainResolution: (boolean|undefined), nearest: (boolean|undefined), minResolution: (number|undefined), maxZoom: (number|undefined)}}
+ * @typedef {{padding: (!Array.<number>|undefined), constrainResolution: (boolean|undefined), nearest: (boolean|undefined), minResolution: (number|undefined), maxZoom: (number|undefined), duration: (number|undefined), easing: (Function|undefined), callback: (Function|undefined)}}
  */
 olx.view.FitOptions;
+
+
+/**
+ * @typedef {{center: (ol.Coordinate|undefined), zoom: (number|undefined), resolution: (number|undefined), rotation: (number|undefined), anchor: (ol.Coordinate|undefined), duration: (number|undefined), easing: (Function|undefined)}}
+ */
+olx.view.AnimateOptions;
 
 
 /**
@@ -19719,3 +19583,593 @@ ol.SourceTileOptions;
  * @typedef {Object}
  */
 ol.StyleImageOptions;
+
+
+
+
+
+
+/**
+ * @constructor
+ * @extends {ol.Object}
+ * @param {olx.MapOptions} options
+ */
+ol.PluggableMap = function(options) {};
+
+
+/**
+ * @param {ol.control.Control} control
+ */
+ol.PluggableMap.prototype.addControl = function(control) {};
+
+
+/**
+ * @param {ol.interaction.Interaction} interaction
+ */
+ol.PluggableMap.prototype.addInteraction = function(interaction) {};
+
+
+/**
+ * @param {ol.layer.Base} layer
+ */
+ol.PluggableMap.prototype.addLayer = function(layer) {};
+
+
+/**
+ * @param {ol.Overlay} overlay
+ */
+ol.PluggableMap.prototype.addOverlay = function(overlay) {};
+
+
+/**
+ * @param {ol.Pixel} pixel
+ * @param {Function} callback
+ * @param {olx.AtPixelOptions=} opt_options
+ * @return {T|undefined}
+ * @template S,T
+ */
+ol.PluggableMap.prototype.forEachFeatureAtPixel = function(pixel, callback, opt_options) {};
+
+
+/**
+ * @param {ol.Pixel} pixel
+ * @param {olx.AtPixelOptions=} opt_options
+ * @return {Array.<(ol.Feature|ol.render.Feature)>}
+ */
+ol.PluggableMap.prototype.getFeaturesAtPixel = function(pixel, opt_options) {};
+
+
+/**
+ * @param {ol.Pixel} pixel
+ * @param {Function} callback
+ * @param {S=} opt_this
+ * @param {Function=} opt_layerFilter
+ * @param {U=} opt_this2
+ * @return {T|undefined}
+ * @template S,T,U
+ */
+ol.PluggableMap.prototype.forEachLayerAtPixel = function(pixel, callback, opt_this, opt_layerFilter, opt_this2) {};
+
+
+/**
+ * @param {ol.Pixel} pixel
+ * @param {olx.AtPixelOptions=} opt_options
+ * @return {boolean}
+ * @template U
+ */
+ol.PluggableMap.prototype.hasFeatureAtPixel = function(pixel, opt_options) {};
+
+
+/**
+ * @param {Event} event
+ * @return {ol.Coordinate}
+ */
+ol.PluggableMap.prototype.getEventCoordinate = function(event) {};
+
+
+/**
+ * @param {Event} event
+ * @return {ol.Pixel}
+ */
+ol.PluggableMap.prototype.getEventPixel = function(event) {};
+
+
+/**
+ * @return {Element|string|undefined}
+ */
+ol.PluggableMap.prototype.getTarget = function() {};
+
+
+/**
+ * @return {Element}
+ */
+ol.PluggableMap.prototype.getTargetElement = function() {};
+
+
+/**
+ * @param {ol.Pixel} pixel
+ * @return {ol.Coordinate}
+ */
+ol.PluggableMap.prototype.getCoordinateFromPixel = function(pixel) {};
+
+
+/**
+ * @return {ol.Collection.<ol.control.Control>}
+ */
+ol.PluggableMap.prototype.getControls = function() {};
+
+
+/**
+ * @return {ol.Collection.<ol.Overlay>}
+ */
+ol.PluggableMap.prototype.getOverlays = function() {};
+
+
+/**
+ * @param {string|number} id
+ * @return {ol.Overlay}
+ */
+ol.PluggableMap.prototype.getOverlayById = function(id) {};
+
+
+/**
+ * @return {number}
+ */
+ol.PluggableMap.prototype.getPixelRatio = function() {};
+
+
+/**
+ * @return {ol.Collection.<ol.interaction.Interaction>}
+ */
+ol.PluggableMap.prototype.getInteractions = function() {};
+
+
+/**
+ * @return {ol.layer.Group}
+ */
+ol.PluggableMap.prototype.getLayerGroup = function() {};
+
+
+/**
+ * @return {ol.Collection.<ol.layer.Base>}
+ */
+ol.PluggableMap.prototype.getLayers = function() {};
+
+
+/**
+ * @param {ol.Coordinate} coordinate
+ * @return {ol.Pixel}
+ */
+ol.PluggableMap.prototype.getPixelFromCoordinate = function(coordinate) {};
+
+
+/**
+ * @return {ol.Size|undefined}
+ */
+ol.PluggableMap.prototype.getSize = function() {};
+
+
+/**
+ * @return {ol.View}
+ */
+ol.PluggableMap.prototype.getView = function() {};
+
+
+/**
+ * @return {Element}
+ */
+ol.PluggableMap.prototype.getViewport = function() {};
+
+
+/**
+ */
+ol.PluggableMap.prototype.renderSync = function() {};
+
+
+/**
+ */
+ol.PluggableMap.prototype.render = function() {};
+
+
+/**
+ * @param {ol.control.Control} control
+ * @return {ol.control.Control|undefined}
+ */
+ol.PluggableMap.prototype.removeControl = function(control) {};
+
+
+/**
+ * @param {ol.interaction.Interaction} interaction
+ * @return {ol.interaction.Interaction|undefined}
+ */
+ol.PluggableMap.prototype.removeInteraction = function(interaction) {};
+
+
+/**
+ * @param {ol.layer.Base} layer
+ * @return {ol.layer.Base|undefined}
+ */
+ol.PluggableMap.prototype.removeLayer = function(layer) {};
+
+
+/**
+ * @param {ol.Overlay} overlay
+ * @return {ol.Overlay|undefined}
+ */
+ol.PluggableMap.prototype.removeOverlay = function(overlay) {};
+
+
+/**
+ * @param {ol.layer.Group} layerGroup
+ */
+ol.PluggableMap.prototype.setLayerGroup = function(layerGroup) {};
+
+
+/**
+ * @param {ol.Size|undefined} size
+ */
+ol.PluggableMap.prototype.setSize = function(size) {};
+
+
+/**
+ * @param {Element|string|undefined} target
+ */
+ol.PluggableMap.prototype.setTarget = function(target) {};
+
+
+/**
+ * @param {ol.View} view
+ */
+ol.PluggableMap.prototype.setView = function(view) {};
+
+
+/**
+ */
+ol.PluggableMap.prototype.updateSize = function() {};
+
+
+
+/**
+ * @typedef {{layerFilter: (undefined|function(ol.layer.Layer): boolean), hitTolerance: (number|undefined)}}
+ */
+olx.AtPixelOptions;
+
+
+
+
+/**
+ * @constructor
+ */
+var EsriJSONObject = function() {};
+
+
+/**
+ * @type {!EsriJSONCRS}
+ */
+EsriJSONObject.prototype.spatialReference;
+
+
+
+/**
+ * @constructor
+ */
+var EsriJSONCRS = function() {};
+
+
+/**
+ * CRS well know identifier.
+ * @type {number}
+ */
+EsriJSONCRS.prototype.wkid;
+
+
+
+/**
+ * @constructor
+ * @extends {EsriJSONObject}
+ */
+var EsriJSONPoint = function() {};
+
+
+/**
+ * M value of point.
+ * @type {number}
+ */
+EsriJSONPoint.prototype.m;
+
+
+/**
+ * X coordinate of point.
+ * @type {number}
+ */
+EsriJSONPoint.prototype.x;
+
+
+
+/**
+ * Y coordinate of point.
+ * @type {number}
+ */
+EsriJSONPoint.prototype.y;
+
+
+/**
+ * Z coordinate of point.
+ * @type {number|undefined}
+ */
+EsriJSONPoint.prototype.z;
+
+
+/**
+ * @constructor
+ * @extends {EsriJSONObject}
+ */
+var EsriJSONMultipoint = function() {};
+
+
+/**
+ * Does Multipoint have M values?
+ * @type {boolean|undefined}
+ */
+EsriJSONMultipoint.prototype.hasM;
+
+
+/**
+ * Does Multipoint have Z values?
+ * @type {boolean|undefined}
+ */
+EsriJSONMultipoint.prototype.hasZ;
+
+
+/**
+ * @type {!Array.<!Array.<number>>}
+ */
+EsriJSONMultipoint.prototype.points;
+
+
+/**
+ * @constructor
+ * @extends {EsriJSONObject}
+ */
+var EsriJSONPolyline = function() {};
+
+
+/**
+ * Does Polyline have M values?
+ * @type {boolean|undefined}
+ */
+EsriJSONPolyline.prototype.hasM;
+
+
+/**
+ * Does Polyline have Z values?
+ * @type {boolean|undefined}
+ */
+EsriJSONPolyline.prototype.hasZ;
+
+
+/**
+ * @type {!Array.<!Array.<!Array.<number>>>}
+ */
+EsriJSONPolyline.prototype.paths;
+
+
+/**
+ * @constructor
+ * @extends {EsriJSONObject}
+ */
+var EsriJSONPolygon = function() {};
+
+
+/**
+ * Does Polygon have M values?
+ * @type {boolean|undefined}
+ */
+EsriJSONPolygon.prototype.hasM;
+
+
+/**
+ * Does Polygon have Z values?
+ * @type {boolean|undefined}
+ */
+EsriJSONPolygon.prototype.hasZ;
+
+
+/**
+ * @type {!Array.<!Array.<!Array.<number>>>}
+ */
+EsriJSONPolygon.prototype.rings;
+
+
+/**
+ * @typedef {(EsriJSONPoint|EsriJSONMultipoint|EsriJSONPolyline|
+           EsriJSONPolygon)}
+ */
+var EsriJSONGeometry;
+
+
+/**
+ * @constructor
+ * @extends {EsriJSONObject}
+ */
+var EsriJSONFeature = function() {};
+
+
+/**
+ * @type {EsriJSONGeometry}
+ */
+EsriJSONFeature.prototype.geometry;
+
+
+/**
+ * @type {Object.<string, *>}
+ */
+EsriJSONFeature.prototype.attributes;
+
+
+
+/**
+ * @constructor
+ * @extends {EsriJSONObject}
+ */
+var EsriJSONFeatureCollection = function() {};
+
+
+/**
+ * @type {!Array.<EsriJSONFeature>}
+ */
+EsriJSONFeatureCollection.prototype.features;
+
+
+/**
+ * The name of the attribute that contains ids.
+ * @type {string}
+ */
+EsriJSONFeatureCollection.prototype.objectIdFieldName;
+
+
+
+
+/**
+ * @constructor
+ */
+var TileJSON = function() {};
+
+
+/**
+ * @type {string}
+ */
+TileJSON.prototype.tilejson;
+
+
+/**
+ * @type {string|undefined}
+ */
+TileJSON.prototype.name;
+
+
+/**
+ * @type {string|undefined}
+ */
+TileJSON.prototype.description;
+
+
+/**
+ * @type {string|undefined}
+ */
+TileJSON.prototype.version;
+
+
+/**
+ * @type {string|undefined}
+ */
+TileJSON.prototype.attribution;
+
+
+/**
+ * @type {string|undefined}
+ */
+TileJSON.prototype.template;
+
+
+/**
+ * @type {string|undefined}
+ */
+TileJSON.prototype.legend;
+
+
+/**
+ * @type {string|undefined}
+ */
+TileJSON.prototype.scheme;
+
+
+/**
+ * @type {!Array.<string>}
+ */
+TileJSON.prototype.tiles;
+
+
+/**
+ * @type {!Array.<string>|undefined}
+ */
+TileJSON.prototype.grids;
+
+
+/**
+ * @type {number|undefined}
+ */
+TileJSON.prototype.minzoom;
+
+
+/**
+ * @type {number|undefined}
+ */
+TileJSON.prototype.maxzoom;
+
+
+/**
+ * @type {!Array.<number>|undefined}
+ */
+TileJSON.prototype.bounds;
+
+
+/**
+ * @type {!Array.<number>|undefined}
+ */
+TileJSON.prototype.center;
+
+
+
+/**
+ * @constructor
+ */
+var UTFGridJSON = function() {};
+
+
+/**
+ * @type {!Array.<string>}
+ */
+UTFGridJSON.prototype.grid;
+
+
+/**
+ * @type {!Array.<string>}
+ */
+UTFGridJSON.prototype.keys;
+
+
+/**
+ * @type {!Object.<string, Object>|undefined}
+ */
+UTFGridJSON.prototype.data;
+
+
+
+/**
+ * @constructor
+ * @extends {ol.ImageBase}
+ * @param {ol.Extent} extent
+ * @param {number|undefined} resolution
+ * @param {number} pixelRatio
+ * @param {string} src
+ * @param {?string} crossOrigin
+ * @param {ol.ImageLoadFunctionType} imageLoadFunction
+ */
+ol.ImageWrapper = function(extent, resolution, pixelRatio, src, crossOrigin, imageLoadFunction) {};
+
+
+/**
+ */
+ol.ImageWrapper.prototype.getImage = function() {};
+
+
+/**
+ * @return {string}
+ */
+ol.ImageWrapper.prototype.getSrc = function() {};
+
+
+/**
+ */
+ol.ImageWrapper.prototype.load = function() {};

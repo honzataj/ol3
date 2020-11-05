@@ -44,15 +44,7 @@ ol.AtlasManagerInfo;
 
 
 /**
- * A type that can be used to provide attribution information for data sources.
- *
- * It represents either
- * * a simple string (e.g. `'© Acme Inc.'`)
- * * an array of simple strings (e.g. `['© Acme Inc.', '© Bacme Inc.']`)
- * * a function that returns a string or array of strings (`{@link ol.Attribution2}`)
- *
- * Note that the `{@link ol.Attribution}` constructor is deprecated.
- * @typedef {string|Array.<string>|ol.Attribution2|ol.Attribution|Array.<ol.Attribution>}
+ * @typedef {string|Array.<string>|function(olx.FrameState): (string|Array<string>)}
  */
 ol.AttributionLike;
 
@@ -344,17 +336,17 @@ ol.ImageCanvasLoader;
  * post requests or - in general - through XHR requests, where the src of the
  * image element would be set to a data URI when the content is loaded.
  *
- * @typedef {function(ol.Image, string)}
+ * @typedef {function(ol.ImageWrapper, string)}
  */
 ol.ImageLoadFunctionType;
 
 
-/**
- * @typedef {{x: number, xunits: (ol.style.IconAnchorUnits|undefined),
- *            y: number, yunits: (ol.style.IconAnchorUnits|undefined),
- *            origin: (ol.style.IconOrigin|undefined)}}
- */
-ol.KMLVec2_;
+// /**
+//  * @typedef {{x: number, xunits: (ol.style.IconAnchorUnits|undefined),
+//  *            y: number, yunits: (ol.style.IconAnchorUnits|undefined),
+//  *            origin: (ol.style.IconOrigin|undefined)}}
+//  */
+// ol.KMLVec2_;
 
 
 /**
@@ -415,9 +407,7 @@ ol.LRUCacheEntry;
  * @typedef {{controls: (ol.Collection.<ol.control.Control>|undefined),
  *            interactions: (ol.Collection.<ol.interaction.Interaction>|undefined),
  *            keyboardEventTarget: (Element|Document),
- *            logos: (Object.<string, (string|Element)>),
  *            overlays: ol.Collection.<ol.Overlay>,
- *            mapRendererPlugin: olx.MapRendererPlugin,
  *            values: Object.<string, *>}}
  */
 ol.MapOptionsInternal;
@@ -680,7 +670,7 @@ ol.StyleGeometryFunction;
  * 1. The pixel coordinates of the geometry in GeoJSON notation.
  * 2. The {@link olx.render.State} of the layer renderer.
  *
- * @typedef {function((ol.Coordinate|Array<ol.Coordinate>|Array.<Array.<ol.Coordinate>>),olx.render.State)}
+ * @typedef {function((ol.Coordinate|Array<ol.Coordinate>|Array.<Array.<ol.Coordinate>>))}
  */
 ol.StyleRenderFunction;
 

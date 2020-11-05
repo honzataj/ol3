@@ -1,37 +1,60 @@
 # OpenLayers for Munimap
 
 ## Requirements
-* Run `make check-deps` to ensure that basic dependencies are OK.
 * Run `npm install` to install NodeJS deps. Errors related to node-gyp and slimmerjs are not crucial.
 
+## Breaking changes
+* `ol.externs.js` and `typedefs.js` are not created automatically, it is necessary to update manually and push them to repo
+
 ## Change API
-* Manually tag non-API methods/classes you want to use with @api:
-   * ol.extent.getArea
-   * ol.extent.getEnlargedArea
-   * ol.extent.getForViewAndSize
-   * ol.geom.Geometry#containsXY
-* Change default values of @define variables in `munimap/config/ol.json`:
-   * ol.DEBUG=false
-   * ol.ENABLE_IMAGE=false
-   * ol.ENABLE_PROJ4JS=false
-   * ol.ENABLE_RASTER_REPROJECTION=false
-   * ol.ENABLE_VECTOR_TILE=false
-   * ol.ENABLE_WEBGL=false
-* Do some changes:
-   * ol.source.Cluster
-   * ol.source.Cluster.CompareFunction
-   * olx.source.ClusterOptions
-* Manually tag non-API types referred from `src/ol/typedefs.js` with @api
-   * this can be done easier in second iteration
+* Manually delete `src/ol/ellipsoid` with `ellipsoid.js` and `wgs84ellipsoid.js`.
+* Manually delete ol.Image.State from `missing.enum.js` (maybe duplicated)
+* Manually tag with @api:
+    * ol.extent.createOrUpdate
+    * ol.extent.getForViewAndSize
+* Manually change `typedefs.js`
+   * ol.ImageLoadFunctionType - change typedef from ol.Image to ol.ImageWrapper
+   * ol.Attribution - remove all occurrences
+   * ol.KMLVec2_ - remove
+   * ol.MapOptionsInternal - remove logos and mapRendererPlugin from typedef annotation
+   * ol.StyleRenderFunction - remove olx.render.State from typedef annotation
 
 ## Generate externs
-* Run `node ./tasks/generate-externs.js ./munimap/build/ol.externs.js`
-* Remove all occurences of `, undefined: (Object)` from `build/ol.externs.js`
-* Manually create `munimap/externs/missing.enum.js` with enumerations.
-* Manually fix issues related to inheritDoc:
-   * ol.geom.Point#intersectsExtent
+* Externs are copied from v 4.6.4.
+* Manually create (copy end edit a definition from ol source code):
+   * ol.ImageWrapper
+   * ol.sphere.getDistance
+   * ol.sphere.getArea
+   * ol.sphere.getLength
+   * ol.View.prototype.getResolutionForExtent
+   * ol.View.prototype.getResolutionForZoom
+   * ol.View.prototype.getZoomForResolution
+   * ol.View.prototype.animate
+   * olx.view.AnimateOptions
+   * ol.PluggableMap - also add all prototype functions
+   * EsriJSON - copy all objects from elder ol version (from externs folder)
+   * TileJSON - copy all objects from elder ol version (from externs folder)
+* Manually remove:
+   * ol.Attribution
+   * ol.proj.setProj4
+   * ol.source.xxx > .getAttributions() - remove all occurrences of getAttributions() on ol.source.xxx files
+   * ol.Sphere.prototype.geodesicArea, .harvesineDistance
+   * olx.AttributionOptions
+* Manually change:
+   * ol.geom.Polygon.circular - remove sphere param and add opt_sphereRadius
+   * ol.ImageBase - remove ol.Attribution
+   * ol.source.BingMaps.TOS_ATTRIBUTION - change type to string
+   * ol.source.OSM.ATTRIBUTION - change type to string
+   * ol.Sphere - change to ol.sphere, remove constructor and param, add type
+   * ol.View.prototype.calculateExtent - change size to opt_size
+   * ol.View.prototype.fit - remove size from param and add to opts
+   * olx.source.ImageArcGISRestOptions - change `Array<ol.Attribution>` to `ol.AttributionLike`
+   * olx.view.FitOptions - add all other params
+   
+   
 
 ## Generate single JS file
-* Run `node ./tasks/build-ext.js` to generate wrappers of external libraries for compiler.
-* Run `node ./tasks/build.js ./munimap/config/ol.json ./munimap/build/ol.js`
-* Run `node ./tasks/build.js ./munimap/config/ol-debug.json ./munimap/build/ol-debug.js`
+* run into root folder 
+    * `rm -rf build && rm -rf build/ol && mkdir -p build && npx buble --input src/ol --output build/ol --no modules --sourcemap && cp src/ol/ol.css build/ol/ol.css && node tasks/prepare-package && cp README.md build/ol && node tasks/generate-index && npx webpack --config config/webpack-config-legacy-build.js && npx cleancss --source-map src/ol/ol.css -o build/legacy/ol.css`
+    * `rm -rf munimap/build && mkdir -p munimap/build && cp build/legacy/ol.js munimap/build/ol.js && cp build/legacy/ol.js.map munimap/build/ol.js.map && rm -rf munimap/css && mkdir -p munimap/css && cp build/legacy/ol.css munimap/css/ol.css && cp build/legacy/ol.css.map munimap/css/ol.css.map`
+* remove source-mapping tag from ol.css

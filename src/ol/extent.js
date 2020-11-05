@@ -211,6 +211,7 @@ export function createEmpty() {
  * @param {number} maxY Maximum Y.
  * @param {Extent=} opt_extent Destination extent.
  * @return {Extent} Extent.
+ * @api
  */
 export function createOrUpdate(minX, minY, maxX, maxY, opt_extent) {
   if (opt_extent) {
@@ -521,6 +522,7 @@ export function getEnlargedArea(extent1, extent2) {
  * @param {import("./size.js").Size} size Size.
  * @param {Extent=} opt_extent Destination extent.
  * @return {Extent} Extent.
+ * @api
  */
 export function getForViewAndSize(center, resolution, rotation, size, opt_extent) {
   const dx = resolution * size[0] / 2;
