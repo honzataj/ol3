@@ -4,7 +4,7 @@
  * `'top-center'`, `'top-right'`
  * @enum {string}
  */
-ol.Overlay.Positioning = {
+ol.OverlayPositioning = {
   BOTTOM_LEFT: 'bottom-left',
   BOTTOM_CENTER: 'bottom-center',
   BOTTOM_RIGHT: 'bottom-right',

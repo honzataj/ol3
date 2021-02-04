@@ -4386,7 +4386,7 @@ ol.Overlay.prototype.getPosition = function() {};
 
 
 /**
- * @return {ol.Overlay.Positioning}
+ * @return {ol.OverlayPositioning}
  */
 ol.Overlay.prototype.getPositioning = function() {};
 
@@ -4416,7 +4416,7 @@ ol.Overlay.prototype.setPosition = function(position) {};
 
 
 /**
- * @param {ol.Overlay.Positioning} positioning
+ * @param {ol.OverlayPositioning} positioning
  */
 ol.Overlay.prototype.setPositioning = function(positioning) {};
 
@@ -18892,7 +18892,7 @@ olx.MapOptions;
 
 
 /**
- * @typedef {{id: (number|string|undefined), element: (Element|undefined), offset: (Array.<number>|undefined), position: (ol.Coordinate|undefined), positioning: (ol.Overlay.Positioning|string|undefined), stopEvent: (boolean|undefined), insertFirst: (boolean|undefined), autoPan: (boolean|undefined), autoPanAnimation: (olx.animation.PanOptions|undefined), autoPanMargin: (number|undefined)}}
+ * @typedef {{id: (number|string|undefined), element: (Element|undefined), offset: (Array.<number>|undefined), position: (ol.Coordinate|undefined), positioning: (ol.OverlayPositioning|string|undefined), stopEvent: (boolean|undefined), insertFirst: (boolean|undefined), autoPan: (boolean|undefined), autoPanAnimation: (olx.animation.PanOptions|undefined), autoPanMargin: (number|undefined)}}
  */
 olx.OverlayOptions;
 
