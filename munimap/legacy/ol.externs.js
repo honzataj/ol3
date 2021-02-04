@@ -3105,7 +3105,7 @@ ol.Image.prototype.load = function() {};
  * @param {ol.Extent} extent
  * @param {number|undefined} resolution
  * @param {number} pixelRatio
- * @param {ol.Image.State} state
+ * @param {ol.ImageState} state
  */
 ol.ImageBase = function(extent, resolution, pixelRatio, state, attributions) {};
 
