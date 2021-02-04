@@ -8,7 +8,7 @@
 
 ## Change API
 * Manually delete `src/ol/ellipsoid` with `ellipsoid.js` and `wgs84ellipsoid.js`.
-* Manually delete ol.Image.State from `missing.enum.js` (maybe duplicated)
+* Manually delete ol.Image.State from `missing.enum.js` (maybe duplicated) and add ol.ImageState
 * Manually tag with @api:
     * ol.extent.createOrUpdate
     * ol.extent.getForViewAndSize
