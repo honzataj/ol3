@@ -1,15 +1,4 @@
 /**
- * @enum {number}
- */
-ol.Image.State = {
-  IDLE: 0,
-  LOADING: 1,
-  LOADED: 2,
-  ERROR: 3
-};
-
-
-/**
  * Overlay position: `'bottom-left'`, `'bottom-center'`,  `'bottom-right'`,
  * `'center-left'`, `'center-center'`, `'center-right'`, `'top-left'`,
  * `'top-center'`, `'top-right'`

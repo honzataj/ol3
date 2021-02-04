@@ -18,6 +18,13 @@
    * ol.KMLVec2_ - remove
    * ol.MapOptionsInternal - remove logos and mapRendererPlugin from typedef annotation
    * ol.StyleRenderFunction - remove olx.render.State from typedef annotation
+* Manually add property compareFn to `src/ol/source/Cluster.js` and use it in ol.source.Cluster.prototype.cluster 
+   ```js
+   const features = this.source.getFeatures();
+   if (this.compareFn) {
+      features.sort(this.compareFn);
+   }
+   ```
 
 ## Generate externs
 * Externs are copied from v 4.6.4.

@@ -32,6 +32,7 @@ import VectorSource from './Vector.js';
  * calculation point for polygons.
  * @property {VectorSource} source Source.
  * @property {boolean} [wrapX=true] Whether to wrap the world horizontally.
+ * @property {function(Feature, Feature): number} compareFn  
  */
 
 
@@ -69,6 +70,12 @@ class Cluster extends VectorSource {
      * @protected
      */
     this.features = [];
+
+    /**
+     * @type {function(Feature, Feature): number|undefined}
+     * @protected
+     */
+    this.compareFn = options.compareFn;
 
     /**
      * @param {Feature} feature Feature.
@@ -154,6 +161,9 @@ class Cluster extends VectorSource {
     const extent = createEmpty();
     const mapDistance = this.distance * this.resolution;
     const features = this.source.getFeatures();
+    if (this.compareFn) {
+      features.sort(this.compareFn);
+    }
 
     /**
      * @type {!Object<string, boolean>}
