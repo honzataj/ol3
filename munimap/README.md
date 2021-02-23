@@ -57,6 +57,10 @@
    * ol.View.prototype.fit - remove size from param and add to opts
    * olx.source.ImageArcGISRestOptions - change `Array<ol.Attribution>` to `ol.AttributionLike`
    * olx.view.FitOptions - add all other params
+   * ol.geom.GeometryCollection.prototype.applyTransform - add params
+   * ol.geom.GeometryCollection.prototype.translate - add params
+   * ol.geom.SimpleGeometry.prototype.applyTransform - add params
+   * ol.geom.SimpleGeometry.prototype.translate - add params
    
    
 

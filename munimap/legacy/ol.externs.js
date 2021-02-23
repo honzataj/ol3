@@ -2503,8 +2503,9 @@ ol.geom.GeometryCollection.prototype.setGeometries = function(geometries) {};
 
 
 /**
+ * @param {ol.TransformFunction} transformFn
  */
-ol.geom.GeometryCollection.prototype.applyTransform = function() {};
+ol.geom.GeometryCollection.prototype.applyTransform = function(transformFn) {};
 
 
 /**
@@ -2999,13 +3000,16 @@ ol.geom.SimpleGeometry.prototype.getLayout = function() {};
 
 
 /**
+ * @param {ol.TransformFunction} transformFn
  */
-ol.geom.SimpleGeometry.prototype.applyTransform = function() {};
+ol.geom.SimpleGeometry.prototype.applyTransform = function(transformFn) {};
 
 
 /**
+ * @param {number} deltaX
+ * @param {number} deltaY
  */
-ol.geom.SimpleGeometry.prototype.translate = function() {};
+ol.geom.SimpleGeometry.prototype.translate = function(deltaX, deltaY) {};
 
 
 /**
