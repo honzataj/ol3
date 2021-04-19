@@ -15,6 +15,8 @@
     * ol.VectorImageTile
 * Manually change `typedefs.js`
    * ol.ImageLoadFunctionType - change typedef from ol.Image to ol.ImageWrapper
+* Manually change `ImageArcGISRest.js`
+    *  ol.source.ImageArcGISRest.prototype.getRequestUrl_ - change default DPI to 96
 
 ## Generate externs
 * Externs are copied from v 4.6.5.

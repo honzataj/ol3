@@ -231,7 +231,7 @@ class ImageArcGISRest extends ImageSource {
     params['BBOX'] = extent.join(',');
     params['BBOXSR'] = srid;
     params['IMAGESR'] = srid;
-    params['DPI'] = Math.round(90 * pixelRatio);
+    params['DPI'] = Math.round(96 * pixelRatio);
 
     const url = this.url_;
 
