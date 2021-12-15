@@ -1,11 +1,20 @@
 /**
  * @module ol/renderer/vector
  */
-import {getUid} from '../util.js';
-import ImageState from '../ImageState.js';
+import BuilderType from '../render/canvas/BuilderType.js';
 import GeometryType from '../geom/GeometryType.js';
-import ReplayType from '../render/ReplayType.js';
+import ImageState from '../ImageState.js';
+import {getUid} from '../util.js';
 
+/**
+ * Feature callback. The callback will be called with three arguments. The first
+ * argument is one {@link module:ol/Feature feature} or {@link module:ol/render/Feature render feature}
+ * at the pixel, the second is the {@link module:ol/layer/Layer layer} of the feature and will be null for
+ * unmanaged layers. The third is the {@link module:ol/geom/SimpleGeometry} of the feature. For features
+ * with a GeometryCollection geometry, it will be the first detected geometry from the collection.
+ * @template T
+ * @typedef {function(import("../Feature.js").FeatureLike, import("../layer/Layer.js").default<import("../source/Source").default>, import("../geom/SimpleGeometry.js").default): T} FeatureCallback
+ */
 
 /**
  * Tolerance for geometry simplification in device pixels.
@@ -13,12 +22,11 @@ import ReplayType from '../render/ReplayType.js';
  */
 const SIMPLIFY_TOLERANCE = 0.5;
 
-
 /**
  * @const
  * @type {Object<import("../geom/GeometryType.js").default,
- *                function(import("../render/ReplayGroup.js").default, import("../geom/Geometry.js").default,
- *                         import("../style/Style.js").default, Object)>}
+ *                function(import("../render/canvas/BuilderGroup.js").default, import("../geom/Geometry.js").default,
+ *                         import("../style/Style.js").default, Object): void>}
  */
 const GEOMETRY_RENDERERS = {
   'Point': renderPointGeometry,
@@ -28,9 +36,8 @@ const GEOMETRY_RENDERERS = {
   'MultiLineString': renderMultiLineStringGeometry,
   'MultiPolygon': renderMultiPolygonGeometry,
   'GeometryCollection': renderGeometryCollectionGeometry,
-  'Circle': renderCircleGeometry
+  'Circle': renderCircleGeometry,
 };
-
 
 /**
  * @param {import("../Feature.js").FeatureLike} feature1 Feature 1.
@@ -40,7 +47,6 @@ const GEOMETRY_RENDERERS = {
 export function defaultOrder(feature1, feature2) {
   return parseInt(getUid(feature1), 10) - parseInt(getUid(feature2), 10);
 }
-
 
 /**
  * @param {number} resolution Resolution.
@@ -52,265 +58,411 @@ export function getSquaredTolerance(resolution, pixelRatio) {
   return tolerance * tolerance;
 }
 
-
 /**
  * @param {number} resolution Resolution.
  * @param {number} pixelRatio Pixel ratio.
  * @return {number} Pixel tolerance.
  */
 export function getTolerance(resolution, pixelRatio) {
-  return SIMPLIFY_TOLERANCE * resolution / pixelRatio;
+  return (SIMPLIFY_TOLERANCE * resolution) / pixelRatio;
 }
 
-
 /**
- * @param {import("../render/ReplayGroup.js").default} replayGroup Replay group.
+ * @param {import("../render/canvas/BuilderGroup.js").default} builderGroup Builder group.
  * @param {import("../geom/Circle.js").default} geometry Geometry.
  * @param {import("../style/Style.js").default} style Style.
  * @param {import("../Feature.js").default} feature Feature.
+ * @param {import("../render/canvas/BuilderGroup.js").default} [opt_declutterBuilderGroup] Builder for decluttering.
  */
-function renderCircleGeometry(replayGroup, geometry, style, feature) {
+function renderCircleGeometry(
+  builderGroup,
+  geometry,
+  style,
+  feature,
+  opt_declutterBuilderGroup
+) {
   const fillStyle = style.getFill();
   const strokeStyle = style.getStroke();
   if (fillStyle || strokeStyle) {
-    const circleReplay = replayGroup.getReplay(style.getZIndex(), ReplayType.CIRCLE);
+    const circleReplay = builderGroup.getBuilder(
+      style.getZIndex(),
+      BuilderType.CIRCLE
+    );
     circleReplay.setFillStrokeStyle(fillStyle, strokeStyle);
     circleReplay.drawCircle(geometry, feature);
   }
   const textStyle = style.getText();
-  if (textStyle) {
-    const textReplay = replayGroup.getReplay(style.getZIndex(), ReplayType.TEXT);
-    textReplay.setTextStyle(textStyle, replayGroup.addDeclutter(false));
+  if (textStyle && textStyle.getText()) {
+    const textReplay = (opt_declutterBuilderGroup || builderGroup).getBuilder(
+      style.getZIndex(),
+      BuilderType.TEXT
+    );
+    textReplay.setTextStyle(textStyle);
     textReplay.drawText(geometry, feature);
   }
 }
 
-
 /**
- * @param {import("../render/ReplayGroup.js").default} replayGroup Replay group.
+ * @param {import("../render/canvas/BuilderGroup.js").default} replayGroup Replay group.
  * @param {import("../Feature.js").FeatureLike} feature Feature.
  * @param {import("../style/Style.js").default} style Style.
  * @param {number} squaredTolerance Squared tolerance.
- * @param {function(this: T, import("../events/Event.js").default)} listener Listener function.
- * @param {T} thisArg Value to use as `this` when executing `listener`.
+ * @param {function(import("../events/Event.js").default): void} listener Listener function.
+ * @param {import("../proj.js").TransformFunction} [opt_transform] Transform from user to view projection.
+ * @param {import("../render/canvas/BuilderGroup.js").default} [opt_declutterBuilderGroup] Builder for decluttering.
  * @return {boolean} `true` if style is loading.
- * @template T
  */
-export function renderFeature(replayGroup, feature, style, squaredTolerance, listener, thisArg) {
+export function renderFeature(
+  replayGroup,
+  feature,
+  style,
+  squaredTolerance,
+  listener,
+  opt_transform,
+  opt_declutterBuilderGroup
+) {
   let loading = false;
   const imageStyle = style.getImage();
   if (imageStyle) {
     let imageState = imageStyle.getImageState();
     if (imageState == ImageState.LOADED || imageState == ImageState.ERROR) {
-      imageStyle.unlistenImageChange(listener, thisArg);
+      imageStyle.unlistenImageChange(listener);
     } else {
       if (imageState == ImageState.IDLE) {
         imageStyle.load();
       }
       imageState = imageStyle.getImageState();
-      imageStyle.listenImageChange(listener, thisArg);
+      imageStyle.listenImageChange(listener);
       loading = true;
     }
   }
-  renderFeatureInternal(replayGroup, feature, style, squaredTolerance);
+  renderFeatureInternal(
+    replayGroup,
+    feature,
+    style,
+    squaredTolerance,
+    opt_transform,
+    opt_declutterBuilderGroup
+  );
 
   return loading;
 }
 
-
 /**
- * @param {import("../render/ReplayGroup.js").default} replayGroup Replay group.
+ * @param {import("../render/canvas/BuilderGroup.js").default} replayGroup Replay group.
  * @param {import("../Feature.js").FeatureLike} feature Feature.
  * @param {import("../style/Style.js").default} style Style.
  * @param {number} squaredTolerance Squared tolerance.
+ * @param {import("../proj.js").TransformFunction} [opt_transform] Optional transform function.
+ * @param {import("../render/canvas/BuilderGroup.js").default} [opt_declutterBuilderGroup] Builder for decluttering.
  */
-function renderFeatureInternal(replayGroup, feature, style, squaredTolerance) {
+function renderFeatureInternal(
+  replayGroup,
+  feature,
+  style,
+  squaredTolerance,
+  opt_transform,
+  opt_declutterBuilderGroup
+) {
   const geometry = style.getGeometryFunction()(feature);
   if (!geometry) {
     return;
   }
-  const simplifiedGeometry = geometry.getSimplifiedGeometry(squaredTolerance);
+  const simplifiedGeometry = geometry.simplifyTransformed(
+    squaredTolerance,
+    opt_transform
+  );
   const renderer = style.getRenderer();
   if (renderer) {
     renderGeometry(replayGroup, simplifiedGeometry, style, feature);
   } else {
     const geometryRenderer = GEOMETRY_RENDERERS[simplifiedGeometry.getType()];
-    geometryRenderer(replayGroup, simplifiedGeometry, style, feature);
+    geometryRenderer(
+      replayGroup,
+      simplifiedGeometry,
+      style,
+      feature,
+      opt_declutterBuilderGroup
+    );
   }
 }
 
-
 /**
- * @param {import("../render/ReplayGroup.js").default} replayGroup Replay group.
+ * @param {import("../render/canvas/BuilderGroup.js").default} replayGroup Replay group.
  * @param {import("../geom/Geometry.js").default|import("../render/Feature.js").default} geometry Geometry.
  * @param {import("../style/Style.js").default} style Style.
  * @param {import("../Feature.js").FeatureLike} feature Feature.
  */
 function renderGeometry(replayGroup, geometry, style, feature) {
   if (geometry.getType() == GeometryType.GEOMETRY_COLLECTION) {
-    const geometries = /** @type {import("../geom/GeometryCollection.js").default} */ (geometry).getGeometries();
+    const geometries =
+      /** @type {import("../geom/GeometryCollection.js").default} */ (
+        geometry
+      ).getGeometries();
     for (let i = 0, ii = geometries.length; i < ii; ++i) {
       renderGeometry(replayGroup, geometries[i], style, feature);
     }
     return;
   }
-  const replay = replayGroup.getReplay(style.getZIndex(), ReplayType.DEFAULT);
-  replay.drawCustom(/** @type {import("../geom/SimpleGeometry.js").default} */ (geometry), feature, style.getRenderer());
+  const replay = replayGroup.getBuilder(style.getZIndex(), BuilderType.DEFAULT);
+  replay.drawCustom(
+    /** @type {import("../geom/SimpleGeometry.js").default} */ (geometry),
+    feature,
+    style.getRenderer(),
+    style.getHitDetectionRenderer()
+  );
 }
 
-
 /**
- * @param {import("../render/ReplayGroup.js").default} replayGroup Replay group.
+ * @param {import("../render/canvas/BuilderGroup.js").default} replayGroup Replay group.
  * @param {import("../geom/GeometryCollection.js").default} geometry Geometry.
  * @param {import("../style/Style.js").default} style Style.
  * @param {import("../Feature.js").default} feature Feature.
+ * @param {import("../render/canvas/BuilderGroup.js").default} [opt_declutterBuilderGroup] Builder for decluttering.
  */
-function renderGeometryCollectionGeometry(replayGroup, geometry, style, feature) {
+function renderGeometryCollectionGeometry(
+  replayGroup,
+  geometry,
+  style,
+  feature,
+  opt_declutterBuilderGroup
+) {
   const geometries = geometry.getGeometriesArray();
   let i, ii;
   for (i = 0, ii = geometries.length; i < ii; ++i) {
-    const geometryRenderer =
-        GEOMETRY_RENDERERS[geometries[i].getType()];
-    geometryRenderer(replayGroup, geometries[i], style, feature);
+    const geometryRenderer = GEOMETRY_RENDERERS[geometries[i].getType()];
+    geometryRenderer(
+      replayGroup,
+      geometries[i],
+      style,
+      feature,
+      opt_declutterBuilderGroup
+    );
   }
 }
 
-
 /**
- * @param {import("../render/ReplayGroup.js").default} replayGroup Replay group.
+ * @param {import("../render/canvas/BuilderGroup.js").default} builderGroup Replay group.
  * @param {import("../geom/LineString.js").default|import("../render/Feature.js").default} geometry Geometry.
  * @param {import("../style/Style.js").default} style Style.
  * @param {import("../Feature.js").FeatureLike} feature Feature.
+ * @param {import("../render/canvas/BuilderGroup.js").default} [opt_declutterBuilderGroup] Builder for decluttering.
  */
-function renderLineStringGeometry(replayGroup, geometry, style, feature) {
+function renderLineStringGeometry(
+  builderGroup,
+  geometry,
+  style,
+  feature,
+  opt_declutterBuilderGroup
+) {
   const strokeStyle = style.getStroke();
   if (strokeStyle) {
-    const lineStringReplay = replayGroup.getReplay(style.getZIndex(), ReplayType.LINE_STRING);
+    const lineStringReplay = builderGroup.getBuilder(
+      style.getZIndex(),
+      BuilderType.LINE_STRING
+    );
     lineStringReplay.setFillStrokeStyle(null, strokeStyle);
     lineStringReplay.drawLineString(geometry, feature);
   }
   const textStyle = style.getText();
-  if (textStyle) {
-    const textReplay = replayGroup.getReplay(style.getZIndex(), ReplayType.TEXT);
-    textReplay.setTextStyle(textStyle, replayGroup.addDeclutter(false));
+  if (textStyle && textStyle.getText()) {
+    const textReplay = (opt_declutterBuilderGroup || builderGroup).getBuilder(
+      style.getZIndex(),
+      BuilderType.TEXT
+    );
+    textReplay.setTextStyle(textStyle);
     textReplay.drawText(geometry, feature);
   }
 }
 
-
 /**
- * @param {import("../render/ReplayGroup.js").default} replayGroup Replay group.
+ * @param {import("../render/canvas/BuilderGroup.js").default} builderGroup Replay group.
  * @param {import("../geom/MultiLineString.js").default|import("../render/Feature.js").default} geometry Geometry.
  * @param {import("../style/Style.js").default} style Style.
  * @param {import("../Feature.js").FeatureLike} feature Feature.
+ * @param {import("../render/canvas/BuilderGroup.js").default} [opt_declutterBuilderGroup] Builder for decluttering.
  */
-function renderMultiLineStringGeometry(replayGroup, geometry, style, feature) {
+function renderMultiLineStringGeometry(
+  builderGroup,
+  geometry,
+  style,
+  feature,
+  opt_declutterBuilderGroup
+) {
   const strokeStyle = style.getStroke();
   if (strokeStyle) {
-    const lineStringReplay = replayGroup.getReplay(style.getZIndex(), ReplayType.LINE_STRING);
+    const lineStringReplay = builderGroup.getBuilder(
+      style.getZIndex(),
+      BuilderType.LINE_STRING
+    );
     lineStringReplay.setFillStrokeStyle(null, strokeStyle);
     lineStringReplay.drawMultiLineString(geometry, feature);
   }
   const textStyle = style.getText();
-  if (textStyle) {
-    const textReplay = replayGroup.getReplay(style.getZIndex(), ReplayType.TEXT);
-    textReplay.setTextStyle(textStyle, replayGroup.addDeclutter(false));
+  if (textStyle && textStyle.getText()) {
+    const textReplay = (opt_declutterBuilderGroup || builderGroup).getBuilder(
+      style.getZIndex(),
+      BuilderType.TEXT
+    );
+    textReplay.setTextStyle(textStyle);
     textReplay.drawText(geometry, feature);
   }
 }
 
-
 /**
- * @param {import("../render/ReplayGroup.js").default} replayGroup Replay group.
+ * @param {import("../render/canvas/BuilderGroup.js").default} builderGroup Replay group.
  * @param {import("../geom/MultiPolygon.js").default} geometry Geometry.
  * @param {import("../style/Style.js").default} style Style.
  * @param {import("../Feature.js").default} feature Feature.
+ * @param {import("../render/canvas/BuilderGroup.js").default} [opt_declutterBuilderGroup] Builder for decluttering.
  */
-function renderMultiPolygonGeometry(replayGroup, geometry, style, feature) {
+function renderMultiPolygonGeometry(
+  builderGroup,
+  geometry,
+  style,
+  feature,
+  opt_declutterBuilderGroup
+) {
   const fillStyle = style.getFill();
   const strokeStyle = style.getStroke();
   if (strokeStyle || fillStyle) {
-    const polygonReplay = replayGroup.getReplay(style.getZIndex(), ReplayType.POLYGON);
+    const polygonReplay = builderGroup.getBuilder(
+      style.getZIndex(),
+      BuilderType.POLYGON
+    );
     polygonReplay.setFillStrokeStyle(fillStyle, strokeStyle);
     polygonReplay.drawMultiPolygon(geometry, feature);
   }
   const textStyle = style.getText();
-  if (textStyle) {
-    const textReplay = replayGroup.getReplay(style.getZIndex(), ReplayType.TEXT);
-    textReplay.setTextStyle(textStyle, replayGroup.addDeclutter(false));
+  if (textStyle && textStyle.getText()) {
+    const textReplay = (opt_declutterBuilderGroup || builderGroup).getBuilder(
+      style.getZIndex(),
+      BuilderType.TEXT
+    );
+    textReplay.setTextStyle(textStyle);
     textReplay.drawText(geometry, feature);
   }
 }
 
-
 /**
- * @param {import("../render/ReplayGroup.js").default} replayGroup Replay group.
+ * @param {import("../render/canvas/BuilderGroup.js").default} builderGroup Replay group.
  * @param {import("../geom/Point.js").default|import("../render/Feature.js").default} geometry Geometry.
  * @param {import("../style/Style.js").default} style Style.
  * @param {import("../Feature.js").FeatureLike} feature Feature.
+ * @param {import("../render/canvas/BuilderGroup.js").default} [opt_declutterBuilderGroup] Builder for decluttering.
  */
-function renderPointGeometry(replayGroup, geometry, style, feature) {
+function renderPointGeometry(
+  builderGroup,
+  geometry,
+  style,
+  feature,
+  opt_declutterBuilderGroup
+) {
   const imageStyle = style.getImage();
+  const textStyle = style.getText();
+  /** @type {import("../render/canvas.js").DeclutterImageWithText} */
+  let declutterImageWithText;
+  if (opt_declutterBuilderGroup) {
+    builderGroup = opt_declutterBuilderGroup;
+    declutterImageWithText =
+      imageStyle && textStyle && textStyle.getText() ? {} : undefined;
+  }
   if (imageStyle) {
     if (imageStyle.getImageState() != ImageState.LOADED) {
       return;
     }
-    const imageReplay = replayGroup.getReplay(style.getZIndex(), ReplayType.IMAGE);
-    imageReplay.setImageStyle(imageStyle, replayGroup.addDeclutter(false));
+    const imageReplay = builderGroup.getBuilder(
+      style.getZIndex(),
+      BuilderType.IMAGE
+    );
+    imageReplay.setImageStyle(imageStyle, declutterImageWithText);
     imageReplay.drawPoint(geometry, feature);
   }
-  const textStyle = style.getText();
-  if (textStyle) {
-    const textReplay = replayGroup.getReplay(style.getZIndex(), ReplayType.TEXT);
-    textReplay.setTextStyle(textStyle, replayGroup.addDeclutter(!!imageStyle));
+  if (textStyle && textStyle.getText()) {
+    const textReplay = builderGroup.getBuilder(
+      style.getZIndex(),
+      BuilderType.TEXT
+    );
+    textReplay.setTextStyle(textStyle, declutterImageWithText);
     textReplay.drawText(geometry, feature);
   }
 }
 
-
 /**
- * @param {import("../render/ReplayGroup.js").default} replayGroup Replay group.
+ * @param {import("../render/canvas/BuilderGroup.js").default} builderGroup Replay group.
  * @param {import("../geom/MultiPoint.js").default|import("../render/Feature.js").default} geometry Geometry.
  * @param {import("../style/Style.js").default} style Style.
  * @param {import("../Feature.js").FeatureLike} feature Feature.
+ * @param {import("../render/canvas/BuilderGroup.js").default} [opt_declutterBuilderGroup] Builder for decluttering.
  */
-function renderMultiPointGeometry(replayGroup, geometry, style, feature) {
+function renderMultiPointGeometry(
+  builderGroup,
+  geometry,
+  style,
+  feature,
+  opt_declutterBuilderGroup
+) {
   const imageStyle = style.getImage();
+  const textStyle = style.getText();
+  /** @type {import("../render/canvas.js").DeclutterImageWithText} */
+  let declutterImageWithText;
+  if (opt_declutterBuilderGroup) {
+    builderGroup = opt_declutterBuilderGroup;
+    declutterImageWithText =
+      imageStyle && textStyle && textStyle.getText() ? {} : undefined;
+  }
   if (imageStyle) {
     if (imageStyle.getImageState() != ImageState.LOADED) {
       return;
     }
-    const imageReplay = replayGroup.getReplay(style.getZIndex(), ReplayType.IMAGE);
-    imageReplay.setImageStyle(imageStyle, replayGroup.addDeclutter(false));
+    const imageReplay = builderGroup.getBuilder(
+      style.getZIndex(),
+      BuilderType.IMAGE
+    );
+    imageReplay.setImageStyle(imageStyle, declutterImageWithText);
     imageReplay.drawMultiPoint(geometry, feature);
   }
-  const textStyle = style.getText();
-  if (textStyle) {
-    const textReplay = replayGroup.getReplay(style.getZIndex(), ReplayType.TEXT);
-    textReplay.setTextStyle(textStyle, replayGroup.addDeclutter(!!imageStyle));
+  if (textStyle && textStyle.getText()) {
+    const textReplay = (opt_declutterBuilderGroup || builderGroup).getBuilder(
+      style.getZIndex(),
+      BuilderType.TEXT
+    );
+    textReplay.setTextStyle(textStyle, declutterImageWithText);
     textReplay.drawText(geometry, feature);
   }
 }
 
-
 /**
- * @param {import("../render/ReplayGroup.js").default} replayGroup Replay group.
+ * @param {import("../render/canvas/BuilderGroup.js").default} builderGroup Replay group.
  * @param {import("../geom/Polygon.js").default|import("../render/Feature.js").default} geometry Geometry.
  * @param {import("../style/Style.js").default} style Style.
  * @param {import("../Feature.js").FeatureLike} feature Feature.
+ * @param {import("../render/canvas/BuilderGroup.js").default} [opt_declutterBuilderGroup] Builder for decluttering.
  */
-function renderPolygonGeometry(replayGroup, geometry, style, feature) {
+function renderPolygonGeometry(
+  builderGroup,
+  geometry,
+  style,
+  feature,
+  opt_declutterBuilderGroup
+) {
   const fillStyle = style.getFill();
   const strokeStyle = style.getStroke();
   if (fillStyle || strokeStyle) {
-    const polygonReplay = replayGroup.getReplay(style.getZIndex(), ReplayType.POLYGON);
+    const polygonReplay = builderGroup.getBuilder(
+      style.getZIndex(),
+      BuilderType.POLYGON
+    );
     polygonReplay.setFillStrokeStyle(fillStyle, strokeStyle);
     polygonReplay.drawPolygon(geometry, feature);
   }
   const textStyle = style.getText();
-  if (textStyle) {
-    const textReplay = replayGroup.getReplay(style.getZIndex(), ReplayType.TEXT);
-    textReplay.setTextStyle(textStyle, replayGroup.addDeclutter(false));
+  if (textStyle && textStyle.getText()) {
+    const textReplay = (opt_declutterBuilderGroup || builderGroup).getBuilder(
+      style.getZIndex(),
+      BuilderType.TEXT
+    );
+    textReplay.setTextStyle(textStyle);
     textReplay.drawText(geometry, feature);
   }
 }

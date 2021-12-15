@@ -3,7 +3,6 @@
  */
 import {METERS_PER_UNIT} from './Units.js';
 
-
 /**
  * @typedef {Object} Options
  * @property {string} code The SRS identifier code, e.g. `EPSG:4326`.
@@ -18,11 +17,10 @@ import {METERS_PER_UNIT} from './Units.js';
  * @property {import("../extent.js").Extent} [worldExtent] The world extent for the SRS.
  * @property {function(number, import("../coordinate.js").Coordinate):number} [getPointResolution]
  * Function to determine resolution at a point. The function is called with a
- * `{number}` view resolution and an `{import("../coordinate.js").Coordinate}` as arguments, and returns
- * the `{number}` resolution at the passed coordinate. If this is `undefined`,
- * the default {@link module:ol/proj#getPointResolution} function will be used.
+ * `number` view resolution and a {@link module:ol/coordinate~Coordinate Coordinate} as arguments, and returns
+ * the `number` resolution in projection units at the passed coordinate. If this is `undefined`,
+ * the default {@link module:ol/proj.getPointResolution getPointResolution()} function will be used.
  */
-
 
 /**
  * @classdesc
@@ -32,7 +30,7 @@ import {METERS_PER_UNIT} from './Units.js';
  * and options use {@link module:ol/proj~ProjectionLike} which means the simple string
  * code will suffice.
  *
- * You can use {@link module:ol/proj~get} to retrieve the object for a particular
+ * You can use {@link module:ol/proj.get} to retrieve the object for a particular
  * projection.
  *
  * The library includes definitions for `EPSG:4326` and `EPSG:3857`, together
@@ -47,12 +45,11 @@ import {METERS_PER_UNIT} from './Units.js';
  *
  * If you use [proj4js](https://github.com/proj4js/proj4js), aliases can
  * be added using `proj4.defs()`. After all required projection definitions are
- * added, call the {@link module:ol/proj/proj4~register} function.
+ * added, call the {@link module:ol/proj/proj4.register} function.
  *
  * @api
  */
 class Projection {
-
   /**
    * @param {Options} options Projection options.
    */
@@ -88,15 +85,15 @@ class Projection {
      * @private
      * @type {import("../extent.js").Extent}
      */
-    this.worldExtent_ = options.worldExtent !== undefined ?
-      options.worldExtent : null;
+    this.worldExtent_ =
+      options.worldExtent !== undefined ? options.worldExtent : null;
 
     /**
      * @private
      * @type {string}
      */
-    this.axisOrientation_ = options.axisOrientation !== undefined ?
-      options.axisOrientation : 'enu';
+    this.axisOrientation_ =
+      options.axisOrientation !== undefined ? options.axisOrientation : 'enu';
 
     /**
      * @private
@@ -252,7 +249,7 @@ class Projection {
   }
 
   /**
-   * Set the getPointResolution function (see {@link module:ol/proj~getPointResolution}
+   * Set the getPointResolution function (see {@link module:ol/proj.getPointResolution}
    * for this projection.
    * @param {function(number, import("../coordinate.js").Coordinate):number} func Function
    * @api

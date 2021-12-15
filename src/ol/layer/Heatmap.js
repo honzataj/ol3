@@ -1,19 +1,15 @@
 /**
  * @module ol/layer/Heatmap
  */
-import {listen} from '../events.js';
-import {getChangeEventType} from '../Object.js';
-import {createCanvasContext2D} from '../dom.js';
 import VectorLayer from './Vector.js';
-import {clamp} from '../math.js';
+import WebGLPointsLayerRenderer from '../renderer/webgl/PointsLayer.js';
 import {assign} from '../obj.js';
-import RenderEventType from '../render/EventType.js';
-import Icon from '../style/Icon.js';
-import Style from '../style/Style.js';
-
+import {clamp} from '../math.js';
+import {createCanvasContext2D} from '../dom.js';
 
 /**
  * @typedef {Object} Options
+ * @property {string} [className='ol-layer'] A CSS class name to set to the layer element.
  * @property {number} [opacity=1] Opacity (0, 1).
  * @property {boolean} [visible=true] Visibility.
  * @property {import("../extent.js").Extent} [extent] The bounding extent for layer rendering.  The layer will not be
@@ -26,22 +22,20 @@ import Style from '../style/Style.js';
  * visible.
  * @property {number} [maxResolution] The maximum resolution (exclusive) below which this layer will
  * be visible.
+ * @property {number} [minZoom] The minimum view zoom level (exclusive) above which this layer will be
+ * visible.
+ * @property {number} [maxZoom] The maximum view zoom level (inclusive) at which this layer will
+ * be visible.
  * @property {Array<string>} [gradient=['#00f', '#0ff', '#0f0', '#ff0', '#f00']] The color gradient
  * of the heatmap, specified as an array of CSS color strings.
  * @property {number} [radius=8] Radius size in pixels.
  * @property {number} [blur=15] Blur size in pixels.
- * @property {number} [shadow=250] Shadow size in pixels.
  * @property {string|function(import("../Feature.js").default):number} [weight='weight'] The feature
  * attribute to use for the weight or a function that returns a weight from a feature. Weight values
  * should range from 0 to 1 (and values outside will be clamped to that range).
- * @property {import("./VectorRenderType.js").default|string} [renderMode='vector'] Render mode for vector layers:
- *  * `'image'`: Vector layers are rendered as images. Great performance, but point symbols and
- *    texts are always rotated with the view and pixels are scaled during zoom animations.
- *  * `'vector'`: Vector layers are rendered as vectors. Most accurate rendering even during
- *    animations, but slower performance.
  * @property {import("../source/Vector.js").default} [source] Source.
+ * @property {Object<string, *>} [properties] Arbitrary observable properties. Can be accessed with `#get()` and `#set()`.
  */
-
 
 /**
  * @enum {string}
@@ -50,16 +44,14 @@ import Style from '../style/Style.js';
 const Property = {
   BLUR: 'blur',
   GRADIENT: 'gradient',
-  RADIUS: 'radius'
+  RADIUS: 'radius',
 };
-
 
 /**
  * @const
  * @type {Array<string>}
  */
 const DEFAULT_GRADIENT = ['#00f', '#0ff', '#0f0', '#ff0', '#f00'];
-
 
 /**
  * @classdesc
@@ -69,11 +61,12 @@ const DEFAULT_GRADIENT = ['#00f', '#0ff', '#0f0', '#ff0', '#f00'];
  * options means that `title` is observable, and has get/set accessors.
  *
  * @fires import("../render/Event.js").RenderEvent
+ * @extends {VectorLayer<import("../source/Vector.js").default>}
  * @api
  */
 class Heatmap extends VectorLayer {
   /**
-   * @param {Options=} opt_options Options.
+   * @param {Options} [opt_options] Options.
    */
   constructor(opt_options) {
     const options = opt_options ? opt_options : {};
@@ -83,37 +76,16 @@ class Heatmap extends VectorLayer {
     delete baseOptions.gradient;
     delete baseOptions.radius;
     delete baseOptions.blur;
-    delete baseOptions.shadow;
     delete baseOptions.weight;
     super(baseOptions);
 
     /**
      * @private
-     * @type {Uint8ClampedArray}
+     * @type {HTMLCanvasElement}
      */
     this.gradient_ = null;
 
-    /**
-     * @private
-     * @type {number}
-     */
-    this.shadow_ = options.shadow !== undefined ? options.shadow : 250;
-
-    /**
-     * @private
-     * @type {string|undefined}
-     */
-    this.circleImage_ = undefined;
-
-    /**
-     * @private
-     * @type {Array<Array<import("../style/Style.js").default>>}
-     */
-    this.styleCache_ = null;
-
-    listen(this,
-      getChangeEventType(Property.GRADIENT),
-      this.handleGradientChanged_, this);
+    this.addChangeListener(Property.GRADIENT, this.handleGradientChanged_);
 
     this.setGradient(options.gradient ? options.gradient : DEFAULT_GRADIENT);
 
@@ -121,70 +93,18 @@ class Heatmap extends VectorLayer {
 
     this.setRadius(options.radius !== undefined ? options.radius : 8);
 
-    listen(this,
-      getChangeEventType(Property.BLUR),
-      this.handleStyleChanged_, this);
-    listen(this,
-      getChangeEventType(Property.RADIUS),
-      this.handleStyleChanged_, this);
-
-    this.handleStyleChanged_();
-
     const weight = options.weight ? options.weight : 'weight';
-    let weightFunction;
     if (typeof weight === 'string') {
-      weightFunction = function(feature) {
+      this.weightFunction_ = function (feature) {
         return feature.get(weight);
       };
     } else {
-      weightFunction = weight;
+      this.weightFunction_ = weight;
     }
-
-    this.setStyle(function(feature, resolution) {
-      const weight = weightFunction(feature);
-      const opacity = weight !== undefined ? clamp(weight, 0, 1) : 1;
-      // cast to 8 bits
-      const index = (255 * opacity) | 0;
-      let style = this.styleCache_[index];
-      if (!style) {
-        style = [
-          new Style({
-            image: new Icon({
-              opacity: opacity,
-              src: this.circleImage_
-            })
-          })
-        ];
-        this.styleCache_[index] = style;
-      }
-      return style;
-    }.bind(this));
 
     // For performance reasons, don't sort the features before rendering.
     // The render order is not relevant for a heatmap representation.
     this.setRenderOrder(null);
-
-    listen(this, RenderEventType.RENDER, this.handleRender_, this);
-  }
-
-  /**
-   * @return {string} Data URL for a circle.
-   * @private
-   */
-  createCircle_() {
-    const radius = this.getRadius();
-    const blur = this.getBlur();
-    const halfSize = radius + blur + 1;
-    const size = 2 * halfSize;
-    const context = createCanvasContext2D(size, size);
-    context.shadowOffsetX = context.shadowOffsetY = this.shadow_;
-    context.shadowBlur = blur;
-    context.shadowColor = '#000';
-    context.beginPath();
-    const center = halfSize - this.shadow_;
-    context.arc(center, center, radius, 0, Math.PI * 2, true);
-    context.fill();
-    return context.canvas.toDataURL();
   }
 
   /**
@@ -225,35 +145,6 @@ class Heatmap extends VectorLayer {
   }
 
   /**
-   * @private
-   */
-  handleStyleChanged_() {
-    this.circleImage_ = this.createCircle_();
-    this.styleCache_ = new Array(256);
-    this.changed();
-  }
-
-  /**
-   * @param {import("../render/Event.js").default} event Post compose event
-   * @private
-   */
-  handleRender_(event) {
-    const context = event.context;
-    const canvas = context.canvas;
-    const image = context.getImageData(0, 0, canvas.width, canvas.height);
-    const view8 = image.data;
-    for (let i = 0, ii = view8.length; i < ii; i += 4) {
-      const alpha = view8[i + 3] * 4;
-      if (alpha) {
-        view8[i] = this.gradient_[alpha];
-        view8[i + 1] = this.gradient_[alpha + 1];
-        view8[i + 2] = this.gradient_[alpha + 2];
-      }
-    }
-    context.putImageData(image, 0, 0);
-  }
-
-  /**
    * Set the blur size in pixels.
    * @param {number} blur Blur size in pixels.
    * @api
@@ -282,12 +173,147 @@ class Heatmap extends VectorLayer {
   setRadius(radius) {
     this.set(Property.RADIUS, radius);
   }
-}
 
+  /**
+   * Create a renderer for this layer.
+   * @return {WebGLPointsLayerRenderer} A layer renderer.
+   */
+  createRenderer() {
+    return new WebGLPointsLayerRenderer(this, {
+      className: this.getClassName(),
+      attributes: [
+        {
+          name: 'weight',
+          callback: function (feature) {
+            const weight = this.weightFunction_(feature);
+            return weight !== undefined ? clamp(weight, 0, 1) : 1;
+          }.bind(this),
+        },
+      ],
+      vertexShader: `
+        precision mediump float;
+        uniform mat4 u_projectionMatrix;
+        uniform mat4 u_offsetScaleMatrix;
+        uniform float u_size;
+        attribute vec2 a_position;
+        attribute float a_index;
+        attribute float a_weight;
+
+        varying vec2 v_texCoord;
+        varying float v_weight;
+
+        void main(void) {
+          mat4 offsetMatrix = u_offsetScaleMatrix;
+          float offsetX = a_index == 0.0 || a_index == 3.0 ? -u_size / 2.0 : u_size / 2.0;
+          float offsetY = a_index == 0.0 || a_index == 1.0 ? -u_size / 2.0 : u_size / 2.0;
+          vec4 offsets = offsetMatrix * vec4(offsetX, offsetY, 0.0, 0.0);
+          gl_Position = u_projectionMatrix * vec4(a_position, 0.0, 1.0) + offsets;
+          float u = a_index == 0.0 || a_index == 3.0 ? 0.0 : 1.0;
+          float v = a_index == 0.0 || a_index == 1.0 ? 0.0 : 1.0;
+          v_texCoord = vec2(u, v);
+          v_weight = a_weight;
+        }`,
+      fragmentShader: `
+        precision mediump float;
+        uniform float u_blurSlope;
+
+        varying vec2 v_texCoord;
+        varying float v_weight;
+
+        void main(void) {
+          vec2 texCoord = v_texCoord * 2.0 - vec2(1.0, 1.0);
+          float sqRadius = texCoord.x * texCoord.x + texCoord.y * texCoord.y;
+          float value = (1.0 - sqrt(sqRadius)) * u_blurSlope;
+          float alpha = smoothstep(0.0, 1.0, value) * v_weight;
+          gl_FragColor = vec4(alpha, alpha, alpha, alpha);
+        }`,
+      hitVertexShader: `
+        precision mediump float;
+        uniform mat4 u_projectionMatrix;
+        uniform mat4 u_offsetScaleMatrix;
+        uniform float u_size;
+        attribute vec2 a_position;
+        attribute float a_index;
+        attribute float a_weight;
+        attribute vec4 a_hitColor;
+
+        varying vec2 v_texCoord;
+        varying float v_weight;
+        varying vec4 v_hitColor;
+
+        void main(void) {
+          mat4 offsetMatrix = u_offsetScaleMatrix;
+          float offsetX = a_index == 0.0 || a_index == 3.0 ? -u_size / 2.0 : u_size / 2.0;
+          float offsetY = a_index == 0.0 || a_index == 1.0 ? -u_size / 2.0 : u_size / 2.0;
+          vec4 offsets = offsetMatrix * vec4(offsetX, offsetY, 0.0, 0.0);
+          gl_Position = u_projectionMatrix * vec4(a_position, 0.0, 1.0) + offsets;
+          float u = a_index == 0.0 || a_index == 3.0 ? 0.0 : 1.0;
+          float v = a_index == 0.0 || a_index == 1.0 ? 0.0 : 1.0;
+          v_texCoord = vec2(u, v);
+          v_hitColor = a_hitColor;
+          v_weight = a_weight;
+        }`,
+      hitFragmentShader: `
+        precision mediump float;
+        uniform float u_blurSlope;
+
+        varying vec2 v_texCoord;
+        varying float v_weight;
+        varying vec4 v_hitColor;
+
+        void main(void) {
+          vec2 texCoord = v_texCoord * 2.0 - vec2(1.0, 1.0);
+          float sqRadius = texCoord.x * texCoord.x + texCoord.y * texCoord.y;
+          float value = (1.0 - sqrt(sqRadius)) * u_blurSlope;
+          float alpha = smoothstep(0.0, 1.0, value) * v_weight;
+          if (alpha < 0.05) {
+            discard;
+          }
+
+          gl_FragColor = v_hitColor;
+        }`,
+      uniforms: {
+        u_size: function () {
+          return (this.get(Property.RADIUS) + this.get(Property.BLUR)) * 2;
+        }.bind(this),
+        u_blurSlope: function () {
+          return (
+            this.get(Property.RADIUS) / Math.max(1, this.get(Property.BLUR))
+          );
+        }.bind(this),
+      },
+      postProcesses: [
+        {
+          fragmentShader: `
+            precision mediump float;
+
+            uniform sampler2D u_image;
+            uniform sampler2D u_gradientTexture;
+
+            varying vec2 v_texCoord;
+
+            void main() {
+              vec4 color = texture2D(u_image, v_texCoord);
+              gl_FragColor.a = color.a;
+              gl_FragColor.rgb = texture2D(u_gradientTexture, vec2(0.5, color.a)).rgb;
+              gl_FragColor.rgb *= gl_FragColor.a;
+            }`,
+          uniforms: {
+            u_gradientTexture: function () {
+              return this.gradient_;
+            }.bind(this),
+          },
+        },
+      ],
+    });
+  }
+
+  renderDeclutter() {}
+}
 
 /**
  * @param {Array<string>} colors A list of colored.
- * @return {Uint8ClampedArray} An array.
+ * @return {HTMLCanvasElement} canvas with gradient texture.
  */
 function createGradient(colors) {
   const width = 1;
@@ -303,8 +329,7 @@ function createGradient(colors) {
   context.fillStyle = gradient;
   context.fillRect(0, 0, width, height);
 
-  return context.getImageData(0, 0, width, height).data;
+  return context.canvas;
 }
-
 
 export default Heatmap;

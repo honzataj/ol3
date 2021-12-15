@@ -1,22 +1,31 @@
 /**
  * @module ol/interaction/DragPan
  */
-import ViewHint from '../ViewHint.js';
-import {scale as scaleCoordinate, rotate as rotateCoordinate, add as addCoordinate} from '../coordinate.js';
-import {easeOut} from '../easing.js';
-import {noModifierKeys} from '../events/condition.js';
+import PointerInteraction, {
+  centroid as centroidFromPointers,
+} from './Pointer.js';
 import {FALSE} from '../functions.js';
-import PointerInteraction, {centroid as centroidFromPointers} from './Pointer.js';
-
+import {
+  all,
+  focusWithTabindex,
+  noModifierKeys,
+  primaryAction,
+} from '../events/condition.js';
+import {easeOut} from '../easing.js';
+import {
+  rotate as rotateCoordinate,
+  scale as scaleCoordinate,
+} from '../coordinate.js';
 
 /**
  * @typedef {Object} Options
  * @property {import("../events/condition.js").Condition} [condition] A function that takes an {@link module:ol/MapBrowserEvent~MapBrowserEvent} and returns a boolean
  * to indicate whether that event should be handled.
- * Default is {@link module:ol/events/condition~noModifierKeys}.
+ * Default is {@link module:ol/events/condition.noModifierKeys} and {@link module:ol/events/condition.primaryAction}.
+ * @property {boolean} [onFocusOnly=false] When the map's target has a `tabindex` attribute set,
+ * the interaction will only handle events when the map has the focus.
  * @property {import("../Kinetic.js").default} [kinetic] Kinetic inertia to apply to the pan.
  */
-
 
 /**
  * @classdesc
@@ -25,12 +34,11 @@ import PointerInteraction, {centroid as centroidFromPointers} from './Pointer.js
  */
 class DragPan extends PointerInteraction {
   /**
-   * @param {Options=} opt_options Options.
+   * @param {Options} [opt_options] Options.
    */
   constructor(opt_options) {
-
     super({
-      stopDown: FALSE
+      stopDown: FALSE,
     });
 
     const options = opt_options ? opt_options : {};
@@ -56,27 +64,33 @@ class DragPan extends PointerInteraction {
      */
     this.panning_ = false;
 
+    const condition = options.condition
+      ? options.condition
+      : all(noModifierKeys, primaryAction);
+
     /**
      * @private
      * @type {import("../events/condition.js").Condition}
      */
-    this.condition_ = options.condition ? options.condition : noModifierKeys;
+    this.condition_ = options.onFocusOnly
+      ? all(focusWithTabindex, condition)
+      : condition;
 
     /**
      * @private
      * @type {boolean}
      */
     this.noKinetic_ = false;
-
   }
 
   /**
-   * @inheritDoc
+   * Handle pointer drag events.
+   * @param {import("../MapBrowserEvent.js").default} mapBrowserEvent Event.
    */
   handleDragEvent(mapBrowserEvent) {
     if (!this.panning_) {
       this.panning_ = true;
-      this.getMap().getView().setHint(ViewHint.INTERACTING, 1);
+      this.getMap().getView().beginInteraction();
     }
     const targetPointers = this.targetPointers;
     const centroid = centroidFromPointers(targetPointers);
@@ -85,16 +99,15 @@ class DragPan extends PointerInteraction {
         this.kinetic_.update(centroid[0], centroid[1]);
       }
       if (this.lastCentroid) {
-        const deltaX = this.lastCentroid[0] - centroid[0];
-        const deltaY = centroid[1] - this.lastCentroid[1];
+        const delta = [
+          this.lastCentroid[0] - centroid[0],
+          centroid[1] - this.lastCentroid[1],
+        ];
         const map = mapBrowserEvent.map;
         const view = map.getView();
-        let center = [deltaX, deltaY];
-        scaleCoordinate(center, view.getResolution());
-        rotateCoordinate(center, view.getRotation());
-        addCoordinate(center, view.getCenter());
-        center = view.constrainCenter(center);
-        view.setCenter(center);
+        scaleCoordinate(delta, view.getResolution());
+        rotateCoordinate(delta, view.getRotation());
+        view.adjustCenterInternal(delta);
       }
     } else if (this.kinetic_) {
       // reset so we don't overestimate the kinetic energy after
@@ -103,10 +116,13 @@ class DragPan extends PointerInteraction {
     }
     this.lastCentroid = centroid;
     this.lastPointersCount_ = targetPointers.length;
+    mapBrowserEvent.originalEvent.preventDefault();
   }
 
   /**
-   * @inheritDoc
+   * Handle pointer up events.
+   * @param {import("../MapBrowserEvent.js").default} mapBrowserEvent Event.
+   * @return {boolean} If the event was consumed.
    */
   handleUpEvent(mapBrowserEvent) {
     const map = mapBrowserEvent.map;
@@ -115,21 +131,21 @@ class DragPan extends PointerInteraction {
       if (!this.noKinetic_ && this.kinetic_ && this.kinetic_.end()) {
         const distance = this.kinetic_.getDistance();
         const angle = this.kinetic_.getAngle();
-        const center = /** @type {!import("../coordinate.js").Coordinate} */ (view.getCenter());
-        const centerpx = map.getPixelFromCoordinate(center);
-        const dest = map.getCoordinateFromPixel([
+        const center = view.getCenterInternal();
+        const centerpx = map.getPixelFromCoordinateInternal(center);
+        const dest = map.getCoordinateFromPixelInternal([
           centerpx[0] - distance * Math.cos(angle),
-          centerpx[1] - distance * Math.sin(angle)
+          centerpx[1] - distance * Math.sin(angle),
         ]);
-        view.animate({
-          center: view.constrainCenter(dest),
+        view.animateInternal({
+          center: view.getConstrainedCenter(dest),
           duration: 500,
-          easing: easeOut
+          easing: easeOut,
         });
       }
       if (this.panning_) {
         this.panning_ = false;
-        view.setHint(ViewHint.INTERACTING, -1);
+        view.endInteraction();
       }
       return false;
     } else {
@@ -144,7 +160,9 @@ class DragPan extends PointerInteraction {
   }
 
   /**
-   * @inheritDoc
+   * Handle pointer down events.
+   * @param {import("../MapBrowserEvent.js").default} mapBrowserEvent Event.
+   * @return {boolean} If the event was consumed.
    */
   handleDownEvent(mapBrowserEvent) {
     if (this.targetPointers.length > 0 && this.condition_(mapBrowserEvent)) {
@@ -153,7 +171,7 @@ class DragPan extends PointerInteraction {
       this.lastCentroid = null;
       // stop any current animation
       if (view.getAnimating()) {
-        view.setCenter(mapBrowserEvent.frameState.viewState.center);
+        view.cancelAnimations();
       }
       if (this.kinetic_) {
         this.kinetic_.begin();

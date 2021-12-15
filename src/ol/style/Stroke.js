@@ -1,24 +1,21 @@
 /**
  * @module ol/style/Stroke
  */
-import {getUid} from '../util.js';
-
 
 /**
  * @typedef {Object} Options
  * @property {import("../color.js").Color|import("../colorlike.js").ColorLike} [color] A color, gradient or pattern.
  * See {@link module:ol/color~Color} and {@link module:ol/colorlike~ColorLike} for possible formats.
  * Default null; if null, the Canvas/renderer default black will be used.
- * @property {string} [lineCap='round'] Line cap style: `butt`, `round`, or `square`.
- * @property {string} [lineJoin='round'] Line join style: `bevel`, `round`, or `miter`.
- * @property {Array<number>} [lineDash] Line dash pattern. Default is `undefined` (no dash).
+ * @property {CanvasLineCap} [lineCap='round'] Line cap style: `butt`, `round`, or `square`.
+ * @property {CanvasLineJoin} [lineJoin='round'] Line join style: `bevel`, `round`, or `miter`.
+ * @property {Array<number>} [lineDash] Line dash pattern. Default is `null` (no dash).
  * Please note that Internet Explorer 10 and lower do not support the `setLineDash` method on
  * the `CanvasRenderingContext2D` and therefore this option will have no visual effect in these browsers.
  * @property {number} [lineDashOffset=0] Line dash offset.
  * @property {number} [miterLimit=10] Miter limit.
  * @property {number} [width] Width.
  */
-
 
 /**
  * @classdesc
@@ -30,10 +27,9 @@ import {getUid} from '../util.js';
  */
 class Stroke {
   /**
-   * @param {Options=} opt_options Options.
+   * @param {Options} [opt_options] Options.
    */
   constructor(opt_options) {
-
     const options = opt_options || {};
 
     /**
@@ -44,7 +40,7 @@ class Stroke {
 
     /**
      * @private
-     * @type {string|undefined}
+     * @type {CanvasLineCap|undefined}
      */
     this.lineCap_ = options.lineCap;
 
@@ -62,7 +58,7 @@ class Stroke {
 
     /**
      * @private
-     * @type {string|undefined}
+     * @type {CanvasLineJoin|undefined}
      */
     this.lineJoin_ = options.lineJoin;
 
@@ -77,12 +73,6 @@ class Stroke {
      * @type {number|undefined}
      */
     this.width_ = options.width;
-
-    /**
-     * @private
-     * @type {string|undefined}
-     */
-    this.checksum_ = undefined;
   }
 
   /**
@@ -99,7 +89,7 @@ class Stroke {
       lineDashOffset: this.getLineDashOffset(),
       lineJoin: this.getLineJoin(),
       miterLimit: this.getMiterLimit(),
-      width: this.getWidth()
+      width: this.getWidth(),
     });
   }
 
@@ -114,7 +104,7 @@ class Stroke {
 
   /**
    * Get the line cap type for the stroke.
-   * @return {string|undefined} Line cap.
+   * @return {CanvasLineCap|undefined} Line cap.
    * @api
    */
   getLineCap() {
@@ -141,7 +131,7 @@ class Stroke {
 
   /**
    * Get the line join type for the stroke.
-   * @return {string|undefined} Line join.
+   * @return {CanvasLineJoin|undefined} Line join.
    * @api
    */
   getLineJoin() {
@@ -174,18 +164,16 @@ class Stroke {
    */
   setColor(color) {
     this.color_ = color;
-    this.checksum_ = undefined;
   }
 
   /**
    * Set the line cap.
    *
-   * @param {string|undefined} lineCap Line cap.
+   * @param {CanvasLineCap|undefined} lineCap Line cap.
    * @api
    */
   setLineCap(lineCap) {
     this.lineCap_ = lineCap;
-    this.checksum_ = undefined;
   }
 
   /**
@@ -202,7 +190,6 @@ class Stroke {
    */
   setLineDash(lineDash) {
     this.lineDash_ = lineDash;
-    this.checksum_ = undefined;
   }
 
   /**
@@ -213,18 +200,16 @@ class Stroke {
    */
   setLineDashOffset(lineDashOffset) {
     this.lineDashOffset_ = lineDashOffset;
-    this.checksum_ = undefined;
   }
 
   /**
    * Set the line join.
    *
-   * @param {string|undefined} lineJoin Line join.
+   * @param {CanvasLineJoin|undefined} lineJoin Line join.
    * @api
    */
   setLineJoin(lineJoin) {
     this.lineJoin_ = lineJoin;
-    this.checksum_ = undefined;
   }
 
   /**
@@ -235,7 +220,6 @@ class Stroke {
    */
   setMiterLimit(miterLimit) {
     this.miterLimit_ = miterLimit;
-    this.checksum_ = undefined;
   }
 
   /**
@@ -246,40 +230,6 @@ class Stroke {
    */
   setWidth(width) {
     this.width_ = width;
-    this.checksum_ = undefined;
-  }
-
-  /**
-   * @return {string} The checksum.
-   */
-  getChecksum() {
-    if (this.checksum_ === undefined) {
-      this.checksum_ = 's';
-      if (this.color_) {
-        if (typeof this.color_ === 'string') {
-          this.checksum_ += this.color_;
-        } else {
-          this.checksum_ += getUid(this.color_);
-        }
-      } else {
-        this.checksum_ += '-';
-      }
-      this.checksum_ += ',' +
-          (this.lineCap_ !== undefined ?
-            this.lineCap_.toString() : '-') + ',' +
-          (this.lineDash_ ?
-            this.lineDash_.toString() : '-') + ',' +
-          (this.lineDashOffset_ !== undefined ?
-            this.lineDashOffset_ : '-') + ',' +
-          (this.lineJoin_ !== undefined ?
-            this.lineJoin_ : '-') + ',' +
-          (this.miterLimit_ !== undefined ?
-            this.miterLimit_.toString() : '-') + ',' +
-          (this.width_ !== undefined ?
-            this.width_.toString() : '-');
-    }
-
-    return this.checksum_;
   }
 }
 

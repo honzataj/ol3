@@ -1,9 +1,15 @@
+import GeoJSON from '../src/ol/format/GeoJSON.js';
 import Map from '../src/ol/Map.js';
 import View from '../src/ol/View.js';
-import GeoJSON from '../src/ol/format/GeoJSON.js';
-import {Tile as TileLayer, Vector as VectorLayer} from '../src/ol/layer.js';
+import {
+  Circle as CircleStyle,
+  Fill,
+  Stroke,
+  Style,
+  Text,
+} from '../src/ol/style.js';
 import {OSM, Vector as VectorSource} from '../src/ol/source.js';
-import {Circle as CircleStyle, Fill, Stroke, Style, Text} from '../src/ol/style.js';
+import {Tile as TileLayer, Vector as VectorLayer} from '../src/ol/layer.js';
 
 let openSansAdded = false;
 
@@ -16,12 +22,13 @@ const myDom = {
     font: document.getElementById('points-font'),
     weight: document.getElementById('points-weight'),
     size: document.getElementById('points-size'),
+    height: document.getElementById('points-height'),
     offsetX: document.getElementById('points-offset-x'),
     offsetY: document.getElementById('points-offset-y'),
     color: document.getElementById('points-color'),
     outline: document.getElementById('points-outline'),
     outlineWidth: document.getElementById('points-outline-width'),
-    maxreso: document.getElementById('points-maxreso')
+    maxreso: document.getElementById('points-maxreso'),
   },
   lines: {
     text: document.getElementById('lines-text'),
@@ -34,12 +41,13 @@ const myDom = {
     maxangle: document.getElementById('lines-maxangle'),
     overflow: document.getElementById('lines-overflow'),
     size: document.getElementById('lines-size'),
+    height: document.getElementById('lines-height'),
     offsetX: document.getElementById('lines-offset-x'),
     offsetY: document.getElementById('lines-offset-y'),
     color: document.getElementById('lines-color'),
     outline: document.getElementById('lines-outline'),
     outlineWidth: document.getElementById('lines-outline-width'),
-    maxreso: document.getElementById('lines-maxreso')
+    maxreso: document.getElementById('lines-maxreso'),
   },
   polygons: {
     text: document.getElementById('polygons-text'),
@@ -52,16 +60,17 @@ const myDom = {
     maxangle: document.getElementById('polygons-maxangle'),
     overflow: document.getElementById('polygons-overflow'),
     size: document.getElementById('polygons-size'),
+    height: document.getElementById('polygons-height'),
     offsetX: document.getElementById('polygons-offset-x'),
     offsetY: document.getElementById('polygons-offset-y'),
     color: document.getElementById('polygons-color'),
     outline: document.getElementById('polygons-outline'),
     outlineWidth: document.getElementById('polygons-outline-width'),
-    maxreso: document.getElementById('polygons-maxreso')
-  }
+    maxreso: document.getElementById('polygons-maxreso'),
+  },
 };
 
-const getText = function(feature, resolution, dom) {
+const getText = function (feature, resolution, dom) {
   const type = dom.text.value;
   const maxResolution = dom.maxreso.value;
   let text = feature.get('name');
@@ -72,33 +81,36 @@ const getText = function(feature, resolution, dom) {
     text = '';
   } else if (type == 'shorten') {
     text = text.trunc(12);
-  } else if (type == 'wrap' && (!dom.placement || dom.placement.value != 'line')) {
+  } else if (
+    type == 'wrap' &&
+    (!dom.placement || dom.placement.value != 'line')
+  ) {
     text = stringDivider(text, 16, '\n');
   }
 
   return text;
 };
 
-
-const createTextStyle = function(feature, resolution, dom) {
+const createTextStyle = function (feature, resolution, dom) {
   const align = dom.align.value;
   const baseline = dom.baseline.value;
   const size = dom.size.value;
+  const height = dom.height.value;
   const offsetX = parseInt(dom.offsetX.value, 10);
   const offsetY = parseInt(dom.offsetY.value, 10);
   const weight = dom.weight.value;
   const placement = dom.placement ? dom.placement.value : undefined;
   const maxAngle = dom.maxangle ? parseFloat(dom.maxangle.value) : undefined;
-  const overflow = dom.overflow ? (dom.overflow.value == 'true') : undefined;
+  const overflow = dom.overflow ? dom.overflow.value == 'true' : undefined;
   const rotation = parseFloat(dom.rotation.value);
-  if (dom.font.value == '\'Open Sans\'' && !openSansAdded) {
+  if (dom.font.value == "'Open Sans'" && !openSansAdded) {
     const openSans = document.createElement('link');
     openSans.href = 'https://fonts.googleapis.com/css?family=Open+Sans';
     openSans.rel = 'stylesheet';
     document.getElementsByTagName('head')[0].appendChild(openSans);
     openSansAdded = true;
   }
-  const font = weight + ' ' + size + ' ' + dom.font.value;
+  const font = weight + ' ' + size + '/' + height + ' ' + dom.font.value;
   const fillColor = dom.color.value;
   const outlineColor = dom.outline.value;
   const outlineWidth = parseInt(dom.outlineWidth.value, 10);
@@ -115,53 +127,50 @@ const createTextStyle = function(feature, resolution, dom) {
     placement: placement,
     maxAngle: maxAngle,
     overflow: overflow,
-    rotation: rotation
+    rotation: rotation,
   });
 };
-
 
 // Polygons
 function polygonStyleFunction(feature, resolution) {
   return new Style({
     stroke: new Stroke({
       color: 'blue',
-      width: 1
+      width: 1,
     }),
     fill: new Fill({
-      color: 'rgba(0, 0, 255, 0.1)'
+      color: 'rgba(0, 0, 255, 0.1)',
     }),
-    text: createTextStyle(feature, resolution, myDom.polygons)
+    text: createTextStyle(feature, resolution, myDom.polygons),
   });
 }
 
 const vectorPolygons = new VectorLayer({
   source: new VectorSource({
     url: 'data/geojson/polygon-samples.geojson',
-    format: new GeoJSON()
+    format: new GeoJSON(),
   }),
-  style: polygonStyleFunction
+  style: polygonStyleFunction,
 });
-
 
 // Lines
 function lineStyleFunction(feature, resolution) {
   return new Style({
     stroke: new Stroke({
       color: 'green',
-      width: 2
+      width: 2,
     }),
-    text: createTextStyle(feature, resolution, myDom.lines)
+    text: createTextStyle(feature, resolution, myDom.lines),
   });
 }
 
 const vectorLines = new VectorLayer({
   source: new VectorSource({
     url: 'data/geojson/line-samples.geojson',
-    format: new GeoJSON()
+    format: new GeoJSON(),
   }),
-  style: lineStyleFunction
+  style: lineStyleFunction,
 });
-
 
 // Points
 function pointStyleFunction(feature, resolution) {
@@ -169,67 +178,67 @@ function pointStyleFunction(feature, resolution) {
     image: new CircleStyle({
       radius: 10,
       fill: new Fill({color: 'rgba(255, 0, 0, 0.1)'}),
-      stroke: new Stroke({color: 'red', width: 1})
+      stroke: new Stroke({color: 'red', width: 1}),
     }),
-    text: createTextStyle(feature, resolution, myDom.points)
+    text: createTextStyle(feature, resolution, myDom.points),
   });
 }
 
 const vectorPoints = new VectorLayer({
   source: new VectorSource({
     url: 'data/geojson/point-samples.geojson',
-    format: new GeoJSON()
+    format: new GeoJSON(),
   }),
-  style: pointStyleFunction
+  style: pointStyleFunction,
 });
 
 const map = new Map({
   layers: [
     new TileLayer({
-      source: new OSM()
+      source: new OSM(),
     }),
     vectorPolygons,
     vectorLines,
-    vectorPoints
+    vectorPoints,
   ],
   target: 'map',
   view: new View({
     center: [-8161939, 6095025],
-    zoom: 8
-  })
+    zoom: 8,
+  }),
 });
 
-document.getElementById('refresh-points')
-  .addEventListener('click', function() {
+document
+  .getElementById('refresh-points')
+  .addEventListener('click', function () {
     vectorPoints.setStyle(pointStyleFunction);
   });
 
-document.getElementById('refresh-lines')
-  .addEventListener('click', function() {
-    vectorLines.setStyle(lineStyleFunction);
-  });
+document.getElementById('refresh-lines').addEventListener('click', function () {
+  vectorLines.setStyle(lineStyleFunction);
+});
 
-document.getElementById('refresh-polygons')
-  .addEventListener('click', function() {
+document
+  .getElementById('refresh-polygons')
+  .addEventListener('click', function () {
     vectorPolygons.setStyle(polygonStyleFunction);
   });
-
 
 /**
  * @param {number} n The max number of characters to keep.
  * @return {string} Truncated string.
  */
-String.prototype.trunc = String.prototype.trunc ||
-    function(n) {
-      return this.length > n ? this.substr(0, n - 1) + '...' : this.substr(0);
-    };
+String.prototype.trunc =
+  String.prototype.trunc ||
+  function (n) {
+    return this.length > n ? this.substr(0, n - 1) + '...' : this.substr(0);
+  };
 
-
-// http://stackoverflow.com/questions/14484787/wrap-text-in-javascript
+// https://stackoverflow.com/questions/14484787/wrap-text-in-javascript
 function stringDivider(str, width, spaceReplacer) {
   if (str.length > width) {
     let p = width;
-    while (p > 0 && (str[p] != ' ' && str[p] != '-')) {
+    while (p > 0 && str[p] != ' ' && str[p] != '-') {
       p--;
     }
     if (p > 0) {

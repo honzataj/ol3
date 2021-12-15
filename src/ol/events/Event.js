@@ -12,17 +12,20 @@
  * for higher level events defined in the library, and works with
  * {@link module:ol/events/Target~Target}.
  */
-class Event {
-
+class BaseEvent {
   /**
    * @param {string} type Type.
    */
   constructor(type) {
-
     /**
      * @type {boolean}
      */
     this.propagationStopped;
+
+    /**
+     * @type {boolean}
+     */
+    this.defaultPrevented;
 
     /**
      * The event type.
@@ -40,11 +43,12 @@ class Event {
   }
 
   /**
-   * Stop event propagation.
+   * Prevent default. This means that no emulated `click`, `singleclick` or `doubleclick` events
+   * will be fired.
    * @api
    */
   preventDefault() {
-    this.propagationStopped = true;
+    this.defaultPrevented = true;
   }
 
   /**
@@ -54,9 +58,7 @@ class Event {
   stopPropagation() {
     this.propagationStopped = true;
   }
-
 }
-
 
 /**
  * @param {Event|import("./Event.js").default} evt Event
@@ -65,7 +67,6 @@ export function stopPropagation(evt) {
   evt.stopPropagation();
 }
 
-
 /**
  * @param {Event|import("./Event.js").default} evt Event
  */
@@ -73,4 +74,4 @@ export function preventDefault(evt) {
   evt.preventDefault();
 }
 
-export default Event;
+export default BaseEvent;

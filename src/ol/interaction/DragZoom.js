@@ -1,11 +1,9 @@
 /**
  * @module ol/interaction/DragZoom
  */
+import DragBox from './DragBox.js';
 import {easeOut} from '../easing.js';
 import {shiftKeyOnly} from '../events/condition.js';
-import {createOrUpdateFromCoordinates, getBottomLeft, getCenter, getTopRight, scaleFromCenter} from '../extent.js';
-import DragBox from './DragBox.js';
-
 
 /**
  * @typedef {Object} Options
@@ -14,11 +12,12 @@ import DragBox from './DragBox.js';
  * @property {import("../events/condition.js").Condition} [condition] A function that
  * takes an {@link module:ol/MapBrowserEvent~MapBrowserEvent} and returns a
  * boolean to indicate whether that event should be handled.
- * Default is {@link module:ol/events/condition~shiftKeyOnly}.
+ * Default is {@link module:ol/events/condition.shiftKeyOnly}.
  * @property {number} [duration=200] Animation duration in milliseconds.
  * @property {boolean} [out=false] Use interaction for zooming out.
+ * @property {number} [minArea=64] The minimum area of the box in pixel, this value is used by the parent default
+ * `boxEndCondition` function.
  */
-
 
 /**
  * @classdesc
@@ -32,7 +31,7 @@ import DragBox from './DragBox.js';
  */
 class DragZoom extends DragBox {
   /**
-   * @param {Options=} opt_options Options.
+   * @param {Options} [opt_options] Options.
    */
   constructor(opt_options) {
     const options = opt_options ? opt_options : {};
@@ -42,7 +41,7 @@ class DragZoom extends DragBox {
     super({
       condition: condition,
       className: options.className || 'ol-dragzoom',
-      onBoxEnd: onBoxEnd
+      minArea: options.minArea,
     });
 
     /**
@@ -57,42 +56,29 @@ class DragZoom extends DragBox {
      */
     this.out_ = options.out !== undefined ? options.out : false;
   }
-}
 
+  /**
+   * Function to execute just before `onboxend` is fired
+   * @param {import("../MapBrowserEvent.js").default} event Event.
+   */
+  onBoxEnd(event) {
+    const map = this.getMap();
+    const view = /** @type {!import("../View.js").default} */ (map.getView());
+    let geometry = this.getGeometry();
 
-/**
- * @this {DragZoom}
- */
-function onBoxEnd() {
-  const map = this.getMap();
-  const view = /** @type {!import("../View.js").default} */ (map.getView());
-  const size = /** @type {!import("../size.js").Size} */ (map.getSize());
-  let extent = this.getGeometry().getExtent();
+    if (this.out_) {
+      const rotatedExtent = view.rotatedExtentForGeometry(geometry);
+      const resolution = view.getResolutionForExtentInternal(rotatedExtent);
+      const factor = view.getResolution() / resolution;
+      geometry = geometry.clone();
+      geometry.scale(factor * factor);
+    }
 
-  if (this.out_) {
-    const mapExtent = view.calculateExtent(size);
-    const boxPixelExtent = createOrUpdateFromCoordinates([
-      map.getPixelFromCoordinate(getBottomLeft(extent)),
-      map.getPixelFromCoordinate(getTopRight(extent))]);
-    const factor = view.getResolutionForExtent(boxPixelExtent, size);
-
-    scaleFromCenter(mapExtent, 1 / factor);
-    extent = mapExtent;
+    view.fitInternal(geometry, {
+      duration: this.duration_,
+      easing: easeOut,
+    });
   }
-
-  const resolution = view.constrainResolution(
-    view.getResolutionForExtent(extent, size));
-
-  let center = getCenter(extent);
-  center = view.constrainCenter(center);
-
-  view.animate({
-    resolution: resolution,
-    center: center,
-    duration: this.duration_,
-    easing: easeOut
-  });
 }
-
 
 export default DragZoom;

@@ -1,19 +1,15 @@
 /**
  * @module ol/interaction/PinchZoom
  */
-import ViewHint from '../ViewHint.js';
+import PointerInteraction, {
+  centroid as centroidFromPointers,
+} from './Pointer.js';
 import {FALSE} from '../functions.js';
-import {zoom, zoomWithoutConstraints} from './Interaction.js';
-import PointerInteraction, {centroid as centroidFromPointers} from './Pointer.js';
-
 
 /**
  * @typedef {Object} Options
  * @property {number} [duration=400] Animation duration in milliseconds.
- * @property {boolean} [constrainResolution=false] Zoom to the closest integer
- * zoom level after the pinch gesture ends.
  */
-
 
 /**
  * @classdesc
@@ -23,25 +19,20 @@ import PointerInteraction, {centroid as centroidFromPointers} from './Pointer.js
  */
 class PinchZoom extends PointerInteraction {
   /**
-   * @param {Options=} opt_options Options.
+   * @param {Options} [opt_options] Options.
    */
   constructor(opt_options) {
-
     const options = opt_options ? opt_options : {};
 
-    const pointerOptions = /** @type {import("./Pointer.js").Options} */ (options);
+    const pointerOptions = /** @type {import("./Pointer.js").Options} */ (
+      options
+    );
 
     if (!pointerOptions.stopDown) {
       pointerOptions.stopDown = FALSE;
     }
 
     super(pointerOptions);
-
-    /**
-     * @private
-     * @type {boolean}
-     */
-    this.constrainResolution_ = options.constrainResolution || false;
 
     /**
      * @private
@@ -66,11 +57,11 @@ class PinchZoom extends PointerInteraction {
      * @type {number}
      */
     this.lastScaleDelta_ = 1;
-
   }
 
   /**
-   * @inheritDoc
+   * Handle pointer drag events.
+   * @param {import("../MapBrowserEvent.js").default} mapBrowserEvent Event.
    */
   handleDragEvent(mapBrowserEvent) {
     let scaleDelta = 1.0;
@@ -88,20 +79,8 @@ class PinchZoom extends PointerInteraction {
     }
     this.lastDistance_ = distance;
 
-
     const map = mapBrowserEvent.map;
     const view = map.getView();
-    const resolution = view.getResolution();
-    const maxResolution = view.getMaxResolution();
-    const minResolution = view.getMinResolution();
-    let newResolution = resolution * scaleDelta;
-    if (newResolution > maxResolution) {
-      scaleDelta = maxResolution / resolution;
-      newResolution = maxResolution;
-    } else if (newResolution < minResolution) {
-      scaleDelta = minResolution / resolution;
-      newResolution = minResolution;
-    }
 
     if (scaleDelta != 1.0) {
       this.lastScaleDelta_ = scaleDelta;
@@ -112,31 +91,24 @@ class PinchZoom extends PointerInteraction {
     const centroid = centroidFromPointers(this.targetPointers);
     centroid[0] -= viewportPosition.left;
     centroid[1] -= viewportPosition.top;
-    this.anchor_ = map.getCoordinateFromPixel(centroid);
+    this.anchor_ = map.getCoordinateFromPixelInternal(centroid);
 
     // scale, bypass the resolution constraint
     map.render();
-    zoomWithoutConstraints(view, newResolution, this.anchor_);
+    view.adjustResolutionInternal(scaleDelta, this.anchor_);
   }
 
   /**
-   * @inheritDoc
+   * Handle pointer up events.
+   * @param {import("../MapBrowserEvent.js").default} mapBrowserEvent Event.
+   * @return {boolean} If the event was consumed.
    */
   handleUpEvent(mapBrowserEvent) {
     if (this.targetPointers.length < 2) {
       const map = mapBrowserEvent.map;
       const view = map.getView();
-      view.setHint(ViewHint.INTERACTING, -1);
-      const resolution = view.getResolution();
-      if (this.constrainResolution_ ||
-          resolution < view.getMinResolution() ||
-          resolution > view.getMaxResolution()) {
-        // Zoom to final resolution, with an animation, and provide a
-        // direction not to zoom out/in if user was pinching in/out.
-        // Direction is > 0 if pinching out, and < 0 if pinching in.
-        const direction = this.lastScaleDelta_ - 1;
-        zoom(view, resolution, this.anchor_, this.duration_, direction);
-      }
+      const direction = this.lastScaleDelta_ > 1 ? 1 : -1;
+      view.endInteraction(this.duration_, direction);
       return false;
     } else {
       return true;
@@ -144,7 +116,9 @@ class PinchZoom extends PointerInteraction {
   }
 
   /**
-   * @inheritDoc
+   * Handle pointer down events.
+   * @param {import("../MapBrowserEvent.js").default} mapBrowserEvent Event.
+   * @return {boolean} If the event was consumed.
    */
   handleDownEvent(mapBrowserEvent) {
     if (this.targetPointers.length >= 2) {
@@ -153,7 +127,7 @@ class PinchZoom extends PointerInteraction {
       this.lastDistance_ = undefined;
       this.lastScaleDelta_ = 1;
       if (!this.handlingDownUpSequence) {
-        map.getView().setHint(ViewHint.INTERACTING, 1);
+        map.getView().beginInteraction();
       }
       return true;
     } else {

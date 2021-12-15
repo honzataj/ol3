@@ -1,20 +1,27 @@
 /**
  * @module ol/geom/Geometry
  */
-import {abstract} from '../util.js';
 import BaseObject from '../Object.js';
-import {createEmpty, getHeight, returnOrUpdate} from '../extent.js';
-import {transform2D} from './flat/transform.js';
-import {get as getProjection, getTransform} from '../proj.js';
 import Units from '../proj/Units.js';
-import {create as createTransform, compose as composeTransform} from '../transform.js';
-
+import {abstract} from '../util.js';
+import {
+  compose as composeTransform,
+  create as createTransform,
+} from '../transform.js';
+import {
+  createEmpty,
+  createOrUpdateEmpty,
+  getHeight,
+  returnOrUpdate,
+} from '../extent.js';
+import {get as getProjection, getTransform} from '../proj.js';
+import {memoizeOne} from '../functions.js';
+import {transform2D} from './flat/transform.js';
 
 /**
  * @type {import("../transform.js").Transform}
  */
 const tmpTransform = createTransform();
-
 
 /**
  * @classdesc
@@ -30,7 +37,6 @@ const tmpTransform = createTransform();
  */
 class Geometry extends BaseObject {
   constructor() {
-
     super();
 
     /**
@@ -47,12 +53,6 @@ class Geometry extends BaseObject {
 
     /**
      * @protected
-     * @type {Object<string, Geometry>}
-     */
-    this.simplifiedGeometryCache = {};
-
-    /**
-     * @protected
      * @type {number}
      */
     this.simplifiedGeometryMaxMinSquaredTolerance = 0;
@@ -63,6 +63,41 @@ class Geometry extends BaseObject {
      */
     this.simplifiedGeometryRevision = 0;
 
+    /**
+     * Get a transformed and simplified version of the geometry.
+     * @abstract
+     * @param {number} revision The geometry revision.
+     * @param {number} squaredTolerance Squared tolerance.
+     * @param {import("../proj.js").TransformFunction} [opt_transform] Optional transform function.
+     * @return {Geometry} Simplified geometry.
+     */
+    this.simplifyTransformedInternal = memoizeOne(function (
+      revision,
+      squaredTolerance,
+      opt_transform
+    ) {
+      if (!opt_transform) {
+        return this.getSimplifiedGeometry(squaredTolerance);
+      }
+      const clone = this.clone();
+      clone.applyTransform(opt_transform);
+      return clone.getSimplifiedGeometry(squaredTolerance);
+    });
+  }
+
+  /**
+   * Get a transformed and simplified version of the geometry.
+   * @abstract
+   * @param {number} squaredTolerance Squared tolerance.
+   * @param {import("../proj.js").TransformFunction} [opt_transform] Optional transform function.
+   * @return {Geometry} Simplified geometry.
+   */
+  simplifyTransformed(squaredTolerance, opt_transform) {
+    return this.simplifyTransformedInternal(
+      this.getRevision(),
+      squaredTolerance,
+      opt_transform
+    );
   }
 
   /**
@@ -92,14 +127,15 @@ class Geometry extends BaseObject {
    * @return {boolean} Contains (x, y).
    */
   containsXY(x, y) {
-    return false;
+    const coord = this.getClosestPoint([x, y]);
+    return coord[0] === x && coord[1] === y;
   }
 
   /**
    * Return the closest point of the geometry to the passed point as
    * {@link module:ol/coordinate~Coordinate coordinate}.
    * @param {import("../coordinate.js").Coordinate} point Point.
-   * @param {import("../coordinate.js").Coordinate=} opt_closestPoint Closest point.
+   * @param {import("../coordinate.js").Coordinate} [opt_closestPoint] Closest point.
    * @return {import("../coordinate.js").Coordinate} Closest point.
    * @api
    */
@@ -132,13 +168,16 @@ class Geometry extends BaseObject {
 
   /**
    * Get the extent of the geometry.
-   * @param {import("../extent.js").Extent=} opt_extent Extent.
+   * @param {import("../extent.js").Extent} [opt_extent] Extent.
    * @return {import("../extent.js").Extent} extent Extent.
    * @api
    */
   getExtent(opt_extent) {
     if (this.extentRevision_ != this.getRevision()) {
-      this.extent_ = this.computeExtent(this.extent_);
+      const extent = this.computeExtent(this.extent_);
+      if (isNaN(extent[0]) || isNaN(extent[1])) {
+        createOrUpdateEmpty(extent);
+      }
       this.extentRevision_ = this.getRevision();
     }
     return returnOrUpdate(this.extent_, opt_extent);
@@ -161,9 +200,8 @@ class Geometry extends BaseObject {
    * coordinates in place.
    * @abstract
    * @param {number} sx The scaling factor in the x-direction.
-   * @param {number=} opt_sy The scaling factor in the y-direction (defaults to
-   *     sx).
-   * @param {import("../coordinate.js").Coordinate=} opt_anchor The scale origin (defaults to the center
+   * @param {number} [opt_sy] The scaling factor in the y-direction (defaults to sx).
+   * @param {import("../coordinate.js").Coordinate} [opt_anchor] The scale origin (defaults to the center
    *     of the geometry extent).
    * @api
    */
@@ -173,9 +211,8 @@ class Geometry extends BaseObject {
 
   /**
    * Create a simplified version of this geometry.  For linestrings, this uses
-   * the the {@link
-   * https://en.wikipedia.org/wiki/Ramer-Douglas-Peucker_algorithm
-   * Douglas Peucker} algorithm.  For polygons, a quantization-based
+   * the [Douglas Peucker](https://en.wikipedia.org/wiki/Ramer-Douglas-Peucker_algorithm)
+   * algorithm.  For polygons, a quantization-based
    * simplification is used to preserve topology.
    * @param {number} tolerance The tolerance distance for simplification.
    * @return {Geometry} A new, simplified version of the original geometry.
@@ -207,12 +244,13 @@ class Geometry extends BaseObject {
   }
 
   /**
-   * Apply a transform function to each coordinate of the geometry.
+   * Apply a transform function to the coordinates of the geometry.
    * The geometry is modified in place.
    * If you do not want the geometry modified in place, first `clone()` it and
    * then use this function on the clone.
    * @abstract
-   * @param {import("../proj.js").TransformFunction} transformFn Transform.
+   * @param {import("../proj.js").TransformFunction} transformFn Transform function.
+   * Called with a flat array of geometry coordinates.
    */
   applyTransform(transformFn) {
     abstract();
@@ -258,25 +296,40 @@ class Geometry extends BaseObject {
   transform(source, destination) {
     /** @type {import("../proj/Projection.js").default} */
     const sourceProj = getProjection(source);
-    const transformFn = sourceProj.getUnits() == Units.TILE_PIXELS ?
-      function(inCoordinates, outCoordinates, stride) {
-        const pixelExtent = sourceProj.getExtent();
-        const projectedExtent = sourceProj.getWorldExtent();
-        const scale = getHeight(projectedExtent) / getHeight(pixelExtent);
-        composeTransform(tmpTransform,
-          projectedExtent[0], projectedExtent[3],
-          scale, -scale, 0,
-          0, 0);
-        transform2D(inCoordinates, 0, inCoordinates.length, stride,
-          tmpTransform, outCoordinates);
-        return getTransform(sourceProj, destination)(inCoordinates, outCoordinates, stride);
-      } :
-      getTransform(sourceProj, destination);
+    const transformFn =
+      sourceProj.getUnits() == Units.TILE_PIXELS
+        ? function (inCoordinates, outCoordinates, stride) {
+            const pixelExtent = sourceProj.getExtent();
+            const projectedExtent = sourceProj.getWorldExtent();
+            const scale = getHeight(projectedExtent) / getHeight(pixelExtent);
+            composeTransform(
+              tmpTransform,
+              projectedExtent[0],
+              projectedExtent[3],
+              scale,
+              -scale,
+              0,
+              0,
+              0
+            );
+            transform2D(
+              inCoordinates,
+              0,
+              inCoordinates.length,
+              stride,
+              tmpTransform,
+              outCoordinates
+            );
+            return getTransform(sourceProj, destination)(
+              inCoordinates,
+              outCoordinates,
+              stride
+            );
+          }
+        : getTransform(sourceProj, destination);
     this.applyTransform(transformFn);
     return this;
   }
-
 }
-
 
 export default Geometry;

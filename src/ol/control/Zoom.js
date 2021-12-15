@@ -1,20 +1,20 @@
 /**
  * @module ol/control/Zoom
  */
-import {listen} from '../events.js';
-import EventType from '../events/EventType.js';
 import Control from './Control.js';
+import EventType from '../events/EventType.js';
 import {CLASS_CONTROL, CLASS_UNSELECTABLE} from '../css.js';
 import {easeOut} from '../easing.js';
-
 
 /**
  * @typedef {Object} Options
  * @property {number} [duration=250] Animation duration in milliseconds.
  * @property {string} [className='ol-zoom'] CSS class name.
+ * @property {string} [zoomInClassName=className + '-in'] CSS class name for the zoom-in button.
+ * @property {string} [zoomOutClassName=className + '-out'] CSS class name for the zoom-out button.
  * @property {string|HTMLElement} [zoomInLabel='+'] Text label to use for the zoom-in
  * button. Instead of text, also an element (e.g. a `span` element) can be used.
- * @property {string|HTMLElement} [zoomOutLabel='-'] Text label to use for the zoom-out button.
+ * @property {string|HTMLElement} [zoomOutLabel='–'] Text label to use for the zoom-out button.
  * Instead of text, also an element (e.g. a `span` element) can be used.
  * @property {string} [zoomInTipLabel='Zoom in'] Text label to use for the button tip.
  * @property {string} [zoomOutTipLabel='Zoom out'] Text label to use for the button tip.
@@ -22,7 +22,6 @@ import {easeOut} from '../easing.js';
  * @property {HTMLElement|string} [target] Specify a target if you want the control to be
  * rendered outside of the map's viewport.
  */
-
 
 /**
  * @classdesc
@@ -33,52 +32,78 @@ import {easeOut} from '../easing.js';
  * @api
  */
 class Zoom extends Control {
-
   /**
-   * @param {Options=} opt_options Zoom options.
+   * @param {Options} [opt_options] Zoom options.
    */
   constructor(opt_options) {
-
     const options = opt_options ? opt_options : {};
 
     super({
       element: document.createElement('div'),
-      target: options.target
+      target: options.target,
     });
 
-    const className = options.className !== undefined ? options.className : 'ol-zoom';
+    const className =
+      options.className !== undefined ? options.className : 'ol-zoom';
 
     const delta = options.delta !== undefined ? options.delta : 1;
 
-    const zoomInLabel = options.zoomInLabel !== undefined ? options.zoomInLabel : '+';
-    const zoomOutLabel = options.zoomOutLabel !== undefined ? options.zoomOutLabel : '\u2212';
+    const zoomInClassName =
+      options.zoomInClassName !== undefined
+        ? options.zoomInClassName
+        : className + '-in';
 
-    const zoomInTipLabel = options.zoomInTipLabel !== undefined ?
-      options.zoomInTipLabel : 'Zoom in';
-    const zoomOutTipLabel = options.zoomOutTipLabel !== undefined ?
-      options.zoomOutTipLabel : 'Zoom out';
+    const zoomOutClassName =
+      options.zoomOutClassName !== undefined
+        ? options.zoomOutClassName
+        : className + '-out';
+
+    const zoomInLabel =
+      options.zoomInLabel !== undefined ? options.zoomInLabel : '+';
+    const zoomOutLabel =
+      options.zoomOutLabel !== undefined ? options.zoomOutLabel : '\u2013';
+
+    const zoomInTipLabel =
+      options.zoomInTipLabel !== undefined ? options.zoomInTipLabel : 'Zoom in';
+    const zoomOutTipLabel =
+      options.zoomOutTipLabel !== undefined
+        ? options.zoomOutTipLabel
+        : 'Zoom out';
 
     const inElement = document.createElement('button');
-    inElement.className = className + '-in';
+    inElement.className = zoomInClassName;
     inElement.setAttribute('type', 'button');
     inElement.title = zoomInTipLabel;
     inElement.appendChild(
-      typeof zoomInLabel === 'string' ? document.createTextNode(zoomInLabel) : zoomInLabel
+      typeof zoomInLabel === 'string'
+        ? document.createTextNode(zoomInLabel)
+        : zoomInLabel
     );
 
-    listen(inElement, EventType.CLICK, this.handleClick_.bind(this, delta));
+    inElement.addEventListener(
+      EventType.CLICK,
+      this.handleClick_.bind(this, delta),
+      false
+    );
 
     const outElement = document.createElement('button');
-    outElement.className = className + '-out';
+    outElement.className = zoomOutClassName;
     outElement.setAttribute('type', 'button');
     outElement.title = zoomOutTipLabel;
     outElement.appendChild(
-      typeof zoomOutLabel === 'string' ? document.createTextNode(zoomOutLabel) : zoomOutLabel
+      typeof zoomOutLabel === 'string'
+        ? document.createTextNode(zoomOutLabel)
+        : zoomOutLabel
     );
 
-    listen(outElement, EventType.CLICK, this.handleClick_.bind(this, -delta));
+    outElement.addEventListener(
+      EventType.CLICK,
+      this.handleClick_.bind(this, -delta),
+      false
+    );
 
-    const cssClasses = className + ' ' + CLASS_UNSELECTABLE + ' ' + CLASS_CONTROL;
+    const cssClasses =
+      className + ' ' + CLASS_UNSELECTABLE + ' ' + CLASS_CONTROL;
     const element = this.element;
     element.className = cssClasses;
     element.appendChild(inElement);
@@ -89,7 +114,6 @@ class Zoom extends Control {
      * @private
      */
     this.duration_ = options.duration !== undefined ? options.duration : 250;
-
   }
 
   /**
@@ -114,24 +138,23 @@ class Zoom extends Control {
       // upon it
       return;
     }
-    const currentResolution = view.getResolution();
-    if (currentResolution) {
-      const newResolution = view.constrainResolution(currentResolution, delta);
+    const currentZoom = view.getZoom();
+    if (currentZoom !== undefined) {
+      const newZoom = view.getConstrainedZoom(currentZoom + delta);
       if (this.duration_ > 0) {
         if (view.getAnimating()) {
           view.cancelAnimations();
         }
         view.animate({
-          resolution: newResolution,
+          zoom: newZoom,
           duration: this.duration_,
-          easing: easeOut
+          easing: easeOut,
         });
       } else {
-        view.setResolution(newResolution);
+        view.setZoom(newZoom);
       }
     }
   }
 }
-
 
 export default Zoom;

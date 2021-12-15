@@ -1,32 +1,32 @@
 /**
  * @module ol/source/UrlTile
  */
-import {getUid} from '../util.js';
-import TileState from '../TileState.js';
-import {expandUrl, createFromTemplates, nullTileUrlFunction} from '../tileurlfunction.js';
-import TileSource, {TileSourceEvent} from './Tile.js';
 import TileEventType from './TileEventType.js';
+import TileSource, {TileSourceEvent} from './Tile.js';
+import TileState from '../TileState.js';
+import {createFromTemplates, expandUrl} from '../tileurlfunction.js';
 import {getKeyZXY} from '../tilecoord.js';
+import {getUid} from '../util.js';
 
 /**
  * @typedef {Object} Options
- * @property {import("./Source.js").AttributionLike} [attributions]
+ * @property {import("./Source.js").AttributionLike} [attributions] Attributions.
  * @property {boolean} [attributionsCollapsible=true] Attributions are collapsible.
- * @property {number} [cacheSize]
- * @property {boolean} [opaque]
- * @property {import("../proj.js").ProjectionLike} [projection]
- * @property {import("./State.js").default} [state]
- * @property {import("../tilegrid/TileGrid.js").default} [tileGrid]
- * @property {import("../Tile.js").LoadFunction} tileLoadFunction
- * @property {number} [tilePixelRatio]
- * @property {import("../Tile.js").UrlFunction} [tileUrlFunction]
- * @property {string} [url]
- * @property {Array<string>} [urls]
- * @property {boolean} [wrapX=true]
- * @property {number} [transition]
- * @property {string} [key]
+ * @property {number} [cacheSize] Cache size.
+ * @property {boolean} [opaque=false] Whether the layer is opaque.
+ * @property {import("../proj.js").ProjectionLike} [projection] Projection.
+ * @property {import("./State.js").default} [state] State.
+ * @property {import("../tilegrid/TileGrid.js").default} [tileGrid] TileGrid.
+ * @property {import("../Tile.js").LoadFunction} tileLoadFunction TileLoadFunction.
+ * @property {number} [tilePixelRatio] TilePixelRatio.
+ * @property {import("../Tile.js").UrlFunction} [tileUrlFunction] TileUrlFunction.
+ * @property {string} [url] Url.
+ * @property {Array<string>} [urls] Urls.
+ * @property {boolean} [wrapX=true] WrapX.
+ * @property {number} [transition] Transition.
+ * @property {string} [key] Key.
+ * @property {number|import("../array.js").NearestDirectionFunction} [zDirection=0] ZDirection.
  */
-
 
 /**
  * @classdesc
@@ -39,7 +39,6 @@ class UrlTile extends TileSource {
    * @param {Options} options Image tile options.
    */
   constructor(options) {
-
     super({
       attributions: options.attributions,
       cacheSize: options.cacheSize,
@@ -51,14 +50,16 @@ class UrlTile extends TileSource {
       wrapX: options.wrapX,
       transition: options.transition,
       key: options.key,
-      attributionsCollapsible: options.attributionsCollapsible
+      attributionsCollapsible: options.attributionsCollapsible,
+      zDirection: options.zDirection,
     });
 
     /**
      * @private
      * @type {boolean}
      */
-    this.generateTileUrlFunction_ = !options.tileUrlFunction;
+    this.generateTileUrlFunction_ =
+      this.tileUrlFunction === UrlTile.prototype.tileUrlFunction;
 
     /**
      * @protected
@@ -66,11 +67,9 @@ class UrlTile extends TileSource {
      */
     this.tileLoadFunction = options.tileLoadFunction;
 
-    /**
-     * @protected
-     * @type {import("../Tile.js").UrlFunction}
-     */
-    this.tileUrlFunction = options.tileUrlFunction ? options.tileUrlFunction.bind(this) : nullTileUrlFunction;
+    if (options.tileUrlFunction) {
+      this.tileUrlFunction = options.tileUrlFunction;
+    }
 
     /**
      * @protected
@@ -84,16 +83,11 @@ class UrlTile extends TileSource {
       this.setUrl(options.url);
     }
 
-    if (options.tileUrlFunction) {
-      this.setTileUrlFunction(options.tileUrlFunction, this.key_);
-    }
-
     /**
      * @private
      * @type {!Object<string, boolean>}
      */
     this.tileLoadingKeys_ = {};
-
   }
 
   /**
@@ -111,7 +105,9 @@ class UrlTile extends TileSource {
    * @api
    */
   getTileUrlFunction() {
-    return this.tileUrlFunction;
+    return Object.getPrototypeOf(this).tileUrlFunction === this.tileUrlFunction
+      ? this.tileUrlFunction.bind(this)
+      : this.tileUrlFunction;
   }
 
   /**
@@ -140,9 +136,12 @@ class UrlTile extends TileSource {
       type = TileEventType.TILELOADSTART;
     } else if (uid in this.tileLoadingKeys_) {
       delete this.tileLoadingKeys_[uid];
-      type = tileState == TileState.ERROR ? TileEventType.TILELOADERROR :
-        (tileState == TileState.LOADED || tileState == TileState.ABORT) ?
-          TileEventType.TILELOADEND : undefined;
+      type =
+        tileState == TileState.ERROR
+          ? TileEventType.TILELOADERROR
+          : tileState == TileState.LOADED
+          ? TileEventType.TILELOADEND
+          : undefined;
     }
     if (type != undefined) {
       this.dispatchEvent(new TileSourceEvent(type, tile));
@@ -163,7 +162,7 @@ class UrlTile extends TileSource {
   /**
    * Set the tile URL function of the source.
    * @param {import("../Tile.js").UrlFunction} tileUrlFunction Tile URL function.
-   * @param {string=} key Optional new tile key for the source.
+   * @param {string} [key] Optional new tile key for the source.
    * @api
    */
   setTileUrlFunction(tileUrlFunction, key) {
@@ -182,7 +181,8 @@ class UrlTile extends TileSource {
    * @api
    */
   setUrl(url) {
-    const urls = this.urls = expandUrl(url);
+    const urls = expandUrl(url);
+    this.urls = urls;
     this.setUrls(urls);
   }
 
@@ -202,7 +202,20 @@ class UrlTile extends TileSource {
   }
 
   /**
-   * @inheritDoc
+   * @param {import("../tilecoord.js").TileCoord} tileCoord Tile coordinate.
+   * @param {number} pixelRatio Pixel ratio.
+   * @param {import("../proj/Projection.js").default} projection Projection.
+   * @return {string|undefined} Tile URL.
+   */
+  tileUrlFunction(tileCoord, pixelRatio, projection) {
+    return undefined;
+  }
+
+  /**
+   * Marks a tile coord as being used, without triggering a load.
+   * @param {number} z Tile coordinate z.
+   * @param {number} x Tile coordinate x.
+   * @param {number} y Tile coordinate y.
    */
   useTile(z, x, y) {
     const tileCoordKey = getKeyZXY(z, x, y);
@@ -211,6 +224,5 @@ class UrlTile extends TileSource {
     }
   }
 }
-
 
 export default UrlTile;

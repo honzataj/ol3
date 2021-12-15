@@ -2,10 +2,17 @@
  * @module ol/interaction/Interaction
  */
 import BaseObject from '../Object.js';
-import {easeOut, linear} from '../easing.js';
 import InteractionProperty from './Property.js';
-import {clamp} from '../math.js';
+import {easeOut, linear} from '../easing.js';
 
+/***
+ * @template Return
+ * @typedef {import("../Observable").OnSignature<import("../Observable").EventTypes, import("../events/Event.js").default, Return> &
+ *   import("../Observable").OnSignature<import("../ObjectEventType").Types|
+ *     'change:active', import("../Object").ObjectEvent, Return> &
+ *   import("../Observable").CombinedOnSignature<import("../Observable").EventTypes|import("../ObjectEventType").Types|
+ *     'change:active', Return>} InteractionOnSignature
+ */
 
 /**
  * Object literal with config options for interactions.
@@ -14,9 +21,9 @@ import {clamp} from '../math.js';
  * Method called by the map to notify the interaction that a browser event was
  * dispatched to the map. If the function returns a falsy value, propagation of
  * the event to other interactions in the map's interactions chain will be
- * prevented (this includes functions with no explicit return).
+ * prevented (this includes functions with no explicit return). The interactions
+ * are traversed in reverse order of the interactions collection of the map.
  */
-
 
 /**
  * @classdesc
@@ -33,13 +40,28 @@ import {clamp} from '../math.js';
  */
 class Interaction extends BaseObject {
   /**
-   * @param {InteractionOptions} options Options.
+   * @param {InteractionOptions} [opt_options] Options.
    */
-  constructor(options) {
+  constructor(opt_options) {
     super();
 
-    if (options.handleEvent) {
-      this.handleEvent = options.handleEvent;
+    /***
+     * @type {InteractionOnSignature<import("../events").EventsKey>}
+     */
+    this.on;
+
+    /***
+     * @type {InteractionOnSignature<import("../events").EventsKey>}
+     */
+    this.once;
+
+    /***
+     * @type {InteractionOnSignature<void>}
+     */
+    this.un;
+
+    if (opt_options && opt_options.handleEvent) {
+      this.handleEvent = opt_options.handleEvent;
     }
 
     /**
@@ -101,150 +123,48 @@ class Interaction extends BaseObject {
   }
 }
 
-
 /**
  * @param {import("../View.js").default} view View.
  * @param {import("../coordinate.js").Coordinate} delta Delta.
- * @param {number=} opt_duration Duration.
+ * @param {number} [opt_duration] Duration.
  */
 export function pan(view, delta, opt_duration) {
-  const currentCenter = view.getCenter();
+  const currentCenter = view.getCenterInternal();
   if (currentCenter) {
-    const center = view.constrainCenter(
-      [currentCenter[0] + delta[0], currentCenter[1] + delta[1]]);
-    if (opt_duration) {
-      view.animate({
-        duration: opt_duration,
-        easing: linear,
-        center: center
-      });
-    } else {
-      view.setCenter(center);
-    }
+    const center = [currentCenter[0] + delta[0], currentCenter[1] + delta[1]];
+    view.animateInternal({
+      duration: opt_duration !== undefined ? opt_duration : 250,
+      easing: linear,
+      center: view.getConstrainedCenter(center),
+    });
   }
 }
-
-
-/**
- * @param {import("../View.js").default} view View.
- * @param {number|undefined} rotation Rotation.
- * @param {import("../coordinate.js").Coordinate=} opt_anchor Anchor coordinate.
- * @param {number=} opt_duration Duration.
- */
-export function rotate(view, rotation, opt_anchor, opt_duration) {
-  rotation = view.constrainRotation(rotation, 0);
-  rotateWithoutConstraints(view, rotation, opt_anchor, opt_duration);
-}
-
-
-/**
- * @param {import("../View.js").default} view View.
- * @param {number|undefined} rotation Rotation.
- * @param {import("../coordinate.js").Coordinate=} opt_anchor Anchor coordinate.
- * @param {number=} opt_duration Duration.
- */
-export function rotateWithoutConstraints(view, rotation, opt_anchor, opt_duration) {
-  if (rotation !== undefined) {
-    const currentRotation = view.getRotation();
-    const currentCenter = view.getCenter();
-    if (currentRotation !== undefined && currentCenter && opt_duration > 0) {
-      view.animate({
-        rotation: rotation,
-        anchor: opt_anchor,
-        duration: opt_duration,
-        easing: easeOut
-      });
-    } else {
-      view.rotate(rotation, opt_anchor);
-    }
-  }
-}
-
-
-/**
- * @param {import("../View.js").default} view View.
- * @param {number|undefined} resolution Resolution to go to.
- * @param {import("../coordinate.js").Coordinate=} opt_anchor Anchor coordinate.
- * @param {number=} opt_duration Duration.
- * @param {number=} opt_direction Zooming direction; > 0 indicates
- *     zooming out, in which case the constraints system will select
- *     the largest nearest resolution; < 0 indicates zooming in, in
- *     which case the constraints system will select the smallest
- *     nearest resolution; == 0 indicates that the zooming direction
- *     is unknown/not relevant, in which case the constraints system
- *     will select the nearest resolution. If not defined 0 is
- *     assumed.
- */
-export function zoom(view, resolution, opt_anchor, opt_duration, opt_direction) {
-  resolution = view.constrainResolution(resolution, 0, opt_direction);
-  zoomWithoutConstraints(view, resolution, opt_anchor, opt_duration);
-}
-
 
 /**
  * @param {import("../View.js").default} view View.
  * @param {number} delta Delta from previous zoom level.
- * @param {import("../coordinate.js").Coordinate=} opt_anchor Anchor coordinate.
- * @param {number=} opt_duration Duration.
+ * @param {import("../coordinate.js").Coordinate} [opt_anchor] Anchor coordinate in the user projection.
+ * @param {number} [opt_duration] Duration.
  */
 export function zoomByDelta(view, delta, opt_anchor, opt_duration) {
-  const currentResolution = view.getResolution();
-  let resolution = view.constrainResolution(currentResolution, delta, 0);
+  const currentZoom = view.getZoom();
 
-  if (resolution !== undefined) {
-    const resolutions = view.getResolutions();
-    resolution = clamp(
-      resolution,
-      view.getMinResolution() || resolutions[resolutions.length - 1],
-      view.getMaxResolution() || resolutions[0]);
+  if (currentZoom === undefined) {
+    return;
   }
 
-  // If we have a constraint on center, we need to change the anchor so that the
-  // new center is within the extent. We first calculate the new center, apply
-  // the constraint to it, and then calculate back the anchor
-  if (opt_anchor && resolution !== undefined && resolution !== currentResolution) {
-    const currentCenter = view.getCenter();
-    let center = view.calculateCenterZoom(resolution, opt_anchor);
-    center = view.constrainCenter(center);
+  const newZoom = view.getConstrainedZoom(currentZoom + delta);
+  const newResolution = view.getResolutionForZoom(newZoom);
 
-    opt_anchor = [
-      (resolution * currentCenter[0] - currentResolution * center[0]) /
-          (resolution - currentResolution),
-      (resolution * currentCenter[1] - currentResolution * center[1]) /
-          (resolution - currentResolution)
-    ];
+  if (view.getAnimating()) {
+    view.cancelAnimations();
   }
-
-  zoomWithoutConstraints(view, resolution, opt_anchor, opt_duration);
-}
-
-
-/**
- * @param {import("../View.js").default} view View.
- * @param {number|undefined} resolution Resolution to go to.
- * @param {import("../coordinate.js").Coordinate=} opt_anchor Anchor coordinate.
- * @param {number=} opt_duration Duration.
- */
-export function zoomWithoutConstraints(view, resolution, opt_anchor, opt_duration) {
-  if (resolution) {
-    const currentResolution = view.getResolution();
-    const currentCenter = view.getCenter();
-    if (currentResolution !== undefined && currentCenter &&
-        resolution !== currentResolution && opt_duration) {
-      view.animate({
-        resolution: resolution,
-        anchor: opt_anchor,
-        duration: opt_duration,
-        easing: easeOut
-      });
-    } else {
-      if (opt_anchor) {
-        const center = view.calculateCenterZoom(resolution, opt_anchor);
-        view.setCenter(center);
-      }
-      view.setResolution(resolution);
-    }
-  }
+  view.animate({
+    resolution: newResolution,
+    anchor: opt_anchor,
+    duration: opt_duration !== undefined ? opt_duration : 250,
+    easing: easeOut,
+  });
 }
 
 export default Interaction;

@@ -4,22 +4,25 @@
 import Tile from './Tile.js';
 import TileState from './TileState.js';
 import {createCanvasContext2D} from './dom.js';
-import {listenOnce, unlistenByKey} from './events.js';
-import EventType from './events/EventType.js';
-
+import {listenImage} from './Image.js';
 
 class ImageTile extends Tile {
-
   /**
    * @param {import("./tilecoord.js").TileCoord} tileCoord Tile coordinate.
-   * @param {TileState} state State.
+   * @param {import("./TileState.js").default} state State.
    * @param {string} src Image source URI.
    * @param {?string} crossOrigin Cross origin.
    * @param {import("./Tile.js").LoadFunction} tileLoadFunction Tile load function.
-   * @param {import("./Tile.js").Options=} opt_options Tile options.
+   * @param {import("./Tile.js").Options} [opt_options] Tile options.
    */
-  constructor(tileCoord, state, src, crossOrigin, tileLoadFunction, opt_options) {
-
+  constructor(
+    tileCoord,
+    state,
+    src,
+    crossOrigin,
+    tileLoadFunction,
+    opt_options
+  ) {
     super(tileCoord, state, opt_options);
 
     /**
@@ -36,6 +39,8 @@ class ImageTile extends Tile {
      */
     this.src_ = src;
 
+    this.key = src;
+
     /**
      * @private
      * @type {HTMLImageElement|HTMLCanvasElement}
@@ -47,32 +52,15 @@ class ImageTile extends Tile {
 
     /**
      * @private
-     * @type {Array<import("./events.js").EventsKey>}
+     * @type {?function():void}
      */
-    this.imageListenerKeys_ = null;
+    this.unlisten_ = null;
 
     /**
      * @private
      * @type {import("./Tile.js").LoadFunction}
      */
     this.tileLoadFunction_ = tileLoadFunction;
-
-  }
-
-  /**
-   * @inheritDoc
-   */
-  disposeInternal() {
-    if (this.state == TileState.LOADING) {
-      this.unlistenImage_();
-      this.image_ = getBlankImage();
-    }
-    if (this.interimTile) {
-      this.interimTile.dispose();
-    }
-    this.state = TileState.ABORT;
-    this.changed();
-    super.disposeInternal();
   }
 
   /**
@@ -85,10 +73,14 @@ class ImageTile extends Tile {
   }
 
   /**
-   * @inheritDoc
+   * Sets an HTML image element for this tile (may be a Canvas or preloaded Image).
+   * @param {HTMLCanvasElement|HTMLImageElement} element Element.
    */
-  getKey() {
-    return this.src_;
+  setImage(element) {
+    this.image_ = element;
+    this.state = TileState.LOADED;
+    this.unlistenImage_();
+    this.changed();
   }
 
   /**
@@ -120,7 +112,7 @@ class ImageTile extends Tile {
   }
 
   /**
-   * @inheritDoc
+   * Load not yet loaded URI.
    * @api
    */
   load() {
@@ -134,13 +126,12 @@ class ImageTile extends Tile {
     if (this.state == TileState.IDLE) {
       this.state = TileState.LOADING;
       this.changed();
-      this.imageListenerKeys_ = [
-        listenOnce(this.image_, EventType.ERROR,
-          this.handleImageError_, this),
-        listenOnce(this.image_, EventType.LOAD,
-          this.handleImageLoad_, this)
-      ];
       this.tileLoadFunction_(this, this.src_);
+      this.unlisten_ = listenImage(
+        this.image_,
+        this.handleImageLoad_.bind(this),
+        this.handleImageError_.bind(this)
+      );
     }
   }
 
@@ -150,11 +141,12 @@ class ImageTile extends Tile {
    * @private
    */
   unlistenImage_() {
-    this.imageListenerKeys_.forEach(unlistenByKey);
-    this.imageListenerKeys_ = null;
+    if (this.unlisten_) {
+      this.unlisten_();
+      this.unlisten_ = null;
+    }
   }
 }
-
 
 /**
  * Get a 1-pixel blank image.

@@ -1,43 +1,101 @@
 (function() {
-  var clipboard = new Clipboard('#copy-button');
-  clipboard.on('success', function(e) {
-    e.clearSelection();
-  });
 
-  var codepenButton = document.getElementById('codepen-button');
+  function compress(json) {
+    return LZString.compressToBase64(JSON.stringify(json))
+      .replace(/\+/g, '-')
+      .replace(/\//g, '_')
+      .replace(/=+$/, '');
+  }
+
+  function fetchResource(resource) {
+    return new Promise(function (resolve, reject) {
+      const isImage = /\.(png|jpe?g|gif|tiff|svg|kmz)$/.test(resource);
+      if (isImage) {
+        resolve ({
+          isBinary: true,
+          content: new URL(resource, window.location.href).href
+        });
+      } else {
+        const xhr = new XMLHttpRequest();
+        xhr.open('GET', resource);
+        xhr.responseType = 'text';
+        xhr.addEventListener('load', function () {
+          resolve ({
+            content: xhr.response
+          });
+        });
+        xhr.addEventListener('error', reject);
+        xhr.send();
+      }
+    })
+  }
+
+  const codepenButton = document.getElementById('codepen-button');
   if (codepenButton) {
-    codepenButton.onclick = function(event) {
+    const form = document.getElementById('codepen-form');
+    codepenButton.href = form.action;
+    codepenButton.addEventListener('click', function (event) {
       event.preventDefault();
-      var form = document.getElementById('codepen-form');
+      const innerText = document.documentMode ? 'textContent' : 'innerText';
+      const html = document.getElementById('example-html-source')[innerText];
+      const js = document.getElementById('example-js-source')[innerText];
+      const workerContainer = document.getElementById('example-worker-source');
+      const worker = workerContainer ? workerContainer[innerText] : undefined;
+      const pkgJson = document.getElementById('example-pkg-source')[innerText];
 
-      // Doc : https://blog.codepen.io/documentation/api/prefill/
+      const unique = new Set();
+      const localResources = (js.match(/'(\.\/)?data\/[^']*/g) || [])
+        .concat(js.match(/'(\.\/)?resources\/[^']*/g) || [])
+        .map(
+          function (f) {
+            return f.replace(/^'(\.\/)?/, '');
+          }
+        )
+        .filter(
+          function (f) {
+            return unique.has(f) ? false : (unique.add(f) || unique);
+          }
+        );
 
-      var resources = form.resources.value.split(',');
+      const promises = localResources.map(
+        function (resource) {
+          return fetchResource(resource);
+        }
+      );
 
-      var data = {
-        title: form.title.value,
-        description: form.description.value,
-        layout: 'left',
-        html: form.html.value,
-        css: form.css.value,
-        js: form.js.value,
-        css_external: resources.filter(function(resource) {
-          return resource.lastIndexOf('.css') === resource.length - 4;
-        }).join(';'),
-        js_external: resources.filter(function(resource) {
-          return resource.lastIndexOf('.js') === resource.length - 3;
-        }).join(';')
-      };
+      Promise.all(promises).then(
+        function (results) {
+          const files = {
+            'index.html': {
+              content: html
+            },
+            'main.js': {
+              content: js
+            },
+            'package.json': {
+              content: pkgJson
+            },
+            'sandbox.config.json': {
+              content: '{"template": "parcel"}'
+            }
+          };
+          if (worker) {
+            files['worker.js'] = {
+              content: worker
+            }
+          }
+          const data = {
+            files: files
+          };
 
-      // binary flags to display html, css, js and/or console tabs
-      data.editors = '' + Number(data.html.length > 0) +
-          Number(data.css.length > 0) +
-          Number(data.js.length > 0) +
-          Number(data.js.indexOf('console') > 0);
+          for (let i = 0; i < localResources.length; i++) {
+            data.files[localResources[i]] = results[i];
+          }
 
-      form.data.value = JSON.stringify(data);
-
-      form.submit();
-    };
+          form.parameters.value = compress(data);
+          form.submit();
+        }
+      );
+    });
   }
 })();

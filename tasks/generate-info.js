@@ -1,11 +1,16 @@
-const fse = require('fs-extra');
-const path = require('path');
-const spawn = require('child_process').spawn;
-const walk = require('walk').walk;
-const isWindows = process.platform.indexOf('win') === 0;
+import esMain from 'es-main';
+import fse from 'fs-extra';
+import path from 'path';
+import {dirname} from 'path';
+import {fileURLToPath} from 'url';
+import {spawn} from 'child_process';
+import {walk} from 'walk';
 
-const sourceDir = path.join(__dirname, '..', 'src');
-const infoPath = path.join(__dirname, '..', 'build', 'info.json');
+const isWindows = process.platform.indexOf('win') === 0;
+const baseDir = dirname(fileURLToPath(import.meta.url));
+
+const sourceDir = path.join(baseDir, '..', 'src');
+const infoPath = path.join(baseDir, '..', 'build', 'info.json');
 
 /**
  * Get checked path of a binary.
@@ -17,10 +22,18 @@ function getBinaryPath(binaryName) {
     binaryName += '.cmd';
   }
 
-  const jsdocResolved = require.resolve('jsdoc/jsdoc.js');
+  const jsdocResolved = path.join(
+    baseDir,
+    '..',
+    'node_modules',
+    'jsdoc',
+    'jsdoc.js'
+  );
   const expectedPaths = [
-    path.join(__dirname, '..', 'node_modules', '.bin', binaryName),
-    path.resolve(path.join(path.dirname(jsdocResolved), '..', '.bin', binaryName))
+    path.join(baseDir, '..', 'node_modules', '.bin', binaryName),
+    path.resolve(
+      path.join(path.dirname(jsdocResolved), '..', '.bin', binaryName)
+    ),
   ];
 
   for (let i = 0; i < expectedPaths.length; i++) {
@@ -30,14 +43,21 @@ function getBinaryPath(binaryName) {
     }
   }
 
-  throw Error('JsDoc binary was not found in any of the expected paths: ' + expectedPaths);
+  throw Error(
+    'JsDoc binary was not found in any of the expected paths: ' + expectedPaths
+  );
 }
 
 const jsdoc = getBinaryPath('jsdoc');
 
 const jsdocConfig = path.join(
-  __dirname, '..', 'config', 'jsdoc', 'info', 'conf.json');
-
+  baseDir,
+  '..',
+  'config',
+  'jsdoc',
+  'info',
+  'conf.json'
+);
 
 /**
  * Generate a list of all .js paths in the source directory.
@@ -75,7 +95,6 @@ function getPaths() {
   });
 }
 
-
 /**
  * Parse the JSDoc output.
  * @param {string} output JSDoc output
@@ -102,7 +121,6 @@ function parseOutput(output) {
   return info;
 }
 
-
 /**
  * Spawn JSDoc.
  * @param {Array<string>} paths Paths to source files.
@@ -113,18 +131,18 @@ function spawnJSDoc(paths) {
   return new Promise((resolve, reject) => {
     let output = '';
     let errors = '';
-    const cwd = path.join(__dirname, '..');
+    const cwd = path.join(baseDir, '..');
     const child = spawn(jsdoc, ['-c', jsdocConfig].concat(paths), {cwd: cwd});
 
-    child.stdout.on('data', data => {
+    child.stdout.on('data', (data) => {
       output += String(data);
     });
 
-    child.stderr.on('data', data => {
+    child.stderr.on('data', (data) => {
       errors += String(data);
     });
 
-    child.on('exit', code => {
+    child.on('exit', (code) => {
       if (code) {
         reject(new Error(errors || 'JSDoc failed with no output'));
         return;
@@ -155,23 +173,18 @@ async function write(info) {
  * Generate info from the sources.
  * @return {Promise<Error>} Resolves with the info object.
  */
-async function main() {
+export default async function main() {
   const paths = await getPaths();
   return await spawnJSDoc(paths);
 }
 
-
 /**
  * If running this module directly, generate and write out the info.json file.
  */
-if (require.main === module) {
-  main().then(write).catch(err => {
-    process.stderr.write(`${err.message}\n`, () => process.exit(1));
-  });
+if (esMain(import.meta)) {
+  main()
+    .then(write)
+    .catch((err) => {
+      process.stderr.write(`${err.message}\n`, () => process.exit(1));
+    });
 }
-
-
-/**
- * Export main function.
- */
-module.exports = main;

@@ -2,8 +2,10 @@
  * @module ol/has
  */
 
-const ua = typeof navigator !== 'undefined' ?
-  navigator.userAgent.toLowerCase() : '';
+const ua =
+  typeof navigator !== 'undefined' && typeof navigator.userAgent !== 'undefined'
+    ? navigator.userAgent.toLowerCase()
+    : '';
 
 /**
  * User agent string says we are dealing with Firefox as browser.
@@ -29,7 +31,6 @@ export const WEBKIT = ua.indexOf('webkit') !== -1 && ua.indexOf('edge') == -1;
  */
 export const MAC = ua.indexOf('macintosh') !== -1;
 
-
 /**
  * The ratio between physical pixels and device-independent pixels
  * (dips) on the device (`window.devicePixelRatio`).
@@ -37,56 +38,42 @@ export const MAC = ua.indexOf('macintosh') !== -1;
  * @type {number}
  * @api
  */
-export const DEVICE_PIXEL_RATIO = window.devicePixelRatio || 1;
-
+export const DEVICE_PIXEL_RATIO =
+  typeof devicePixelRatio !== 'undefined' ? devicePixelRatio : 1;
 
 /**
- * True if the browser's Canvas implementation implements {get,set}LineDash.
+ * The execution context is a worker with OffscreenCanvas available.
+ * @const
  * @type {boolean}
  */
-export const CANVAS_LINE_DASH = function() {
-  let has = false;
+export const WORKER_OFFSCREEN_CANVAS =
+  typeof WorkerGlobalScope !== 'undefined' &&
+  typeof OffscreenCanvas !== 'undefined' &&
+  self instanceof WorkerGlobalScope; //eslint-disable-line
+
+/**
+ * Image.prototype.decode() is supported.
+ * @type {boolean}
+ */
+export const IMAGE_DECODE =
+  typeof Image !== 'undefined' && Image.prototype.decode;
+
+/**
+ * @type {boolean}
+ */
+export const PASSIVE_EVENT_LISTENERS = (function () {
+  let passive = false;
   try {
-    has = !!document.createElement('canvas').getContext('2d').setLineDash;
-  } catch (e) {
-    // pass
+    const options = Object.defineProperty({}, 'passive', {
+      get: function () {
+        passive = true;
+      },
+    });
+
+    window.addEventListener('_', null, options);
+    window.removeEventListener('_', null, options);
+  } catch (error) {
+    // passive not supported
   }
-  return has;
-}();
-
-
-/**
- * Is HTML5 geolocation supported in the current browser?
- * @const
- * @type {boolean}
- * @api
- */
-export const GEOLOCATION = 'geolocation' in navigator;
-
-
-/**
- * True if browser supports touch events.
- * @const
- * @type {boolean}
- * @api
- */
-export const TOUCH = 'ontouchstart' in window;
-
-
-/**
- * True if browser supports pointer events.
- * @const
- * @type {boolean}
- */
-export const POINTER = 'PointerEvent' in window;
-
-
-/**
- * True if browser supports ms pointer events (IE 10).
- * @const
- * @type {boolean}
- */
-export const MSPOINTER = !!(navigator.msPointerEnabled);
-
-
-export {HAS as WEBGL} from './webgl.js';
+  return passive;
+})();

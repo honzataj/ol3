@@ -2,16 +2,16 @@
  * @module ol/style/Image
  */
 import {abstract} from '../util.js';
-
+import {toSize} from '../size.js';
 
 /**
  * @typedef {Object} Options
- * @property {number} opacity
- * @property {boolean} rotateWithView
- * @property {number} rotation
- * @property {number} scale
+ * @property {number} opacity Opacity.
+ * @property {boolean} rotateWithView If the image should get rotated with the view.
+ * @property {number} rotation Rotation.
+ * @property {number|import("../size.js").Size} scale Scale.
+ * @property {Array<number>} displacement Displacement.
  */
-
 
 /**
  * @classdesc
@@ -26,7 +26,6 @@ class ImageStyle {
    * @param {Options} options Options.
    */
   constructor(options) {
-
     /**
      * @private
      * @type {number}
@@ -47,10 +46,21 @@ class ImageStyle {
 
     /**
      * @private
-     * @type {number}
+     * @type {number|import("../size.js").Size}
      */
     this.scale_ = options.scale;
 
+    /**
+     * @private
+     * @type {import("../size.js").Size}
+     */
+    this.scaleArray_ = toSize(options.scale);
+
+    /**
+     * @private
+     * @type {Array<number>}
+     */
+    this.displacement_ = options.displacement;
   }
 
   /**
@@ -59,11 +69,13 @@ class ImageStyle {
    * @api
    */
   clone() {
+    const scale = this.getScale();
     return new ImageStyle({
       opacity: this.getOpacity(),
-      scale: this.getScale(),
+      scale: Array.isArray(scale) ? scale.slice() : scale,
       rotation: this.getRotation(),
-      rotateWithView: this.getRotateWithView()
+      rotateWithView: this.getRotateWithView(),
+      displacement: this.getDisplacement().slice(),
     });
   }
 
@@ -96,7 +108,7 @@ class ImageStyle {
 
   /**
    * Get the symbolizer scale.
-   * @return {number} Scale.
+   * @return {number|import("../size.js").Size} Scale.
    * @api
    */
   getScale() {
@@ -104,13 +116,20 @@ class ImageStyle {
   }
 
   /**
-   * This method is deprecated and always returns false.
-   * @return {boolean} false.
-   * @deprecated
+   * Get the symbolizer scale array.
+   * @return {import("../size.js").Size} Scale array.
+   */
+  getScaleArray() {
+    return this.scaleArray_;
+  }
+
+  /**
+   * Get the displacement of the shape
+   * @return {Array<number>} Shape's center displacement
    * @api
    */
-  getSnapToPixel() {
-    return false;
+  getDisplacement() {
+    return this.displacement_;
   }
 
   /**
@@ -135,11 +154,19 @@ class ImageStyle {
 
   /**
    * @abstract
-   * @param {number} pixelRatio Pixel ratio.
    * @return {HTMLCanvasElement|HTMLVideoElement|HTMLImageElement} Image element.
    */
-  getHitDetectionImage(pixelRatio) {
+  getHitDetectionImage() {
     return abstract();
+  }
+
+  /**
+   * Get the image pixel ratio.
+   * @param {number} pixelRatio Pixel ratio.
+   * @return {number} Pixel ratio.
+   */
+  getPixelRatio(pixelRatio) {
+    return 1;
   }
 
   /**
@@ -155,14 +182,6 @@ class ImageStyle {
    * @return {import("../size.js").Size} Image size.
    */
   getImageSize() {
-    return abstract();
-  }
-
-  /**
-   * @abstract
-   * @return {import("../size.js").Size} Size of the hit-detection image.
-   */
-  getHitDetectionImageSize() {
     return abstract();
   }
 
@@ -216,30 +235,20 @@ class ImageStyle {
   /**
    * Set the scale.
    *
-   * @param {number} scale Scale.
+   * @param {number|import("../size.js").Size} scale Scale.
    * @api
    */
   setScale(scale) {
     this.scale_ = scale;
+    this.scaleArray_ = toSize(scale);
   }
 
   /**
-   * This method is deprecated and does nothing.
-   * @param {boolean} snapToPixel Snap to pixel?
-   * @deprecated
-   * @api
-   */
-  setSnapToPixel(snapToPixel) {}
-
-  /**
    * @abstract
-   * @param {function(this: T, import("../events/Event.js").default)} listener Listener function.
-   * @param {T} thisArg Value to use as `this` when executing `listener`.
-   * @return {import("../events.js").EventsKey|undefined} Listener key.
-   * @template T
+   * @param {function(import("../events/Event.js").default): void} listener Listener function.
    */
-  listenImageChange(listener, thisArg) {
-    return abstract();
+  listenImageChange(listener) {
+    abstract();
   }
 
   /**
@@ -252,11 +261,9 @@ class ImageStyle {
 
   /**
    * @abstract
-   * @param {function(this: T, import("../events/Event.js").default)} listener Listener function.
-   * @param {T} thisArg Value to use as `this` when executing `listener`.
-   * @template T
+   * @param {function(import("../events/Event.js").default): void} listener Listener function.
    */
-  unlistenImageChange(listener, thisArg) {
+  unlistenImageChange(listener) {
     abstract();
   }
 }

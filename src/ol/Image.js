@@ -1,12 +1,12 @@
 /**
  * @module ol/Image
  */
+import EventType from './events/EventType.js';
 import ImageBase from './ImageBase.js';
 import ImageState from './ImageState.js';
-import {listenOnce, unlistenByKey} from './events.js';
-import EventType from './events/EventType.js';
+import {IMAGE_DECODE} from './has.js';
 import {getHeight} from './extent.js';
-
+import {listenOnce, unlistenByKey} from './events.js';
 
 /**
  * A function that takes an {@link module:ol/Image~Image} for the image and a
@@ -22,13 +22,11 @@ import {getHeight} from './extent.js';
  * post requests or - in general - through XHR requests, where the src of the
  * image element would be set to a data URI when the content is loaded.
  *
- * @typedef {function(ImageWrapper, string)} LoadFunction
+ * @typedef {function(ImageWrapper, string): void} LoadFunction
  * @api
  */
 
-
 class ImageWrapper extends ImageBase {
-
   /**
    * @param {import("./extent.js").Extent} extent Extent.
    * @param {number|undefined} resolution Resolution.
@@ -37,8 +35,14 @@ class ImageWrapper extends ImageBase {
    * @param {?string} crossOrigin Cross origin.
    * @param {LoadFunction} imageLoadFunction Image load function.
    */
-  constructor(extent, resolution, pixelRatio, src, crossOrigin, imageLoadFunction) {
-
+  constructor(
+    extent,
+    resolution,
+    pixelRatio,
+    src,
+    crossOrigin,
+    imageLoadFunction
+  ) {
     super(extent, resolution, pixelRatio, ImageState.IDLE);
 
     /**
@@ -58,13 +62,13 @@ class ImageWrapper extends ImageBase {
 
     /**
      * @private
-     * @type {Array<import("./events.js").EventsKey>}
+     * @type {?function():void}
      */
-    this.imageListenerKeys_ = null;
+    this.unlisten_ = null;
 
     /**
      * @protected
-     * @type {ImageState}
+     * @type {import("./ImageState.js").default}
      */
     this.state = ImageState.IDLE;
 
@@ -73,11 +77,10 @@ class ImageWrapper extends ImageBase {
      * @type {LoadFunction}
      */
     this.imageLoadFunction_ = imageLoadFunction;
-
   }
 
   /**
-   * @inheritDoc
+   * @return {HTMLCanvasElement|HTMLImageElement|HTMLVideoElement} Image.
    * @api
    */
   getImage() {
@@ -121,20 +124,18 @@ class ImageWrapper extends ImageBase {
    * Load the image or retry if loading previously failed.
    * Loading is taken care of by the tile queue, and calling this method is
    * only needed for preloading or for reloading in case of an error.
-   * @override
    * @api
    */
   load() {
     if (this.state == ImageState.IDLE || this.state == ImageState.ERROR) {
       this.state = ImageState.LOADING;
       this.changed();
-      this.imageListenerKeys_ = [
-        listenOnce(this.image_, EventType.ERROR,
-          this.handleImageError_, this),
-        listenOnce(this.image_, EventType.LOAD,
-          this.handleImageLoad_, this)
-      ];
       this.imageLoadFunction_(this, this.src_);
+      this.unlisten_ = listenImage(
+        this.image_,
+        this.handleImageLoad_.bind(this),
+        this.handleImageError_.bind(this)
+      );
     }
   }
 
@@ -143,6 +144,7 @@ class ImageWrapper extends ImageBase {
    */
   setImage(image) {
     this.image_ = image;
+    this.resolution = getHeight(this.extent) / this.image_.height;
   }
 
   /**
@@ -151,10 +153,58 @@ class ImageWrapper extends ImageBase {
    * @private
    */
   unlistenImage_() {
-    this.imageListenerKeys_.forEach(unlistenByKey);
-    this.imageListenerKeys_ = null;
+    if (this.unlisten_) {
+      this.unlisten_();
+      this.unlisten_ = null;
+    }
   }
 }
 
+/**
+ * @param {HTMLCanvasElement|HTMLImageElement|HTMLVideoElement} image Image element.
+ * @param {function():any} loadHandler Load callback function.
+ * @param {function():any} errorHandler Error callback function.
+ * @return {function():void} Callback to stop listening.
+ */
+export function listenImage(image, loadHandler, errorHandler) {
+  const img = /** @type {HTMLImageElement} */ (image);
+
+  if (img.src && IMAGE_DECODE) {
+    const promise = img.decode();
+    let listening = true;
+    const unlisten = function () {
+      listening = false;
+    };
+    promise
+      .then(function () {
+        if (listening) {
+          loadHandler();
+        }
+      })
+      .catch(function (error) {
+        if (listening) {
+          // FIXME: Unconditionally call errorHandler() when this bug is fixed upstream:
+          //        https://bugs.webkit.org/show_bug.cgi?id=198527
+          if (
+            error.name === 'EncodingError' &&
+            error.message === 'Invalid image type.'
+          ) {
+            loadHandler();
+          } else {
+            errorHandler();
+          }
+        }
+      });
+    return unlisten;
+  }
+
+  const listenerKeys = [
+    listenOnce(img, EventType.LOAD, loadHandler),
+    listenOnce(img, EventType.ERROR, errorHandler),
+  ];
+  return function unlisten() {
+    listenerKeys.forEach(unlistenByKey);
+  };
+}
 
 export default ImageWrapper;

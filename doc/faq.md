@@ -7,7 +7,7 @@ layout: doc.hbs
 
 Certain questions arise more often than others when users ask for help. This
 document tries to list some of the common questions that frequently get asked,
-e.g. on [Stack Overflow](http://stackoverflow.com/questions/tagged/openlayers).
+e.g. on [Stack Overflow](https://stackoverflow.com/questions/tagged/openlayers).
 
 If you think a question (and naturally its answer) should be added here, feel
 free to ping us or to send a pull request enhancing this document.
@@ -21,7 +21,7 @@ Table of contents:
 * [Why aren't there any features in my source?](#why-aren-t-there-any-features-in-my-source-)
 * [How do I force a re-render of the map?](#how-do-i-force-a-re-render-of-the-map-)
 * [Why are my features not found?](#why-are-my-features-not-found-)
-
+* [Why is zooming or clicking off, inaccurate?](#user-content-why-is-zooming-or-clicking-off-inaccurate)
 
 ## What projection is OpenLayers using?
 
@@ -75,7 +75,7 @@ import {register} from 'ol/proj/proj4';
 import {get as getProjection} from 'ol/proj';
 
 // To use other projections, you have to register the projection in OpenLayers.
-// This can easily be done with [https://proj4js.org](proj4)
+// This can easily be done with [http://proj4js.org/](proj4)
 //
 // By default OpenLayers does not know about the EPSG:21781 (Swiss) projection.
 // So we create a projection instance for EPSG:21781 and pass it to
@@ -198,8 +198,8 @@ for English, `en`, as a mnemonic: East before North.
 So you want to center your map on a certain place on the earth and obviously you
 need to have its coordinates for this. Let's assume you want your map centered
 on Schladming, a beautiful place in Austria. Head over to the wikipedia
-page for [Schladming](http://en.wikipedia.org/wiki/Schladming). In the top-right
-corner there is a link to [GeoHack](http://tools.wmflabs.org/geohack/geohack.php?pagename=Schladming&params=47_23_39_N_13_41_21_E_type:city(4565)_region:AT-6),
+page for [Schladming](https://en.wikipedia.org/wiki/Schladming). In the top-right
+corner there is a link to [GeoHack](https://geohack.toolforge.org/geohack.php?pagename=Schladming&params=47_23_39_N_13_41_21_E_type:city(4565)_region:AT-6),
 which effectively tells you the coordinates are:
 
     WGS84:
@@ -371,3 +371,30 @@ const vectorLayer = new VectorLayer({
 ```
 
 The recommended value is the size of the largest symbol, line width or label.
+
+## Why is zooming or clicking in the map off/inaccurate?
+
+OpenLayers does not update the map when the container element is resized. This can be caused by progressive updates
+to CSS styles or manually resizing the map. When that happens, any interaction will become inaccurate: the map would zoom in and out, and end up not being centered on the pointer. This makes it hard to do certain interactions, e.g. selecting the desired feature.
+
+There is currently no built-in way to react to element's size changes, as [Resize Observer API](https://developer.mozilla.org/en-US/docs/Web/API/ResizeObserver) is only implemented in Chrome.
+
+There is however an easy to use [polyfill](https://github.com/que-etc/resize-observer-polyfill):
+
+```javascript
+import Map from 'ol/Map';
+import ResizeObserver from 'resize-observer-polyfill';
+
+const mapElement = document.querySelector('#map')
+const map = new Map({
+  target: mapElement
+})
+
+const sizeObserver = new ResizeObserver(() => {
+  map.updateSize()
+})
+sizeObserver.observe(mapElement)
+
+// called when the map is destroyed
+// sizeObserver.disconnect()
+```

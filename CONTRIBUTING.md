@@ -1,10 +1,10 @@
 # Contributing to OpenLayers
 
-Thanks for your interest in contributing to OpenLayers.
+Thanks for your interest in contributing to OpenLayers.  Please see the project's [Code of Conduct](https://github.com/openlayers/openlayers/blob/main/CODE_OF_CONDUCT.md) before proceeding.
 
 ## Asking Questions
 
-Please ask questions about using the library on [Stack Overflow using the tag 'openlayers'](http://stackoverflow.com/questions/tagged/openlayers).
+Please ask questions about using the library on [Stack Overflow using the tag 'openlayers'](https://stackoverflow.com/questions/tagged/openlayers).
 
 When you want to get involved and discuss new features or changes, please use [the mailing list](https://groups.google.com/forum/#!forum/openlayers-dev).
 
@@ -21,7 +21,7 @@ Look for `readme.md` files! Several directories contain a `readme.md` file that 
 
 ## Contributing Code
 
-See [`DEVELOPING.md`](https://github.com/openlayers/openlayers/blob/master/DEVELOPING.md) to learn how to get started developing.
+See [`DEVELOPING.md`](https://github.com/openlayers/openlayers/blob/main/DEVELOPING.md) to learn how to get started developing.
 
 Our preferred means of receiving contributions is through [pull requests](https://help.github.com/articles/using-pull-requests). Make sure
 that your pull request follows our pull request guidelines below before submitting it.
@@ -31,7 +31,7 @@ This page describes what you need to know to contribute code to OpenLayers as a 
 
 ## Contributor License Agreement
 
-Your contribution will be under our [license](https://raw.githubusercontent.com/openlayers/openlayers/master/LICENSE.md) as per [GitHub's terms of service](https://help.github.com/articles/github-terms-of-service/#6-contributions-under-repository-license).
+Your contribution will be under our [license](https://raw.githubusercontent.com/openlayers/openlayers/main/LICENSE.md) as per [GitHub's terms of service](https://help.github.com/articles/github-terms-of-service/#6-contributions-under-repository-license).
 
 
 ## Pull request guidelines
@@ -42,8 +42,7 @@ Your pull request must:
 
  * Follow OpenLayers's coding style.
 
- * Pass the integration tests run automatically by the Travis Continuous
-   Integration system.
+ * Pass the integration tests run automatically by the Continuous Integration system.
 
  * Address a single issue or add a single item of functionality.
 
@@ -69,12 +68,12 @@ easily-understandable chunks.  Any individual commit should not add more than
 one new class or one new function.  Do not submit commits that change thousands
 of lines or that contain more than one distinct logical change.  Trivial
 commits, e.g. to fix lint errors, should be merged into the commit that
-introduced the error.  See the [Atomic Commit Convention on Wikipedia](http://en.wikipedia.org/wiki/Atomic_commit#Atomic_Commit_Convention) for more detail.
+introduced the error.  See the [Atomic Commit Convention on Wikipedia](https://en.wikipedia.org/wiki/Atomic_commit#Atomic_Commit_Convention) for more detail.
 
 `git apply --patch` and `git rebase` can help you create a clean commit
 history.
-[Reviewboard.org](http://www.reviewboard.org/docs/codebase/dev/git/clean-commits/)
-and [Pro GIT](http://git-scm.com/book/en/Git-Tools-Rewriting-History) have
+[Reviewboard.org](https://www.reviewboard.org/docs/codebase/dev/git/clean-commits/)
+and [Pro GIT](https://git-scm.com/book/en/Git-Tools-Rewriting-History) have
 explain how to use them.
 
 
@@ -82,7 +81,7 @@ explain how to use them.
 
 Commit messages should be short, begin with a verb in the imperative, and
 contain no trailing punctuation. We follow
-http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html
+https://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html
 for the formatting of commit messages.
 
 Git commit message should look like:
@@ -104,7 +103,7 @@ Please keep the header line short, no more than 50 characters.
 
 ### Be possible to merge automatically
 
-Occasionally other changes to `master` might mean that your pull request cannot
+Occasionally other changes to `main` might mean that your pull request cannot
 be merged automatically.  In this case you may need to rebase your branch on a
-more recent `master`, resolve any conflicts, and `git push --force` to update
+more recent `main`, resolve any conflicts, and `git push --force` to update
 your branch so that it can be merged automatically.

@@ -4,19 +4,17 @@
 // FIXME check order of async callbacks
 
 /**
- * See http://mapbox.com/developers/api/.
+ * See https://mapbox.com/developers/api/.
  */
 
-
-import {createFromTemplates} from '../tileurlfunction.js';
-import {assert} from '../asserts.js';
-import {applyTransform, intersects} from '../extent.js';
-import {jsonp as requestJSONP} from '../net.js';
-import {get as getProjection, getTransformFromProjections} from '../proj.js';
 import SourceState from './State.js';
 import TileImage from './TileImage.js';
+import {applyTransform, intersects} from '../extent.js';
+import {assert} from '../asserts.js';
+import {createFromTemplates} from '../tileurlfunction.js';
 import {createXYZ, extentFromProjection} from '../tilegrid.js';
-
+import {get as getProjection, getTransformFromProjections} from '../proj.js';
+import {jsonp as requestJSONP} from '../net.js';
 
 /**
  * @typedef {Object} Config
@@ -35,15 +33,14 @@ import {createXYZ, extentFromProjection} from '../tilegrid.js';
  * @property {Array<number>} [center] Optional center.
  */
 
-
 /**
  * @typedef {Object} Options
  * @property {import("./Source.js").AttributionLike} [attributions] Attributions.
- * @property {number} [cacheSize=2048] Cache size.
+ * @property {number} [cacheSize] Initial tile cache size. Will auto-grow to hold at least the number of tiles in the viewport.
  * @property {null|string} [crossOrigin] The `crossOrigin` attribute for loaded images.  Note that
- * you must provide a `crossOrigin` value if you are using the WebGL renderer or if you want to
- * access pixel data with the Canvas renderer.  See
- * https://developer.mozilla.org/en-US/docs/Web/HTML/CORS_enabled_image for more detail.
+ * you must provide a `crossOrigin` value if you want to access pixel data with the Canvas renderer.
+ * See https://developer.mozilla.org/en-US/docs/Web/HTML/CORS_enabled_image for more detail.
+ * @property {boolean} [imageSmoothing=true] Enable image smoothing.
  * @property {boolean} [jsonp=false] Use JSONP with callback to load the TileJSON.
  * Useful when the server does not support CORS..
  * @property {number} [reprojectionErrorThreshold=0.5] Maximum allowed reprojection error (in pixels).
@@ -56,12 +53,16 @@ import {createXYZ, extentFromProjection} from '../tilegrid.js';
  *   imageTile.getImage().src = src;
  * };
  * ```
+ * @property {number|import("../size.js").Size} [tileSize=[256, 256]] The tile size used by the tile service.
+ * Note: `tileSize` and other non-standard TileJSON properties are currently ignored.
  * @property {string} [url] URL to the TileJSON file. If not provided, `tileJSON` must be configured.
  * @property {boolean} [wrapX=true] Whether to wrap the world horizontally.
  * @property {number} [transition] Duration of the opacity transition for rendering.
  * To disable the opacity transition, pass `transition: 0`.
+ * @property {number|import("../array.js").NearestDirectionFunction} [zDirection=0]
+ * Choose whether to use tiles with a higher or lower zoom level when between integer
+ * zoom levels. See {@link module:ol/tilegrid/TileGrid~TileGrid#getZForResolution}.
  */
-
 
 /**
  * @classdesc
@@ -77,12 +78,14 @@ class TileJSON extends TileImage {
       attributions: options.attributions,
       cacheSize: options.cacheSize,
       crossOrigin: options.crossOrigin,
+      imageSmoothing: options.imageSmoothing,
       projection: getProjection('EPSG:3857'),
       reprojectionErrorThreshold: options.reprojectionErrorThreshold,
       state: SourceState.LOADING,
       tileLoadFunction: options.tileLoadFunction,
       wrapX: options.wrapX !== undefined ? options.wrapX : true,
-      transition: options.transition
+      transition: options.transition,
+      zDirection: options.zDirection,
     });
 
     /**
@@ -91,11 +94,19 @@ class TileJSON extends TileImage {
      */
     this.tileJSON_ = null;
 
+    /**
+     * @type {number|import("../size.js").Size}
+     * @private
+     */
+    this.tileSize_ = options.tileSize;
 
     if (options.url) {
       if (options.jsonp) {
-        requestJSONP(options.url, this.handleTileJSONResponse.bind(this),
-          this.handleTileJSONError.bind(this));
+        requestJSONP(
+          options.url,
+          this.handleTileJSONResponse.bind(this),
+          this.handleTileJSONError.bind(this)
+        );
       } else {
         const client = new XMLHttpRequest();
         client.addEventListener('load', this.onXHRLoad_.bind(this));
@@ -108,7 +119,6 @@ class TileJSON extends TileImage {
     } else {
       assert(false, 51); // Either `url` or `tileJSON` options must be provided
     }
-
   }
 
   /**
@@ -118,10 +128,10 @@ class TileJSON extends TileImage {
   onXHRLoad_(event) {
     const client = /** @type {XMLHttpRequest} */ (event.target);
     // status will be 0 for file:// urls
-    if (!client.status || client.status >= 200 && client.status < 300) {
+    if (!client.status || (client.status >= 200 && client.status < 300)) {
       let response;
       try {
-        response = /** @type {TileJSON} */(JSON.parse(client.responseText));
+        response = /** @type {TileJSON} */ (JSON.parse(client.responseText));
       } catch (err) {
         this.handleTileJSONError();
         return;
@@ -153,43 +163,42 @@ class TileJSON extends TileImage {
    * @param {Config} tileJSON Tile JSON.
    */
   handleTileJSONResponse(tileJSON) {
-
     const epsg4326Projection = getProjection('EPSG:4326');
 
     const sourceProjection = this.getProjection();
     let extent;
     if (tileJSON['bounds'] !== undefined) {
       const transform = getTransformFromProjections(
-        epsg4326Projection, sourceProjection);
+        epsg4326Projection,
+        sourceProjection
+      );
       extent = applyTransform(tileJSON['bounds'], transform);
     }
 
+    const gridExtent = extentFromProjection(sourceProjection);
     const minZoom = tileJSON['minzoom'] || 0;
     const maxZoom = tileJSON['maxzoom'] || 22;
     const tileGrid = createXYZ({
-      extent: extentFromProjection(sourceProjection),
+      extent: gridExtent,
       maxZoom: maxZoom,
-      minZoom: minZoom
+      minZoom: minZoom,
+      tileSize: this.tileSize_,
     });
     this.tileGrid = tileGrid;
 
     this.tileUrlFunction = createFromTemplates(tileJSON['tiles'], tileGrid);
 
     if (tileJSON['attribution'] !== undefined && !this.getAttributions()) {
-      const attributionExtent = extent !== undefined ?
-        extent : epsg4326Projection.getExtent();
-
-      this.setAttributions(function(frameState) {
+      const attributionExtent = extent !== undefined ? extent : gridExtent;
+      this.setAttributions(function (frameState) {
         if (intersects(attributionExtent, frameState.extent)) {
           return [tileJSON['attribution']];
         }
         return null;
       });
-
     }
     this.tileJSON_ = tileJSON;
     this.setState(SourceState.READY);
-
   }
 
   /**
@@ -199,6 +208,5 @@ class TileJSON extends TileImage {
     this.setState(SourceState.ERROR);
   }
 }
-
 
 export default TileJSON;

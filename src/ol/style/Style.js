@@ -2,8 +2,67 @@
  * @module ol/style/Style
  */
 
+import CircleStyle from './Circle.js';
+import Fill from './Fill.js';
+import GeometryType from '../geom/GeometryType.js';
+import Stroke from './Stroke.js';
+import {assert} from '../asserts.js';
+
 /**
- * Feature styles.
+ * A function that takes an {@link module:ol/Feature} and a `{number}`
+ * representing the view's resolution. The function should return a
+ * {@link module:ol/style/Style} or an array of them. This way e.g. a
+ * vector layer can be styled. If the function returns `undefined`, the
+ * feature will not be rendered.
+ *
+ * @typedef {function(import("../Feature.js").FeatureLike, number):(Style|Array<Style>|void)} StyleFunction
+ */
+
+/**
+ * A {@link Style}, an array of {@link Style}, or a {@link StyleFunction}.
+ * @typedef {Style|Array<Style>|StyleFunction} StyleLike
+ */
+
+/**
+ * A function that takes an {@link module:ol/Feature} as argument and returns an
+ * {@link module:ol/geom/Geometry} that will be rendered and styled for the feature.
+ *
+ * @typedef {function(import("../Feature.js").FeatureLike):
+ *     (import("../geom/Geometry.js").default|import("../render/Feature.js").default|undefined)} GeometryFunction
+ */
+
+/**
+ * Custom renderer function. Takes two arguments:
+ *
+ * 1. The pixel coordinates of the geometry in GeoJSON notation.
+ * 2. The {@link module:ol/render~State} of the layer renderer.
+ *
+ * @typedef {function((import("../coordinate.js").Coordinate|Array<import("../coordinate.js").Coordinate>|Array<Array<import("../coordinate.js").Coordinate>>),import("../render.js").State): void}
+ * RenderFunction
+ */
+
+/**
+ * @typedef {Object} Options
+ * @property {string|import("../geom/Geometry.js").default|GeometryFunction} [geometry] Feature property or geometry
+ * or function returning a geometry to render for this style.
+ * @property {import("./Fill.js").default} [fill] Fill style.
+ * @property {import("./Image.js").default} [image] Image style.
+ * @property {RenderFunction} [renderer] Custom renderer. When configured, `fill`, `stroke` and `image` will be
+ * ignored, and the provided function will be called with each render frame for each geometry.
+ * @property {RenderFunction} [hitDetectionRenderer] Custom renderer for hit detection. If provided will be used
+ * in hit detection rendering.
+ * @property {import("./Stroke.js").default} [stroke] Stroke style.
+ * @property {import("./Text.js").default} [text] Text style.
+ * @property {number} [zIndex] Z index.
+ */
+
+/**
+ * @classdesc
+ * Container for vector feature rendering styles. Any changes made to the style
+ * or its children through `set*()` methods will not take effect until the
+ * feature or layer that uses the style is re-rendered.
+ *
+ * ## Feature styles
  *
  * If no style is defined, the following default style is used:
  * ```js
@@ -85,74 +144,14 @@
  *          styles[GeometryType.POINT]
  *      );
  * ```
- */
-import {assert} from '../asserts.js';
-import GeometryType from '../geom/GeometryType.js';
-import CircleStyle from './Circle.js';
-import Fill from './Fill.js';
-import Stroke from './Stroke.js';
-
-
-/**
- * A function that takes an {@link module:ol/Feature} and a `{number}`
- * representing the view's resolution. The function should return a
- * {@link module:ol/style/Style} or an array of them. This way e.g. a
- * vector layer can be styled.
  *
- * @typedef {function(import("../Feature.js").FeatureLike, number):(Style|Array<Style>)} StyleFunction
- */
-
-/**
- * A {@link Style}, an array of {@link Style}, or a {@link StyleFunction}.
- * @typedef {Style|Array<Style>|StyleFunction} StyleLike
- */
-
-/**
- * A function that takes an {@link module:ol/Feature} as argument and returns an
- * {@link module:ol/geom/Geometry} that will be rendered and styled for the feature.
- *
- * @typedef {function(import("../Feature.js").FeatureLike):
- *     (import("../geom/Geometry.js").default|import("../render/Feature.js").default|undefined)} GeometryFunction
- */
-
-
-/**
- * Custom renderer function. Takes two arguments:
- *
- * 1. The pixel coordinates of the geometry in GeoJSON notation.
- * 2. The {@link module:ol/render~State} of the layer renderer.
- *
- * @typedef {function((import("../coordinate.js").Coordinate|Array<import("../coordinate.js").Coordinate>|Array<Array<import("../coordinate.js").Coordinate>>),import("../render.js").State)}
- * RenderFunction
- */
-
-
-/**
- * @typedef {Object} Options
- * @property {string|import("../geom/Geometry.js").default|GeometryFunction} [geometry] Feature property or geometry
- * or function returning a geometry to render for this style.
- * @property {import("./Fill.js").default} [fill] Fill style.
- * @property {import("./Image.js").default} [image] Image style.
- * @property {RenderFunction} [renderer] Custom renderer. When configured, `fill`, `stroke` and `image` will be
- * ignored, and the provided function will be called with each render frame for each geometry.
- * @property {import("./Stroke.js").default} [stroke] Stroke style.
- * @property {import("./Text.js").default} [text] Text style.
- * @property {number} [zIndex] Z index.
- */
-
-/**
- * @classdesc
- * Container for vector feature rendering styles. Any changes made to the style
- * or its children through `set*()` methods will not take effect until the
- * feature or layer that uses the style is re-rendered.
  * @api
  */
 class Style {
   /**
-   * @param {Options=} opt_options Style options.
+   * @param {Options} [opt_options] Style options.
    */
   constructor(opt_options) {
-
     const options = opt_options || {};
 
     /**
@@ -178,9 +177,9 @@ class Style {
     this.fill_ = options.fill !== undefined ? options.fill : null;
 
     /**
-       * @private
-       * @type {import("./Image.js").default}
-       */
+     * @private
+     * @type {import("./Image.js").default}
+     */
     this.image_ = options.image !== undefined ? options.image : null;
 
     /**
@@ -188,6 +187,15 @@ class Style {
      * @type {RenderFunction|null}
      */
     this.renderer_ = options.renderer !== undefined ? options.renderer : null;
+
+    /**
+     * @private
+     * @type {RenderFunction|null}
+     */
+    this.hitDetectionRenderer_ =
+      options.hitDetectionRenderer !== undefined
+        ? options.hitDetectionRenderer
+        : null;
 
     /**
      * @private
@@ -206,7 +214,6 @@ class Style {
      * @type {number|undefined}
      */
     this.zIndex_ = options.zIndex;
-
   }
 
   /**
@@ -217,15 +224,18 @@ class Style {
   clone() {
     let geometry = this.getGeometry();
     if (geometry && typeof geometry === 'object') {
-      geometry = /** @type {import("../geom/Geometry.js").default} */ (geometry).clone();
+      geometry = /** @type {import("../geom/Geometry.js").default} */ (
+        geometry
+      ).clone();
     }
     return new Style({
       geometry: geometry,
       fill: this.getFill() ? this.getFill().clone() : undefined,
       image: this.getImage() ? this.getImage().clone() : undefined,
+      renderer: this.getRenderer(),
       stroke: this.getStroke() ? this.getStroke().clone() : undefined,
       text: this.getText() ? this.getText().clone() : undefined,
-      zIndex: this.getZIndex()
+      zIndex: this.getZIndex(),
     });
   }
 
@@ -247,6 +257,26 @@ class Style {
    */
   setRenderer(renderer) {
     this.renderer_ = renderer;
+  }
+
+  /**
+   * Sets a custom renderer function for this style used
+   * in hit detection.
+   * @param {RenderFunction|null} renderer Custom renderer function.
+   * @api
+   */
+  setHitDetectionRenderer(renderer) {
+    this.hitDetectionRenderer_ = renderer;
+  }
+
+  /**
+   * Get the custom renderer function that was configured with
+   * {@link #setHitDetectionRenderer} or the `hitDetectionRenderer` constructor option.
+   * @return {RenderFunction|null} Custom renderer function.
+   * @api
+   */
+  getHitDetectionRenderer() {
+    return this.hitDetectionRenderer_;
   }
 
   /**
@@ -363,18 +393,16 @@ class Style {
     if (typeof geometry === 'function') {
       this.geometryFunction_ = geometry;
     } else if (typeof geometry === 'string') {
-      this.geometryFunction_ = function(feature) {
-        return (
-          /** @type {import("../geom/Geometry.js").default} */ (feature.get(geometry))
+      this.geometryFunction_ = function (feature) {
+        return /** @type {import("../geom/Geometry.js").default} */ (
+          feature.get(geometry)
         );
       };
     } else if (!geometry) {
       this.geometryFunction_ = defaultGeometryFunction;
     } else if (geometry !== undefined) {
-      this.geometryFunction_ = function() {
-        return (
-          /** @type {import("../geom/Geometry.js").default} */ (geometry)
-        );
+      this.geometryFunction_ = function () {
+        return /** @type {import("../geom/Geometry.js").default} */ (geometry);
       };
     }
     this.geometry_ = geometry;
@@ -390,7 +418,6 @@ class Style {
     this.zIndex_ = zIndex;
   }
 }
-
 
 /**
  * Convert the provided object into a style function.  Functions passed through
@@ -413,24 +440,21 @@ export function toFunction(obj) {
     if (Array.isArray(obj)) {
       styles = obj;
     } else {
-      assert(typeof /** @type {?} */ (obj).getZIndex === 'function',
-        41); // Expected an `Style` or an array of `Style`
+      assert(typeof (/** @type {?} */ (obj).getZIndex) === 'function', 41); // Expected an `Style` or an array of `Style`
       const style = /** @type {Style} */ (obj);
       styles = [style];
     }
-    styleFunction = function() {
+    styleFunction = function () {
       return styles;
     };
   }
   return styleFunction;
 }
 
-
 /**
  * @type {Array<Style>}
  */
 let defaultStyles = null;
-
 
 /**
  * @param {import("../Feature.js").FeatureLike} feature Feature.
@@ -445,27 +469,26 @@ export function createDefaultStyle(feature, resolution) {
   // in such browsers.)
   if (!defaultStyles) {
     const fill = new Fill({
-      color: 'rgba(255,255,255,0.4)'
+      color: 'rgba(255,255,255,0.4)',
     });
     const stroke = new Stroke({
       color: '#3399CC',
-      width: 1.25
+      width: 1.25,
     });
     defaultStyles = [
       new Style({
         image: new CircleStyle({
           fill: fill,
           stroke: stroke,
-          radius: 5
+          radius: 5,
         }),
         fill: fill,
-        stroke: stroke
-      })
+        stroke: stroke,
+      }),
     ];
   }
   return defaultStyles;
 }
-
 
 /**
  * Default styles for editing features.
@@ -480,63 +503,55 @@ export function createEditingStyle() {
   styles[GeometryType.POLYGON] = [
     new Style({
       fill: new Fill({
-        color: [255, 255, 255, 0.5]
-      })
-    })
+        color: [255, 255, 255, 0.5],
+      }),
+    }),
   ];
-  styles[GeometryType.MULTI_POLYGON] =
-      styles[GeometryType.POLYGON];
+  styles[GeometryType.MULTI_POLYGON] = styles[GeometryType.POLYGON];
 
   styles[GeometryType.LINE_STRING] = [
     new Style({
       stroke: new Stroke({
         color: white,
-        width: width + 2
-      })
+        width: width + 2,
+      }),
     }),
     new Style({
       stroke: new Stroke({
         color: blue,
-        width: width
-      })
-    })
+        width: width,
+      }),
+    }),
   ];
-  styles[GeometryType.MULTI_LINE_STRING] =
-      styles[GeometryType.LINE_STRING];
+  styles[GeometryType.MULTI_LINE_STRING] = styles[GeometryType.LINE_STRING];
 
-  styles[GeometryType.CIRCLE] =
-      styles[GeometryType.POLYGON].concat(
-        styles[GeometryType.LINE_STRING]
-      );
-
+  styles[GeometryType.CIRCLE] = styles[GeometryType.POLYGON].concat(
+    styles[GeometryType.LINE_STRING]
+  );
 
   styles[GeometryType.POINT] = [
     new Style({
       image: new CircleStyle({
         radius: width * 2,
         fill: new Fill({
-          color: blue
+          color: blue,
         }),
         stroke: new Stroke({
           color: white,
-          width: width / 2
-        })
+          width: width / 2,
+        }),
       }),
-      zIndex: Infinity
-    })
+      zIndex: Infinity,
+    }),
   ];
-  styles[GeometryType.MULTI_POINT] =
-      styles[GeometryType.POINT];
+  styles[GeometryType.MULTI_POINT] = styles[GeometryType.POINT];
 
-  styles[GeometryType.GEOMETRY_COLLECTION] =
-      styles[GeometryType.POLYGON].concat(
-        styles[GeometryType.LINE_STRING],
-        styles[GeometryType.POINT]
-      );
+  styles[GeometryType.GEOMETRY_COLLECTION] = styles[
+    GeometryType.POLYGON
+  ].concat(styles[GeometryType.LINE_STRING], styles[GeometryType.POINT]);
 
   return styles;
 }
-
 
 /**
  * Function that is called with a feature and returns its default geometry.

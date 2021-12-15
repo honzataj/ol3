@@ -1,21 +1,29 @@
 /**
  * @module ol/renderer/Map
  */
-import {abstract, getUid} from '../util.js';
 import Disposable from '../Disposable.js';
-import {listen, unlistenByKey} from '../events.js';
-import EventType from '../events/EventType.js';
-import {getWidth} from '../extent.js';
 import {TRUE} from '../functions.js';
-import {visibleAtResolution} from '../layer/Layer.js';
+import {abstract} from '../util.js';
+import {compose as composeTransform, makeInverse} from '../transform.js';
+import {getWidth} from '../extent.js';
 import {shared as iconImageCache} from '../style/IconImageCache.js';
-import {compose as composeTransform, invert as invertTransform, setFromArray as transformSetFromArray} from '../transform.js';
+import {inView} from '../layer/Layer.js';
+import {wrapX} from '../coordinate.js';
+
+/**
+ * @typedef HitMatch
+ * @property {import("../Feature.js").FeatureLike} feature Feature.
+ * @property {import("../layer/Layer.js").default} layer Layer.
+ * @property {import("../geom/SimpleGeometry.js").default} geometry Geometry.
+ * @property {number} distanceSq Squared distance.
+ * @property {import("./vector.js").FeatureCallback<T>} callback Callback.
+ * @template T
+ */
 
 /**
  * @abstract
  */
 class MapRenderer extends Disposable {
-
   /**
    * @param {import("../PluggableMap.js").default} map Map.
    */
@@ -27,25 +35,6 @@ class MapRenderer extends Disposable {
      * @type {import("../PluggableMap.js").default}
      */
     this.map_ = map;
-
-    /**
-     * @private
-     * @type {!Object<string, import("./Layer.js").default>}
-     */
-    this.layerRenderers_ = {};
-
-    /**
-     * @private
-     * @type {Object<string, import("../events.js").EventsKey>}
-     */
-    this.layerRendererListeners_ = {};
-
-    /**
-     * @private
-     * @type {Array<typeof import("./Layer.js").default>}
-     */
-    this.layerRendererConstructors_ = [];
-
   }
 
   /**
@@ -58,14 +47,6 @@ class MapRenderer extends Disposable {
   }
 
   /**
-   * Register layer renderer constructors.
-   * @param {Array<typeof import("./Layer.js").default>} constructors Layer renderers.
-   */
-  registerLayerRenderers(constructors) {
-    this.layerRendererConstructors_.push.apply(this.layerRendererConstructors_, constructors);
-  }
-
-  /**
    * @param {import("../PluggableMap.js").FrameState} frameState FrameState.
    * @protected
    */
@@ -74,31 +55,26 @@ class MapRenderer extends Disposable {
     const coordinateToPixelTransform = frameState.coordinateToPixelTransform;
     const pixelToCoordinateTransform = frameState.pixelToCoordinateTransform;
 
-    composeTransform(coordinateToPixelTransform,
-      frameState.size[0] / 2, frameState.size[1] / 2,
-      1 / viewState.resolution, -1 / viewState.resolution,
+    composeTransform(
+      coordinateToPixelTransform,
+      frameState.size[0] / 2,
+      frameState.size[1] / 2,
+      1 / viewState.resolution,
+      -1 / viewState.resolution,
       -viewState.rotation,
-      -viewState.center[0], -viewState.center[1]);
+      -viewState.center[0],
+      -viewState.center[1]
+    );
 
-    invertTransform(
-      transformSetFromArray(pixelToCoordinateTransform, coordinateToPixelTransform));
-  }
-
-  /**
-   * Removes all layer renderers.
-   */
-  removeLayerRenderers() {
-    for (const key in this.layerRenderers_) {
-      this.removeLayerRendererByKey_(key).dispose();
-    }
+    makeInverse(pixelToCoordinateTransform, coordinateToPixelTransform);
   }
 
   /**
    * @param {import("../coordinate.js").Coordinate} coordinate Coordinate.
    * @param {import("../PluggableMap.js").FrameState} frameState FrameState.
    * @param {number} hitTolerance Hit tolerance in pixels.
-   * @param {function(this: S, import("../Feature.js").FeatureLike,
-   *     import("../layer/Layer.js").default): T} callback Feature callback.
+   * @param {boolean} checkWrapped Check for wrapped geometries.
+   * @param {import("./vector.js").FeatureCallback<T>} callback Feature callback.
    * @param {S} thisArg Value to use as `this` when executing `callback`.
    * @param {function(this: U, import("../layer/Layer.js").default): boolean} layerFilter Layer filter
    *     function, only layers which are visible and for which this function
@@ -112,6 +88,7 @@ class MapRenderer extends Disposable {
     coordinate,
     frameState,
     hitTolerance,
+    checkWrapped,
     callback,
     thisArg,
     layerFilter,
@@ -119,53 +96,78 @@ class MapRenderer extends Disposable {
   ) {
     let result;
     const viewState = frameState.viewState;
-    const viewResolution = viewState.resolution;
 
     /**
+     * @param {boolean} managed Managed layer.
      * @param {import("../Feature.js").FeatureLike} feature Feature.
      * @param {import("../layer/Layer.js").default} layer Layer.
-     * @return {?} Callback result.
+     * @param {import("../geom/Geometry.js").default} geometry Geometry.
+     * @return {T|undefined} Callback result.
      */
-    function forEachFeatureAtCoordinate(feature, layer) {
-      const managed = frameState.layerStates[getUid(layer)].managed;
-      if (!(getUid(feature) in frameState.skippedFeatureUids && !managed)) {
-        return callback.call(thisArg, feature, managed ? layer : null);
-      }
+    function forEachFeatureAtCoordinate(managed, feature, layer, geometry) {
+      return callback.call(thisArg, feature, managed ? layer : null, geometry);
     }
 
     const projection = viewState.projection;
 
-    let translatedCoordinate = coordinate;
-    if (projection.canWrapX()) {
+    const translatedCoordinate = wrapX(coordinate.slice(), projection);
+    const offsets = [[0, 0]];
+    if (projection.canWrapX() && checkWrapped) {
       const projectionExtent = projection.getExtent();
       const worldWidth = getWidth(projectionExtent);
-      const x = coordinate[0];
-      if (x < projectionExtent[0] || x > projectionExtent[2]) {
-        const worldsAway = Math.ceil((projectionExtent[0] - x) / worldWidth);
-        translatedCoordinate = [x + worldWidth * worldsAway, coordinate[1]];
-      }
+      offsets.push([-worldWidth, 0], [worldWidth, 0]);
     }
 
     const layerStates = frameState.layerStatesArray;
     const numLayers = layerStates.length;
-    let i;
-    for (i = numLayers - 1; i >= 0; --i) {
-      const layerState = layerStates[i];
-      const layer = layerState.layer;
-      if (visibleAtResolution(layerState, viewResolution) && layerFilter.call(thisArg2, layer)) {
-        const layerRenderer = this.getLayerRenderer(layer);
-        const source = /** @type {import("../layer/Layer.js").default} */ (layer).getSource();
-        if (source) {
-          result = layerRenderer.forEachFeatureAtCoordinate(
-            source.getWrapX() ? translatedCoordinate : coordinate,
-            frameState, hitTolerance, forEachFeatureAtCoordinate);
-        }
-        if (result) {
-          return result;
+
+    const matches = /** @type {Array<HitMatch<T>>} */ ([]);
+    const tmpCoord = [];
+    for (let i = 0; i < offsets.length; i++) {
+      for (let j = numLayers - 1; j >= 0; --j) {
+        const layerState = layerStates[j];
+        const layer = layerState.layer;
+        if (
+          layer.hasRenderer() &&
+          inView(layerState, viewState) &&
+          layerFilter.call(thisArg2, layer)
+        ) {
+          const layerRenderer = layer.getRenderer();
+          const source = layer.getSource();
+          if (layerRenderer && source) {
+            const coordinates = source.getWrapX()
+              ? translatedCoordinate
+              : coordinate;
+            const callback = forEachFeatureAtCoordinate.bind(
+              null,
+              layerState.managed
+            );
+            tmpCoord[0] = coordinates[0] + offsets[i][0];
+            tmpCoord[1] = coordinates[1] + offsets[i][1];
+            result = layerRenderer.forEachFeatureAtCoordinate(
+              tmpCoord,
+              frameState,
+              hitTolerance,
+              callback,
+              matches
+            );
+          }
+          if (result) {
+            return result;
+          }
         }
       }
     }
-    return undefined;
+    if (matches.length === 0) {
+      return undefined;
+    }
+    const order = 1 / matches.length;
+    matches.forEach((m, i) => (m.distanceSq += i * order));
+    matches.sort((a, b) => a.distanceSq - b.distanceSq);
+    matches.some((m) => {
+      return (result = m.callback(m.feature, m.layer, m.geometry));
+    });
+    return result;
   }
 
   /**
@@ -173,18 +175,16 @@ class MapRenderer extends Disposable {
    * @param {import("../pixel.js").Pixel} pixel Pixel.
    * @param {import("../PluggableMap.js").FrameState} frameState FrameState.
    * @param {number} hitTolerance Hit tolerance in pixels.
-   * @param {function(this: S, import("../layer/Layer.js").default, (Uint8ClampedArray|Uint8Array)): T} callback Layer
+   * @param {function(import("../layer/Layer.js").default<import("../source/Source").default>, (Uint8ClampedArray|Uint8Array)): T} callback Layer
    *     callback.
-   * @param {S} thisArg Value to use as `this` when executing `callback`.
-   * @param {function(this: U, import("../layer/Layer.js").default): boolean} layerFilter Layer filter
+   * @param {function(import("../layer/Layer.js").default<import("../source/Source").default>): boolean} layerFilter Layer filter
    *     function, only layers which are visible and for which this function
    *     returns `true` will be tested for features.  By default, all visible
    *     layers will be tested.
-   * @param {U} thisArg2 Value to use as `this` when executing `layerFilter`.
    * @return {T|undefined} Callback result.
-   * @template S,T,U
+   * @template T
    */
-  forEachLayerAtPixel(pixel, frameState, hitTolerance, callback, thisArg, layerFilter, thisArg2) {
+  forEachLayerAtPixel(pixel, frameState, hitTolerance, callback, layerFilter) {
     return abstract();
   }
 
@@ -192,6 +192,7 @@ class MapRenderer extends Disposable {
    * @param {import("../coordinate.js").Coordinate} coordinate Coordinate.
    * @param {import("../PluggableMap.js").FrameState} frameState FrameState.
    * @param {number} hitTolerance Hit tolerance in pixels.
+   * @param {boolean} checkWrapped Check for wrapped geometries.
    * @param {function(this: U, import("../layer/Layer.js").default): boolean} layerFilter Layer filter
    *     function, only layers which are visible and for which this function
    *     returns `true` will be tested for features.  By default, all visible
@@ -200,57 +201,26 @@ class MapRenderer extends Disposable {
    * @return {boolean} Is there a feature at the given coordinate?
    * @template U
    */
-  hasFeatureAtCoordinate(coordinate, frameState, hitTolerance, layerFilter, thisArg) {
+  hasFeatureAtCoordinate(
+    coordinate,
+    frameState,
+    hitTolerance,
+    checkWrapped,
+    layerFilter,
+    thisArg
+  ) {
     const hasFeature = this.forEachFeatureAtCoordinate(
-      coordinate, frameState, hitTolerance, TRUE, this, layerFilter, thisArg);
+      coordinate,
+      frameState,
+      hitTolerance,
+      checkWrapped,
+      TRUE,
+      this,
+      layerFilter,
+      thisArg
+    );
 
     return hasFeature !== undefined;
-  }
-
-  /**
-   * @param {import("../layer/Base.js").default} layer Layer.
-   * @protected
-   * @return {import("./Layer.js").default} Layer renderer.
-   */
-  getLayerRenderer(layer) {
-    const layerKey = getUid(layer);
-    if (layerKey in this.layerRenderers_) {
-      return this.layerRenderers_[layerKey];
-    } else {
-      let renderer;
-      for (let i = 0, ii = this.layerRendererConstructors_.length; i < ii; ++i) {
-        const candidate = this.layerRendererConstructors_[i];
-        if (candidate['handles'](layer)) {
-          renderer = candidate['create'](this, layer);
-          break;
-        }
-      }
-      if (renderer) {
-        this.layerRenderers_[layerKey] = renderer;
-        this.layerRendererListeners_[layerKey] = listen(renderer,
-          EventType.CHANGE, this.handleLayerRendererChange_, this);
-      } else {
-        throw new Error('Unable to create renderer for layer: ' + layer.getType());
-      }
-      return renderer;
-    }
-  }
-
-  /**
-   * @param {string} layerKey Layer key.
-   * @protected
-   * @return {import("./Layer.js").default} Layer renderer.
-   */
-  getLayerRendererByKey(layerKey) {
-    return this.layerRenderers_[layerKey];
-  }
-
-  /**
-   * @protected
-   * @return {Object<string, import("./Layer.js").default>} Layer renderers.
-   */
-  getLayerRenderers() {
-    return this.layerRenderers_;
   }
 
   /**
@@ -258,42 +228,6 @@ class MapRenderer extends Disposable {
    */
   getMap() {
     return this.map_;
-  }
-
-  /**
-   * Handle changes in a layer renderer.
-   * @private
-   */
-  handleLayerRendererChange_() {
-    this.map_.render();
-  }
-
-  /**
-   * @param {string} layerKey Layer key.
-   * @return {import("./Layer.js").default} Layer renderer.
-   * @private
-   */
-  removeLayerRendererByKey_(layerKey) {
-    const layerRenderer = this.layerRenderers_[layerKey];
-    delete this.layerRenderers_[layerKey];
-
-    unlistenByKey(this.layerRendererListeners_[layerKey]);
-    delete this.layerRendererListeners_[layerKey];
-
-    return layerRenderer;
-  }
-
-  /**
-   * @param {import("../PluggableMap.js").default} map Map.
-   * @param {import("../PluggableMap.js").FrameState} frameState Frame state.
-   * @private
-   */
-  removeUnusedLayerRenderers_(map, frameState) {
-    for (const layerKey in this.layerRenderers_) {
-      if (!frameState || !(layerKey in frameState.layerStates)) {
-        this.removeLayerRendererByKey_(layerKey).dispose();
-      }
-    }
   }
 
   /**
@@ -310,25 +244,11 @@ class MapRenderer extends Disposable {
    * @protected
    */
   scheduleExpireIconCache(frameState) {
-    frameState.postRenderFunctions.push(/** @type {import("../PluggableMap.js").PostRenderFunction} */ (expireIconCache));
-  }
-
-  /**
-   * @param {!import("../PluggableMap.js").FrameState} frameState Frame state.
-   * @protected
-   */
-  scheduleRemoveUnusedLayerRenderers(frameState) {
-    for (const layerKey in this.layerRenderers_) {
-      if (!(layerKey in frameState.layerStates)) {
-        frameState.postRenderFunctions.push(
-          /** @type {import("../PluggableMap.js").PostRenderFunction} */ (this.removeUnusedLayerRenderers_.bind(this))
-        );
-        return;
-      }
+    if (iconImageCache.canExpireCache()) {
+      frameState.postRenderFunctions.push(expireIconCache);
     }
   }
 }
-
 
 /**
  * @param {import("../PluggableMap.js").default} map Map.
@@ -338,13 +258,4 @@ function expireIconCache(map, frameState) {
   iconImageCache.expire();
 }
 
-
-/**
- * @param {import("../layer/Layer.js").State} state1 First layer state.
- * @param {import("../layer/Layer.js").State} state2 Second layer state.
- * @return {number} The zIndex difference.
- */
-export function sortByZIndex(state1, state2) {
-  return state1.zIndex - state2.zIndex;
-}
 export default MapRenderer;

@@ -1,22 +1,17 @@
 /**
  * @module ol/interaction/DragRotateAndZoom
  */
-import {disable} from '../rotationconstraint.js';
-import ViewHint from '../ViewHint.js';
-import {shiftKeyOnly, mouseOnly} from '../events/condition.js';
-import {rotate, rotateWithoutConstraints, zoom, zoomWithoutConstraints} from './Interaction.js';
 import PointerInteraction from './Pointer.js';
-
+import {mouseOnly, shiftKeyOnly} from '../events/condition.js';
 
 /**
  * @typedef {Object} Options
  * @property {import("../events/condition.js").Condition} [condition] A function that
  * takes an {@link module:ol/MapBrowserEvent~MapBrowserEvent} and returns a
  * boolean to indicate whether that event should be handled.
- * Default is {@link module:ol/events/condition~shiftKeyOnly}.
+ * Default is {@link module:ol/events/condition.shiftKeyOnly}.
  * @property {number} [duration=400] Animation duration in milliseconds.
  */
-
 
 /**
  * @classdesc
@@ -30,12 +25,10 @@ import PointerInteraction from './Pointer.js';
  * @api
  */
 class DragRotateAndZoom extends PointerInteraction {
-
   /**
-   * @param {Options=} opt_options Options.
+   * @param {Options} [opt_options] Options.
    */
   constructor(opt_options) {
-
     const options = opt_options ? opt_options : {};
 
     super(/** @type {import("./Pointer.js").Options} */ (options));
@@ -69,11 +62,11 @@ class DragRotateAndZoom extends PointerInteraction {
      * @type {number}
      */
     this.duration_ = options.duration !== undefined ? options.duration : 400;
-
   }
 
   /**
-   * @inheritDoc
+   * Handle pointer drag events.
+   * @param {import("../MapBrowserEvent.js").default} mapBrowserEvent Event.
    */
   handleDragEvent(mapBrowserEvent) {
     if (!mouseOnly(mapBrowserEvent)) {
@@ -88,14 +81,13 @@ class DragRotateAndZoom extends PointerInteraction {
     const theta = Math.atan2(deltaY, deltaX);
     const magnitude = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
     const view = map.getView();
-    if (view.getConstraints().rotation !== disable && this.lastAngle_ !== undefined) {
-      const angleDelta = theta - this.lastAngle_;
-      rotateWithoutConstraints(view, view.getRotation() - angleDelta);
+    if (this.lastAngle_ !== undefined) {
+      const angleDelta = this.lastAngle_ - theta;
+      view.adjustRotationInternal(angleDelta);
     }
     this.lastAngle_ = theta;
     if (this.lastMagnitude_ !== undefined) {
-      const resolution = this.lastMagnitude_ * (view.getResolution() / magnitude);
-      zoomWithoutConstraints(view, resolution);
+      view.adjustResolutionInternal(this.lastMagnitude_ / magnitude);
     }
     if (this.lastMagnitude_ !== undefined) {
       this.lastScaleDelta_ = this.lastMagnitude_ / magnitude;
@@ -104,7 +96,9 @@ class DragRotateAndZoom extends PointerInteraction {
   }
 
   /**
-   * @inheritDoc
+   * Handle pointer up events.
+   * @param {import("../MapBrowserEvent.js").default} mapBrowserEvent Event.
+   * @return {boolean} If the event was consumed.
    */
   handleUpEvent(mapBrowserEvent) {
     if (!mouseOnly(mapBrowserEvent)) {
@@ -113,16 +107,16 @@ class DragRotateAndZoom extends PointerInteraction {
 
     const map = mapBrowserEvent.map;
     const view = map.getView();
-    view.setHint(ViewHint.INTERACTING, -1);
-    const direction = this.lastScaleDelta_ - 1;
-    rotate(view, view.getRotation());
-    zoom(view, view.getResolution(), undefined, this.duration_, direction);
+    const direction = this.lastScaleDelta_ > 1 ? 1 : -1;
+    view.endInteraction(this.duration_, direction);
     this.lastScaleDelta_ = 0;
     return false;
   }
 
   /**
-   * @inheritDoc
+   * Handle pointer down events.
+   * @param {import("../MapBrowserEvent.js").default} mapBrowserEvent Event.
+   * @return {boolean} If the event was consumed.
    */
   handleDownEvent(mapBrowserEvent) {
     if (!mouseOnly(mapBrowserEvent)) {
@@ -130,7 +124,7 @@ class DragRotateAndZoom extends PointerInteraction {
     }
 
     if (this.condition_(mapBrowserEvent)) {
-      mapBrowserEvent.map.getView().setHint(ViewHint.INTERACTING, 1);
+      mapBrowserEvent.map.getView().beginInteraction();
       this.lastAngle_ = undefined;
       this.lastMagnitude_ = undefined;
       return true;

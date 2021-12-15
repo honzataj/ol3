@@ -2,19 +2,19 @@
  * @module ol/source/UTFGrid
  */
 
-import Tile from '../Tile.js';
-import TileState from '../TileState.js';
-import {createFromTemplates, nullTileUrlFunction} from '../tileurlfunction.js';
-import {assert} from '../asserts.js';
-import {listenOnce} from '../events.js';
 import EventType from '../events/EventType.js';
-import {applyTransform, intersects} from '../extent.js';
-import {jsonp as requestJSONP} from '../net.js';
-import {get as getProjection, getTransformFromProjections} from '../proj.js';
 import SourceState from './State.js';
+import Tile from '../Tile.js';
 import TileSource from './Tile.js';
-import {getKeyZXY} from '../tilecoord.js';
+import TileState from '../TileState.js';
+import {applyTransform, intersects} from '../extent.js';
+import {assert} from '../asserts.js';
+import {createFromTemplates, nullTileUrlFunction} from '../tileurlfunction.js';
 import {createXYZ, extentFromProjection} from '../tilegrid.js';
+import {getKeyZXY} from '../tilecoord.js';
+import {get as getProjection, getTransformFromProjections} from '../proj.js';
+import {listenOnce} from '../events.js';
+import {jsonp as requestJSONP} from '../net.js';
 
 /**
  * @typedef {Object} UTFGridJSON
@@ -23,19 +23,16 @@ import {createXYZ, extentFromProjection} from '../tilegrid.js';
  * @property {Object<string, Object>} [data] Optional data.
  */
 
-
 export class CustomTile extends Tile {
-
   /**
    * @param {import("../tilecoord.js").TileCoord} tileCoord Tile coordinate.
-   * @param {TileState} state State.
+   * @param {import("../TileState.js").default} state State.
    * @param {string} src Image source URI.
    * @param {import("../extent.js").Extent} extent Extent of the tile.
    * @param {boolean} preemptive Load the tile when visible (before it's needed).
    * @param {boolean} jsonp Load the tile as a script.
    */
   constructor(tileCoord, state, src, extent, preemptive, jsonp) {
-
     super(tileCoord, state);
 
     /**
@@ -74,13 +71,11 @@ export class CustomTile extends Tile {
      */
     this.data_ = null;
 
-
     /**
      * @private
      * @type {boolean}
      */
     this.jsonp_ = jsonp;
-
   }
 
   /**
@@ -91,7 +86,6 @@ export class CustomTile extends Tile {
     return null;
   }
 
-
   /**
    * Synchronously returns data at given coordinate (if available).
    * @param {import("../coordinate.js").Coordinate} coordinate Coordinate.
@@ -101,10 +95,10 @@ export class CustomTile extends Tile {
     if (!this.grid_ || !this.keys_) {
       return null;
     }
-    const xRelative = (coordinate[0] - this.extent_[0]) /
-        (this.extent_[2] - this.extent_[0]);
-    const yRelative = (coordinate[1] - this.extent_[1]) /
-        (this.extent_[3] - this.extent_[1]);
+    const xRelative =
+      (coordinate[0] - this.extent_[0]) / (this.extent_[2] - this.extent_[0]);
+    const yRelative =
+      (coordinate[1] - this.extent_[1]) / (this.extent_[3] - this.extent_[1]);
 
     const row = this.grid_[Math.floor((1 - yRelative) * this.grid_.length)];
 
@@ -133,42 +127,47 @@ export class CustomTile extends Tile {
     return data;
   }
 
-
   /**
    * Calls the callback (synchronously by default) with the available data
    * for given coordinate (or `null` if not yet loaded).
    * @param {import("../coordinate.js").Coordinate} coordinate Coordinate.
-   * @param {function(this: T, *)} callback Callback.
-   * @param {T=} opt_this The object to use as `this` in the callback.
-   * @param {boolean=} opt_request If `true` the callback is always async.
+   * @param {function(*): void} callback Callback.
+   * @param {boolean} [opt_request] If `true` the callback is always async.
    *                               The tile data is requested if not yet loaded.
-   * @template T
    */
-  forDataAtCoordinate(coordinate, callback, opt_this, opt_request) {
-    if (this.state == TileState.IDLE && opt_request === true) {
-      listenOnce(this, EventType.CHANGE, function(e) {
-        callback.call(opt_this, this.getData(coordinate));
-      }, this);
+  forDataAtCoordinate(coordinate, callback, opt_request) {
+    if (this.state == TileState.EMPTY && opt_request === true) {
+      this.state = TileState.IDLE;
+      listenOnce(
+        this,
+        EventType.CHANGE,
+        function (e) {
+          callback(this.getData(coordinate));
+        },
+        this
+      );
       this.loadInternal_();
     } else {
       if (opt_request === true) {
-        setTimeout(function() {
-          callback.call(opt_this, this.getData(coordinate));
-        }.bind(this), 0);
+        setTimeout(
+          function () {
+            callback(this.getData(coordinate));
+          }.bind(this),
+          0
+        );
       } else {
-        callback.call(opt_this, this.getData(coordinate));
+        callback(this.getData(coordinate));
       }
     }
   }
 
-
   /**
-   * @inheritDoc
+   * Return the key to be used for all tiles in the source.
+   * @return {string} The key for all tiles.
    */
   getKey() {
     return this.src_;
   }
-
 
   /**
    * @private
@@ -177,7 +176,6 @@ export class CustomTile extends Tile {
     this.state = TileState.ERROR;
     this.changed();
   }
-
 
   /**
    * @param {!UTFGridJSON} json UTFGrid data.
@@ -188,10 +186,9 @@ export class CustomTile extends Tile {
     this.keys_ = json['keys'];
     this.data_ = json['data'];
 
-    this.state = TileState.EMPTY;
+    this.state = TileState.LOADED;
     this.changed();
   }
-
 
   /**
    * @private
@@ -200,8 +197,11 @@ export class CustomTile extends Tile {
     if (this.state == TileState.IDLE) {
       this.state = TileState.LOADING;
       if (this.jsonp_) {
-        requestJSONP(this.src_, this.handleLoad_.bind(this),
-          this.handleError_.bind(this));
+        requestJSONP(
+          this.src_,
+          this.handleLoad_.bind(this),
+          this.handleError_.bind(this)
+        );
       } else {
         const client = new XMLHttpRequest();
         client.addEventListener('load', this.onXHRLoad_.bind(this));
@@ -212,7 +212,6 @@ export class CustomTile extends Tile {
     }
   }
 
-
   /**
    * @private
    * @param {Event} event The load event.
@@ -220,10 +219,12 @@ export class CustomTile extends Tile {
   onXHRLoad_(event) {
     const client = /** @type {XMLHttpRequest} */ (event.target);
     // status will be 0 for file:// urls
-    if (!client.status || client.status >= 200 && client.status < 300) {
+    if (!client.status || (client.status >= 200 && client.status < 300)) {
       let response;
       try {
-        response = /** @type {!UTFGridJSON} */(JSON.parse(client.responseText));
+        response = /** @type {!UTFGridJSON} */ (
+          JSON.parse(client.responseText)
+        );
       } catch (err) {
         this.handleError_();
         return;
@@ -234,7 +235,6 @@ export class CustomTile extends Tile {
     }
   }
 
-
   /**
    * @private
    * @param {Event} event The error event.
@@ -243,34 +243,35 @@ export class CustomTile extends Tile {
     this.handleError_();
   }
 
-
   /**
-   * @override
    */
   load() {
     if (this.preemptive_) {
       this.loadInternal_();
+    } else {
+      this.setState(TileState.EMPTY);
     }
   }
 }
-
 
 /**
  * @typedef {Object} Options
  * @property {boolean} [preemptive=true]
  * If `true` the UTFGrid source loads the tiles based on their "visibility".
  * This improves the speed of response, but increases traffic.
- * Note that if set to `false`, you need to pass `true` as `opt_request`
- * to the `forDataAtCoordinateAndResolution` method otherwise no data
- * will ever be loaded.
+ * Note that if set to `false` (lazy loading), you need to pass `true` as
+ * `opt_request` to the `forDataAtCoordinateAndResolution` method otherwise no
+ * data will ever be loaded.
  * @property {boolean} [jsonp=false] Use JSONP with callback to load the TileJSON.
  * Useful when the server does not support CORS..
  * @property {import("./TileJSON.js").Config} [tileJSON] TileJSON configuration for this source.
  * If not provided, `url` must be configured.
  * @property {string} [url] TileJSON endpoint that provides the configuration for this source.
  * Request will be made through JSONP. If not provided, `tileJSON` must be configured.
+ * @property {number|import("../array.js").NearestDirectionFunction} [zDirection=0]
+ * Choose whether to use tiles with a higher or lower zoom level when between integer
+ * zoom levels. See {@link module:ol/tilegrid/TileGrid~TileGrid#getZForResolution}.
  */
-
 
 /**
  * @classdesc
@@ -284,15 +285,16 @@ class UTFGrid extends TileSource {
   constructor(options) {
     super({
       projection: getProjection('EPSG:3857'),
-      state: SourceState.LOADING
+      state: SourceState.LOADING,
+      zDirection: options.zDirection,
     });
 
     /**
      * @private
      * @type {boolean}
      */
-    this.preemptive_ = options.preemptive !== undefined ?
-      options.preemptive : true;
+    this.preemptive_ =
+      options.preemptive !== undefined ? options.preemptive : true;
 
     /**
      * @private
@@ -314,8 +316,11 @@ class UTFGrid extends TileSource {
 
     if (options.url) {
       if (this.jsonp_) {
-        requestJSONP(options.url, this.handleTileJSONResponse.bind(this),
-          this.handleTileJSONError.bind(this));
+        requestJSONP(
+          options.url,
+          this.handleTileJSONResponse.bind(this),
+          this.handleTileJSONError.bind(this)
+        );
       } else {
         const client = new XMLHttpRequest();
         client.addEventListener('load', this.onXHRLoad_.bind(this));
@@ -328,9 +333,7 @@ class UTFGrid extends TileSource {
     } else {
       assert(false, 51); // Either `url` or `tileJSON` options must be provided
     }
-
   }
-
 
   /**
    * @private
@@ -339,10 +342,12 @@ class UTFGrid extends TileSource {
   onXHRLoad_(event) {
     const client = /** @type {XMLHttpRequest} */ (event.target);
     // status will be 0 for file:// urls
-    if (!client.status || client.status >= 200 && client.status < 300) {
+    if (!client.status || (client.status >= 200 && client.status < 300)) {
       let response;
       try {
-        response = /** @type {import("./TileJSON.js").Config} */(JSON.parse(client.responseText));
+        response = /** @type {import("./TileJSON.js").Config} */ (
+          JSON.parse(client.responseText)
+        );
       } catch (err) {
         this.handleTileJSONError();
         return;
@@ -353,7 +358,6 @@ class UTFGrid extends TileSource {
     }
   }
 
-
   /**
    * @private
    * @param {Event} event The error event.
@@ -361,7 +365,6 @@ class UTFGrid extends TileSource {
   onXHRError_(event) {
     this.handleTileJSONError();
   }
-
 
   /**
    * Return the template from TileJSON.
@@ -372,29 +375,39 @@ class UTFGrid extends TileSource {
     return this.template_;
   }
 
-
   /**
    * Calls the callback (synchronously by default) with the available data
    * for given coordinate and resolution (or `null` if not yet loaded or
    * in case of an error).
    * @param {import("../coordinate.js").Coordinate} coordinate Coordinate.
    * @param {number} resolution Resolution.
-   * @param {function(*)} callback Callback.
-   * @param {boolean=} opt_request If `true` the callback is always async.
+   * @param {function(*): void} callback Callback.
+   * @param {boolean} [opt_request] If `true` the callback is always async.
    *                               The tile data is requested if not yet loaded.
    * @api
    */
   forDataAtCoordinateAndResolution(
-    coordinate, resolution, callback, opt_request) {
+    coordinate,
+    resolution,
+    callback,
+    opt_request
+  ) {
     if (this.tileGrid) {
-      const tileCoord = this.tileGrid.getTileCoordForCoordAndResolution(
-        coordinate, resolution);
-      const tile = /** @type {!CustomTile} */(this.getTile(
-        tileCoord[0], tileCoord[1], tileCoord[2], 1, this.getProjection()));
-      tile.forDataAtCoordinate(coordinate, callback, null, opt_request);
+      const z = this.tileGrid.getZForResolution(resolution, this.zDirection);
+      const tileCoord = this.tileGrid.getTileCoordForCoordAndZ(coordinate, z);
+      const tile = /** @type {!CustomTile} */ (
+        this.getTile(
+          tileCoord[0],
+          tileCoord[1],
+          tileCoord[2],
+          1,
+          this.getProjection()
+        )
+      );
+      tile.forDataAtCoordinate(coordinate, callback, opt_request);
     } else {
       if (opt_request === true) {
-        setTimeout(function() {
+        setTimeout(function () {
           callback(null);
         }, 0);
       } else {
@@ -403,7 +416,6 @@ class UTFGrid extends TileSource {
     }
   }
 
-
   /**
    * @protected
    */
@@ -411,30 +423,31 @@ class UTFGrid extends TileSource {
     this.setState(SourceState.ERROR);
   }
 
-
   /**
    * TODO: very similar to ol/source/TileJSON#handleTileJSONResponse
    * @protected
    * @param {import("./TileJSON.js").Config} tileJSON Tile JSON.
    */
   handleTileJSONResponse(tileJSON) {
-
     const epsg4326Projection = getProjection('EPSG:4326');
 
     const sourceProjection = this.getProjection();
     let extent;
     if (tileJSON['bounds'] !== undefined) {
       const transform = getTransformFromProjections(
-        epsg4326Projection, sourceProjection);
+        epsg4326Projection,
+        sourceProjection
+      );
       extent = applyTransform(tileJSON['bounds'], transform);
     }
 
+    const gridExtent = extentFromProjection(sourceProjection);
     const minZoom = tileJSON['minzoom'] || 0;
     const maxZoom = tileJSON['maxzoom'] || 22;
     const tileGrid = createXYZ({
-      extent: extentFromProjection(sourceProjection),
+      extent: gridExtent,
       maxZoom: maxZoom,
-      minZoom: minZoom
+      minZoom: minZoom,
     });
     this.tileGrid = tileGrid;
 
@@ -449,10 +462,8 @@ class UTFGrid extends TileSource {
     this.tileUrlFunction_ = createFromTemplates(grids, tileGrid);
 
     if (tileJSON['attribution'] !== undefined) {
-      const attributionExtent = extent !== undefined ?
-        extent : epsg4326Projection.getExtent();
-
-      this.setAttributions(function(frameState) {
+      const attributionExtent = extent !== undefined ? extent : gridExtent;
+      this.setAttributions(function (frameState) {
         if (intersects(attributionExtent, frameState.extent)) {
           return [tileJSON['attribution']];
         }
@@ -461,39 +472,49 @@ class UTFGrid extends TileSource {
     }
 
     this.setState(SourceState.READY);
-
   }
 
-
   /**
-   * @inheritDoc
+   * @param {number} z Tile coordinate z.
+   * @param {number} x Tile coordinate x.
+   * @param {number} y Tile coordinate y.
+   * @param {number} pixelRatio Pixel ratio.
+   * @param {import("../proj/Projection.js").default} projection Projection.
+   * @return {!CustomTile} Tile.
    */
   getTile(z, x, y, pixelRatio, projection) {
     const tileCoordKey = getKeyZXY(z, x, y);
     if (this.tileCache.containsKey(tileCoordKey)) {
-      return (
-        /** @type {!import("../Tile.js").default} */ (this.tileCache.get(tileCoordKey))
-      );
+      return this.tileCache.get(tileCoordKey);
     } else {
       const tileCoord = [z, x, y];
-      const urlTileCoord =
-          this.getTileCoordForTileUrlFunction(tileCoord, projection);
-      const tileUrl = this.tileUrlFunction_(urlTileCoord, pixelRatio, projection);
+      const urlTileCoord = this.getTileCoordForTileUrlFunction(
+        tileCoord,
+        projection
+      );
+      const tileUrl = this.tileUrlFunction_(
+        urlTileCoord,
+        pixelRatio,
+        projection
+      );
       const tile = new CustomTile(
         tileCoord,
         tileUrl !== undefined ? TileState.IDLE : TileState.EMPTY,
         tileUrl !== undefined ? tileUrl : '',
         this.tileGrid.getTileCoordExtent(tileCoord),
         this.preemptive_,
-        this.jsonp_);
+        this.jsonp_
+      );
       this.tileCache.set(tileCoordKey, tile);
       return tile;
     }
   }
 
-
   /**
-   * @inheritDoc
+   * Marks a tile coord as being used, without triggering a load.
+   * @param {number} z Tile coordinate z.
+   * @param {number} x Tile coordinate x.
+   * @param {number} y Tile coordinate y.
    */
   useTile(z, x, y) {
     const tileCoordKey = getKeyZXY(z, x, y);
@@ -502,6 +523,5 @@ class UTFGrid extends TileSource {
     }
   }
 }
-
 
 export default UTFGrid;

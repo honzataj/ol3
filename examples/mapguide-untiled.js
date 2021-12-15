@@ -1,16 +1,13 @@
-import Map from '../src/ol/Map.js';
-import View from '../src/ol/View.js';
 import ImageLayer from '../src/ol/layer/Image.js';
 import ImageMapGuide from '../src/ol/source/ImageMapGuide.js';
+import Map from '../src/ol/Map.js';
+import View from '../src/ol/View.js';
 
-const mdf = 'Library://Public/Samples/Sheboygan/Maps/Sheboygan.MapDefinition';
-const agentUrl =
-    'http://www.buoyshark.com/mapguide/mapagent/mapagent.fcgi?';
+const mdf = 'Library://Samples/Sheboygan/Maps/Sheboygan.MapDefinition';
+const agentUrl = 'https://mikenunn.net/mapguide/mapagent/mapagent.fcgi?';
 const bounds = [
-  -87.865114442365922,
-  43.665065564837931,
-  -87.595394059497067,
-  43.823852564430069
+  -87.865114442365922, 43.665065564837931, -87.595394059497067,
+  43.823852564430069,
 ];
 const map = new Map({
   layers: [
@@ -24,17 +21,18 @@ const map = new Map({
         params: {
           MAPDEFINITION: mdf,
           FORMAT: 'PNG',
-          USERNAME: 'OpenLayers',
-          PASSWORD: 'OpenLayers'
+          VERSION: '3.0.0',
+          USERNAME: 'OLGuest',
+          PASSWORD: 'olguest',
         },
-        ratio: 2
-      })
-    })
+        ratio: 2,
+      }),
+    }),
   ],
   target: 'map',
   view: new View({
     center: [-87.7302542509315, 43.744459064634],
     projection: 'EPSG:4326',
-    zoom: 12
-  })
+    zoom: 12,
+  }),
 });

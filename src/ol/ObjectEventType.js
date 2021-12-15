@@ -11,5 +11,9 @@ export default {
    * @event module:ol/Object.ObjectEvent#propertychange
    * @api
    */
-  PROPERTYCHANGE: 'propertychange'
+  PROPERTYCHANGE: 'propertychange',
 };
+
+/**
+ * @typedef {'propertychange'} Types
+ */

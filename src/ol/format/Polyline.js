@@ -1,17 +1,16 @@
 /**
  * @module ol/format/Polyline
  */
-import {assert} from '../asserts.js';
 import Feature from '../Feature.js';
-import {transformWithOptions} from './Feature.js';
-import TextFeature from './TextFeature.js';
 import GeometryLayout from '../geom/GeometryLayout.js';
 import LineString from '../geom/LineString.js';
-import {getStrideForLayout} from '../geom/SimpleGeometry.js';
+import TextFeature from './TextFeature.js';
+import {assert} from '../asserts.js';
 import {flipXY} from '../geom/flat/flip.js';
-import {inflateCoordinates} from '../geom/flat/inflate.js';
 import {get as getProjection} from '../proj.js';
-
+import {getStrideForLayout} from '../geom/SimpleGeometry.js';
+import {inflateCoordinates} from '../geom/flat/inflate.js';
+import {transformGeometryWithOptions} from './Feature.js';
 
 /**
  * @typedef {Object} Options
@@ -19,7 +18,6 @@ import {get as getProjection} from '../proj.js';
  * @property {GeometryLayout} [geometryLayout='XY'] Layout of the
  * feature geometries created by the format reader.
  */
-
 
 /**
  * @classdesc
@@ -36,18 +34,16 @@ import {get as getProjection} from '../proj.js';
  * @api
  */
 class Polyline extends TextFeature {
-
   /**
-   * @param {Options=} opt_options Optional configuration object.
+   * @param {Options} [opt_options] Optional configuration object.
    */
   constructor(opt_options) {
     super();
 
     const options = opt_options ? opt_options : {};
 
-
     /**
-     * @inheritDoc
+     * @type {import("../proj/Projection.js").default}
      */
     this.dataProjection = getProjection('EPSG:4326');
 
@@ -59,14 +55,18 @@ class Polyline extends TextFeature {
 
     /**
      * @private
-     * @type {GeometryLayout}
+     * @type {import("../geom/GeometryLayout").default}
      */
-    this.geometryLayout_ = options.geometryLayout ?
-      options.geometryLayout : GeometryLayout.XY;
+    this.geometryLayout_ = options.geometryLayout
+      ? options.geometryLayout
+      : GeometryLayout.XY;
   }
 
   /**
-   * @inheritDoc
+   * @protected
+   * @param {string} text Text.
+   * @param {import("./Feature.js").ReadOptions} [opt_options] Read options.
+   * @return {import("../Feature.js").default} Feature.
    */
   readFeatureFromText(text, opt_options) {
     const geometry = this.readGeometryFromText(text, opt_options);
@@ -74,7 +74,10 @@ class Polyline extends TextFeature {
   }
 
   /**
-   * @inheritDoc
+   * @param {string} text Text.
+   * @param {import("./Feature.js").ReadOptions} [opt_options] Read options.
+   * @protected
+   * @return {Array<Feature>} Features.
    */
   readFeaturesFromText(text, opt_options) {
     const feature = this.readFeatureFromText(text, opt_options);
@@ -82,25 +85,35 @@ class Polyline extends TextFeature {
   }
 
   /**
-   * @inheritDoc
+   * @param {string} text Text.
+   * @param {import("./Feature.js").ReadOptions} [opt_options] Read options.
+   * @protected
+   * @return {import("../geom/Geometry.js").default} Geometry.
    */
   readGeometryFromText(text, opt_options) {
     const stride = getStrideForLayout(this.geometryLayout_);
     const flatCoordinates = decodeDeltas(text, stride, this.factor_);
     flipXY(flatCoordinates, 0, flatCoordinates.length, stride, flatCoordinates);
-    const coordinates = inflateCoordinates(flatCoordinates, 0, flatCoordinates.length, stride);
+    const coordinates = inflateCoordinates(
+      flatCoordinates,
+      0,
+      flatCoordinates.length,
+      stride
+    );
+    const lineString = new LineString(coordinates, this.geometryLayout_);
 
-    return (
-      /** @type {import("../geom/Geometry.js").default} */ (transformWithOptions(
-        new LineString(coordinates, this.geometryLayout_),
-        false,
-        this.adaptOptions(opt_options)
-      ))
+    return transformGeometryWithOptions(
+      lineString,
+      false,
+      this.adaptOptions(opt_options)
     );
   }
 
   /**
-   * @inheritDoc
+   * @param {import("../Feature.js").default} feature Features.
+   * @param {import("./Feature.js").WriteOptions} [opt_options] Write options.
+   * @protected
+   * @return {string} Text.
    */
   writeFeatureText(feature, opt_options) {
     const geometry = feature.getGeometry();
@@ -113,25 +126,37 @@ class Polyline extends TextFeature {
   }
 
   /**
-   * @inheritDoc
+   * @param {Array<import("../Feature.js").default>} features Features.
+   * @param {import("./Feature.js").WriteOptions} [opt_options] Write options.
+   * @protected
+   * @return {string} Text.
    */
   writeFeaturesText(features, opt_options) {
     return this.writeFeatureText(features[0], opt_options);
   }
 
   /**
-   * @inheritDoc
+   * @param {LineString} geometry Geometry.
+   * @param {import("./Feature.js").WriteOptions} [opt_options] Write options.
+   * @protected
+   * @return {string} Text.
    */
   writeGeometryText(geometry, opt_options) {
-    geometry = /** @type {LineString} */
-      (transformWithOptions(geometry, true, this.adaptOptions(opt_options)));
+    geometry =
+      /** @type {LineString} */
+      (
+        transformGeometryWithOptions(
+          geometry,
+          true,
+          this.adaptOptions(opt_options)
+        )
+      );
     const flatCoordinates = geometry.getFlatCoordinates();
     const stride = geometry.getStride();
     flipXY(flatCoordinates, 0, flatCoordinates.length, stride, flatCoordinates);
     return encodeDeltas(flatCoordinates, stride, this.factor_);
   }
 }
-
 
 /**
  * Encode a list of n-dimensional points and return an encoded string
@@ -140,7 +165,7 @@ class Polyline extends TextFeature {
  *
  * @param {Array<number>} numbers A list of n-dimensional points.
  * @param {number} stride The number of dimension of the points in the list.
- * @param {number=} opt_factor The factor by which the numbers will be
+ * @param {number} [opt_factor] The factor by which the numbers will be
  *     multiplied. The remaining decimal places will get rounded away.
  *     Default is `1e5`.
  * @return {string} The encoded string.
@@ -155,7 +180,7 @@ export function encodeDeltas(numbers, stride, opt_factor) {
     lastNumbers[d] = 0;
   }
 
-  for (let i = 0, ii = numbers.length; i < ii;) {
+  for (let i = 0, ii = numbers.length; i < ii; ) {
     for (d = 0; d < stride; ++d, ++i) {
       const num = numbers[i];
       const delta = num - lastNumbers[d];
@@ -168,14 +193,13 @@ export function encodeDeltas(numbers, stride, opt_factor) {
   return encodeFloats(numbers, factor);
 }
 
-
 /**
  * Decode a list of n-dimensional points from an encoded string
  *
  * @param {string} encoded An encoded string.
  * @param {number} stride The number of dimension of the points in the
  *     encoded string.
- * @param {number=} opt_factor The factor by which the resulting numbers will
+ * @param {number} [opt_factor] The factor by which the resulting numbers will
  *     be divided. Default is `1e5`.
  * @return {Array<number>} A list of n-dimensional points.
  * @api
@@ -192,7 +216,7 @@ export function decodeDeltas(encoded, stride, opt_factor) {
 
   const numbers = decodeFloats(encoded, factor);
 
-  for (let i = 0, ii = numbers.length; i < ii;) {
+  for (let i = 0, ii = numbers.length; i < ii; ) {
     for (d = 0; d < stride; ++d, ++i) {
       lastNumbers[d] += numbers[i];
 
@@ -203,14 +227,13 @@ export function decodeDeltas(encoded, stride, opt_factor) {
   return numbers;
 }
 
-
 /**
  * Encode a list of floating point numbers and return an encoded string
  *
  * Attention: This function will modify the passed array!
  *
  * @param {Array<number>} numbers A list of floating point numbers.
- * @param {number=} opt_factor The factor by which the numbers will be
+ * @param {number} [opt_factor] The factor by which the numbers will be
  *     multiplied. The remaining decimal places will get rounded away.
  *     Default is `1e5`.
  * @return {string} The encoded string.
@@ -225,12 +248,11 @@ export function encodeFloats(numbers, opt_factor) {
   return encodeSignedIntegers(numbers);
 }
 
-
 /**
  * Decode a list of floating point numbers from an encoded string
  *
  * @param {string} encoded An encoded string.
- * @param {number=} opt_factor The factor by which the result will be divided.
+ * @param {number} [opt_factor] The factor by which the result will be divided.
  *     Default is `1e5`.
  * @return {Array<number>} A list of floating point numbers.
  * @api
@@ -244,7 +266,6 @@ export function decodeFloats(encoded, opt_factor) {
   return numbers;
 }
 
-
 /**
  * Encode a list of signed integers and return an encoded string
  *
@@ -256,11 +277,10 @@ export function decodeFloats(encoded, opt_factor) {
 export function encodeSignedIntegers(numbers) {
   for (let i = 0, ii = numbers.length; i < ii; ++i) {
     const num = numbers[i];
-    numbers[i] = (num < 0) ? ~(num << 1) : (num << 1);
+    numbers[i] = num < 0 ? ~(num << 1) : num << 1;
   }
   return encodeUnsignedIntegers(numbers);
 }
-
 
 /**
  * Decode a list of signed integers from an encoded string
@@ -272,11 +292,10 @@ export function decodeSignedIntegers(encoded) {
   const numbers = decodeUnsignedIntegers(encoded);
   for (let i = 0, ii = numbers.length; i < ii; ++i) {
     const num = numbers[i];
-    numbers[i] = (num & 1) ? ~(num >> 1) : (num >> 1);
+    numbers[i] = num & 1 ? ~(num >> 1) : num >> 1;
   }
   return numbers;
 }
-
 
 /**
  * Encode a list of unsigned integers and return an encoded string
@@ -291,7 +310,6 @@ export function encodeUnsignedIntegers(numbers) {
   }
   return encoded;
 }
-
 
 /**
  * Decode a list of unsigned integers from an encoded string
@@ -317,7 +335,6 @@ export function decodeUnsignedIntegers(encoded) {
   return numbers;
 }
 
-
 /**
  * Encode one single unsigned integer and return an encoded string
  *
@@ -325,7 +342,8 @@ export function decodeUnsignedIntegers(encoded) {
  * @return {string} The encoded string.
  */
 export function encodeUnsignedInteger(num) {
-  let value, encoded = '';
+  let value,
+    encoded = '';
   while (num >= 0x20) {
     value = (0x20 | (num & 0x1f)) + 63;
     encoded += String.fromCharCode(value);
@@ -335,6 +353,5 @@ export function encodeUnsignedInteger(num) {
   encoded += String.fromCharCode(value);
   return encoded;
 }
-
 
 export default Polyline;

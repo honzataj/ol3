@@ -2,14 +2,18 @@
  * @module ol/style/RegularShape
  */
 
-import {asString} from '../color.js';
+import ImageState from '../ImageState.js';
+import ImageStyle from './Image.js';
+import {asArray} from '../color.js';
 import {asColorLike} from '../colorlike.js';
 import {createCanvasContext2D} from '../dom.js';
-import {CANVAS_LINE_DASH} from '../has.js';
-import ImageState from '../ImageState.js';
-import {defaultStrokeStyle, defaultFillStyle, defaultLineCap, defaultLineWidth, defaultLineJoin, defaultMiterLimit} from '../render/canvas.js';
-import ImageStyle from './Image.js';
-
+import {
+  defaultFillStyle,
+  defaultLineJoin,
+  defaultLineWidth,
+  defaultMiterLimit,
+  defaultStrokeStyle,
+} from '../render/canvas.js';
 
 /**
  * Specify radius for regular polygons, or radius1 and radius2 for stars.
@@ -18,30 +22,27 @@ import ImageStyle from './Image.js';
  * @property {number} points Number of points for stars and regular polygons. In case of a polygon, the number of points
  * is the number of sides.
  * @property {number} [radius] Radius of a regular polygon.
- * @property {number} [radius1] Outer radius of a star.
- * @property {number} [radius2] Inner radius of a star.
+ * @property {number} [radius1] First radius of a star. Ignored if radius is set.
+ * @property {number} [radius2] Second radius of a star.
  * @property {number} [angle=0] Shape's angle in radians. A value of 0 will have one of the shape's point facing up.
+ * @property {Array<number>} [displacement=[0,0]] Displacement of the shape
  * @property {import("./Stroke.js").default} [stroke] Stroke style.
  * @property {number} [rotation=0] Rotation in radians (positive rotation clockwise).
  * @property {boolean} [rotateWithView=false] Whether to rotate the shape with the view.
- * @property {import("./AtlasManager.js").default} [atlasManager] The atlas manager to use for this symbol. When
- * using WebGL it is recommended to use an atlas manager to avoid texture switching. If an atlas manager is given, the
- * symbol is added to an atlas. By default no atlas manager is used.
+ * @property {number|import("../size.js").Size} [scale=1] Scale. Unless two dimensional scaling is required a better
+ * result may be obtained with appropriate settings for `radius`, `radius1` and `radius2`.
  */
-
 
 /**
  * @typedef {Object} RenderOptions
- * @property {import("../colorlike.js").ColorLike} [strokeStyle]
- * @property {number} strokeWidth
- * @property {number} size
- * @property {string} lineCap
- * @property {Array<number>} lineDash
- * @property {number} lineDashOffset
- * @property {string} lineJoin
- * @property {number} miterLimit
+ * @property {import("../colorlike.js").ColorLike} [strokeStyle] StrokeStyle.
+ * @property {number} strokeWidth StrokeWidth.
+ * @property {number} size Size.
+ * @property {Array<number>} lineDash LineDash.
+ * @property {number} lineDashOffset LineDashOffset.
+ * @property {CanvasLineJoin} lineJoin LineJoin.
+ * @property {number} miterLimit MiterLimit.
  */
-
 
 /**
  * @classdesc
@@ -58,27 +59,23 @@ class RegularShape extends ImageStyle {
     /**
      * @type {boolean}
      */
-    const rotateWithView = options.rotateWithView !== undefined ?
-      options.rotateWithView : false;
+    const rotateWithView =
+      options.rotateWithView !== undefined ? options.rotateWithView : false;
 
     super({
       opacity: 1,
       rotateWithView: rotateWithView,
       rotation: options.rotation !== undefined ? options.rotation : 0,
-      scale: 1
+      scale: options.scale !== undefined ? options.scale : 1,
+      displacement:
+        options.displacement !== undefined ? options.displacement : [0, 0],
     });
 
     /**
      * @private
-     * @type {Array<string|number>}
+     * @type {Object<number, HTMLCanvasElement>}
      */
-    this.checksums_ = null;
-
-    /**
-     * @private
-     * @type {HTMLCanvasElement}
-     */
-    this.canvas_ = null;
+    this.canvas_ = undefined;
 
     /**
      * @private
@@ -108,8 +105,8 @@ class RegularShape extends ImageStyle {
      * @protected
      * @type {number}
      */
-    this.radius_ = /** @type {number} */ (options.radius !== undefined ?
-      options.radius : options.radius1);
+    this.radius_ =
+      options.radius !== undefined ? options.radius : options.radius1;
 
     /**
      * @private
@@ -143,32 +140,20 @@ class RegularShape extends ImageStyle {
 
     /**
      * @private
-     * @type {import("../size.js").Size}
+     * @type {RenderOptions}
      */
-    this.imageSize_ = null;
+    this.renderOptions_ = null;
 
-    /**
-     * @private
-     * @type {import("../size.js").Size}
-     */
-    this.hitDetectionImageSize_ = null;
-
-    /**
-     * @protected
-     * @type {import("./AtlasManager.js").default|undefined}
-     */
-    this.atlasManager_ = options.atlasManager;
-
-    this.render_(this.atlasManager_);
-
+    this.render();
   }
 
   /**
-   * Clones the style. If an atlasmanager was provided to the original style it will be used in the cloned style, too.
+   * Clones the style.
    * @return {RegularShape} The cloned style.
    * @api
    */
   clone() {
+    const scale = this.getScale();
     const style = new RegularShape({
       fill: this.getFill() ? this.getFill().clone() : undefined,
       points: this.getPoints(),
@@ -178,15 +163,17 @@ class RegularShape extends ImageStyle {
       stroke: this.getStroke() ? this.getStroke().clone() : undefined,
       rotation: this.getRotation(),
       rotateWithView: this.getRotateWithView(),
-      atlasManager: this.atlasManager_
+      scale: Array.isArray(scale) ? scale.slice() : scale,
+      displacement: this.getDisplacement().slice(),
     });
     style.setOpacity(this.getOpacity());
-    style.setScale(this.getScale());
     return style;
   }
 
   /**
-   * @inheritDoc
+   * Get the anchor point in pixels. The anchor determines the center point for the
+   * symbolizer.
+   * @return {Array<number>} Anchor.
    * @api
    */
   getAnchor() {
@@ -212,43 +199,63 @@ class RegularShape extends ImageStyle {
   }
 
   /**
-   * @inheritDoc
+   * @return {HTMLCanvasElement} Image element.
    */
-  getHitDetectionImage(pixelRatio) {
+  getHitDetectionImage() {
+    if (!this.hitDetectionCanvas_) {
+      this.createHitDetectionCanvas_(this.renderOptions_);
+    }
     return this.hitDetectionCanvas_;
   }
 
   /**
-   * @inheritDoc
+   * Get the image icon.
+   * @param {number} pixelRatio Pixel ratio.
+   * @return {HTMLCanvasElement} Image or Canvas element.
    * @api
    */
   getImage(pixelRatio) {
-    return this.canvas_;
+    let image = this.canvas_[pixelRatio];
+    if (!image) {
+      const renderOptions = this.renderOptions_;
+      const context = createCanvasContext2D(
+        renderOptions.size * pixelRatio,
+        renderOptions.size * pixelRatio
+      );
+      this.draw_(renderOptions, context, pixelRatio);
+
+      image = context.canvas;
+      this.canvas_[pixelRatio] = image;
+    }
+    return image;
   }
 
   /**
-   * @inheritDoc
+   * Get the image pixel ratio.
+   * @param {number} pixelRatio Pixel ratio.
+   * @return {number} Pixel ratio.
+   */
+  getPixelRatio(pixelRatio) {
+    return pixelRatio;
+  }
+
+  /**
+   * @return {import("../size.js").Size} Image size.
    */
   getImageSize() {
-    return this.imageSize_;
+    return this.size_;
   }
 
   /**
-   * @inheritDoc
-   */
-  getHitDetectionImageSize() {
-    return this.hitDetectionImageSize_;
-  }
-
-  /**
-   * @inheritDoc
+   * @return {import("../ImageState.js").default} Image state.
    */
   getImageState() {
     return ImageState.LOADED;
   }
 
   /**
-   * @inheritDoc
+   * Get the origin of the symbolizer.
+   * @return {Array<number>} Origin.
    * @api
    */
   getOrigin() {
@@ -283,7 +290,8 @@ class RegularShape extends ImageStyle {
   }
 
   /**
-   * @inheritDoc
+   * Get the size of the symbolizer (in pixels).
+   * @return {import("../size.js").Size} Size.
    * @api
    */
   getSize() {
@@ -300,30 +308,116 @@ class RegularShape extends ImageStyle {
   }
 
   /**
-   * @inheritDoc
+   * @param {function(import("../events/Event.js").default): void} listener Listener function.
    */
-  listenImageChange(listener, thisArg) {
-    return undefined;
-  }
+  listenImageChange(listener) {}
 
   /**
-   * @inheritDoc
+   * Load not yet loaded URI.
    */
   load() {}
 
   /**
-   * @inheritDoc
+   * @param {function(import("../events/Event.js").default): void} listener Listener function.
    */
-  unlistenImageChange(listener, thisArg) {}
+  unlistenImageChange(listener) {}
 
   /**
-   * @protected
-   * @param {import("./AtlasManager.js").default|undefined} atlasManager An atlas manager.
+   * Calculate additional canvas size needed for the miter.
+   * @param {string} lineJoin Line join
+   * @param {number} strokeWidth Stroke width
+   * @param {number} miterLimit Miter limit
+   * @return {number} Additional canvas size needed
+   * @private
    */
-  render_(atlasManager) {
-    let imageSize;
-    let lineCap = '';
-    let lineJoin = '';
+  calculateLineJoinSize_(lineJoin, strokeWidth, miterLimit) {
+    if (
+      strokeWidth === 0 ||
+      this.points_ === Infinity ||
+      (lineJoin !== 'bevel' && lineJoin !== 'miter')
+    ) {
+      return strokeWidth;
+    }
+    // m  | ^
+    // i  | |\                  .
+    // t >|  #\
+    // e  | |\ \              .
+    // r      \s\
+    //      |  \t\          .                 .
+    //          \r\                      .   .
+    //      |    \o\      .          .  . . .
+    //          e \k\            .  .    . .
+    //      |      \e\  .    .  .       . .
+    //       d      \ \  .  .          . .
+    //      | _ _a_ _\#  .            . .
+    //   r1          / `             . .
+    //      |                       . .
+    //       b     /               . .
+    //      |                     . .
+    //           / r2            . .
+    //      |                        .   .
+    //         /                           .   .
+    //      |α                                   .   .
+    //       /                                         .   .
+    //      ° center
+    let r1 = this.radius_;
+    let r2 = this.radius2_ === undefined ? r1 : this.radius2_;
+    if (r1 < r2) {
+      const tmp = r1;
+      r1 = r2;
+      r2 = tmp;
+    }
+    const points =
+      this.radius2_ === undefined ? this.points_ : this.points_ * 2;
+    const alpha = (2 * Math.PI) / points;
+    const a = r2 * Math.sin(alpha);
+    const b = Math.sqrt(r2 * r2 - a * a);
+    const d = r1 - b;
+    const e = Math.sqrt(a * a + d * d);
+    const miterRatio = e / a;
+    if (lineJoin === 'miter' && miterRatio <= miterLimit) {
+      return miterRatio * strokeWidth;
+    }
+    // Calculate the distnce from center to the stroke corner where
+    // it was cut short because of the miter limit.
+    //              l
+    //        ----+---- <= distance from center to here is maxr
+    //       /####|k ##\
+    //      /#####^#####\
+    //     /#### /+\# s #\
+    //    /### h/+++\# t #\
+    //   /### t/+++++\# r #\
+    //  /### a/+++++++\# o #\
+    // /### p/++ fill +\# k #\
+    ///#### /+++++^+++++\# e #\
+    //#####/+++++/+\+++++\#####\
+    const k = strokeWidth / 2 / miterRatio;
+    const l = (strokeWidth / 2) * (d / e);
+    const maxr = Math.sqrt((r1 + k) * (r1 + k) + l * l);
+    const bevelAdd = maxr - r1;
+    if (this.radius2_ === undefined || lineJoin === 'bevel') {
+      return bevelAdd * 2;
+    }
+    // If outer miter is over the miter limit the inner miter may reach through the
+    // center and be longer than the bevel, same calculation as above but swap r1 / r2.
+    const aa = r1 * Math.sin(alpha);
+    const bb = Math.sqrt(r1 * r1 - aa * aa);
+    const dd = r2 - bb;
+    const ee = Math.sqrt(aa * aa + dd * dd);
+    const innerMiterRatio = ee / aa;
+    if (innerMiterRatio <= miterLimit) {
+      const innerLength = (innerMiterRatio * strokeWidth) / 2 - r2 - r1;
+      return 2 * Math.max(bevelAdd, innerLength);
+    }
+    return bevelAdd * 2;
+  }
+
+  /**
+   * @return {RenderOptions}  The render options
+   * @protected
+   */
+  createRenderOptions() {
+    let lineJoin = defaultLineJoin;
     let miterLimit = 0;
     let lineDash = null;
     let lineDashOffset = 0;
@@ -342,17 +436,9 @@ class RegularShape extends ImageStyle {
       }
       lineDash = this.stroke_.getLineDash();
       lineDashOffset = this.stroke_.getLineDashOffset();
-      if (!CANVAS_LINE_DASH) {
-        lineDash = null;
-        lineDashOffset = 0;
-      }
       lineJoin = this.stroke_.getLineJoin();
       if (lineJoin === undefined) {
         lineJoin = defaultLineJoin;
-      }
-      lineCap = this.stroke_.getLineCap();
-      if (lineCap === undefined) {
-        lineCap = defaultLineCap;
       }
       miterLimit = this.stroke_.getMiterLimit();
       if (miterLimit === undefined) {
@@ -360,104 +446,45 @@ class RegularShape extends ImageStyle {
       }
     }
 
-    let size = 2 * (this.radius_ + strokeWidth) + 1;
+    const add = this.calculateLineJoinSize_(lineJoin, strokeWidth, miterLimit);
+    const maxRadius = Math.max(this.radius_, this.radius2_ || 0);
+    const size = Math.ceil(2 * maxRadius + add);
 
-    /** @type {RenderOptions} */
-    const renderOptions = {
+    return {
       strokeStyle: strokeStyle,
       strokeWidth: strokeWidth,
       size: size,
-      lineCap: lineCap,
       lineDash: lineDash,
       lineDashOffset: lineDashOffset,
       lineJoin: lineJoin,
-      miterLimit: miterLimit
+      miterLimit: miterLimit,
     };
+  }
 
-    if (atlasManager === undefined) {
-      // no atlas manager is used, create a new canvas
-      const context = createCanvasContext2D(size, size);
-      this.canvas_ = context.canvas;
-
-      // canvas.width and height are rounded to the closest integer
-      size = this.canvas_.width;
-      imageSize = size;
-
-      this.draw_(renderOptions, context, 0, 0);
-
-      this.createHitDetectionCanvas_(renderOptions);
-    } else {
-      // an atlas manager is used, add the symbol to an atlas
-      size = Math.round(size);
-
-      const hasCustomHitDetectionImage = !this.fill_;
-      let renderHitDetectionCallback;
-      if (hasCustomHitDetectionImage) {
-        // render the hit-detection image into a separate atlas image
-        renderHitDetectionCallback =
-            this.drawHitDetectionCanvas_.bind(this, renderOptions);
-      }
-
-      const id = this.getChecksum();
-      const info = atlasManager.add(
-        id, size, size, this.draw_.bind(this, renderOptions),
-        renderHitDetectionCallback);
-
-      this.canvas_ = info.image;
-      this.origin_ = [info.offsetX, info.offsetY];
-      imageSize = info.image.width;
-
-      if (hasCustomHitDetectionImage) {
-        this.hitDetectionCanvas_ = info.hitImage;
-        this.hitDetectionImageSize_ =
-            [info.hitImage.width, info.hitImage.height];
-      } else {
-        this.hitDetectionCanvas_ = this.canvas_;
-        this.hitDetectionImageSize_ = [imageSize, imageSize];
-      }
-    }
-
-    this.anchor_ = [size / 2, size / 2];
+  /**
+   * @protected
+   */
+  render() {
+    this.renderOptions_ = this.createRenderOptions();
+    const size = this.renderOptions_.size;
+    const displacement = this.getDisplacement();
+    this.canvas_ = {};
+    this.anchor_ = [size / 2 - displacement[0], size / 2 + displacement[1]];
     this.size_ = [size, size];
-    this.imageSize_ = [imageSize, imageSize];
   }
 
   /**
    * @private
    * @param {RenderOptions} renderOptions Render options.
    * @param {CanvasRenderingContext2D} context The rendering context.
-   * @param {number} x The origin for the symbol (x).
-   * @param {number} y The origin for the symbol (y).
+   * @param {number} pixelRatio The pixel ratio.
    */
-  draw_(renderOptions, context, x, y) {
-    let i, angle0, radiusC;
-    // reset transform
-    context.setTransform(1, 0, 0, 1, 0, 0);
+  draw_(renderOptions, context, pixelRatio) {
+    context.scale(pixelRatio, pixelRatio);
+    // set origin to canvas center
+    context.translate(renderOptions.size / 2, renderOptions.size / 2);
 
-    // then move to (x, y)
-    context.translate(x, y);
-
-    context.beginPath();
-
-    let points = this.points_;
-    if (points === Infinity) {
-      context.arc(
-        renderOptions.size / 2, renderOptions.size / 2,
-        this.radius_, 0, 2 * Math.PI, true);
-    } else {
-      const radius2 = (this.radius2_ !== undefined) ? this.radius2_
-        : this.radius_;
-      if (radius2 !== this.radius_) {
-        points = 2 * points;
-      }
-      for (i = 0; i <= points; i++) {
-        angle0 = i * 2 * Math.PI / points - Math.PI / 2 + this.angle_;
-        radiusC = i % 2 === 0 ? this.radius_ : radius2;
-        context.lineTo(renderOptions.size / 2 + radiusC * Math.cos(angle0),
-          renderOptions.size / 2 + radiusC * Math.sin(angle0));
-      }
-    }
-
+    this.createPath_(context);
 
     if (this.fill_) {
       let color = this.fill_.getColor();
@@ -470,16 +497,14 @@ class RegularShape extends ImageStyle {
     if (this.stroke_) {
       context.strokeStyle = renderOptions.strokeStyle;
       context.lineWidth = renderOptions.strokeWidth;
-      if (renderOptions.lineDash) {
+      if (context.setLineDash && renderOptions.lineDash) {
         context.setLineDash(renderOptions.lineDash);
         context.lineDashOffset = renderOptions.lineDashOffset;
       }
-      context.lineCap = /** @type {CanvasLineCap} */ (renderOptions.lineCap);
-      context.lineJoin = /** @type {CanvasLineJoin} */ (renderOptions.lineJoin);
+      context.lineJoin = renderOptions.lineJoin;
       context.miterLimit = renderOptions.miterLimit;
       context.stroke();
     }
-    context.closePath();
   }
 
   /**
@@ -487,57 +512,73 @@ class RegularShape extends ImageStyle {
    * @param {RenderOptions} renderOptions Render options.
    */
   createHitDetectionCanvas_(renderOptions) {
-    this.hitDetectionImageSize_ = [renderOptions.size, renderOptions.size];
     if (this.fill_) {
-      this.hitDetectionCanvas_ = this.canvas_;
-      return;
+      let color = this.fill_.getColor();
+
+      // determine if fill is transparent (or pattern or gradient)
+      let opacity = 0;
+      if (typeof color === 'string') {
+        color = asArray(color);
+      }
+      if (color === null) {
+        opacity = 1;
+      } else if (Array.isArray(color)) {
+        opacity = color.length === 4 ? color[3] : 1;
+      }
+      if (opacity === 0) {
+        // if a transparent fill style is set, create an extra hit-detection image
+        // with a default fill style
+        const context = createCanvasContext2D(
+          renderOptions.size,
+          renderOptions.size
+        );
+        this.hitDetectionCanvas_ = context.canvas;
+
+        this.drawHitDetectionCanvas_(renderOptions, context);
+      }
     }
+    if (!this.hitDetectionCanvas_) {
+      this.hitDetectionCanvas_ = this.getImage(1);
+    }
+  }
 
-    // if no fill style is set, create an extra hit-detection image with a
-    // default fill style
-    const context = createCanvasContext2D(renderOptions.size, renderOptions.size);
-    this.hitDetectionCanvas_ = context.canvas;
-
-    this.drawHitDetectionCanvas_(renderOptions, context, 0, 0);
+  /**
+   * @private
+   * @param {CanvasRenderingContext2D} context The context to draw in.
+   */
+  createPath_(context) {
+    let points = this.points_;
+    const radius = this.radius_;
+    if (points === Infinity) {
+      context.arc(0, 0, radius, 0, 2 * Math.PI);
+    } else {
+      const radius2 = this.radius2_ === undefined ? radius : this.radius2_;
+      if (this.radius2_ !== undefined) {
+        points *= 2;
+      }
+      const startAngle = this.angle_ - Math.PI / 2;
+      const step = (2 * Math.PI) / points;
+      for (let i = 0; i < points; i++) {
+        const angle0 = startAngle + i * step;
+        const radiusC = i % 2 === 0 ? radius : radius2;
+        context.lineTo(radiusC * Math.cos(angle0), radiusC * Math.sin(angle0));
+      }
+      context.closePath();
+    }
   }
 
   /**
    * @private
    * @param {RenderOptions} renderOptions Render options.
    * @param {CanvasRenderingContext2D} context The context.
-   * @param {number} x The origin for the symbol (x).
-   * @param {number} y The origin for the symbol (y).
    */
-  drawHitDetectionCanvas_(renderOptions, context, x, y) {
-    // reset transform
-    context.setTransform(1, 0, 0, 1, 0, 0);
+  drawHitDetectionCanvas_(renderOptions, context) {
+    // set origin to canvas center
+    context.translate(renderOptions.size / 2, renderOptions.size / 2);
 
-    // then move to (x, y)
-    context.translate(x, y);
+    this.createPath_(context);
 
-    context.beginPath();
-
-    let points = this.points_;
-    if (points === Infinity) {
-      context.arc(
-        renderOptions.size / 2, renderOptions.size / 2,
-        this.radius_, 0, 2 * Math.PI, true);
-    } else {
-      const radius2 = (this.radius2_ !== undefined) ? this.radius2_
-        : this.radius_;
-      if (radius2 !== this.radius_) {
-        points = 2 * points;
-      }
-      let i, radiusC, angle0;
-      for (i = 0; i <= points; i++) {
-        angle0 = i * 2 * Math.PI / points - Math.PI / 2 + this.angle_;
-        radiusC = i % 2 === 0 ? this.radius_ : radius2;
-        context.lineTo(renderOptions.size / 2 + radiusC * Math.cos(angle0),
-          renderOptions.size / 2 + radiusC * Math.sin(angle0));
-      }
-    }
-
-    context.fillStyle = asString(defaultFillStyle);
+    context.fillStyle = defaultFillStyle;
     context.fill();
     if (this.stroke_) {
       context.strokeStyle = renderOptions.strokeStyle;
@@ -546,41 +587,11 @@ class RegularShape extends ImageStyle {
         context.setLineDash(renderOptions.lineDash);
         context.lineDashOffset = renderOptions.lineDashOffset;
       }
+      context.lineJoin = renderOptions.lineJoin;
+      context.miterLimit = renderOptions.miterLimit;
       context.stroke();
     }
-    context.closePath();
-  }
-
-  /**
-   * @return {string} The checksum.
-   */
-  getChecksum() {
-    const strokeChecksum = this.stroke_ ?
-      this.stroke_.getChecksum() : '-';
-    const fillChecksum = this.fill_ ?
-      this.fill_.getChecksum() : '-';
-
-    const recalculate = !this.checksums_ ||
-        (strokeChecksum != this.checksums_[1] ||
-        fillChecksum != this.checksums_[2] ||
-        this.radius_ != this.checksums_[3] ||
-        this.radius2_ != this.checksums_[4] ||
-        this.angle_ != this.checksums_[5] ||
-        this.points_ != this.checksums_[6]);
-
-    if (recalculate) {
-      const checksum = 'r' + strokeChecksum + fillChecksum +
-          (this.radius_ !== undefined ? this.radius_.toString() : '-') +
-          (this.radius2_ !== undefined ? this.radius2_.toString() : '-') +
-          (this.angle_ !== undefined ? this.angle_.toString() : '-') +
-          (this.points_ !== undefined ? this.points_.toString() : '-');
-      this.checksums_ = [checksum, strokeChecksum, fillChecksum,
-        this.radius_, this.radius2_, this.angle_, this.points_];
-    }
-
-    return /** @type {string} */ (this.checksums_[0]);
   }
 }
-
 
 export default RegularShape;

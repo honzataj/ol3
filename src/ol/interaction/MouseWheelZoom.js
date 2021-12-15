@@ -1,47 +1,38 @@
 /**
  * @module ol/interaction/MouseWheelZoom
  */
-import ViewHint from '../ViewHint.js';
-import {always} from '../events/condition.js';
-import {easeOut} from '../easing.js';
 import EventType from '../events/EventType.js';
-import {DEVICE_PIXEL_RATIO, FIREFOX, SAFARI} from '../has.js';
 import Interaction, {zoomByDelta} from './Interaction.js';
+import {DEVICE_PIXEL_RATIO, FIREFOX} from '../has.js';
+import {all, always, focusWithTabindex} from '../events/condition.js';
 import {clamp} from '../math.js';
-
-
-/**
- * Maximum mouse wheel delta.
- * @type {number}
- */
-const MAX_DELTA = 1;
-
 
 /**
  * @enum {string}
  */
 export const Mode = {
   TRACKPAD: 'trackpad',
-  WHEEL: 'wheel'
+  WHEEL: 'wheel',
 };
-
 
 /**
  * @typedef {Object} Options
  * @property {import("../events/condition.js").Condition} [condition] A function that
  * takes an {@link module:ol/MapBrowserEvent~MapBrowserEvent} and returns a
  * boolean to indicate whether that event should be handled. Default is
- * {@link module:ol/events/condition~always}.
+ * {@link module:ol/events/condition.always}.
+ * @property {boolean} [onFocusOnly=false] When the map's target has a `tabindex` attribute set,
+ * the interaction will only handle events when the map has the focus.
+ * @property {number} [maxDelta=1] Maximum mouse wheel delta.
  * @property {number} [duration=250] Animation duration in milliseconds.
  * @property {number} [timeout=80] Mouse wheel timeout duration in milliseconds.
- * @property {boolean} [constrainResolution=false] When using a trackpad or
- * magic mouse, zoom to the closest integer zoom level after the scroll gesture
- * ends.
  * @property {boolean} [useAnchor=true] Enable zooming using the mouse's
  * location as the anchor. When set to `false`, zooming in and out will zoom to
  * the center of the screen instead of zooming on the mouse's location.
+ * @property {boolean} [constrainResolution=false] If true, the mouse wheel zoom
+ * event will always animate to the closest zoom level after an interaction;
+ * false means intermediary zoom levels are allowed.
  */
-
 
 /**
  * @classdesc
@@ -50,19 +41,32 @@ export const Mode = {
  */
 class MouseWheelZoom extends Interaction {
   /**
-   * @param {Options=} opt_options Options.
+   * @param {Options} [opt_options] Options.
    */
   constructor(opt_options) {
-
     const options = opt_options ? opt_options : {};
 
-    super(/** @type {import("./Interaction.js").InteractionOptions} */ (options));
+    super(
+      /** @type {import("./Interaction.js").InteractionOptions} */ (options)
+    );
 
     /**
      * @private
      * @type {number}
      */
-    this.delta_ = 0;
+    this.totalDelta_ = 0;
+
+    /**
+     * @private
+     * @type {number}
+     */
+    this.lastDelta_ = 0;
+
+    /**
+     * @private
+     * @type {number}
+     */
+    this.maxDelta_ = options.maxDelta !== undefined ? options.maxDelta : 1;
 
     /**
      * @private
@@ -80,19 +84,27 @@ class MouseWheelZoom extends Interaction {
      * @private
      * @type {boolean}
      */
-    this.useAnchor_ = options.useAnchor !== undefined ? options.useAnchor : true;
+    this.useAnchor_ =
+      options.useAnchor !== undefined ? options.useAnchor : true;
 
     /**
      * @private
      * @type {boolean}
      */
-    this.constrainResolution_ = options.constrainResolution || false;
+    this.constrainResolution_ =
+      options.constrainResolution !== undefined
+        ? options.constrainResolution
+        : false;
+
+    const condition = options.condition ? options.condition : always;
 
     /**
      * @private
      * @type {import("../events/condition.js").Condition}
      */
-    this.condition_ = options.condition ? options.condition : always;
+    this.condition_ = options.onFocusOnly
+      ? all(focusWithTabindex, condition)
+      : condition;
 
     /**
      * @private
@@ -135,44 +147,42 @@ class MouseWheelZoom extends Interaction {
      * @private
      * @type {number}
      */
-    this.trackpadDeltaPerZoom_ = 300;
-
-    /**
-     * The zoom factor by which scroll zooming is allowed to exceed the limits.
-     * @private
-     * @type {number}
-     */
-    this.trackpadZoomBuffer_ = 1.5;
-
+    this.deltaPerZoom_ = 300;
   }
 
   /**
    * @private
    */
-  decrementInteractingHint_() {
+  endInteraction_() {
     this.trackpadTimeoutId_ = undefined;
     const view = this.getMap().getView();
-    view.setHint(ViewHint.INTERACTING, -1);
+    view.endInteraction(
+      undefined,
+      this.lastDelta_ ? (this.lastDelta_ > 0 ? 1 : -1) : 0,
+      this.lastAnchor_
+    );
   }
 
   /**
    * Handles the {@link module:ol/MapBrowserEvent map browser event} (if it was a mousewheel-event) and eventually
    * zooms the map.
-   * @override
+   * @param {import("../MapBrowserEvent.js").default} mapBrowserEvent Map browser event.
+   * @return {boolean} `false` to stop event propagation.
    */
   handleEvent(mapBrowserEvent) {
     if (!this.condition_(mapBrowserEvent)) {
       return true;
     }
     const type = mapBrowserEvent.type;
-    if (type !== EventType.WHEEL && type !== EventType.MOUSEWHEEL) {
+    if (type !== EventType.WHEEL) {
       return true;
     }
 
-    mapBrowserEvent.preventDefault();
-
     const map = mapBrowserEvent.map;
-    const wheelEvent = /** @type {WheelEvent} */ (mapBrowserEvent.originalEvent);
+    const wheelEvent = /** @type {WheelEvent} */ (
+      mapBrowserEvent.originalEvent
+    );
+    wheelEvent.preventDefault();
 
     if (this.useAnchor_) {
       this.lastAnchor_ = mapBrowserEvent.coordinate;
@@ -183,22 +193,18 @@ class MouseWheelZoom extends Interaction {
     let delta;
     if (mapBrowserEvent.type == EventType.WHEEL) {
       delta = wheelEvent.deltaY;
-      if (FIREFOX &&
-          wheelEvent.deltaMode === WheelEvent.DOM_DELTA_PIXEL) {
+      if (FIREFOX && wheelEvent.deltaMode === WheelEvent.DOM_DELTA_PIXEL) {
         delta /= DEVICE_PIXEL_RATIO;
       }
       if (wheelEvent.deltaMode === WheelEvent.DOM_DELTA_LINE) {
         delta *= 40;
       }
-    } else if (mapBrowserEvent.type == EventType.MOUSEWHEEL) {
-      delta = -wheelEvent.wheelDeltaY;
-      if (SAFARI) {
-        delta /= 3;
-      }
     }
 
     if (delta === 0) {
       return false;
+    } else {
+      this.lastDelta_ = delta;
     }
 
     const now = Date.now();
@@ -208,70 +214,40 @@ class MouseWheelZoom extends Interaction {
     }
 
     if (!this.mode_ || now - this.startTime_ > this.trackpadEventGap_) {
-      this.mode_ = Math.abs(delta) < 4 ?
-        Mode.TRACKPAD :
-        Mode.WHEEL;
+      this.mode_ = Math.abs(delta) < 4 ? Mode.TRACKPAD : Mode.WHEEL;
     }
 
-    if (this.mode_ === Mode.TRACKPAD) {
-      const view = map.getView();
+    const view = map.getView();
+    if (
+      this.mode_ === Mode.TRACKPAD &&
+      !(view.getConstrainResolution() || this.constrainResolution_)
+    ) {
       if (this.trackpadTimeoutId_) {
         clearTimeout(this.trackpadTimeoutId_);
       } else {
-        view.setHint(ViewHint.INTERACTING, 1);
+        if (view.getAnimating()) {
+          view.cancelAnimations();
+        }
+        view.beginInteraction();
       }
-      this.trackpadTimeoutId_ = setTimeout(this.decrementInteractingHint_.bind(this), this.trackpadEventGap_);
-      let resolution = view.getResolution() * Math.pow(2, delta / this.trackpadDeltaPerZoom_);
-      const minResolution = view.getMinResolution();
-      const maxResolution = view.getMaxResolution();
-      let rebound = 0;
-      if (resolution < minResolution) {
-        resolution = Math.max(resolution, minResolution / this.trackpadZoomBuffer_);
-        rebound = 1;
-      } else if (resolution > maxResolution) {
-        resolution = Math.min(resolution, maxResolution * this.trackpadZoomBuffer_);
-        rebound = -1;
-      }
-      if (this.lastAnchor_) {
-        const center = view.calculateCenterZoom(resolution, this.lastAnchor_);
-        view.setCenter(view.constrainCenter(center));
-      }
-      view.setResolution(resolution);
-
-      if (rebound === 0 && this.constrainResolution_) {
-        view.animate({
-          resolution: view.constrainResolution(resolution, delta > 0 ? -1 : 1),
-          easing: easeOut,
-          anchor: this.lastAnchor_,
-          duration: this.duration_
-        });
-      }
-
-      if (rebound > 0) {
-        view.animate({
-          resolution: minResolution,
-          easing: easeOut,
-          anchor: this.lastAnchor_,
-          duration: 500
-        });
-      } else if (rebound < 0) {
-        view.animate({
-          resolution: maxResolution,
-          easing: easeOut,
-          anchor: this.lastAnchor_,
-          duration: 500
-        });
-      }
+      this.trackpadTimeoutId_ = setTimeout(
+        this.endInteraction_.bind(this),
+        this.timeout_
+      );
+      view.adjustZoom(-delta / this.deltaPerZoom_, this.lastAnchor_);
       this.startTime_ = now;
       return false;
     }
 
-    this.delta_ += delta;
+    this.totalDelta_ += delta;
 
     const timeLeft = Math.max(this.timeout_ - (now - this.startTime_), 0);
 
     clearTimeout(this.timeoutId_);
-    this.timeoutId_ = setTimeout(this.handleWheelZoom_.bind(this, map), timeLeft);
+    this.timeoutId_ = setTimeout(
+      this.handleWheelZoom_.bind(this, map),
+      timeLeft
+    );
 
     return false;
   }
@@ -285,11 +261,20 @@ class MouseWheelZoom extends Interaction {
     if (view.getAnimating()) {
       view.cancelAnimations();
     }
-    const maxDelta = MAX_DELTA;
-    const delta = clamp(this.delta_, -maxDelta, maxDelta);
-    zoomByDelta(view, -delta, this.lastAnchor_, this.duration_);
+    let delta =
+      -clamp(
+        this.totalDelta_,
+        -this.maxDelta_ * this.deltaPerZoom_,
+        this.maxDelta_ * this.deltaPerZoom_
+      ) / this.deltaPerZoom_;
+    if (view.getConstrainResolution() || this.constrainResolution_) {
+      // view has a zoom constraint, zoom by 1
+      delta = delta ? (delta > 0 ? 1 : -1) : 0;
+    }
+    zoomByDelta(view, delta, this.lastAnchor_, this.duration_);
+
     this.mode_ = undefined;
-    this.delta_ = 0;
+    this.totalDelta_ = 0;
     this.lastAnchor_ = null;
     this.startTime_ = undefined;
     this.timeoutId_ = undefined;

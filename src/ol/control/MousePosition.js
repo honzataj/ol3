@@ -1,12 +1,16 @@
 /**
  * @module ol/control/MousePosition
  */
-import {listen} from '../events.js';
-import EventType from '../events/EventType.js';
-import {getChangeEventType} from '../Object.js';
-import Control from './Control.js';
-import {getTransformFromProjections, identityTransform, get as getProjection} from '../proj.js';
 
+import Control from './Control.js';
+import EventType from '../pointer/EventType.js';
+import {
+  get as getProjection,
+  getTransformFromProjections,
+  getUserProjection,
+  identityTransform,
+} from '../proj.js';
+import {listen} from '../events.js';
 
 /**
  * @type {string}
@@ -18,24 +22,33 @@ const PROJECTION = 'projection';
  */
 const COORDINATE_FORMAT = 'coordinateFormat';
 
+/***
+ * @template Return
+ * @typedef {import("../Observable").OnSignature<import("../Observable").EventTypes, import("../events/Event.js").default, Return> &
+ *   import("../Observable").OnSignature<import("../ObjectEventType").Types|
+ *     'change:coordinateFormat'|'change:projection', import("../Object").ObjectEvent, Return> &
+ *   import("../Observable").CombinedOnSignature<import("../Observable").EventTypes|import("../ObjectEventType").Types|
+ *     'change:coordinateFormat'|'change:projection', Return>} MousePositionOnSignature
+ */
 
 /**
  * @typedef {Object} Options
  * @property {string} [className='ol-mouse-position'] CSS class name.
  * @property {import("../coordinate.js").CoordinateFormat} [coordinateFormat] Coordinate format.
  * @property {import("../proj.js").ProjectionLike} [projection] Projection. Default is the view projection.
- * @property {function(import("../MapEvent.js").default)} [render] Function called when the
+ * @property {function(import("../MapEvent.js").default):void} [render] Function called when the
  * control should be re-rendered. This is called in a `requestAnimationFrame`
  * callback.
  * @property {HTMLElement|string} [target] Specify a target if you want the
  * control to be rendered outside of the map's viewport.
- * @property {string} [undefinedHTML='&#160;'] Markup to show when coordinates are not
- * available (e.g. when the pointer leaves the map viewport).  By default, the last position
- * will be replaced with `'&#160;'` (`&nbsp;`) when the pointer leaves the viewport.  To
- * retain the last rendered position, set this option to something falsey (like an empty
- * string `''`).
+ * @property {string|boolean} [placeholder] Markup to show when the mouse position is not
+ * available (e.g. when the pointer leaves the map viewport).  By default, a non-breaking space
+ * is rendered when the mouse leaves the viewport.  To render something else, provide a string
+ * to be used as the text content (e.g. 'no position' or '' for an empty string).  Set the placeholder
+ * to `false` to retain the last position when the mouse leaves the viewport.  In a future release, this
+ * will be the default behavior.
+ * @property {string} [undefinedHTML='&#160;'] This option is deprecated.  Use the `placeholder` option instead.
  */
-
 
 /**
  * @classdesc
@@ -50,26 +63,38 @@ const COORDINATE_FORMAT = 'coordinateFormat';
  * @api
  */
 class MousePosition extends Control {
-
   /**
-   * @param {Options=} opt_options Mouse position options.
+   * @param {Options} [opt_options] Mouse position options.
    */
   constructor(opt_options) {
-
     const options = opt_options ? opt_options : {};
 
     const element = document.createElement('div');
-    element.className = options.className !== undefined ? options.className : 'ol-mouse-position';
+    element.className =
+      options.className !== undefined ? options.className : 'ol-mouse-position';
 
     super({
       element: element,
-      render: options.render || render,
-      target: options.target
+      render: options.render,
+      target: options.target,
     });
 
-    listen(this,
-      getChangeEventType(PROJECTION),
-      this.handleProjectionChanged_, this);
+    /***
+     * @type {MousePositionOnSignature<import("../events").EventsKey>}
+     */
+    this.on;
+
+    /***
+     * @type {MousePositionOnSignature<import("../events").EventsKey>}
+     */
+    this.once;
+
+    /***
+     * @type {MousePositionOnSignature<void>}
+     */
+    this.un;
+
+    this.addChangeListener(PROJECTION, this.handleProjectionChanged_);
 
     if (options.coordinateFormat) {
       this.setCoordinateFormat(options.coordinateFormat);
@@ -79,16 +104,41 @@ class MousePosition extends Control {
     }
 
     /**
+     * Change this to `false` when removing the deprecated `undefinedHTML` option.
+     * @type {boolean}
+     */
+    let renderOnMouseOut = true;
+
+    /**
+     * @type {string}
+     */
+    let placeholder = '&#160;';
+
+    if ('undefinedHTML' in options) {
+      // deprecated behavior
+      if (options.undefinedHTML !== undefined) {
+        placeholder = options.undefinedHTML;
+      }
+      renderOnMouseOut = !!placeholder;
+    } else if ('placeholder' in options) {
+      if (options.placeholder === false) {
+        renderOnMouseOut = false;
+      } else {
+        placeholder = String(options.placeholder);
+      }
+    }
+
+    /**
      * @private
      * @type {string}
      */
-    this.undefinedHTML_ = options.undefinedHTML !== undefined ? options.undefinedHTML : '&#160;';
+    this.placeholder_ = placeholder;
 
     /**
      * @private
      * @type {boolean}
      */
-    this.renderOnMouseOut_ = !!this.undefinedHTML_;
+    this.renderOnMouseOut_ = renderOnMouseOut;
 
     /**
      * @private
@@ -98,7 +148,7 @@ class MousePosition extends Control {
 
     /**
      * @private
-     * @type {import("../proj/Projection.js").default}
+     * @type {?import("../proj/Projection.js").default}
      */
     this.mapProjection_ = null;
 
@@ -107,13 +157,6 @@ class MousePosition extends Control {
      * @type {?import("../proj.js").TransformFunction}
      */
     this.transform_ = null;
-
-    /**
-     * @private
-     * @type {import("../pixel.js").Pixel}
-     */
-    this.lastMouseMovePixel_ = null;
-
   }
 
   /**
@@ -132,8 +175,8 @@ class MousePosition extends Control {
    * @api
    */
   getCoordinateFormat() {
-    return (
-      /** @type {import("../coordinate.js").CoordinateFormat|undefined} */ (this.get(COORDINATE_FORMAT))
+    return /** @type {import("../coordinate.js").CoordinateFormat|undefined} */ (
+      this.get(COORDINATE_FORMAT)
     );
   }
 
@@ -145,19 +188,18 @@ class MousePosition extends Control {
    * @api
    */
   getProjection() {
-    return (
-      /** @type {import("../proj/Projection.js").default|undefined} */ (this.get(PROJECTION))
+    return /** @type {import("../proj/Projection.js").default|undefined} */ (
+      this.get(PROJECTION)
     );
   }
 
   /**
-   * @param {Event} event Browser event.
+   * @param {MouseEvent} event Browser event.
    * @protected
    */
   handleMouseMove(event) {
     const map = this.getMap();
-    this.lastMouseMovePixel_ = map.getEventPixel(event);
-    this.updateHTML_(this.lastMouseMovePixel_);
+    this.updateHTML_(map.getEventPixel(event));
   }
 
   /**
@@ -166,11 +208,13 @@ class MousePosition extends Control {
    */
   handleMouseOut(event) {
     this.updateHTML_(null);
-    this.lastMouseMovePixel_ = null;
   }
 
   /**
-   * @inheritDoc
+   * Remove the control from its current map and attach it to the new map.
+   * Subclasses may set up event handlers to get notified about changes to
+   * the map here.
+   * @param {import("../PluggableMap.js").default} map Map.
    * @api
    */
   setMap(map) {
@@ -178,15 +222,14 @@ class MousePosition extends Control {
     if (map) {
       const viewport = map.getViewport();
       this.listenerKeys.push(
-        listen(viewport, EventType.MOUSEMOVE, this.handleMouseMove, this),
-        listen(viewport, EventType.TOUCHSTART, this.handleMouseMove, this)
+        listen(viewport, EventType.POINTERMOVE, this.handleMouseMove, this)
       );
       if (this.renderOnMouseOut_) {
         this.listenerKeys.push(
-          listen(viewport, EventType.MOUSEOUT, this.handleMouseOut, this),
-          listen(viewport, EventType.TOUCHEND, this.handleMouseOut, this)
+          listen(viewport, EventType.POINTEROUT, this.handleMouseOut, this)
         );
       }
+      this.updateHTML_(null);
     }
   }
 
@@ -217,20 +260,29 @@ class MousePosition extends Control {
    * @private
    */
   updateHTML_(pixel) {
-    let html = this.undefinedHTML_;
+    let html = this.placeholder_;
     if (pixel && this.mapProjection_) {
       if (!this.transform_) {
         const projection = this.getProjection();
         if (projection) {
           this.transform_ = getTransformFromProjections(
-            this.mapProjection_, projection);
+            this.mapProjection_,
+            projection
+          );
         } else {
           this.transform_ = identityTransform;
         }
       }
       const map = this.getMap();
-      const coordinate = map.getCoordinateFromPixel(pixel);
+      const coordinate = map.getCoordinateFromPixelInternal(pixel);
       if (coordinate) {
+        const userProjection = getUserProjection();
+        if (userProjection) {
+          this.transform_ = getTransformFromProjections(
+            this.mapProjection_,
+            userProjection
+          );
+        }
         this.transform_(coordinate, coordinate);
         const coordinateFormat = this.getCoordinateFormat();
         if (coordinateFormat) {
@@ -245,27 +297,24 @@ class MousePosition extends Control {
       this.renderedHTML_ = html;
     }
   }
-}
 
-
-/**
- * Update the projection. Rendering of the coordinates is done in
- * `handleMouseMove` and `handleMouseUp`.
- * @param {import("../MapEvent.js").default} mapEvent Map event.
- * @this {MousePosition}
- * @api
- */
-export function render(mapEvent) {
-  const frameState = mapEvent.frameState;
-  if (!frameState) {
-    this.mapProjection_ = null;
-  } else {
-    if (this.mapProjection_ != frameState.viewState.projection) {
-      this.mapProjection_ = frameState.viewState.projection;
-      this.transform_ = null;
+  /**
+   * Update the projection. Rendering of the coordinates is done in
+   * `handleMouseMove` and `handleMouseUp`.
+   * @param {import("../MapEvent.js").default} mapEvent Map event.
+   * @override
+   */
+  render(mapEvent) {
+    const frameState = mapEvent.frameState;
+    if (!frameState) {
+      this.mapProjection_ = null;
+    } else {
+      if (this.mapProjection_ != frameState.viewState.projection) {
+        this.mapProjection_ = frameState.viewState.projection;
+        this.transform_ = null;
+      }
     }
   }
 }
-
 
 export default MousePosition;

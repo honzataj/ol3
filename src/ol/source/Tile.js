@@ -1,31 +1,44 @@
 /**
  * @module ol/source/Tile
  */
-import {abstract} from '../util.js';
+import Event from '../events/Event.js';
+import Source from './Source.js';
 import TileCache from '../TileCache.js';
 import TileState from '../TileState.js';
-import Event from '../events/Event.js';
+import {abstract} from '../util.js';
+import {assert} from '../asserts.js';
 import {equivalent} from '../proj.js';
-import {toSize, scale as scaleSize} from '../size.js';
-import Source from './Source.js';
 import {getKeyZXY, withinExtentAndZ} from '../tilecoord.js';
-import {wrapX, getForProjection as getTileGridForProjection} from '../tilegrid.js';
+import {
+  getForProjection as getTileGridForProjection,
+  wrapX,
+} from '../tilegrid.js';
+import {scale as scaleSize, toSize} from '../size.js';
+
+/***
+ * @template Return
+ * @typedef {import("../Observable").OnSignature<import("../Observable").EventTypes, import("../events/Event.js").default, Return> &
+ *   import("../Observable").OnSignature<import("../ObjectEventType").Types, import("../Object").ObjectEvent, Return> &
+ *   import("../Observable").OnSignature<import("./TileEventType").TileSourceEventTypes, TileSourceEvent, Return> &
+ *   import("../Observable").CombinedOnSignature<import("../Observable").EventTypes|import("../ObjectEventType").Types|
+ *     import("./TileEventType").TileSourceEventTypes, Return>} TileSourceOnSignature
+ */
 
 /**
  * @typedef {Object} Options
- * @property {import("./Source.js").AttributionLike} [attributions]
+ * @property {import("./Source.js").AttributionLike} [attributions] Attributions.
  * @property {boolean} [attributionsCollapsible=true] Attributions are collapsible.
- * @property {number} [cacheSize]
- * @property {boolean} [opaque]
- * @property {number} [tilePixelRatio]
- * @property {import("../proj.js").ProjectionLike} [projection]
- * @property {import("./State.js").default} [state]
- * @property {import("../tilegrid/TileGrid.js").default} [tileGrid]
- * @property {boolean} [wrapX=true]
- * @property {number} [transition]
- * @property {string} [key]
+ * @property {number} [cacheSize] CacheSize.
+ * @property {boolean} [opaque=false] Whether the layer is opaque.
+ * @property {number} [tilePixelRatio] TilePixelRatio.
+ * @property {import("../proj.js").ProjectionLike} [projection] Projection.
+ * @property {import("./State.js").default} [state] State.
+ * @property {import("../tilegrid/TileGrid.js").default} [tileGrid] TileGrid.
+ * @property {boolean} [wrapX=true] WrapX.
+ * @property {number} [transition] Transition.
+ * @property {string} [key] Key.
+ * @property {number|import("../array.js").NearestDirectionFunction} [zDirection=0] ZDirection.
  */
-
 
 /**
  * @classdesc
@@ -40,14 +53,28 @@ class TileSource extends Source {
    * @param {Options} options SourceTile source options.
    */
   constructor(options) {
-
     super({
       attributions: options.attributions,
       attributionsCollapsible: options.attributionsCollapsible,
       projection: options.projection,
       state: options.state,
-      wrapX: options.wrapX
+      wrapX: options.wrapX,
     });
+
+    /***
+     * @type {TileSourceOnSignature<import("../events").EventsKey>}
+     */
+    this.on;
+
+    /***
+     * @type {TileSourceOnSignature<import("../events").EventsKey>}
+     */
+    this.once;
+
+    /***
+     * @type {TileSourceOnSignature<void>}
+     */
+    this.un;
 
     /**
      * @private
@@ -59,8 +86,8 @@ class TileSource extends Source {
      * @private
      * @type {number}
      */
-    this.tilePixelRatio_ = options.tilePixelRatio !== undefined ?
-      options.tilePixelRatio : 1;
+    this.tilePixelRatio_ =
+      options.tilePixelRatio !== undefined ? options.tilePixelRatio : 1;
 
     /**
      * @protected
@@ -68,11 +95,17 @@ class TileSource extends Source {
      */
     this.tileGrid = options.tileGrid !== undefined ? options.tileGrid : null;
 
+    const tileSize = [256, 256];
+    const tileGrid = options.tileGrid;
+    if (tileGrid) {
+      toSize(tileGrid.getTileSize(tileGrid.getMinZoom()), tileSize);
+    }
+
     /**
      * @protected
      * @type {import("../TileCache.js").default}
      */
-    this.tileCache = new TileCache(options.cacheSize);
+    this.tileCache = new TileCache(options.cacheSize || 0);
 
     /**
      * @protected
@@ -92,6 +125,14 @@ class TileSource extends Source {
      */
     this.tileOptions = {transition: options.transition};
 
+    /**
+     * zDirection hint, read by the renderer. Indicates which resolution should be used
+     * by a renderer if the views resolution does not match any resolution of the tile source.
+     * If 0, the nearest resolution will be used. If 1, the nearest lower resolution
+     * will be used. If -1, the nearest higher resolution will be used.
+     * @type {number|import("../array.js").NearestDirectionFunction}
+     */
+    this.zDirection = options.zDirection ? options.zDirection : 0;
   }
 
   /**
@@ -103,7 +144,7 @@ class TileSource extends Source {
 
   /**
    * @param {import("../proj/Projection.js").default} projection Projection.
-   * @param {!Object<string, import("../TileRange.js").default>} usedTiles Used tiles.
+   * @param {!Object<string, boolean>} usedTiles Used tiles.
    */
   expireCache(projection, usedTiles) {
     const tileCache = this.getTileCacheForProjection(projection);
@@ -134,10 +175,12 @@ class TileSource extends Source {
         tileCoordKey = getKeyZXY(z, x, y);
         loaded = false;
         if (tileCache.containsKey(tileCoordKey)) {
-          tile = /** @type {!import("../Tile.js").default} */ (tileCache.get(tileCoordKey));
+          tile = /** @type {!import("../Tile.js").default} */ (
+            tileCache.get(tileCoordKey)
+          );
           loaded = tile.getState() === TileState.LOADED;
           if (loaded) {
-            loaded = (callback(tile) !== false);
+            loaded = callback(tile) !== false;
           }
         }
         if (!loaded) {
@@ -186,7 +229,7 @@ class TileSource extends Source {
   }
 
   /**
-   * @inheritDoc
+   * @return {Array<number>} Resolutions.
    */
   getResolutions() {
     return this.tileGrid.getResolutions();
@@ -232,12 +275,11 @@ class TileSource extends Source {
    * @protected
    */
   getTileCacheForProjection(projection) {
-    const thisProj = this.getProjection();
-    if (thisProj && !equivalent(thisProj, projection)) {
-      return null;
-    } else {
-      return this.tileCache;
-    }
+    assert(
+      equivalent(this.getProjection(), projection),
+      68 // A VectorTile source can only be rendered if it has a projection compatible with the view projection.
+    );
+    return this.tileCache;
   }
 
   /**
@@ -273,13 +315,13 @@ class TileSource extends Source {
    * is outside the resolution and extent range of the tile grid, `null` will be
    * returned.
    * @param {import("../tilecoord.js").TileCoord} tileCoord Tile coordinate.
-   * @param {import("../proj/Projection.js").default=} opt_projection Projection.
+   * @param {import("../proj/Projection.js").default} [opt_projection] Projection.
    * @return {import("../tilecoord.js").TileCoord} Tile coordinate to be passed to the tileUrlFunction or
    *     null if no tile URL should be created for the passed `tileCoord`.
    */
   getTileCoordForTileUrlFunction(tileCoord, opt_projection) {
-    const projection = opt_projection !== undefined ?
-      opt_projection : this.getProjection();
+    const projection =
+      opt_projection !== undefined ? opt_projection : this.getProjection();
     const tileGrid = this.getTileGridForProjection(projection);
     if (this.getWrapX() && projection.isGlobal()) {
       tileCoord = wrapX(tileGrid, tileCoord, projection);
@@ -288,11 +330,28 @@ class TileSource extends Source {
   }
 
   /**
-   * @inheritDoc
+   * Remove all cached tiles from the source. The next render cycle will fetch new tiles.
+   * @api
    */
-  refresh() {
+  clear() {
     this.tileCache.clear();
-    this.changed();
+  }
+
+  refresh() {
+    this.clear();
+    super.refresh();
+  }
+
+  /**
+   * Increases the cache size if needed
+   * @param {number} tileCount Minimum number of tiles needed.
+   * @param {import("../proj/Projection.js").default} projection Projection.
+   */
+  updateCacheSize(tileCount, projection) {
+    const tileCache = this.getTileCacheForProjection(projection);
+    if (tileCount > tileCache.highWaterMark) {
+      tileCache.highWaterMark = tileCount;
+    }
   }
 
   /**
@@ -304,9 +363,7 @@ class TileSource extends Source {
    * @param {import("../proj/Projection.js").default} projection Projection.
    */
   useTile(z, x, y, projection) {}
-
 }
-
 
 /**
  * @classdesc
@@ -319,7 +376,6 @@ export class TileSourceEvent extends Event {
    * @param {import("../Tile.js").default} tile The tile.
    */
   constructor(type, tile) {
-
     super(type);
 
     /**
@@ -328,9 +384,7 @@ export class TileSourceEvent extends Event {
      * @api
      */
     this.tile = tile;
-
   }
-
 }
 
 export default TileSource;

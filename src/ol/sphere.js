@@ -1,16 +1,8 @@
 /**
- * @license
- * Latitude/longitude spherical geodesy formulae taken from
- * http://www.movable-type.co.uk/scripts/latlong.html
- * Licensed under CC-BY-3.0.
- */
-
-/**
  * @module ol/sphere
  */
-import {toRadians, toDegrees} from './math.js';
 import GeometryType from './geom/GeometryType.js';
-
+import {toDegrees, toRadians} from './math.js';
 
 /**
  * Object literal with options for the {@link getLength} or {@link getArea}
@@ -19,10 +11,10 @@ import GeometryType from './geom/GeometryType.js';
  * @property {import("./proj.js").ProjectionLike} [projection='EPSG:3857']
  * Projection of the  geometry.  By default, the geometry is assumed to be in
  * Web Mercator.
- * @property {number} [radius=6371008.8] Sphere radius.  By default, the radius of the
- * earth is used (Clarke 1866 Authalic Sphere).
+ * @property {number} [radius=6371008.8] Sphere radius.  By default, the
+ * [mean Earth radius](https://en.wikipedia.org/wiki/Earth_radius#Mean_radius)
+ * for the WGS84 ellipsoid is used.
  */
-
 
 /**
  * The mean Earth radius (1/3 * (2a + b)) for the WGS84 ellipsoid.
@@ -31,12 +23,11 @@ import GeometryType from './geom/GeometryType.js';
  */
 export const DEFAULT_RADIUS = 6371008.8;
 
-
 /**
  * Get the great circle distance (in meters) between two geographic coordinates.
  * @param {Array} c1 Starting coordinate.
  * @param {Array} c2 Ending coordinate.
- * @param {number=} opt_radius The sphere radius to use.  Defaults to the Earth's
+ * @param {number} [opt_radius] The sphere radius to use.  Defaults to the Earth's
  *     mean radius using the WGS84 ellipsoid.
  * @return {number} The great circle distance between the points (in meters).
  * @api
@@ -47,12 +38,14 @@ export function getDistance(c1, c2, opt_radius) {
   const lat2 = toRadians(c2[1]);
   const deltaLatBy2 = (lat2 - lat1) / 2;
   const deltaLonBy2 = toRadians(c2[0] - c1[0]) / 2;
-  const a = Math.sin(deltaLatBy2) * Math.sin(deltaLatBy2) +
-      Math.sin(deltaLonBy2) * Math.sin(deltaLonBy2) *
-      Math.cos(lat1) * Math.cos(lat2);
+  const a =
+    Math.sin(deltaLatBy2) * Math.sin(deltaLatBy2) +
+    Math.sin(deltaLonBy2) *
+      Math.sin(deltaLonBy2) *
+      Math.cos(lat1) *
+      Math.cos(lat2);
   return 2 * radius * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 }
-
 
 /**
  * Get the cumulative great circle length of linestring coordinates (geographic).
@@ -68,14 +61,13 @@ function getLengthInternal(coordinates, radius) {
   return length;
 }
 
-
 /**
  * Get the spherical length of a geometry.  This length is the sum of the
  * great circle distances between coordinates.  For polygons, the length is
  * the sum of all rings.  For points, the length is zero.  For multi-part
  * geometries, the length is the sum of the length of each part.
  * @param {import("./geom/Geometry.js").default} geometry A geometry.
- * @param {SphereMetricOptions=} opt_options Options for the
+ * @param {SphereMetricOptions} [opt_options] Options for the
  * length calculation.  By default, geometries are assumed to be in 'EPSG:3857'.
  * You can change this by providing a `projection` option.
  * @return {number} The spherical length (in meters).
@@ -98,20 +90,26 @@ export function getLength(geometry, opt_options) {
     }
     case GeometryType.LINE_STRING:
     case GeometryType.LINEAR_RING: {
-      coordinates = /** @type {import("./geom/SimpleGeometry.js").default} */ (geometry).getCoordinates();
+      coordinates = /** @type {import("./geom/SimpleGeometry.js").default} */ (
+        geometry
+      ).getCoordinates();
       length = getLengthInternal(coordinates, radius);
       break;
     }
     case GeometryType.MULTI_LINE_STRING:
     case GeometryType.POLYGON: {
-      coordinates = /** @type {import("./geom/SimpleGeometry.js").default} */ (geometry).getCoordinates();
+      coordinates = /** @type {import("./geom/SimpleGeometry.js").default} */ (
+        geometry
+      ).getCoordinates();
       for (i = 0, ii = coordinates.length; i < ii; ++i) {
         length += getLengthInternal(coordinates[i], radius);
       }
       break;
     }
     case GeometryType.MULTI_POLYGON: {
-      coordinates = /** @type {import("./geom/SimpleGeometry.js").default} */ (geometry).getCoordinates();
+      coordinates = /** @type {import("./geom/SimpleGeometry.js").default} */ (
+        geometry
+      ).getCoordinates();
       for (i = 0, ii = coordinates.length; i < ii; ++i) {
         coords = coordinates[i];
         for (j = 0, jj = coords.length; j < jj; ++j) {
@@ -121,7 +119,10 @@ export function getLength(geometry, opt_options) {
       break;
     }
     case GeometryType.GEOMETRY_COLLECTION: {
-      const geometries = /** @type {import("./geom/GeometryCollection.js").default} */ (geometry).getGeometries();
+      const geometries =
+        /** @type {import("./geom/GeometryCollection.js").default} */ (
+          geometry
+        ).getGeometries();
       for (i = 0, ii = geometries.length; i < ii; ++i) {
         length += getLength(geometries[i], opt_options);
       }
@@ -134,11 +135,10 @@ export function getLength(geometry, opt_options) {
   return length;
 }
 
-
 /**
  * Returns the spherical area for a list of coordinates.
  *
- * [Reference](https://trs-new.jpl.nasa.gov/handle/2014/40409)
+ * [Reference](https://trs.jpl.nasa.gov/handle/2014/40409)
  * Robert. G. Chamberlain and William H. Duquette, "Some Algorithms for
  * Polygons on a Sphere", JPL Publication 07-03, Jet Propulsion
  * Laboratory, Pasadena, CA, June 2007
@@ -157,21 +157,20 @@ function getAreaInternal(coordinates, radius) {
   for (let i = 0; i < len; i++) {
     const x2 = coordinates[i][0];
     const y2 = coordinates[i][1];
-    area += toRadians(x2 - x1) *
-        (2 + Math.sin(toRadians(y1)) +
-        Math.sin(toRadians(y2)));
+    area +=
+      toRadians(x2 - x1) *
+      (2 + Math.sin(toRadians(y1)) + Math.sin(toRadians(y2)));
     x1 = x2;
     y1 = y2;
   }
-  return area * radius * radius / 2.0;
+  return (area * radius * radius) / 2.0;
 }
-
 
 /**
  * Get the spherical area of a geometry.  This is the area (in meters) assuming
  * that polygon edges are segments of great circles on a sphere.
  * @param {import("./geom/Geometry.js").default} geometry A geometry.
- * @param {SphereMetricOptions=} opt_options Options for the area
+ * @param {SphereMetricOptions} [opt_options] Options for the area
  *     calculation.  By default, geometries are assumed to be in 'EPSG:3857'.
  *     You can change this by providing a `projection` option.
  * @return {number} The spherical area (in square meters).
@@ -196,7 +195,9 @@ export function getArea(geometry, opt_options) {
       break;
     }
     case GeometryType.POLYGON: {
-      coordinates = /** @type {import("./geom/Polygon.js").default} */ (geometry).getCoordinates();
+      coordinates = /** @type {import("./geom/Polygon.js").default} */ (
+        geometry
+      ).getCoordinates();
       area = Math.abs(getAreaInternal(coordinates[0], radius));
       for (i = 1, ii = coordinates.length; i < ii; ++i) {
         area -= Math.abs(getAreaInternal(coordinates[i], radius));
@@ -204,7 +205,9 @@ export function getArea(geometry, opt_options) {
       break;
     }
     case GeometryType.MULTI_POLYGON: {
-      coordinates = /** @type {import("./geom/SimpleGeometry.js").default} */ (geometry).getCoordinates();
+      coordinates = /** @type {import("./geom/SimpleGeometry.js").default} */ (
+        geometry
+      ).getCoordinates();
       for (i = 0, ii = coordinates.length; i < ii; ++i) {
         coords = coordinates[i];
         area += Math.abs(getAreaInternal(coords[0], radius));
@@ -215,7 +218,10 @@ export function getArea(geometry, opt_options) {
       break;
     }
     case GeometryType.GEOMETRY_COLLECTION: {
-      const geometries = /** @type {import("./geom/GeometryCollection.js").default} */ (geometry).getGeometries();
+      const geometries =
+        /** @type {import("./geom/GeometryCollection.js").default} */ (
+          geometry
+        ).getGeometries();
       for (i = 0, ii = geometries.length; i < ii; ++i) {
         area += getArea(geometries[i], opt_options);
       }
@@ -228,7 +234,6 @@ export function getArea(geometry, opt_options) {
   return area;
 }
 
-
 /**
  * Returns the coordinate at the given distance and bearing from `c1`.
  *
@@ -236,7 +241,7 @@ export function getArea(geometry, opt_options) {
  * @param {number} distance The great-circle distance between the origin
  *     point and the target point.
  * @param {number} bearing The bearing (in radians).
- * @param {number=} opt_radius The sphere radius to use.  Defaults to the Earth's
+ * @param {number} [opt_radius] The sphere radius to use.  Defaults to the Earth's
  *     mean radius using the WGS84 ellipsoid.
  * @return {import("./coordinate.js").Coordinate} The target point.
  */
@@ -247,9 +252,13 @@ export function offset(c1, distance, bearing, opt_radius) {
   const dByR = distance / radius;
   const lat = Math.asin(
     Math.sin(lat1) * Math.cos(dByR) +
-      Math.cos(lat1) * Math.sin(dByR) * Math.cos(bearing));
-  const lon = lon1 + Math.atan2(
-    Math.sin(bearing) * Math.sin(dByR) * Math.cos(lat1),
-    Math.cos(dByR) - Math.sin(lat1) * Math.sin(lat));
+      Math.cos(lat1) * Math.sin(dByR) * Math.cos(bearing)
+  );
+  const lon =
+    lon1 +
+    Math.atan2(
+      Math.sin(bearing) * Math.sin(dByR) * Math.cos(lat1),
+      Math.cos(dByR) - Math.sin(lat1) * Math.sin(lat)
+    );
   return [toDegrees(lon), toDegrees(lat)];
 }

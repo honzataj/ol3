@@ -47,7 +47,7 @@ The default `geometryFunction` can only handle `ol/geom/Point` geometries.
 
 ### 11
 
-`options.featureTypes` should be an Array.
+`options.featureTypes` must be an Array.
 
 ### 12
 
@@ -111,7 +111,7 @@ Features for `updates` must have an id set by the feature reader or `ol.Feature#
 
 ### 28
 
-`renderMode` must be `'image'`, `'hybrid'` or `'vector'`.
+`renderMode` must be `'hybrid'` or `'vector'`.
 
 ### 29
 
@@ -220,3 +220,32 @@ Duplicate item added to a unique collection.  For example, it may be that you tr
 ### 59
 
 Invalid command found in the PBF.  This indicates that the loaded vector tile may be corrupt.
+
+### 60
+
+Missing or invalid `size`.
+
+### 61
+
+Cannot determine IIIF Image API version from provided image information JSON.
+
+### 62
+
+A `WebGLArrayBuffer` must either be of type `ELEMENT_ARRAY_BUFFER` or `ARRAY_BUFFER`.
+
+### 64
+
+Layer opacity must be a number.
+
+### 66
+
+`forEachFeatureAtCoordinate` cannot be used on a WebGL layer if the hit detection logic has not been enabled.
+This is done by providing adequate shaders using the `hitVertexShader` and `hitFragmentShader` properties of `WebGLPointsLayerRenderer`.
+
+### 67
+
+A layer can only be added to the map once. Use either `layer.setMap()` or `map.addLayer()`, not both.
+
+### 68
+
+Data from this source can only be rendered if it has a projection compatible with the view projection.

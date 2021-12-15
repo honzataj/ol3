@@ -1,17 +1,15 @@
 /**
  * @module ol/control/ZoomSlider
  */
-import ViewHint from '../ViewHint.js';
+
 import Control from './Control.js';
+import EventType from '../events/EventType.js';
+import PointerEventType from '../pointer/EventType.js';
 import {CLASS_CONTROL, CLASS_UNSELECTABLE} from '../css.js';
+import {clamp} from '../math.js';
 import {easeOut} from '../easing.js';
 import {listen, unlistenByKey} from '../events.js';
 import {stopPropagation} from '../events/Event.js';
-import EventType from '../events/EventType.js';
-import {clamp} from '../math.js';
-import PointerEventType from '../pointer/EventType.js';
-import PointerEventHandler from '../pointer/PointerEventHandler.js';
-
 
 /**
  * The enum for available directions.
@@ -20,18 +18,16 @@ import PointerEventHandler from '../pointer/PointerEventHandler.js';
  */
 const Direction = {
   VERTICAL: 0,
-  HORIZONTAL: 1
+  HORIZONTAL: 1,
 };
-
 
 /**
  * @typedef {Object} Options
  * @property {string} [className='ol-zoomslider'] CSS class name.
  * @property {number} [duration=200] Animation duration in milliseconds.
- * @property {function(import("../MapEvent.js").default)} [render] Function called when the control
+ * @property {function(import("../MapEvent.js").default):void} [render] Function called when the control
  * should be re-rendered. This is called in a `requestAnimationFrame` callback.
  */
-
 
 /**
  * @classdesc
@@ -44,23 +40,21 @@ const Direction = {
  * @api
  */
 class ZoomSlider extends Control {
-
   /**
-   * @param {Options=} opt_options Zoom slider options.
+   * @param {Options} [opt_options] Zoom slider options.
    */
   constructor(opt_options) {
-
     const options = opt_options ? opt_options : {};
 
     super({
       element: document.createElement('div'),
-      render: options.render || render
+      render: options.render,
     });
 
     /**
-      * @type {!Array.<import("../events.js").EventsKey>}
-      * @private
-      */
+     * @type {!Array<import("../events.js").EventsKey>}
+     * @private
+     */
     this.dragListenerKeys_ = [];
 
     /**
@@ -102,13 +96,13 @@ class ZoomSlider extends Control {
      * @type {number|undefined}
      * @private
      */
-    this.previousX_;
+    this.startX_;
 
     /**
      * @type {number|undefined}
      * @private
      */
-    this.previousY_;
+    this.startY_;
 
     /**
      * The calculated thumb size (border box plus margins).  Set when initSlider_
@@ -131,40 +125,46 @@ class ZoomSlider extends Control {
      */
     this.duration_ = options.duration !== undefined ? options.duration : 200;
 
-    const className = options.className !== undefined ? options.className : 'ol-zoomslider';
+    const className =
+      options.className !== undefined ? options.className : 'ol-zoomslider';
     const thumbElement = document.createElement('button');
     thumbElement.setAttribute('type', 'button');
     thumbElement.className = className + '-thumb ' + CLASS_UNSELECTABLE;
     const containerElement = this.element;
-    containerElement.className = className + ' ' + CLASS_UNSELECTABLE + ' ' + CLASS_CONTROL;
+    containerElement.className =
+      className + ' ' + CLASS_UNSELECTABLE + ' ' + CLASS_CONTROL;
     containerElement.appendChild(thumbElement);
-    /**
-     * @type {PointerEventHandler}
-     * @private
-     */
-    this.dragger_ = new PointerEventHandler(containerElement);
 
-    listen(this.dragger_, PointerEventType.POINTERDOWN,
-      this.handleDraggerStart_, this);
-    listen(this.dragger_, PointerEventType.POINTERMOVE,
-      this.handleDraggerDrag_, this);
-    listen(this.dragger_, PointerEventType.POINTERUP,
-      this.handleDraggerEnd_, this);
+    containerElement.addEventListener(
+      PointerEventType.POINTERDOWN,
+      this.handleDraggerStart_.bind(this),
+      false
+    );
+    containerElement.addEventListener(
+      PointerEventType.POINTERMOVE,
+      this.handleDraggerDrag_.bind(this),
+      false
+    );
+    containerElement.addEventListener(
+      PointerEventType.POINTERUP,
+      this.handleDraggerEnd_.bind(this),
+      false
+    );
 
-    listen(containerElement, EventType.CLICK, this.handleContainerClick_, this);
-    listen(thumbElement, EventType.CLICK, stopPropagation);
+    containerElement.addEventListener(
+      EventType.CLICK,
+      this.handleContainerClick_.bind(this),
+      false
+    );
+    thumbElement.addEventListener(EventType.CLICK, stopPropagation, false);
   }
 
   /**
-   * @inheritDoc
-   */
-  disposeInternal() {
-    this.dragger_.dispose();
-    super.disposeInternal();
-  }
-
-  /**
-   * @inheritDoc
+   * Remove the control from its current map and attach it to the new map.
+   * Subclasses may set up event handlers to get notified about changes to
+   * the map here.
+   * @param {import("../PluggableMap.js").default} map Map.
+   * @api
    */
   setMap(map) {
     super.setMap(map);
@@ -178,36 +178,48 @@ class ZoomSlider extends Control {
    * direction_ and also constrain the dragging of the thumb to always be within
    * the bounds of the container.
    *
+   * @return {boolean} Initialization successful
    * @private
    */
   initSlider_() {
     const container = this.element;
-    const containerSize = {
-      width: container.offsetWidth, height: container.offsetHeight
-    };
+    let containerWidth = container.offsetWidth;
+    let containerHeight = container.offsetHeight;
+    if (containerWidth === 0 && containerHeight === 0) {
+      return (this.sliderInitialized_ = false);
+    }
 
+    const containerStyle = getComputedStyle(container);
+    containerWidth -=
+      parseFloat(containerStyle['paddingRight']) +
+      parseFloat(containerStyle['paddingLeft']);
+    containerHeight -=
+      parseFloat(containerStyle['paddingTop']) +
+      parseFloat(containerStyle['paddingBottom']);
     const thumb = /** @type {HTMLElement} */ (container.firstElementChild);
-    const computedStyle = getComputedStyle(thumb);
-    const thumbWidth = thumb.offsetWidth +
-        parseFloat(computedStyle['marginRight']) +
-        parseFloat(computedStyle['marginLeft']);
-    const thumbHeight = thumb.offsetHeight +
-        parseFloat(computedStyle['marginTop']) +
-        parseFloat(computedStyle['marginBottom']);
+    const thumbStyle = getComputedStyle(thumb);
+    const thumbWidth =
+      thumb.offsetWidth +
+      parseFloat(thumbStyle['marginRight']) +
+      parseFloat(thumbStyle['marginLeft']);
+    const thumbHeight =
+      thumb.offsetHeight +
+      parseFloat(thumbStyle['marginTop']) +
+      parseFloat(thumbStyle['marginBottom']);
     this.thumbSize_ = [thumbWidth, thumbHeight];
 
-    if (containerSize.width > containerSize.height) {
+    if (containerWidth > containerHeight) {
       this.direction_ = Direction.HORIZONTAL;
-      this.widthLimit_ = containerSize.width - thumbWidth;
+      this.widthLimit_ = containerWidth - thumbWidth;
     } else {
       this.direction_ = Direction.VERTICAL;
-      this.heightLimit_ = containerSize.height - thumbHeight;
+      this.heightLimit_ = containerHeight - thumbHeight;
     }
-    this.sliderInitialized_ = true;
+    return (this.sliderInitialized_ = true);
   }
 
   /**
-   * @param {MouseEvent} event The browser event to handle.
+   * @param {PointerEvent} event The browser event to handle.
    * @private
    */
   handleContainerClick_(event) {
@@ -215,37 +227,41 @@ class ZoomSlider extends Control {
 
     const relativePosition = this.getRelativePosition_(
       event.offsetX - this.thumbSize_[0] / 2,
-      event.offsetY - this.thumbSize_[1] / 2);
+      event.offsetY - this.thumbSize_[1] / 2
+    );
 
     const resolution = this.getResolutionForPosition_(relativePosition);
+    const zoom = view.getConstrainedZoom(view.getZoomForResolution(resolution));
 
-    view.animate({
-      resolution: view.constrainResolution(resolution),
+    view.animateInternal({
+      zoom: zoom,
       duration: this.duration_,
-      easing: easeOut
+      easing: easeOut,
     });
   }
 
   /**
    * Handle dragger start events.
-   * @param {import("../pointer/PointerEvent.js").default} event The drag event.
+   * @param {PointerEvent} event The drag event.
    * @private
    */
   handleDraggerStart_(event) {
-    if (!this.dragging_ && event.originalEvent.target === this.element.firstElementChild) {
-      this.getMap().getView().setHint(ViewHint.INTERACTING, 1);
-      this.previousX_ = event.clientX;
-      this.previousY_ = event.clientY;
+    if (!this.dragging_ && event.target === this.element.firstElementChild) {
+      const element = /** @type {HTMLElement} */ (
+        this.element.firstElementChild
+      );
+      this.getMap().getView().beginInteraction();
+      this.startX_ = event.clientX - parseFloat(element.style.left);
+      this.startY_ = event.clientY - parseFloat(element.style.top);
       this.dragging_ = true;
 
       if (this.dragListenerKeys_.length === 0) {
         const drag = this.handleDraggerDrag_;
         const end = this.handleDraggerEnd_;
+        const doc = this.getMap().getOwnerDocument();
         this.dragListenerKeys_.push(
-          listen(document, EventType.MOUSEMOVE, drag, this),
-          listen(document, PointerEventType.POINTERMOVE, drag, this),
-          listen(document, EventType.MOUSEUP, end, this),
-          listen(document, PointerEventType.POINTERUP, end, this)
+          listen(doc, PointerEventType.POINTERMOVE, drag, this),
+          listen(doc, PointerEventType.POINTERUP, end, this)
         );
       }
     }
@@ -254,42 +270,33 @@ class ZoomSlider extends Control {
   /**
    * Handle dragger drag events.
    *
-   * @param {import("../pointer/PointerEvent.js").default} event The drag event.
+   * @param {PointerEvent} event The drag event.
    * @private
    */
   handleDraggerDrag_(event) {
     if (this.dragging_) {
-      const element = /** @type {HTMLElement} */ (this.element.firstElementChild);
-      const deltaX = event.clientX - this.previousX_ + parseFloat(element.style.left);
-      const deltaY = event.clientY - this.previousY_ + parseFloat(element.style.top);
+      const deltaX = event.clientX - this.startX_;
+      const deltaY = event.clientY - this.startY_;
       const relativePosition = this.getRelativePosition_(deltaX, deltaY);
-      this.currentResolution_ = this.getResolutionForPosition_(relativePosition);
+      this.currentResolution_ =
+        this.getResolutionForPosition_(relativePosition);
       this.getMap().getView().setResolution(this.currentResolution_);
-      this.setThumbPosition_(this.currentResolution_);
-      this.previousX_ = event.clientX;
-      this.previousY_ = event.clientY;
     }
   }
 
   /**
    * Handle dragger end events.
-   * @param {import("../pointer/PointerEvent.js").default} event The drag event.
+   * @param {PointerEvent} event The drag event.
    * @private
    */
   handleDraggerEnd_(event) {
     if (this.dragging_) {
       const view = this.getMap().getView();
-      view.setHint(ViewHint.INTERACTING, -1);
-
-      view.animate({
-        resolution: view.constrainResolution(this.currentResolution_),
-        duration: this.duration_,
-        easing: easeOut
-      });
+      view.endInteraction();
 
       this.dragging_ = false;
-      this.previousX_ = undefined;
-      this.previousY_ = undefined;
+      this.startX_ = undefined;
+      this.startY_ = undefined;
       this.dragListenerKeys_.forEach(unlistenByKey);
       this.dragListenerKeys_.length = 0;
     }
@@ -356,30 +363,25 @@ class ZoomSlider extends Control {
    */
   getPositionForResolution_(res) {
     const fn = this.getMap().getView().getValueForResolutionFunction();
-    return 1 - fn(res);
+    return clamp(1 - fn(res), 0, 1);
   }
-}
 
-
-/**
- * Update the zoomslider element.
- * @param {import("../MapEvent.js").default} mapEvent Map event.
- * @this {ZoomSlider}
- * @api
- */
-export function render(mapEvent) {
-  if (!mapEvent.frameState) {
-    return;
-  }
-  if (!this.sliderInitialized_) {
-    this.initSlider_();
-  }
-  const res = mapEvent.frameState.viewState.resolution;
-  if (res !== this.currentResolution_) {
+  /**
+   * Update the zoomslider element.
+   * @param {import("../MapEvent.js").default} mapEvent Map event.
+   * @override
+   */
+  render(mapEvent) {
+    if (!mapEvent.frameState) {
+      return;
+    }
+    if (!this.sliderInitialized_ && !this.initSlider_()) {
+      return;
+    }
+    const res = mapEvent.frameState.viewState.resolution;
     this.currentResolution_ = res;
     this.setThumbPosition_(res);
   }
 }
-
 
 export default ZoomSlider;

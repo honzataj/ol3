@@ -2,43 +2,57 @@
  * @module ol/control/FullScreen
  */
 import Control from './Control.js';
-import {CLASS_CONTROL, CLASS_UNSELECTABLE, CLASS_UNSUPPORTED} from '../css.js';
-import {replaceNode} from '../dom.js';
-import {listen} from '../events.js';
 import EventType from '../events/EventType.js';
+import {CLASS_CONTROL, CLASS_UNSELECTABLE, CLASS_UNSUPPORTED} from '../css.js';
+import {listen} from '../events.js';
+import {replaceNode} from '../dom.js';
 
+const events = [
+  'fullscreenchange',
+  'webkitfullscreenchange',
+  'MSFullscreenChange',
+];
 
 /**
- * @return {string} Change type.
+ * @enum {string}
  */
-const getChangeType = (function() {
-  let changeType;
-  return function() {
-    if (!changeType) {
-      const body = document.body;
-      if (body.webkitRequestFullscreen) {
-        changeType = 'webkitfullscreenchange';
-      } else if (body.mozRequestFullScreen) {
-        changeType = 'mozfullscreenchange';
-      } else if (body.msRequestFullscreen) {
-        changeType = 'MSFullscreenChange';
-      } else if (body.requestFullscreen) {
-        changeType = 'fullscreenchange';
-      }
-    }
-    return changeType;
-  };
-})();
+const FullScreenEventType = {
+  /**
+   * Triggered after the map entered fullscreen.
+   * @event FullScreenEventType#enterfullscreen
+   * @api
+   */
+  ENTERFULLSCREEN: 'enterfullscreen',
 
+  /**
+   * Triggered after the map leave fullscreen.
+   * @event FullScreenEventType#leavefullscreen
+   * @api
+   */
+  LEAVEFULLSCREEN: 'leavefullscreen',
+};
+
+/***
+ * @template Return
+ * @typedef {import("../Observable").OnSignature<import("../Observable").EventTypes|
+ *     'enterfullscreen'|'leavefullscreen', import("../events/Event.js").default, Return> &
+ *   import("../Observable").OnSignature<import("../ObjectEventType").Types, import("../Object").ObjectEvent, Return> &
+ *   import("../Observable").CombinedOnSignature<import("../Observable").EventTypes|
+ *     'enterfullscreen'|'leavefullscreen'|import("../ObjectEventType").Types, Return>} FullScreenOnSignature
+ */
 
 /**
  * @typedef {Object} Options
  * @property {string} [className='ol-full-screen'] CSS class name.
- * @property {string|Text} [label='\u2922'] Text label to use for the button.
+ * @property {string|Text|HTMLElement} [label='\u2922'] Text label to use for the button.
  * Instead of text, also an element (e.g. a `span` element) can be used.
- * @property {string|Text} [labelActive='\u00d7'] Text label to use for the
+ * @property {string|Text|HTMLElement} [labelActive='\u00d7'] Text label to use for the
  * button when full-screen is active.
  * Instead of text, also an element (e.g. a `span` element) can be used.
+ * @property {string} [activeClassName=className + '-true'] CSS class name for the button
+ * when full-screen is active.
+ * @property {string} [inactiveClassName=className + '-false'] CSS class name for the button
+ * when full-screen is inactive.
  * @property {string} [tipLabel='Toggle full-screen'] Text label to use for the button tip.
  * @property {boolean} [keys=false] Full keyboard access.
  * @property {HTMLElement|string} [target] Specify a target if you want the
@@ -48,7 +62,6 @@ const getChangeType = (function() {
  * be displayed fullscreen.
  */
 
-
 /**
  * @classdesc
  * Provides a button that when clicked fills up the full screen with the map.
@@ -57,49 +70,85 @@ const getChangeType = (function() {
  * element introduced using this parameter will be displayed in full screen.
  *
  * When in full screen mode, a close button is shown to exit full screen mode.
- * The [Fullscreen API](http://www.w3.org/TR/fullscreen/) is used to
+ * The [Fullscreen API](https://www.w3.org/TR/fullscreen/) is used to
  * toggle the map in full screen mode.
  *
+ * @fires FullScreenEventType#enterfullscreen
+ * @fires FullScreenEventType#leavefullscreen
  * @api
  */
 class FullScreen extends Control {
-
   /**
-   * @param {Options=} opt_options Options.
+   * @param {Options} [opt_options] Options.
    */
   constructor(opt_options) {
-
     const options = opt_options ? opt_options : {};
 
     super({
       element: document.createElement('div'),
-      target: options.target
+      target: options.target,
     });
+
+    /***
+     * @type {FullScreenOnSignature<import("../events").EventsKey>}
+     */
+    this.on;
+
+    /***
+     * @type {FullScreenOnSignature<import("../events").EventsKey>}
+     */
+    this.once;
+
+    /***
+     * @type {FullScreenOnSignature<void>}
+     */
+    this.un;
 
     /**
      * @private
      * @type {string}
      */
-    this.cssClassName_ = options.className !== undefined ? options.className :
-      'ol-full-screen';
+    this.cssClassName_ =
+      options.className !== undefined ? options.className : 'ol-full-screen';
+
+    /**
+     * @private
+     * @type {Array<string>}
+     */
+    this.activeClassName_ =
+      options.activeClassName !== undefined
+        ? options.activeClassName.split(' ')
+        : [this.cssClassName_ + '-true'];
+
+    /**
+     * @private
+     * @type {Array<string>}
+     */
+    this.inactiveClassName_ =
+      options.inactiveClassName !== undefined
+        ? options.inactiveClassName.split(' ')
+        : [this.cssClassName_ + '-false'];
 
     const label = options.label !== undefined ? options.label : '\u2922';
 
     /**
      * @private
-     * @type {Text}
+     * @type {Text|HTMLElement}
      */
-    this.labelNode_ = typeof label === 'string' ?
-      document.createTextNode(label) : label;
+    this.labelNode_ =
+      typeof label === 'string' ? document.createTextNode(label) : label;
 
-    const labelActive = options.labelActive !== undefined ? options.labelActive : '\u00d7';
+    const labelActive =
+      options.labelActive !== undefined ? options.labelActive : '\u00d7';
 
     /**
      * @private
-     * @type {Text}
+     * @type {Text|HTMLElement}
      */
-    this.labelActiveNode_ = typeof labelActive === 'string' ?
-      document.createTextNode(labelActive) : labelActive;
+    this.labelActiveNode_ =
+      typeof labelActive === 'string'
+        ? document.createTextNode(labelActive)
+        : labelActive;
 
     /**
      * @private
@@ -113,12 +162,20 @@ class FullScreen extends Control {
     this.button_.title = tipLabel;
     this.button_.appendChild(this.labelNode_);
 
-    listen(this.button_, EventType.CLICK,
-      this.handleClick_, this);
+    this.button_.addEventListener(
+      EventType.CLICK,
+      this.handleClick_.bind(this),
+      false
+    );
 
-    const cssClasses = this.cssClassName_ + ' ' + CLASS_UNSELECTABLE +
-        ' ' + CLASS_CONTROL + ' ' +
-        (!isFullScreenSupported() ? CLASS_UNSUPPORTED : '');
+    const cssClasses =
+      this.cssClassName_ +
+      ' ' +
+      CLASS_UNSELECTABLE +
+      ' ' +
+      CLASS_CONTROL +
+      ' ' +
+      (!isFullScreenSupported() ? CLASS_UNSUPPORTED : '');
     const element = this.element;
     element.className = cssClasses;
     element.appendChild(this.button_);
@@ -134,7 +191,6 @@ class FullScreen extends Control {
      * @type {HTMLElement|string|undefined}
      */
     this.source_ = options.source;
-
   }
 
   /**
@@ -162,15 +218,15 @@ class FullScreen extends Control {
     } else {
       let element;
       if (this.source_) {
-        element = typeof this.source_ === 'string' ?
-          document.getElementById(this.source_) :
-          this.source_;
+        element =
+          typeof this.source_ === 'string'
+            ? document.getElementById(this.source_)
+            : this.source_;
       } else {
         element = map.getTargetElement();
       }
       if (this.keys_) {
         requestFullScreenWithKeys(element);
-
       } else {
         requestFullScreen(element);
       }
@@ -185,9 +241,11 @@ class FullScreen extends Control {
     if (isFullScreen()) {
       this.setClassName_(this.button_, true);
       replaceNode(this.labelActiveNode_, this.labelNode_);
+      this.dispatchEvent(FullScreenEventType.ENTERFULLSCREEN);
     } else {
       this.setClassName_(this.button_, false);
       replaceNode(this.labelNode_, this.labelActiveNode_);
+      this.dispatchEvent(FullScreenEventType.LEAVEFULLSCREEN);
     }
     if (map) {
       map.updateSize();
@@ -200,29 +258,32 @@ class FullScreen extends Control {
    * @private
    */
   setClassName_(element, fullscreen) {
-    const activeClassName = this.cssClassName_ + '-true';
-    const inactiveClassName = this.cssClassName_ + '-false';
+    const activeClassName = this.activeClassName_;
+    const inactiveClassName = this.inactiveClassName_;
     const nextClassName = fullscreen ? activeClassName : inactiveClassName;
-    element.classList.remove(activeClassName);
-    element.classList.remove(inactiveClassName);
-    element.classList.add(nextClassName);
+    element.classList.remove(...activeClassName);
+    element.classList.remove(...inactiveClassName);
+    element.classList.add(...nextClassName);
   }
 
   /**
-   * @inheritDoc
+   * Remove the control from its current map and attach it to the new map.
+   * Subclasses may set up event handlers to get notified about changes to
+   * the map here.
+   * @param {import("../PluggableMap.js").default} map Map.
    * @api
    */
   setMap(map) {
     super.setMap(map);
     if (map) {
-      this.listenerKeys.push(listen(document,
-        getChangeType(),
-        this.handleFullScreenChange_, this)
-      );
+      for (let i = 0, ii = events.length; i < ii; ++i) {
+        this.listenerKeys.push(
+          listen(document, events[i], this.handleFullScreenChange_, this)
+        );
+      }
     }
   }
 }
-
 
 /**
  * @return {boolean} Fullscreen is supported by the current platform.
@@ -230,9 +291,8 @@ class FullScreen extends Control {
 function isFullScreenSupported() {
   const body = document.body;
   return !!(
-    body.webkitRequestFullscreen ||
-    (body.mozRequestFullScreen && document.mozFullScreenEnabled) ||
-    (body.msRequestFullscreen && document.msFullscreenEnabled) ||
+    body['webkitRequestFullscreen'] ||
+    (body['msRequestFullscreen'] && document['msFullscreenEnabled']) ||
     (body.requestFullscreen && document.fullscreenEnabled)
   );
 }
@@ -242,8 +302,9 @@ function isFullScreenSupported() {
  */
 function isFullScreen() {
   return !!(
-    document.webkitIsFullScreen || document.mozFullScreen ||
-    document.msFullscreenElement || document.fullscreenElement
+    document['webkitIsFullScreen'] ||
+    document['msFullscreenElement'] ||
+    document.fullscreenElement
   );
 }
 
@@ -254,12 +315,10 @@ function isFullScreen() {
 function requestFullScreen(element) {
   if (element.requestFullscreen) {
     element.requestFullscreen();
-  } else if (element.msRequestFullscreen) {
-    element.msRequestFullscreen();
-  } else if (element.mozRequestFullScreen) {
-    element.mozRequestFullScreen();
-  } else if (element.webkitRequestFullscreen) {
-    element.webkitRequestFullscreen();
+  } else if (element['msRequestFullscreen']) {
+    element['msRequestFullscreen']();
+  } else if (element['webkitRequestFullscreen']) {
+    element['webkitRequestFullscreen']();
   }
 }
 
@@ -268,10 +327,8 @@ function requestFullScreen(element) {
  * @param {HTMLElement} element Element to request fullscreen
  */
 function requestFullScreenWithKeys(element) {
-  if (element.mozRequestFullScreenWithKeys) {
-    element.mozRequestFullScreenWithKeys();
-  } else if (element.webkitRequestFullscreen) {
-    element.webkitRequestFullscreen();
+  if (element['webkitRequestFullscreen']) {
+    element['webkitRequestFullscreen']();
   } else {
     requestFullScreen(element);
   }
@@ -283,12 +340,10 @@ function requestFullScreenWithKeys(element) {
 function exitFullScreen() {
   if (document.exitFullscreen) {
     document.exitFullscreen();
-  } else if (document.msExitFullscreen) {
-    document.msExitFullscreen();
-  } else if (document.mozCancelFullScreen) {
-    document.mozCancelFullScreen();
-  } else if (document.webkitExitFullscreen) {
-    document.webkitExitFullscreen();
+  } else if (document['msExitFullscreen']) {
+    document['msExitFullscreen']();
+  } else if (document['webkitExitFullscreen']) {
+    document['webkitExitFullscreen']();
   }
 }
 

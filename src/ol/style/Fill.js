@@ -1,17 +1,13 @@
 /**
  * @module ol/style/Fill
  */
-import {getUid} from '../util.js';
-import {asString} from '../color.js';
-
 
 /**
  * @typedef {Object} Options
- * @property {import("../color.js").Color|import("../colorlike.js").ColorLike} [color] A color, gradient or pattern.
+ * @property {import("../color.js").Color|import("../colorlike.js").ColorLike} [color=null] A color, gradient or pattern.
  * See {@link module:ol/color~Color} and {@link module:ol/colorlike~ColorLike} for possible formats.
  * Default null; if null, the Canvas/renderer default black will be used.
  */
-
 
 /**
  * @classdesc
@@ -20,10 +16,9 @@ import {asString} from '../color.js';
  */
 class Fill {
   /**
-   * @param {Options=} opt_options Options.
+   * @param {Options} [opt_options] Options.
    */
   constructor(opt_options) {
-
     const options = opt_options || {};
 
     /**
@@ -31,12 +26,6 @@ class Fill {
      * @type {import("../color.js").Color|import("../colorlike.js").ColorLike}
      */
     this.color_ = options.color !== undefined ? options.color : null;
-
-    /**
-     * @private
-     * @type {string|undefined}
-     */
-    this.checksum_ = undefined;
   }
 
   /**
@@ -47,7 +36,7 @@ class Fill {
   clone() {
     const color = this.getColor();
     return new Fill({
-      color: Array.isArray(color) ? color.slice() : color || undefined
+      color: Array.isArray(color) ? color.slice() : color || undefined,
     });
   }
 
@@ -68,27 +57,6 @@ class Fill {
    */
   setColor(color) {
     this.color_ = color;
-    this.checksum_ = undefined;
-  }
-
-  /**
-   * @return {string} The checksum.
-   */
-  getChecksum() {
-    if (this.checksum_ === undefined) {
-      const color = this.color_;
-      if (color) {
-        if (Array.isArray(color) || typeof color == 'string') {
-          this.checksum_ = 'f' + asString(/** @type {import("../color.js").Color|string} */ (color));
-        } else {
-          this.checksum_ = getUid(this.color_);
-        }
-      } else {
-        this.checksum_ = 'f-';
-      }
-    }
-
-    return this.checksum_;
   }
 }
 

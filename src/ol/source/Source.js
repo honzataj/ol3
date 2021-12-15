@@ -1,19 +1,17 @@
 /**
  * @module ol/source/Source
  */
-import {abstract} from '../util.js';
 import BaseObject from '../Object.js';
-import {get as getProjection} from '../proj.js';
 import SourceState from './State.js';
-
+import {abstract} from '../util.js';
+import {get as getProjection} from '../proj.js';
 
 /**
- * A function that returns a string or an array of strings representing source
- * attributions.
+ * A function that takes a {@link module:ol/PluggableMap~FrameState} and returns a string or
+ * an array of strings representing source attributions.
  *
  * @typedef {function(import("../PluggableMap.js").FrameState): (string|Array<string>)} Attribution
  */
-
 
 /**
  * A type that can be used to provide attribution information for data sources.
@@ -21,21 +19,19 @@ import SourceState from './State.js';
  * It represents either
  * * a simple string (e.g. `'© Acme Inc.'`)
  * * an array of simple strings (e.g. `['© Acme Inc.', '© Bacme Inc.']`)
- * * a function that returns a string or array of strings (`{@link module:ol/source/Source~Attribution}`)
+ * * a function that returns a string or array of strings ({@link module:ol/source/Source~Attribution})
  *
  * @typedef {string|Array<string>|Attribution} AttributionLike
  */
 
-
 /**
  * @typedef {Object} Options
- * @property {AttributionLike} [attributions]
+ * @property {AttributionLike} [attributions] Attributions.
  * @property {boolean} [attributionsCollapsible=true] Attributions are collapsible.
- * @property {import("../proj.js").ProjectionLike} projection
- * @property {SourceState} [state='ready']
- * @property {boolean} [wrapX=false]
+ * @property {import("../proj.js").ProjectionLike} [projection] Projection. Default is the view projection.
+ * @property {import("./State.js").default} [state='ready'] State.
+ * @property {boolean} [wrapX=false] WrapX.
  */
-
 
 /**
  * @classdesc
@@ -52,14 +48,13 @@ class Source extends BaseObject {
    * @param {Options} options Source options.
    */
   constructor(options) {
-
     super();
 
     /**
-     * @private
+     * @protected
      * @type {import("../proj/Projection.js").default}
      */
-    this.projection_ = getProjection(options.projection);
+    this.projection = getProjection(options.projection);
 
     /**
      * @private
@@ -71,8 +66,10 @@ class Source extends BaseObject {
      * @private
      * @type {boolean}
      */
-    this.attributionsCollapsible_ = options.attributionsCollapsible !== undefined ?
-      options.attributionsCollapsible : true;
+    this.attributionsCollapsible_ =
+      options.attributionsCollapsible !== undefined
+        ? options.attributionsCollapsible
+        : true;
 
     /**
      * This source is currently loading data. Sources that defer loading to the
@@ -83,10 +80,10 @@ class Source extends BaseObject {
 
     /**
      * @private
-     * @type {SourceState}
+     * @type {import("./State.js").default}
      */
-    this.state_ = options.state !== undefined ?
-      options.state : SourceState.READY;
+    this.state_ =
+      options.state !== undefined ? options.state : SourceState.READY;
 
     /**
      * @private
@@ -94,18 +91,41 @@ class Source extends BaseObject {
      */
     this.wrapX_ = options.wrapX !== undefined ? options.wrapX : false;
 
+    /**
+     * @protected
+     * @type {function(import("../View.js").ViewOptions):void}
+     */
+    this.viewResolver = null;
+
+    /**
+     * @protected
+     * @type {function(Error):void}
+     */
+    this.viewRejector = null;
+
+    const self = this;
+    /**
+     * @private
+     * @type {Promise<import("../View.js").ViewOptions>}
+     */
+    this.viewPromise_ = new Promise(function (resolve, reject) {
+      self.viewResolver = resolve;
+      self.viewRejector = reject;
+    });
   }
 
   /**
    * Get the attribution function for the source.
    * @return {?Attribution} Attribution function.
+   * @api
    */
   getAttributions() {
     return this.attributions_;
   }
 
   /**
-   * @return {boolean} Aattributions are collapsible.
+   * @return {boolean} Attributions are collapsible.
+   * @api
    */
   getAttributionsCollapsible() {
     return this.attributionsCollapsible_;
@@ -117,7 +137,7 @@ class Source extends BaseObject {
    * @api
    */
   getProjection() {
-    return this.projection_;
+    return this.projection;
   }
 
   /**
@@ -129,8 +149,15 @@ class Source extends BaseObject {
   }
 
   /**
+   * @return {Promise<import("../View.js").ViewOptions>} A promise for view-related properties.
+   */
+  getView() {
+    return this.viewPromise_;
+  }
+
+  /**
    * Get the state of the source, see {@link module:ol/source/State~State} for possible states.
-   * @return {SourceState} State.
+   * @return {import("./State.js").default} State.
    * @api
    */
   getState() {
@@ -145,7 +172,14 @@ class Source extends BaseObject {
   }
 
   /**
-   * Refreshes the source and finally dispatches a 'change' event.
+   * @return {Object|undefined} Context options.
+   */
+  getContextOptions() {
+    return undefined;
+  }
+
+  /**
+   * Refreshes the source. The source will be cleared, and data from the server will be reloaded.
    * @api
    */
   refresh() {
@@ -155,7 +189,7 @@ class Source extends BaseObject {
   /**
    * Set the attributions of the source.
    * @param {AttributionLike|undefined} attributions Attributions.
-   *     Can be passed as `string`, `Array<string>`, `{@link module:ol/source/Source~Attribution}`,
+   *     Can be passed as `string`, `Array<string>`, {@link module:ol/source/Source~Attribution},
    *     or `undefined`.
    * @api
    */
@@ -166,15 +200,13 @@ class Source extends BaseObject {
 
   /**
    * Set the state of the source.
-   * @param {SourceState} state State.
-   * @protected
+   * @param {import("./State.js").default} state State.
    */
   setState(state) {
     this.state_ = state;
     this.changed();
   }
 }
-
 
 /**
  * Turns the attributions option into an attributions function.
@@ -186,7 +218,7 @@ function adaptAttributions(attributionLike) {
     return null;
   }
   if (Array.isArray(attributionLike)) {
-    return function(frameState) {
+    return function (frameState) {
       return attributionLike;
     };
   }
@@ -195,10 +227,9 @@ function adaptAttributions(attributionLike) {
     return attributionLike;
   }
 
-  return function(frameState) {
+  return function (frameState) {
     return [attributionLike];
   };
 }
-
 
 export default Source;

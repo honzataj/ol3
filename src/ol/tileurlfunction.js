@@ -5,7 +5,6 @@ import {assert} from './asserts.js';
 import {modulo} from './math.js';
 import {hash as tileCoordHash} from './tilecoord.js';
 
-
 /**
  * @param {string} template Template.
  * @param {import("./tilegrid/TileGrid.js").default} tileGrid Tile grid.
@@ -23,28 +22,25 @@ export function createFromTemplate(template, tileGrid) {
      * @param {import("./proj/Projection.js").default} projection Projection.
      * @return {string|undefined} Tile URL.
      */
-    function(tileCoord, pixelRatio, projection) {
+    function (tileCoord, pixelRatio, projection) {
       if (!tileCoord) {
         return undefined;
       } else {
-        return template.replace(zRegEx, tileCoord[0].toString())
+        return template
+          .replace(zRegEx, tileCoord[0].toString())
           .replace(xRegEx, tileCoord[1].toString())
-          .replace(yRegEx, function() {
-            const y = -tileCoord[2] - 1;
-            return y.toString();
-          })
-          .replace(dashYRegEx, function() {
+          .replace(yRegEx, tileCoord[2].toString())
+          .replace(dashYRegEx, function () {
             const z = tileCoord[0];
             const range = tileGrid.getFullTileRange(z);
             assert(range, 55); // The {-y} placeholder requires a tile grid with extent
-            const y = range.getHeight() + tileCoord[2];
+            const y = range.getHeight() - tileCoord[2] - 1;
             return y.toString();
           });
       }
     }
   );
 }
-
 
 /**
  * @param {Array<string>} templates Templates.
@@ -59,7 +55,6 @@ export function createFromTemplates(templates, tileGrid) {
   }
   return createFromTileUrlFunctions(tileUrlFunctions);
 }
-
 
 /**
  * @param {Array<import("./Tile.js").UrlFunction>} tileUrlFunctions Tile URL Functions.
@@ -76,7 +71,7 @@ export function createFromTileUrlFunctions(tileUrlFunctions) {
      * @param {import("./proj/Projection.js").default} projection Projection.
      * @return {string|undefined} Tile URL.
      */
-    function(tileCoord, pixelRatio, projection) {
+    function (tileCoord, pixelRatio, projection) {
       if (!tileCoord) {
         return undefined;
       } else {
@@ -88,7 +83,6 @@ export function createFromTileUrlFunctions(tileUrlFunctions) {
   );
 }
 
-
 /**
  * @param {import("./tilecoord.js").TileCoord} tileCoord Tile coordinate.
  * @param {number} pixelRatio Pixel ratio.
@@ -98,7 +92,6 @@ export function createFromTileUrlFunctions(tileUrlFunctions) {
 export function nullTileUrlFunction(tileCoord, pixelRatio, projection) {
   return undefined;
 }
-
 
 /**
  * @param {string} url URL.
@@ -117,7 +110,7 @@ export function expandUrl(url) {
     }
     return urls;
   }
-  match = match = /\{(\d+)-(\d+)\}/.exec(url);
+  match = /\{(\d+)-(\d+)\}/.exec(url);
   if (match) {
     // number range
     const stop = parseInt(match[2], 10);

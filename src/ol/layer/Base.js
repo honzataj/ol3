@@ -1,15 +1,28 @@
 /**
  * @module ol/layer/Base
  */
-import {abstract} from '../util.js';
 import BaseObject from '../Object.js';
 import LayerProperty from './Property.js';
-import {clamp} from '../math.js';
+import {abstract} from '../util.js';
+import {assert} from '../asserts.js';
 import {assign} from '../obj.js';
+import {clamp} from '../math.js';
 
+/**
+ * @typedef {import("../ObjectEventType").Types|'change:extent'|'change:maxResolution'|'change:maxZoom'|
+ *    'change:minResolution'|'change:minZoom'|'change:opacity'|'change:visible'|'change:zIndex'} BaseLayerObjectEventTypes
+ */
+
+/***
+ * @template Return
+ * @typedef {import("../Observable").OnSignature<import("../Observable").EventTypes, import("../events/Event.js").default, Return> &
+ *   import("../Observable").OnSignature<BaseLayerObjectEventTypes, import("../Object").ObjectEvent, Return> &
+ *   import("../Observable").CombinedOnSignature<import("../Observable").EventTypes|BaseLayerObjectEventTypes, Return>} BaseLayerOnSignature
+ */
 
 /**
  * @typedef {Object} Options
+ * @property {string} [className='ol-layer'] A CSS class name to set to the layer element.
  * @property {number} [opacity=1] Opacity (0, 1).
  * @property {boolean} [visible=true] Visibility.
  * @property {import("../extent.js").Extent} [extent] The bounding extent for layer rendering.  The layer will not be
@@ -22,8 +35,12 @@ import {assign} from '../obj.js';
  * visible.
  * @property {number} [maxResolution] The maximum resolution (exclusive) below which this layer will
  * be visible.
+ * @property {number} [minZoom] The minimum view zoom level (exclusive) above which this layer will be
+ * visible.
+ * @property {number} [maxZoom] The maximum view zoom level (inclusive) at which this layer will
+ * be visible.
+ * @property {Object<string, *>} [properties] Arbitrary observable properties. Can be accessed with `#get()` and `#set()`.
  */
-
 
 /**
  * @classdesc
@@ -40,22 +57,55 @@ class BaseLayer extends BaseObject {
    * @param {Options} options Layer options.
    */
   constructor(options) {
-
     super();
+
+    /***
+     * @type {BaseLayerOnSignature<import("../events").EventsKey>}
+     */
+    this.on;
+
+    /***
+     * @type {BaseLayerOnSignature<import("../events").EventsKey>}
+     */
+    this.once;
+
+    /***
+     * @type {BaseLayerOnSignature<void>}
+     */
+    this.un;
 
     /**
      * @type {Object<string, *>}
      */
     const properties = assign({}, options);
+    if (typeof options.properties === 'object') {
+      delete properties.properties;
+      assign(properties, options.properties);
+    }
+
     properties[LayerProperty.OPACITY] =
-       options.opacity !== undefined ? options.opacity : 1;
+      options.opacity !== undefined ? options.opacity : 1;
+    assert(typeof properties[LayerProperty.OPACITY] === 'number', 64); // Layer opacity must be a number
+
     properties[LayerProperty.VISIBLE] =
-       options.visible !== undefined ? options.visible : true;
+      options.visible !== undefined ? options.visible : true;
     properties[LayerProperty.Z_INDEX] = options.zIndex;
     properties[LayerProperty.MAX_RESOLUTION] =
-       options.maxResolution !== undefined ? options.maxResolution : Infinity;
+      options.maxResolution !== undefined ? options.maxResolution : Infinity;
     properties[LayerProperty.MIN_RESOLUTION] =
-       options.minResolution !== undefined ? options.minResolution : 0;
+      options.minResolution !== undefined ? options.minResolution : 0;
+    properties[LayerProperty.MIN_ZOOM] =
+      options.minZoom !== undefined ? options.minZoom : -Infinity;
+    properties[LayerProperty.MAX_ZOOM] =
+      options.maxZoom !== undefined ? options.maxZoom : Infinity;
+
+    /**
+     * @type {string}
+     * @private
+     */
+    this.className_ =
+      properties.className !== undefined ? options.className : 'ol-layer';
+    delete properties.className;
 
     this.setProperties(properties);
 
@@ -64,40 +114,40 @@ class BaseLayer extends BaseObject {
      * @private
      */
     this.state_ = null;
-
-    /**
-     * The layer type.
-     * @type {import("../LayerType.js").default}
-     * @protected;
-     */
-    this.type;
-
   }
 
   /**
-   * Get the layer type (used when creating a layer renderer).
-   * @return {import("../LayerType.js").default} The layer type.
+   * @return {string} CSS class name.
    */
-  getType() {
-    return this.type;
+  getClassName() {
+    return this.className_;
   }
 
   /**
+   * This method is not meant to be called by layers or layer renderers because the state
+   * is incorrect if the layer is included in a layer group.
+   *
+   * @param {boolean} [opt_managed] Layer is managed.
    * @return {import("./Layer.js").State} Layer state.
    */
-  getLayerState() {
+  getLayerState(opt_managed) {
     /** @type {import("./Layer.js").State} */
-    const state = this.state_ || /** @type {?} */ ({
-      layer: this,
-      managed: true
-    });
-    state.opacity = clamp(this.getOpacity(), 0, 1);
+    const state =
+      this.state_ ||
+      /** @type {?} */ ({
+        layer: this,
+        managed: opt_managed === undefined ? true : opt_managed,
+      });
+    const zIndex = this.getZIndex();
+    state.opacity = clamp(Math.round(this.getOpacity() * 100) / 100, 0, 1);
     state.sourceState = this.getSourceState();
     state.visible = this.getVisible();
     state.extent = this.getExtent();
-    state.zIndex = this.getZIndex() || 0;
+    state.zIndex = zIndex === undefined && !state.managed ? Infinity : zIndex;
     state.maxResolution = this.getMaxResolution();
     state.minResolution = Math.max(this.getMinResolution(), 0);
+    state.minZoom = this.getMinZoom();
+    state.maxZoom = this.getMaxZoom();
     this.state_ = state;
 
     return state;
@@ -105,7 +155,7 @@ class BaseLayer extends BaseObject {
 
   /**
    * @abstract
-   * @param {Array<import("./Layer.js").default>=} opt_array Array of layers (to be
+   * @param {Array<import("./Layer.js").default>} [opt_array] Array of layers (to be
    *     modified in place).
    * @return {Array<import("./Layer.js").default>} Array of layers.
    */
@@ -115,7 +165,7 @@ class BaseLayer extends BaseObject {
 
   /**
    * @abstract
-   * @param {Array<import("./Layer.js").State>=} opt_states Optional list of layer
+   * @param {Array<import("./Layer.js").State>} [opt_states] Optional list of layer
    *     states (to be modified in place).
    * @return {Array<import("./Layer.js").State>} List of layer states.
    */
@@ -131,8 +181,8 @@ class BaseLayer extends BaseObject {
    * @api
    */
   getExtent() {
-    return (
-      /** @type {import("../extent.js").Extent|undefined} */ (this.get(LayerProperty.EXTENT))
+    return /** @type {import("../extent.js").Extent|undefined} */ (
+      this.get(LayerProperty.EXTENT)
     );
   }
 
@@ -154,6 +204,26 @@ class BaseLayer extends BaseObject {
    */
   getMinResolution() {
     return /** @type {number} */ (this.get(LayerProperty.MIN_RESOLUTION));
+  }
+
+  /**
+   * Return the minimum zoom level of the layer.
+   * @return {number} The minimum zoom level of the layer.
+   * @observable
+   * @api
+   */
+  getMinZoom() {
+    return /** @type {number} */ (this.get(LayerProperty.MIN_ZOOM));
+  }
+
+  /**
+   * Return the maximum zoom level of the layer.
+   * @return {number} The maximum zoom level of the layer.
+   * @observable
+   * @api
+   */
+  getMaxZoom() {
+    return /** @type {number} */ (this.get(LayerProperty.MAX_ZOOM));
   }
 
   /**
@@ -227,12 +297,37 @@ class BaseLayer extends BaseObject {
   }
 
   /**
+   * Set the maximum zoom (exclusive) at which the layer is visible.
+   * Note that the zoom levels for layer visibility are based on the
+   * view zoom level, which may be different from a tile source zoom level.
+   * @param {number} maxZoom The maximum zoom of the layer.
+   * @observable
+   * @api
+   */
+  setMaxZoom(maxZoom) {
+    this.set(LayerProperty.MAX_ZOOM, maxZoom);
+  }
+
+  /**
+   * Set the minimum zoom (inclusive) at which the layer is visible.
+   * Note that the zoom levels for layer visibility are based on the
+   * view zoom level, which may be different from a tile source zoom level.
+   * @param {number} minZoom The minimum zoom of the layer.
+   * @observable
+   * @api
+   */
+  setMinZoom(minZoom) {
+    this.set(LayerProperty.MIN_ZOOM, minZoom);
+  }
+
+  /**
    * Set the opacity of the layer, allowed values range from 0 to 1.
    * @param {number} opacity The opacity of the layer.
    * @observable
    * @api
    */
   setOpacity(opacity) {
+    assert(typeof opacity === 'number', 64); // Layer opacity must be a number
     this.set(LayerProperty.OPACITY, opacity);
   }
 
@@ -256,7 +351,17 @@ class BaseLayer extends BaseObject {
   setZIndex(zindex) {
     this.set(LayerProperty.Z_INDEX, zindex);
   }
-}
 
+  /**
+   * Clean up.
+   */
+  disposeInternal() {
+    if (this.state_) {
+      this.state_.layer = null;
+      this.state_ = null;
+    }
+    super.disposeInternal();
+  }
+}
 
 export default BaseLayer;

@@ -12,16 +12,14 @@ import Filter from './Filter.js';
  * @abstract
  */
 class Spatial extends Filter {
-
   /**
    * @param {!string} tagName The XML tag name for this filter.
    * @param {!string} geometryName Geometry name to use.
    * @param {!import("../../geom/Geometry.js").default} geometry Geometry.
-   * @param {string=} opt_srsName SRS name. No srsName attribute will be
+   * @param {string} [opt_srsName] SRS name. No srsName attribute will be
    *    set on geometries when this is not provided.
    */
   constructor(tagName, geometryName, geometry, opt_srsName) {
-
     super(tagName);
 
     /**
@@ -39,7 +37,6 @@ class Spatial extends Filter {
      */
     this.srsName = opt_srsName;
   }
-
 }
 
 export default Spatial;
