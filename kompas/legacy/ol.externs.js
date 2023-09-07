@@ -6316,6 +6316,13 @@
   * @param {number|undefined} zIndex
   */
  ol.style.Style.prototype.setZIndex = function(zIndex) {};
+
+
+ /**
+  * @param {ol.Feature|ol.render.Feature} feature 
+  * @param {number} resolution 
+  */
+ ol.style.Style.createDefaultStyle = function(feature, resolution) {};
  
  
  /**
