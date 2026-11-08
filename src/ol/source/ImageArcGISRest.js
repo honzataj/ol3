@@ -22,9 +22,9 @@ import {containsExtent, getHeight, getWidth} from '../extent.js';
  * a URL.
  * @property {boolean} [imageSmoothing=true] Enable image smoothing.
  * @property {Object<string,*>} [params] ArcGIS Rest parameters. This field is optional. Service
- * defaults will be used for any fields not specified. `FORMAT` is `PNG32` by default. `F` is
- * `IMAGE` by default. `TRANSPARENT` is `true` by default.  `BBOX`, `SIZE`, `BBOXSR`, and `IMAGESR`
- * will be set dynamically. Set `LAYERS` to override the default service layer visibility. See
+ * defaults will be used for any fields not specified. `format` is `png32` by default. `f` is
+ * `image` by default. `transparent` is `true` by default.  `bbox`, `size`, `bboxSR`, and `imageSR`
+ * will be set dynamically. Set `layers` to override the default service layer visibility. See
  * https://developers.arcgis.com/rest/services-reference/export-map.htm
  * for further reference.
  * @property {import("../proj.js").ProjectionLike} [projection] Projection. Default is the view projection.
@@ -160,9 +160,9 @@ class ImageArcGISRest extends ImageSource {
     }
 
     const params = {
-      'F': 'image',
-      'FORMAT': 'PNG32',
-      'TRANSPARENT': true,
+      'f': 'image',
+      'format': 'png32',
+      'transparent': true,
     };
     assign(params, this.params_);
 
@@ -247,11 +247,11 @@ class ImageArcGISRest extends ImageSource {
       .split(/:(?=\d+$)/)
       .pop();
 
-    params['SIZE'] = size[0] + ',' + size[1];
-    params['BBOX'] = extent.join(',');
-    params['BBOXSR'] = srid;
-    params['IMAGESR'] = srid;
-    params['DPI'] = Math.round(96 * pixelRatio);
+    params['size'] = size[0] + ',' + size[1];
+    params['bbox'] = extent.join(',');
+    params['bboxSR'] = srid;
+    params['imageSR'] = srid;
+    params['dpi'] = Math.round(96 * pixelRatio);
 
     const url = this.url_;
 

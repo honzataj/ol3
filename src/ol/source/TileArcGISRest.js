@@ -19,9 +19,9 @@ import {hash as tileCoordHash} from '../tilecoord.js';
  * See https://developer.mozilla.org/en-US/docs/Web/HTML/CORS_enabled_image for more detail.
  * @property {boolean} [imageSmoothing=true] Enable image smoothing.
  * @property {Object<string,*>} [params] ArcGIS Rest parameters. This field is optional. Service defaults will be
- * used for any fields not specified. `FORMAT` is `PNG32` by default. `F` is `IMAGE` by
- * default. `TRANSPARENT` is `true` by default.  `BBOX`, `SIZE`, `BBOXSR`,
- * and `IMAGESR` will be set dynamically. Set `LAYERS` to
+ * used for any fields not specified. `format` is `png32` by default. `f` is `image` by
+ * default. `transparent` is `true` by default.  `bbox`, `size`, `bboxSR`,
+ * and `imageSR` will be set dynamically. Set `layers` to
  * override the default service layer visibility. See
  * https://developers.arcgis.com/rest/services-reference/export-map.htm
  * for further reference.
@@ -163,12 +163,12 @@ class TileArcGISRest extends TileImage {
       .split(/:(?=\d+$)/)
       .pop();
 
-    params['SIZE'] = tileSize[0] + ',' + tileSize[1];
-    params['BBOX'] = tileExtent.join(',');
-    params['BBOXSR'] = srid;
-    params['IMAGESR'] = srid;
-    params['DPI'] = Math.round(
-      params['DPI'] ? params['DPI'] * pixelRatio : 90 * pixelRatio
+    params['size'] = tileSize[0] + ',' + tileSize[1];
+    params['bbox'] = tileExtent.join(',');
+    params['bboxSR'] = srid;
+    params['imageSR'] = srid;
+    params['dpi'] = Math.round(
+      params['dpi'] ? params['dpi'] * pixelRatio : 90 * pixelRatio
     );
 
     let url;
@@ -234,9 +234,9 @@ class TileArcGISRest extends TileImage {
 
     // Apply default params and override with user specified values.
     const baseParams = {
-      'F': 'image',
-      'FORMAT': 'PNG32',
-      'TRANSPARENT': true,
+      'f': 'image',
+      'format': 'png32',
+      'transparent': true,
     };
     assign(baseParams, this.params_);
 
