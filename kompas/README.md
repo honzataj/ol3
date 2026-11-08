@@ -32,5 +32,7 @@
 * For the first creation:
     * delete `node_modules` folder
     * run `npm install`
+* run `$env:WEBPACK_CLI_FORCE_LOAD_ESM_CONFIG="true"`
+* run `$env:NODE_OPTIONS="--openssl-legacy-provider"`
 * run `npm build-legacy`
 * run in bash `npx shx rm -rf kompas/build && mkdir -p kompas/build && cp -a build/legacy/. kompas/build/ && rm -rf kompas/css && mkdir -p kompas/css && mv kompas/build/ol.css kompas/css/ol.css && mv kompas/build/ol.css.map kompas/css/ol.css.map`

@@ -3,7 +3,7 @@ import fse from 'fs-extra';
 import path from 'path';
 import {dirname} from 'path';
 import {fileURLToPath} from 'url';
-import {spawn} from 'child_process';
+import {spawn} from 'cross-spawn';
 import {walk} from 'walk';
 
 const isWindows = process.platform.indexOf('win') === 0;
